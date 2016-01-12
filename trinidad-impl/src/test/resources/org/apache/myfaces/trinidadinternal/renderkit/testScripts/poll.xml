@@ -3,6 +3,10 @@
        agentNotSupported="pda">
   <base-component tr:type="org.apache.myfaces.trinidad.CorePoll"/>
   <attribute-test name="id"/>
+  
+  <!-- the default is 5000, which is why matchesBase is true -->
   <attribute-test name="interval" value="5000" matchesBase="true"/>
-  <attribute-test name="interval" value="7000" />
+  
+  <!-- in screen reader mode, we don't poll, so the results are the same -->
+  <attribute-test name="interval" value="7000" accessibilityModeNotSupported="SCREEN_READER"/>
 </test>

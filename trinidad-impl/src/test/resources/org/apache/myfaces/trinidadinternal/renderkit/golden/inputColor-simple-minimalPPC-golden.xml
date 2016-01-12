@@ -14,57 +14,6 @@
           
         </input>
       </span>
-<!--AttributeTest[chooseId,null]-->
-
-      <span
-           class="af_inputColor"
-          >
-        
-        <input
-             class="af_inputColor_content"
-             id="mainId"
-             name="mainId"
-             onblur="_fixCFF(this);"
-             size="11"
-             type="text"
-            >
-          
-        </input>
-      </span>
-<!--AttributeTest[compact,false]-->
-
-      <span
-           class="af_inputColor"
-          >
-        
-        <input
-             class="af_inputColor_content"
-             id="mainId"
-             name="mainId"
-             onblur="_fixCFF(this);"
-             size="11"
-             type="text"
-            >
-          
-        </input>
-      </span>
-<!--AttributeTest[compact,true]-->
-
-      <span
-           class="af_inputColor"
-          >
-        
-        <input
-             class="af_inputColor_content"
-             id="mainId"
-             name="mainId"
-             onblur="_fixCFF(this);"
-             size="11"
-             type="text"
-            >
-          
-        </input>
-      </span>
 <!--AttributeTest[disabled,false]-->
 
       <span
@@ -91,23 +40,6 @@
         <input
              class="af_inputColor_content"
              disabled="disabled"
-             id="mainId"
-             name="mainId"
-             onblur="_fixCFF(this);"
-             size="11"
-             type="text"
-            >
-          
-        </input>
-      </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_inputColor"
-          >
-        
-        <input
-             class="af_inputColor_content"
              id="mainId"
              name="mainId"
              onblur="_fixCFF(this);"

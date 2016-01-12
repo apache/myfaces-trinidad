@@ -32,8 +32,9 @@ final public class SkinVersion
 {
   /**
    * Constructor that takes a version name.
-   * @param name the name of the version, like "v1". If name is "default" then we set default as true and name to null.
-   *             If name is null, it is converted to "".
+   *
+   * @param name the name of the version, like "v1". If name is "default" then we set default as
+   *             true and name to null. If name is null, it is converted to "".
    */
   public SkinVersion(String name)
   {
@@ -43,26 +44,28 @@ final public class SkinVersion
 
   /**
    * Constructor that takes a name and a defaultVersion.
-   * @param name the name of the version, like "v1". If name is null, it is converted to "".
-   * @param defaultVersion true if this skin is the default version for all skins with the
-   * same skin family
+   *
+   * @param name           the name of the version, like "v1". If name is null, it is converted to
+   *                       "".
+   * @param defaultVersion true if this skin is the default version for all skins with the same skin
+   *                       family
    */
   public SkinVersion(
     String  name,
     boolean defaultVersion)
   {
-    if(name == null) 
+    if (name == null)
       name = "";
-    
+
     _default = defaultVersion;
     _name = name;
   }
-  
+
   public boolean isDefault()
   {
     return _default;
   }
-  
+
   public String getName()
   {
     return _name;
@@ -77,20 +80,20 @@ final public class SkinVersion
     {
       return false;
     }
-    SkinVersion test = (SkinVersion)o;
+    SkinVersion test = (SkinVersion) o;
     return (test.isDefault() == this.isDefault()) &&
-      (test.getName().equals(this.getName()));
+             (test.getName().equals(this.getName()));
   }
-  
+
   @Override
   final public int hashCode()
   {
     int hash = 17;
-    hash = 37*hash + this.getName().hashCode();
-    hash = 37*hash + ((this.isDefault()) ? 1231 : 1237 );
+    hash = 37 * hash + this.getName().hashCode();
+    hash = 37 * hash + ((this.isDefault()) ? 1231 : 1237);
 
-    return hash; 
-  } 
+    return hash;
+  }
 
   @Override
   public String toString()
@@ -102,10 +105,10 @@ final public class SkinVersion
   }
 
   private final boolean _default;
-  private final String _name;
+  private final String  _name;
 
   // If the skin doesn't explicitly have a version, then it will return EMPTY_SKIN_VERSION
   // when skin.getVersion is called. This makes our skin picking code cleaner.
-  public static final SkinVersion EMPTY_SKIN_VERSION = new SkinVersion("");
-  private static final String _DEFAULT = "default";
+  public static final  SkinVersion EMPTY_SKIN_VERSION = new SkinVersion("");
+  private static final String      _DEFAULT           = "default";
 }

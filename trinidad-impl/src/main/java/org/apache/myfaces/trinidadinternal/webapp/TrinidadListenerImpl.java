@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.webapp;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 
 /**
@@ -36,6 +37,7 @@ public class TrinidadListenerImpl implements ServletContextListener
    */
   public void contextDestroyed(ServletContextEvent arg0)
   {
+    RequestContext.releaseApplicationState();
     GlobalConfiguratorImpl.getInstance().destroy();
   }
 

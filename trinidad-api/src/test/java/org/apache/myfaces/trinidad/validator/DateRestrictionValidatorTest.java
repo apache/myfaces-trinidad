@@ -30,6 +30,7 @@ import javax.faces.component.UIComponent;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
 import org.apache.shale.test.mock.MockApplication;
 import org.jmock.Mock;
@@ -50,10 +51,11 @@ public class DateRestrictionValidatorTest extends ValidatorTestCase
   {
     super(testName);
   }
-  
+
   @Override
   protected void setUp() throws Exception
   {
+    _mockRequestContext = new MockRequestContext();
     super.setUp();
   }
   
@@ -61,6 +63,8 @@ public class DateRestrictionValidatorTest extends ValidatorTestCase
   protected void tearDown() throws Exception
   {
     super.tearDown();
+    _mockRequestContext.release();
+    _mockRequestContext = null;
   }
   
   public static Test suite()
@@ -305,4 +309,5 @@ public class DateRestrictionValidatorTest extends ValidatorTestCase
                                  facesContext, wrapper);
   }
 
+  private MockRequestContext _mockRequestContext;
 }

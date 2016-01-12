@@ -2,12 +2,12 @@
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CoreInputFile" tr:usesUpload="true"/>
 
-  <js-test/>
-  <boolean-test name="disabled"/>
-  <attribute-test name="columns" value="3"/>
-  <attribute-test name="id" value="id_val"/>
-  <attribute-test name="inlineStyle" value="background-color:red"/>
-  <attribute-test name="label"/>
-  <attribute-test name="shortDesc"/>
-  <attribute-test name="styleClass"/>
+  <js-test unsupportedDevices="pda"/>
+  <boolean-test name="disabled" unsupportedDevices="pda"/>
+  <attribute-test name="columns" value="3" unsupportedDevices="pda"/>
+  <attribute-test name="id" value="id_val" unsupportedDevices="pda"/>
+  <attribute-test name="inlineStyle" value="background-color:red" unsupportedDevices="pda"/>
+  <attribute-test name="label" unsupportedDevices="pda"/>
+  <attribute-test name="shortDesc" unsupportedDevices="pda"/>
+  <attribute-test name="styleClass" unsupportedDevices="pda"/>
 </test>

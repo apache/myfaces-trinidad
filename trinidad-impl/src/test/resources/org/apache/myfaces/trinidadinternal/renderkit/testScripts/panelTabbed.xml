@@ -13,7 +13,7 @@
     <attribute-test name="shortDesc" value="myTab"/>
     <attribute-test name="styleClass" value="myStyleClass"/> 
   
-    <enum-test name="position" default="both"/>
+    <enum-test name="position" default="both" unsupportedDevices="pda"/>
   
     <!-- javascript-->
     <js-test/>  

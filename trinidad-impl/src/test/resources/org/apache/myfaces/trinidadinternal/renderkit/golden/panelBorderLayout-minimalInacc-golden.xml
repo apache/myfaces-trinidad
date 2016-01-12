@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            width="100%"
           >
         
@@ -213,6 +214,7 @@
            cellpadding="0"
            cellspacing="0"
            id="test-id"
+           role="presentation"
            width="100%"
           >
         
@@ -422,6 +424,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            style="test-inlineStyle"
            width="100%"
           >
@@ -634,6 +637,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            width="100%"
           >
         
@@ -843,6 +847,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
+           role="presentation"
            title="test-shortDesc"
            width="100%"
           >
@@ -1054,6 +1059,7 @@
            cellspacing="0"
            class="test-styleClass"
            id="mainId"
+           role="presentation"
            width="100%"
           >
         
@@ -1264,6 +1270,7 @@
            cellspacing="0"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
            width="100%"
           >
         
@@ -1474,6 +1481,7 @@
            cellspacing="0"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
            width="100%"
           >
         
@@ -1684,6 +1692,7 @@
            cellspacing="0"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
            width="100%"
           >
         
@@ -1894,6 +1903,7 @@
            cellspacing="0"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
            width="100%"
           >
         
@@ -2104,6 +2114,7 @@
            cellspacing="0"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
            width="100%"
           >
         
@@ -2314,6 +2325,7 @@
            cellspacing="0"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
            width="100%"
           >
         
@@ -2524,6 +2536,7 @@
            cellspacing="0"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
            width="100%"
           >
         
@@ -2734,6 +2747,7 @@
            cellspacing="0"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
            width="100%"
           >
         
@@ -2944,6 +2958,7 @@
            cellspacing="0"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
            width="100%"
           >
         
@@ -3154,6 +3169,7 @@
            cellspacing="0"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
            width="100%"
           >
         

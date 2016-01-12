@@ -16,14 +16,14 @@
    
  
    <!-- core -->  
-   <attribute-test name="id" value="myid"/>
+   <attribute-test name="id" value="myid" unsupportedDevices="pda"/>
    <!--attribute-test name="inlineStyle" value="background-color:red"/-->
    <!--boolean-test name="rendered"/-->
-   <attribute-test name="shortDesc" value="my short desc"/>
-   <attribute-test name="styleClass" value="mystyle"/>
+   <attribute-test name="shortDesc" value="my short desc" unsupportedDevices="pda"/>
+   <attribute-test name="styleClass" value="mystyle" unsupportedDevices="pda"/>
    
    <!-- javascript -->
-   <js-test/>  
+   <js-test unsupportedDevices="pda"/>  
   
   
 </test>

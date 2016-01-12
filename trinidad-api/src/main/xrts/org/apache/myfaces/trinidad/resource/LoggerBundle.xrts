@@ -244,10 +244,19 @@
  <resource key="MOVABLE_CHILD_REQUIRED">Child component to be moved is required.</resource>
 
  <!-- DESTINATION_CONTAINER_REQUIRED -->
- <resource key="DESTINATION_CONTAINER_REQUIRED">Destination container component is required.</resource>
+ <resource key="DESTINATION_CONTAINER_REQUIRED">Destination container component is required if the component to move next to is not supplied.</resource>
+
+ <!-- DESTINATION_CONTAINER_NOT_INSERTBEFORES_PARENT -->
+ <resource key="DESTINATION_CONTAINER_NOT_INSERTBEFORES_PARENT">Destination container should be same as the parent of component to move next to.</resource>
 
  <!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
  <resource key="MOVE_PARTICIPANTS_WITHOUT_ID">One or more of the participating components in MoveChildComponentChange does not have id.</resource>
+
+ <!-- NO_CONTAINING_DOC_FOUND -->
+ <resource key="NO_CONTAINING_DOC_FOUND">The supplied component {0} is not in the component tree.</resource>
+
+ <!-- MOVE_PARTICIPANTS_NOT_IN_SAME_DOC -->
+ <resource key="MOVE_PARTICIPANTS_NOT_IN_SAME_DOC">Document change was not added because the participating components are not defined in the same document. The component being moved is in {0}, the parent into which it is to be moved is in {1} and common parent is in {2}.</resource>
 
  <!-- COMMON_PARENT_NOT_FOUND -->
  <resource key="COMMON_PARENT_NOT_FOUND">Could not find a common parent between the movable child and destination container: {0}.</resource>
@@ -553,4 +562,12 @@
 <resource key="POP_COMPONENT_BINDING_CONTEXT_FAILED">Unable to pop out of a component binding context as a corresponding push never occurred.</resource>
 <resource key="ERROR_PARSING_COMPONENT_TAG">Error when processing tag for component with id: "{0}". The scoped id of the parent component is "{1}".</resource>
 <resource key="ERROR_CREATE_COMPONENT_STALE">Detected reuse of component instance with scoped id "{0}" as it is already attached to the parent with scoped id "{1}", whereas its expected parent has a scoped id of "{2}". This error could occur when the component instance was retrieved from the component binding. If it helps the expression set on the binding attribute is "{3}".</resource>
+
+<resource key="INVALID_RESOURCE_SIZE">Invalid resource size detected.  The resource at '{0}' appears to be {1} bytes, but URLConnection.getContentLength() for this resource reports {2}.</resource>
+
+<resource key="RESOURCE_SIZE_CHANGED">Resource size changed.  A new content length of {0} bytes has been detected for the resource {1}. Removing resource from cache.</resource>
+<resource key="MULTIPLE_CONFIG_PROPERTY_PROVIDERS_FOUND">Multiple PropertyValueProviders configured on the classpath, only one is allowed.</resource>
+<resource key="NULL_CONFIG_PROPERTY_NAME">Config property name can not be null.</resource>
+<resource key="CONFIG_PROPERTY_SERVICE_NOT_INITIALIZED">The config property service has not been initialized.</resource>
+
 </resources>

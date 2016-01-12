@@ -29,9 +29,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+
 import java.util.HashSet;
 import java.util.Iterator;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -64,10 +69,10 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
-import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
-import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 import org.xml.sax.InputSource;
 
 
@@ -80,86 +85,53 @@ import org.xml.sax.InputSource;
 public class SkinUtils
 {
   /**
-   * Utility method to get the SkinProvider instance
-   * @param context Tries to obtain the default FacesContext if null is passed
-   * @return
+   * An enumeration which determined how much information to return in the skin
+   * debug info.
    */
-  static public SkinProvider getSkinProvider(FacesContext context)
+
+  public static enum DebugInfoLevel 
   {
-    if (context == null)
-      context = FacesContext.getCurrentInstance();
+    TERSE,
+    NORMAL,
+    VERBOSE;
 
-    if (context == null)
-      throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
-
-    return SkinProvider.getCurrentInstance(context.getExternalContext());
+    @SuppressWarnings("compatibility:-5980442644319693066")
+    private static final long serialVersionUID = 1L;
   }
 
   /**
-   * Utility method to get the ExternalSkinProvider instance
-   * @param context Tries to obtain the default FacesContext if null is passed
-   * @return
+   * Tries to retrieve the default FacesContext
+   * @param context FacesContext object or null
+   * @return the same context object if not null, or the default FacesContext
+   * @throws java.lang.NullPointerException if unable to retrieve default FacesContext
    */
-  static public SkinProvider getExternalSkinProvider(FacesContext context)
+  public static FacesContext getNonNullFacesContext(FacesContext context)
   {
-    if (context == null)
-      context = FacesContext.getCurrentInstance();
+    if (context != null)
+      return context;
 
-    if (context == null)
-      throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
+    // get the current
+    context = FacesContext.getCurrentInstance();
 
-    return ExternalSkinProvider.getCurrentInstance(context.getExternalContext());
+    // this cannot happen as we have a FacesContext always. If there is some case where we don't,
+    // then it is a fail
+    if (context == null)
+      throw new NullPointerException("FacesContext is null. Cannot retrieve default FacesContext");
+
+    return context;
   }
 
   /**
-   * Utility method to get the TrinidadSkinProvider instance
-   * @param context Tries to obtain the default FacesContext if null is passed
-   * @return
-   */
-  static public TrinidadSkinProvider getTrinidadSkinProvider(FacesContext context)
-  {
-    if (context == null)
-      context = FacesContext.getCurrentInstance();
-
-    if (context == null)
-      throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
-
-    return TrinidadSkinProvider.getCurrentInstance(context.getExternalContext());
-  }
-
-  /**
-   * Adds skinAddition passed into the skin object passed, if the skin object does not have
-   * the same skin addition already.
-   * @param skin
-   * @param skinAddition
-   * @return true if the SkinAddition was added into Skin and false if it was not.
-   */
-  static public boolean addSkinAdditionToSkinIfAbsent(Skin skin, SkinAddition skinAddition)
-  {
-    if (skin == null || skinAddition == null)
-      throw new NullPointerException("Skin or SkinAddition passed is null");
-
-    List<SkinAddition> additions = skin.getSkinAdditions();
-
-    if (skinAddition != null)
-    {
-      for (SkinAddition addn : additions)
-        if (addn != null && addn.equals(skinAddition))
-          return false;
-    }
-
-    skin.addSkinAddition(skinAddition);
-    return true;
-  }
-
-  /**
-   * @param provider skin provider
-   * @param context faces context
+   * @param provider    skin provider
+   * @param context     faces context
    * @param renderKitId renderKit Id for default skin
-   * @return the default skin for the renderKit passed. Assumes renderKit as DESKTOP if null.
-   *         does not return null, returns the DESKTOP simple skin in worst case.
+   * @return the default skin for the renderKit passed. Assumes renderKit as DESKTOP if null. does
+   * not return null, returns the DESKTOP simple skin in worst case.
    */
-  public static Skin getDefaultSkinForRenderKitId(SkinProvider provider, FacesContext context, String renderKitId)
+  public static Skin getDefaultSkinForRenderKitId(
+    SkinProvider provider,
+    ExternalContext context,
+    String renderKitId)
   {
 
     if (provider == null || context == null)
@@ -174,7 +146,8 @@ public class SkinUtils
     else
       defaultSkinId = TrinidadRenderingConstants.SIMPLE_DESKTOP_ID;
 
-    Skin defaultSkin = provider.getSkin(context, new SkinMetadata.Builder().id(defaultSkinId).build());
+    Skin defaultSkin = provider.getSkin(context,
+                                        new SkinMetadata.Builder().id(defaultSkinId).build());
 
     assert (defaultSkin != null);
 
@@ -183,13 +156,15 @@ public class SkinUtils
 
   /**
    * Builds the SkinMetadata hierarchy from trinidad-skins.xml
+   *
    * @return
    */
   static public List<SkinsNode> buildSkinsNodes(ExternalContext extCtxt)
   {
     List<SkinsNode> metaInfSkinsNode = _getMetaInfSkinsNodeList();
     SkinsNode webInfSkinsNode = _getWebInfSkinsNode(extCtxt);
-    List<SkinsNode> resourceLoaderSkinsNodes = _getSkinsNodesFromSkinResourceLoaderServices(extCtxt);
+    List<SkinsNode> resourceLoaderSkinsNodes =
+      _getSkinsNodesFromSkinResourceLoaderServices(extCtxt);
 
     List<SkinsNode> skinsNodes = new ArrayList<SkinsNode>(20);
 
@@ -208,7 +183,8 @@ public class SkinUtils
 
   /**
    * Returns the actual Icon referenced by the ReferenceIcon.
-   * @param skin the Skin to use when resolving the ReferenceIcon
+   *
+   * @param skin    the Skin to use when resolving the ReferenceIcon
    * @param refIcon a ReferenceIcon instance
    * @return icon which is resolved. i.e., it is not a ReferenceIcon.
    */
@@ -216,86 +192,157 @@ public class SkinUtils
    Skin          skin,
    ReferenceIcon refIcon)
   {
-   return _resolveReferenceIcon(skin, refIcon, null);
+    return _resolveReferenceIcon(skin, refIcon, null);
   }
 
+  /**
+   * Returns skin debug information of DebugInfoLevel.NORMAL.
+   * 
+   * @param skin
+   * @return
+   */
   public static String getSkinDebugInfo(Skin skin)
+  {
+    return getSkinDebugInfo(skin, DebugInfoLevel.NORMAL);
+  }
+  
+  /**
+   * Returns a JSON object containing debug information for a skin depending on
+   * the DebugInfoLevel.  This will return a information on the supplied skin and
+   * any skin it extends so that information on the skin heirarcy can be 
+   * obtained.  If DebugInfoLevel.VERBOSE is specified, this will return a class
+   * containing the following information:
+   * 
+   * id: the skin id
+   * family: the skin family
+   * version: the skin version
+   * renderkit: the skin render kit
+   * documentId: the current document checksum
+   * document: the full path to the css document
+   * features: a map of name/value pairs for the skinning features
+   * additions: a list of skinning additions (see below) for this skin
+   * parent: the json object for the stylesheet this skin extends (if any)
+   * 
+   * Skinning additions consist of the following properties:
+   * 
+   * document: the full path to the css document
+   * documentId: the skin addition checksum
+   * 
+   * The 'parent' property is only provided if the skin is a skin extension
+   * and the documentId in both the skin additions as well as the main skin object
+   * is provided only if we have a valid RenderingContext.  
+   * 
+   * If DebugInfoLevel is NORMAL, all of the 'document' properties will contain a
+   * location WITHIN the current classpath as opposed to the full resource path.
+   * 
+   * If DebugInfoLevel is TERSE, then information on the document, features, and
+   * additions will not be provided for any object.
+   * 
+   * This information is in JSON format so that it can be quickly parsed and compared
+   * to other skin information.
+   * 
+   * @param skin
+   * @param level
+   * @return
+   */
+  public static String getSkinDebugInfo(Skin skin, DebugInfoLevel level)
+  {
+    assert (null != skin);
+    StringBuilder sb = new StringBuilder();
+    
+    try
+    {
+      JsonUtils.writeObject(sb, _getDebugInfoMap(skin, level), false);
+    }
+    catch (IOException e)
+    {
+    //We should never hit this because we control the object and the socket, but
+    //if we do, we should wrap it in a runtime exception.
+    throw new RuntimeException(e);
+    }
+      
+    return sb.toString();
+  }
+  
+  static private Map<String, Object> _getDebugInfoMap(Skin skin, DebugInfoLevel level)
   {
     assert (null != skin);
     RenderingContext rc = RenderingContext.getCurrentInstance();
     StringBuilder sb = new StringBuilder();
-    
-    sb.append("[Id: ")
-      .append(skin.getId())
-      .append(" Family: ")
-      .append(skin.getFamily())
-      .append(" Version: ")
-      .append(skin.getVersion().getName())
-      .append(" Renderkit: ")
-      .append(skin.getRenderKitId())
-      .append(" StylesheetId: ")
-      .append( skin.getStyleSheetDocumentId(rc))
-      .append(" Features: { ");
-    
-    boolean first = false;
-    for(Map.Entry<String,String>entry:skin.getSkinFeatures().entrySet())
-    {
-      if(!first)
-      {
-        sb.append(", ");
-      }
-      else
-      {
-        first = false;
-      }
       
-      sb.append("k:")
-        .append(entry.getKey())
-        .append(" v:")
-        .append(entry.getValue());
+    //The Map which will be converted into JSON
+    Map<String, Object> m = new LinkedHashMap<String, Object>();
+    
+    m.put("id", skin.getId());
+    m.put("family", skin.getFamily());
+    m.put("version", skin.getVersion().getName());
+    m.put("renderkit", skin.getRenderKitId());
+    
+    if(null != rc)
+    {
+      m.put("documentId", skin.getStyleSheetDocumentId(rc));
     }
-    
-    sb.append(" } ");
-      
-    if(rc instanceof CoreRenderingContext)
+
+    //Skip all of this information for terse logging
+    if(!DebugInfoLevel.TERSE.equals(level))
     {
-      sb.append(" Additions: {");
-      
-      StyleContext sctx = ((CoreRenderingContext)rc).getStyleContext();  
-      List<SkinAddition>additions = skin.getSkinAdditions();
-      
-      first = true;
-      for(SkinAddition addition:additions)
+      m.put("document", _getStyleSheetLocation(skin.getStyleSheetName(), level));
+      m.put("features", skin.getSkinFeatures());
+
+      StyleContext sctx =(null != rc && rc instanceof CoreRenderingContext)?((CoreRenderingContext)rc).getStyleContext():null;  
+      List<SkinAddition> additions = skin.getSkinAdditions();
+
+      List<Map<String,String>> additionList = new LinkedList<Map<String,String>>();
+      m.put("additions",additionList);
+        
+      for (SkinAddition addition : additions)
       {
-        if(!first)
-        {
-          sb.append(", ");
-        }
-        else
-        {
-          first = false;
-        }
+        Map<String,String> additionMap = new LinkedHashMap<String,String>();
+        additionList.add(additionMap);
         
         String styleSheetName = addition.getStyleSheetName();
-        sb.append("\"")
-          .append(styleSheetName)
-          .append("\"(");
-        StyleSheetEntry entry = StyleSheetEntry.createEntry(sctx, styleSheetName);
-        sb.append(entry.getDocument().getDocumentId(sctx))
-          .append(")"); 
+        additionMap.put("document", _getStyleSheetLocation(styleSheetName, level));
+        if(null != sctx)
+        {
+          StyleSheetEntry entry = StyleSheetEntry.createEntry(sctx, styleSheetName);
+          
+          String documentId="Unknown - Entry could not be created";
+          if(null != entry)
+        {
+            StyleSheetDocument document = entry.getDocument();
+            
+            documentId = (null == document)?"Unknown - Document could not be created":document.getDocumentId(sctx);
+          }
+          
+          additionMap.put("documentId", documentId);
+        }
       }
-      sb.append("}");
-    }
+        }
     
-    return sb.append("]").toString();
+    skin = _findParentSkin(skin);
+    if(null != skin)
+        {
+      m.put("parent", _getDebugInfoMap(skin, level));
+        }
+
+    return m;
+    }
+
+  static private String _getStyleSheetLocation(String location, DebugInfoLevel level)
+  {
+    URL url = ClassLoaderUtils.getResource(location);
+    String loc = (null == url)?location:url.getPath();
+    
+    return DebugInfoLevel.VERBOSE.equals(level)? loc:location;
   }
 
   /**
-   * Get all the META-INF/trinidad-skins.xml files, parse them, and from each file we get
-   * a SkinsNode object -- the information inside the &lt;skins&gt; element -- each skin
-   * and each skin-addition.
-   * @return Each SkinsNode object we get from each META-INF/trinidad-skins.xml file,
-   * in a List<SkinsNode>.
+   * Get all the META-INF/trinidad-skins.xml files, parse them, and from each file we get a
+   * SkinsNode object -- the information inside the &lt;skins&gt; element -- each skin and each
+   * skin-addition.
+   *
+   * @return Each SkinsNode object we get from each META-INF/trinidad-skins.xml file, in a
+   * List<SkinsNode>.
    */
   private static List<SkinsNode> _getMetaInfSkinsNodeList()
   {
@@ -341,15 +388,12 @@ public class SkinUtils
    *         is null.
    */
   /**
-   *
-   * @param provider an XMLProvider implementation.
-   * @param resolver A NameResolver that can be used to locate
-   *                 resources, such as source images for colorized
-   *                 icons.
-   * @param inputStream the inputStream. Must be non-null
-   * @param parserManager the ParserManager to use for parsing
-   *                Must  be non-null.
-   * @param configFile The name of the config file we are parsing.
+   * @param provider      an XMLProvider implementation.
+   * @param resolver      A NameResolver that can be used to locate resources, such as source images
+   *                      for colorized icons.
+   * @param inputStream   the inputStream. Must be non-null
+   * @param parserManager the ParserManager to use for parsing Must  be non-null.
+   * @param configFile    The name of the config file we are parsing.
    * @return A SkinsNode object (contains a List of SkinMetadata and a List of SkinAddition)
    */
   static private SkinsNode _getSkinsNodeFromInputStream(
@@ -363,11 +407,9 @@ public class SkinUtils
   {
 
     if (inputStream == null)
-      throw new NullPointerException(_LOG.getMessage(
-        "NO_INPUTSTREAM"));
+      throw new NullPointerException(_LOG.getMessage("NO_INPUTSTREAM"));
     if (parserManager == null)
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_PARSEMANAGER"));
+      throw new NullPointerException(_LOG.getMessage("NULL_PARSEMANAGER"));
     SkinsNode skinsNode = null;
     try
     {
@@ -389,7 +431,7 @@ public class SkinUtils
       // Create the TreeBuilder
       TreeBuilder builder = new TreeBuilder(parserManager,
                                             SkinsNode.class);
-      skinsNode = ((SkinsNode)builder.parse(provider, input, context));
+      skinsNode = ((SkinsNode) builder.parse(provider, input, context));
 
       if (isMetaInf)
         context.setProperty(XMLConstants.SKIN_NAMESPACE, XMLConstants.META_INF, null);
@@ -415,15 +457,15 @@ public class SkinUtils
   }
 
   /**
-   * Creates a ParserManager pre-registered witih all
-   * the default ParserFactories needed to create SkinExtensions.
+   * Creates a ParserManager pre-registered witih all the default ParserFactories needed to create
+   * SkinExtensions.
    */
   static public ParserManager createDefaultManager()
   {
     ParserManager manager = new ParserManager();
 
     // Register top-level factory
-     _registerFactory(manager, SkinsNode.class, "SkinsNode");
+    _registerFactory(manager, SkinsNode.class, "SkinsNode");
 
     // Register skin node factory and skin addition node factory
     _registerFactory(manager, SkinMetadata.class, "SkinMetadata");
@@ -434,6 +476,24 @@ public class SkinUtils
     _registerFactory(manager, CustomMetadata.class, "CustomMetadata");
 
     return manager;
+  }
+
+  //This will unwrap the skin of any RequestSkinWrappers and look for a SkinExtension.
+  //If one is found, it will return the parent skin.
+  static private Skin _findParentSkin(Skin skin)
+  {
+    //First lets unwrap
+    while(skin instanceof RequestSkinWrapper)
+    {
+      skin = ((RequestSkinWrapper)skin).getWrappedSkin();
+    }
+    
+    if(skin instanceof SkinExtension)
+    {
+      return ((SkinExtension)skin).getBaseSkin();
+    }
+    
+    return null;
   }
 
   // Returns a singleton instance of the default ParserManager
@@ -462,6 +522,7 @@ public class SkinUtils
 
   /**
    * Get the WEB-INF/trinidad-skins.xml file, parse it, and return a List of SkinsNode objects.
+   *
    * @param context ServletContext used to getResourceAsStream
    * @return List of SkinNodes (skin elements) found in trinidad-skins.xml
    */
@@ -480,10 +541,10 @@ public class SkinUtils
           _LOG.fine("Skin {0} with stylesheet {1}",
                     new Object[]{node.getId(), node.getStyleSheetName()});
         }
-        for (SkinAddition node: webInfSkinsNode.getSkinAdditionNodes())
+        for (SkinAddition node : webInfSkinsNode.getSkinAdditionNodes())
         {
           _LOG.fine("SkinAddition {0} with stylesheet {1}",
-                      new Object[]{node.getSkinId(), node.getStyleSheetName()});
+                    new Object[]{node.getSkinId(), node.getStyleSheetName()});
 
         }
       }
@@ -496,17 +557,17 @@ public class SkinUtils
   }
 
   /**
-   * Looks for SPIs registered in META-INF/services folder with file
-   * name "org.apache.myfaces.trinidad.resource.SkinResourceLoader".
-   * Loads the trinidad-skins.xml exposed by these resource loades by calling findResource().
-   * Creates SkinsNodes and returns
+   * Looks for SPIs registered in META-INF/services folder with file name
+   * "org.apache.myfaces.trinidad.resource.SkinResourceLoader". Loads the trinidad-skins.xml exposed
+   * by these resource loades by calling findResource(). Creates SkinsNodes and returns
    *
    * @param context
    * @return list of SkinsNode representing trinidad-skins.xml loaded using SkinResourceLoader SPI
    */
-  private static List<SkinsNode> _getSkinsNodesFromSkinResourceLoaderServices(ExternalContext context)
+  private static List<SkinsNode> _getSkinsNodesFromSkinResourceLoaderServices(
+    ExternalContext context)
   {
-     if (_LOG.isFine()) _LOG.fine("Parse SkinResourceLoader trinidad-skins.xml");
+    if (_LOG.isFine()) _LOG.fine("Parse SkinResourceLoader trinidad-skins.xml");
     // register skins found in DT using the META-INF/services
     List<SkinResourceLoader> urlProviders = ClassLoaderUtils.getServices(
                                       "org.apache.myfaces.trinidad.resource.SkinResourceLoader");
@@ -519,8 +580,9 @@ public class SkinUtils
   }
 
   /**
-   * Given the list of SkinResourceLoaders, load the trindiad-skins
-   * This is used by DT to load trinidad-skins.xml not in META-INF or WEB-INF
+   * Given the list of SkinResourceLoaders, load the trindiad-skins This is used by DT to load
+   * trinidad-skins.xml not in META-INF or WEB-INF
+   *
    * @param context
    * @param providers
    * @return
@@ -533,7 +595,7 @@ public class SkinUtils
     List<SkinsNode> allSkinsNodes = new ArrayList<SkinsNode>();
 
 
-    for (SkinResourceLoader urlProvider : providers )
+    for (SkinResourceLoader urlProvider : providers)
     {
       Iterator<URL> urlIterator = urlProvider.findResources(context, _TRINIDAD_SKINS_XML);
 
@@ -575,7 +637,7 @@ public class SkinUtils
       {
         _LOG.fine("Skipping skin URL:{0} because it was already processed. " +
                     "It was on the classpath more than once.",
-                    url);
+                  url);
       }
       // continue to the next url
     }
@@ -611,16 +673,16 @@ public class SkinUtils
               for (SkinMetadata node : metaInfSkinsNode.getSkinNodes())
                 _LOG.fine("Skin {0} with stylesheet {1}",
                           new Object[]{node.getId(), node.getStyleSheetName()});
-              for (SkinAddition node: metaInfSkinsNode.getSkinAdditionNodes())
+              for (SkinAddition node : metaInfSkinsNode.getSkinAdditionNodes())
                 _LOG.fine("SkinAddition {0} with stylesheet {1}",
-                            new Object[]{node.getSkinId(), node.getStyleSheetName()});
+                          new Object[]{node.getSkinId(), node.getStyleSheetName()});
             }
 
             allSkinsNodes.add(metaInfSkinsNode);
           }
           else
           {
-            if(_LOG.isFine()) _LOG.fine("No skins found in the URL.");
+            if (_LOG.isFine()) _LOG.fine("No skins found in the URL.");
           }
         }
       }
@@ -637,13 +699,13 @@ public class SkinUtils
   }
 
   /**
-   * Helper for resolveReferenceIcon which uses a Stack of icon names
-   * to detect circular dependencies.
+   * Helper for resolveReferenceIcon which uses a Stack of icon names to detect circular
+   * dependencies.
    *
-   * @param skin the Skin to use when resolving the ReferenceIcon
-   * @param refIcon a ReferenceIcon instance
-   * @param referencedIconStack  The stack of reference icon names which have
-   *          already been visited.  Used to detect circular dependencies.
+   * @param skin                the Skin to use when resolving the ReferenceIcon
+   * @param refIcon             a ReferenceIcon instance
+   * @param referencedIconStack The stack of reference icon names which have already been visited.
+   *                            Used to detect circular dependencies.
    * @return icon which is resolved. i.e., it is not a ReferenceIcon.
    */
   static private Icon _resolveReferenceIcon(
@@ -674,8 +736,8 @@ public class SkinUtils
     {
 
       return _resolveReferenceIcon(skin,
-                                  (ReferenceIcon)icon,
-                                  referencedIconStack);
+                                   (ReferenceIcon) icon,
+                                   referencedIconStack);
 
     }
 
@@ -683,7 +745,9 @@ public class SkinUtils
   }
 
 
-  private SkinUtils() {}
+  private SkinUtils()
+  {
+  }
 
   // The default ParserManager
   static private ParserManager _sManager;
@@ -691,12 +755,11 @@ public class SkinUtils
   // Constants
 
   // Prefix of LAf parsing package
-  static private final String _LAF_PARSE_PACKAGE =
+  static private final String         _LAF_PARSE_PACKAGE    =
     "org.apache.myfaces.trinidadinternal.skin.parse.";
-
-
-  static private final String _CONFIG_FILE = "/WEB-INF/trinidad-skins.xml";
-  static private final String _META_INF_CONFIG_FILE = "META-INF/trinidad-skins.xml";
-  static private final String _TRINIDAD_SKINS_XML = "trinidad-skins.xml";
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinUtils.class);
+  static private final String         _CONFIG_FILE          = "/WEB-INF/trinidad-skins.xml";
+  static private final String         _META_INF_CONFIG_FILE = "META-INF/trinidad-skins.xml";
+  static private final String         _TRINIDAD_SKINS_XML   = "trinidad-skins.xml";
+  static private final TrinidadLogger _LOG                  =
+    TrinidadLogger.createTrinidadLogger(SkinUtils.class);
 }

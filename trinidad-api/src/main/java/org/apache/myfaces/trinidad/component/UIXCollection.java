@@ -54,6 +54,8 @@ import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
+import org.apache.myfaces.trinidad.model.RowKeyChangeEvent;
+import org.apache.myfaces.trinidad.model.RowKeyChangeListener;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManagerFactory;
@@ -158,7 +160,12 @@ public abstract class UIXCollection extends UIXComponentBase
     // within a component change event context.
     if (event instanceof CollectionContextEvent)
     {
-      _setupContextChange();
+      boolean inContextAtMethodInvocation = _inContext;
+      if (!inContextAtMethodInvocation)
+      {
+        _setupContextChange();
+      }
+
       try
       {
         CollectionContextEvent wrapperEvent = (CollectionContextEvent) event;
@@ -166,7 +173,10 @@ public abstract class UIXCollection extends UIXComponentBase
       }
       finally
       {
-        _tearDownContextChange();
+        if (!inContextAtMethodInvocation)
+        {
+          _tearDownContextChange();
+        }
       }
     }
     else
@@ -199,7 +209,12 @@ public abstract class UIXCollection extends UIXComponentBase
     if (context == null)
       throw new NullPointerException();
 
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       _init();
@@ -229,7 +244,10 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
@@ -271,7 +289,12 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   public Object processSaveState(FacesContext context)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
@@ -285,7 +308,10 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
@@ -467,6 +493,7 @@ public abstract class UIXCollection extends UIXComponentBase
       // It is bad if the rowKey changes after _restoreStampState() and
       // before _saveStampState(). Therefore, we cache it:
       iState._currentRowKey = getCollectionModel().getRowKey();
+      iState._model.addRowKeyChangeListener(iState);
     }
 
     return iState._currentRowKey;
@@ -809,54 +836,86 @@ public abstract class UIXCollection extends UIXComponentBase
     FacesContext context,
     Object       state)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processRestoreState(context, state);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
   public void processUpdates(FacesContext context)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processUpdates(context);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
   public void processValidators(FacesContext context)
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processValidators(context);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
   public void processEvent(ComponentSystemEvent event)
     throws AbortProcessingException
   {
-    _setupContextChange();
+    boolean inContextAtMethodInvocation = _inContext;
+    if (!inContextAtMethodInvocation)
+    {
+      _setupContextChange();
+    }
+
     try
     {
       super.processEvent(event);
     }
     finally
     {
-      _tearDownContextChange();
+      if (!inContextAtMethodInvocation)
+      {
+        _tearDownContextChange();
+      }
     }
   }
 
@@ -896,6 +955,9 @@ public abstract class UIXCollection extends UIXComponentBase
     InternalState iState = _getInternalState(true);
     // mark the cached rowKey as invalid:
     iState._currentRowKey = _NULL;
+    // we don't have cached rowkey, thus remove rowkeychangelistener
+    if (iState._model != null)
+      iState._model.removeRowKeyChangeListener(iState);
   }
 
   /**
@@ -1882,7 +1944,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * This is to mimic what happens in the non flattening case where similar logic is invoked
    * during encodeBegin().
    */
-  void __processFlattenedChildrenBegin()
+  protected void processFlattenedChildrenBegin(ComponentProcessingContext cpContext)
   {
     // Call _init() since __flushCachedModel() assumes that
     // selectedRowKeys and disclosedRowKeys are initialized to be non-null.
@@ -1907,9 +1969,27 @@ public abstract class UIXCollection extends UIXComponentBase
     Object value = getValue();
     if (iState._value != value)
     {
+      CollectionModel oldModel = iState._model;
       iState._value = value;
       iState._model = createCollectionModel(iState._model, value);
       postCreateCollectionModel(iState._model);
+
+      // if the underlying model is changed, we need to remove 
+      // the listener from the old model. And if we still have cached
+      // rowkey, we need to add the listener back to the new model.
+
+      if (oldModel != iState._model)
+      {
+        if (oldModel != null)
+        {
+          oldModel.removeRowKeyChangeListener(iState);
+        }
+
+        if (iState._currentRowKey != _NULL)
+        {
+          iState._model.addRowKeyChangeListener(iState);
+        }
+      }
     }
   }
 
@@ -2267,7 +2347,12 @@ public abstract class UIXCollection extends UIXComponentBase
     if (iState != null)
     {
       iState._value = null;
-      iState._model= null;
+
+      if (iState._model != null)
+      {
+        iState._model.removeRowKeyChangeListener(iState);
+        iState._model = null;
+      }
     }
   }
 
@@ -2349,7 +2434,7 @@ public abstract class UIXCollection extends UIXComponentBase
   // easy to quickly suck out or restore its internal state,
   // when this component is itself used as a stamp inside some other
   // stamping container, eg: nested tables.
-  private static final class InternalState implements Serializable
+  private static final class InternalState implements RowKeyChangeListener, Serializable
   {
     private transient boolean _hasEvent = false;
     private transient Object _prevVarValue = _NULL;
@@ -2376,6 +2461,35 @@ public abstract class UIXCollection extends UIXComponentBase
     // to indirectly loop up a stamp state for a column, so if the position of the column
     // changes in the middle, we'll still be able to find the right stamp state.
     private Map<String, String> _idToIndexMap = null;
+
+    public void onRowKeyChange(RowKeyChangeEvent rowKeyChangeEvent)
+    {
+      Object newKey = rowKeyChangeEvent.getNewRowKey();
+      Object oldKey = rowKeyChangeEvent.getOldRowKey();
+
+      if (newKey != null && oldKey != null && !newKey.equals(oldKey))
+      {
+        // first replace the cached row key
+        if (oldKey.equals(_currentRowKey))
+          _currentRowKey = newKey;
+
+        // then update stamp state for the affected entries.
+        if (_stampState == null || _idToIndexMap == null)
+          return;
+
+        int stampCompCount = _idToIndexMap.size();
+
+        for (int index = 0; index < stampCompCount; index++)
+        {
+          String stampId = String.valueOf(index);
+          Object state = _stampState.get(oldKey, stampId);
+          if (state == null)
+            continue;
+          _stampState.put(oldKey, stampId, null);
+          _stampState.put(newKey, stampId, state);
+        }
+      }
+    }
 
     private void readObject(ObjectInputStream in)
        throws IOException, ClassNotFoundException

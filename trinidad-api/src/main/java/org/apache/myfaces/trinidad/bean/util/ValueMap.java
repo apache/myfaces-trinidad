@@ -100,11 +100,34 @@ public class ValueMap extends AbstractMap<String, Object>
       throw new NullPointerException();
 
     PropertyKey propertyKey = _getPropertyKey(key);
-    
-    if (_bean.keySet().contains(propertyKey))
-      return true;
-    else
-      return _bean.bindingKeySet().contains(propertyKey);    
+
+    // Some notes:
+    // 
+    // 1.  We could optimize this further by exposing containsLocalKey()
+    //     and containsValueExpression() methods on FacesBean.  This would
+    //     allow FacesBean implementations to avoid retrieving the
+    //     actual property value.  (For example, FacesBean implememtations
+    //     that delegate to FlaggedPropertyMap would be able to short-circuit
+    //     after checking flags, rather than have to look up the value in
+    //     the underlying PropertyMap.)  However, since this requires an
+    //     API change to the FacesBean interface, we are skipping this for
+    //     now.  We should re-evaluate once we can rely on Java 8 (and take
+    //     advantage of defender methods).
+    // 
+    // 2.  ValueMap.containsKey() has always checked for the presence of either
+    //     a local property value or a value expression.  This differs from
+    //     the corresponding code in Mojarra and MyFaces.  Both Mojarra and
+    //     MyFaces implement UIComponent.getAttributes().containsKey() by
+    //     only checking for the presence of a local propery.  Thus, to be
+    //     consistent, we could call _bean.getLocalProperty() here.  However,
+    //     given that ValueMap has behaved this way forever, we may have
+    //     users that depend on the current behavior.  As such, leaving
+    //     this as is.
+    //
+    // 3.  The "!= null" comparison that we perform here relies on the assumption
+    //     that FacesBean does not allow null property values.  While this is not
+    //     obvious from the FacesBean documentation, this is true in practice.
+    return (_bean.getRawProperty(propertyKey) != null);    
   }
 
   @Override

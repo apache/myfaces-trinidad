@@ -284,8 +284,17 @@ public class GenericConverterFactory
     TypeConverter converter = getConverter(source.getClass(), targetType);
     if (converter != null)
     {
-      return converter.convert(source, targetType);
+      try
+      {
+        return converter.convert(source, targetType);
+      }
+      catch(Exception exe) 
+      {        
+        // Rethrow any resulting exception wrapped in a TypeConversion exception
+        throw new TypeConversionException(source, targetType, exe);
+      }
     }
+
     throw new TypeConversionException(source, targetType);
   }
   

@@ -8,6 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -65,6 +66,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -122,6 +124,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -185,6 +188,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -243,6 +247,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -300,6 +305,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -358,6 +364,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -420,6 +427,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -477,6 +485,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -534,6 +543,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -593,6 +603,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -650,6 +661,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -713,6 +725,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -770,6 +783,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -828,6 +842,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -890,6 +905,7 @@
              cellpadding="0"
              cellspacing="0"
              class="test-styleClass af_selectBooleanRadio"
+             role="presentation"
              style="color:red"
              summary=""
              width="100%"
@@ -953,6 +969,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1010,6 +1027,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1073,6 +1091,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1130,6 +1149,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -1189,6 +1209,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1247,6 +1268,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1305,6 +1327,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1363,6 +1386,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1421,6 +1445,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1479,6 +1504,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1537,6 +1563,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1595,6 +1622,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1653,6 +1681,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1711,6 +1740,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1769,6 +1799,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanRadio"
+             role="presentation"
              summary=""
              width="100%"
             >

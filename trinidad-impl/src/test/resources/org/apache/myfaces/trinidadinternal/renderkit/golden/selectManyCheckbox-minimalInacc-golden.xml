@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -87,6 +88,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -170,6 +172,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -209,6 +212,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -291,6 +295,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -373,6 +378,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -446,6 +452,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -528,6 +535,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -610,6 +618,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -699,6 +708,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -781,6 +791,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -867,6 +878,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -949,6 +961,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1039,6 +1052,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1121,6 +1135,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1156,6 +1171,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1238,6 +1254,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1326,6 +1343,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1408,6 +1426,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1490,6 +1509,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1578,6 +1598,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1666,6 +1687,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1754,6 +1776,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1842,6 +1865,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="test-id__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1924,6 +1948,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
           >
         
@@ -2007,6 +2032,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
            title="test-shortDesc"
           >
         
@@ -2091,6 +2117,7 @@
            cellspacing="0"
            class="test-styleClass af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2173,6 +2200,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2258,6 +2286,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2343,6 +2372,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2428,6 +2458,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2511,6 +2542,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2596,6 +2628,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2679,6 +2712,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2762,6 +2796,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2845,6 +2880,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -2928,6 +2964,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -3011,6 +3048,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -3094,6 +3132,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -3177,6 +3216,7 @@
            cellspacing="0"
            class="af_selectManyCheckbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr

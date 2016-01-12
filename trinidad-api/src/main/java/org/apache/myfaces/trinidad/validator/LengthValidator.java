@@ -386,10 +386,18 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
     if(value != null)
     {
+      String theValue  = (value instanceof String)? (String)value : value.toString();
       int max = getMaximum();
       int min = getMinimum();
-      int length = value instanceof String ?
-        ((String)value).length() : value.toString().length();
+
+      // Skip validating empty field values, even if a minimum length is specified. 
+      // Forcing minimum length validation on empty fields will break the use-case where the 
+      // app would like a field to remain optional, but in case some value is entered, it should
+      // adhere to some min/max length rules. For ex: A "pin code" field that is optional.
+      if (theValue.isEmpty())
+        return;
+
+      int length = theValue.length();
 
       // range validation
       if(isMaximumSet() && isMinimumSet())

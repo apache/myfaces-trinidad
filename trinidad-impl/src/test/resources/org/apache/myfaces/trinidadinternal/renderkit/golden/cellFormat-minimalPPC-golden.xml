@@ -130,20 +130,6 @@
           >
         Text
       </td>
-<!--AttributeTest[wrappingDisabled,false]-->
-
-      <td
-           id="mainId"
-          >
-        Text
-      </td>
-<!--AttributeTest[wrappingDisabled,true]-->
-
-      <td
-           id="mainId"
-          >
-        Text
-      </td>
 <!--AttributeTest[id,myCellId]-->
 
       <td

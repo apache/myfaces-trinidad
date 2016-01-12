@@ -5,7 +5,7 @@
     <component tr:type="org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox" text="Checkbox 2" value="Value 2" readOnly="false"/>
     <component tr:facet="end" tr:type="org.apache.myfaces.trinidad.CoreInputText"/>
   </base-component>     
-  <!-- attribute-test name="accessKey"/-->
+  <!-- attribute-test name="accessKey" requiredCapabilities="accessKeys"/-->
   <attribute-test name="label"/>
   <!--attribute-test name="labelAndAccessKey"/-->
   <attribute-test name="labelStyle" value="vertical-align: top;"/>

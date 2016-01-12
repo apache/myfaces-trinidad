@@ -127,17 +127,6 @@
           >
         ButtonText
       </button>
-<!--AttributeTest[accessKey,u]-->
-
-      <button
-           class="af_resetButton"
-           onclick="resetForm('formId');return false;"
-           type="reset"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
 <!--AttributeTest[id,myid]-->
 
       <button

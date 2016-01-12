@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -26,6 +27,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -41,6 +43,7 @@
                        cellspacing="0"
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -87,6 +90,7 @@
                        cellspacing="0"
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -137,6 +141,7 @@
                        cellspacing="0"
                        class="af_inputText"
                        id="_idXXX__xc_"
+                       role="presentation"
                        summary=""
                       >
                     

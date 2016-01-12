@@ -8,17 +8,6 @@
           >
         CommandMenuItemText
       </a>
-<!--AttributeTest[accessKey,o]-->
-
-      <a
-           class="OraLink"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           href="uri-attr:encoded-action-url:#"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        CommandMenuItemText
-      </a>
 <!--AttributeTest[destination,http://www.oracle.com]-->
 
       <a

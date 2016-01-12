@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -27,6 +28,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -117,6 +119,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -139,6 +142,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -230,6 +234,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -252,6 +257,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -343,6 +349,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -365,6 +372,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -456,6 +464,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -478,6 +487,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -569,6 +579,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -591,6 +602,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -682,6 +694,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -704,6 +717,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -795,6 +809,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -817,6 +832,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -908,6 +924,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -930,6 +947,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1021,6 +1039,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1043,6 +1062,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1134,6 +1154,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1156,6 +1177,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1247,6 +1269,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1269,6 +1292,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1360,6 +1384,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1382,6 +1407,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1473,6 +1499,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1495,6 +1522,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1586,6 +1614,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1608,6 +1637,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1699,6 +1729,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1721,6 +1752,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1811,6 +1843,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1844,6 +1877,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -1934,6 +1968,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1956,6 +1991,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2046,6 +2082,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="id_val__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2068,6 +2105,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2158,6 +2196,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -2181,6 +2220,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2271,6 +2311,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2298,6 +2339,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2388,6 +2430,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="shortDesc_val"
           >
@@ -2411,6 +2454,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2508,6 +2552,7 @@
            cellspacing="0"
            class="styleClass_val af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2530,6 +2575,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2620,6 +2666,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2642,6 +2689,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2733,6 +2781,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2755,6 +2804,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2845,6 +2895,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2867,6 +2918,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -2963,6 +3015,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2985,6 +3038,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3075,6 +3129,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3103,6 +3158,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3193,6 +3249,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3215,6 +3272,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3305,6 +3363,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3333,6 +3392,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3423,6 +3483,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3445,6 +3506,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3535,6 +3597,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3557,6 +3620,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3648,6 +3712,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3670,6 +3735,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3761,6 +3827,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3783,6 +3850,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3874,6 +3942,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -3896,6 +3965,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -3987,6 +4057,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4009,6 +4080,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4100,6 +4172,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4122,6 +4195,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4213,6 +4287,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4235,6 +4310,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4326,6 +4402,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4348,6 +4425,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4439,6 +4517,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4461,6 +4540,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4552,6 +4632,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4574,6 +4655,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4665,6 +4747,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4687,6 +4770,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4778,6 +4862,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4800,6 +4885,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -4891,6 +4977,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -4913,6 +5000,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5004,6 +5092,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5026,6 +5115,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5117,6 +5207,7 @@
            cellspacing="0"
            class="OraErrorText af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5139,6 +5230,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5229,6 +5321,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5251,6 +5344,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5341,6 +5435,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5363,6 +5458,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5453,6 +5549,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5475,6 +5572,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5548,6 +5646,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5570,6 +5669,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 role="presentation"
                  summary=""
                 >
               
@@ -5660,6 +5760,7 @@
            cellspacing="0"
            class="af_inputNumberSpinbox p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -5697,6 +5798,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -5787,6 +5889,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -5878,6 +5981,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -5969,6 +6073,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6060,6 +6165,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6151,6 +6257,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6242,6 +6349,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6333,6 +6441,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6424,6 +6533,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6515,6 +6625,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6606,6 +6717,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6697,6 +6809,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6788,6 +6901,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6879,6 +6993,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -6970,6 +7085,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -7061,6 +7177,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -7151,6 +7268,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -7241,6 +7359,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -7331,6 +7450,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           
@@ -7404,6 +7524,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
             >
           

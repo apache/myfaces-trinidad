@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.agent;
 
-import java.beans.Beans;
-
 import java.util.Collections;
 import java.util.Map;
 
@@ -36,7 +34,9 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
  */
 public class AgentFactoryImpl implements AgentFactory
 {
-
+  /** Request parameter that if present and !="false" indicates that the current request should
+   * render the page in e-mail mode */
+  static public  final String EMAIL_PARAM = "org.apache.myfaces.trinidad.agent.email";
 
   public Agent createAgent(Map<String, String> headerMap)
   {
@@ -103,6 +103,7 @@ public class AgentFactoryImpl implements AgentFactory
    * @param agent
    * @return
    */
+  @SuppressWarnings("deprecation")
   private void _modifyAgentForDT(String agentHeader, AgentImpl agent)
   {
     if (agentHeader != null)
@@ -145,6 +146,17 @@ public class AgentFactoryImpl implements AgentFactory
     return headerMap.get("User-Agent"); 
   }
   
+  private static boolean _showAsEmail(ExternalContext extContext)
+  {
+    String emailParam = extContext.getRequestParameterMap().get(EMAIL_PARAM);
+
+    // rather than test against "true", we test whether the value is set and non-false.
+    // this allows libraries dependent on Trinidad to provide additional email
+    // rendering options for this parameter, while still causing Trinidad to
+    // return email stylesheets
+    return (emailParam != null && !"".equals(emailParam) && !"false".equals(emailParam));
+  }
+  
   /**
    * Populates the agent with information from the FacesContext and headerMap
    * @param facesContext
@@ -153,7 +165,7 @@ public class AgentFactoryImpl implements AgentFactory
    * @param agent
    */
   private void _populateBaseAgentImpl(
-    FacesContext        facesContext,
+    FacesContext        context,
     Map<String, String> headerMap,
     boolean             noRequest,
     AgentImpl           agent)
@@ -167,12 +179,10 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    String isEmail = null;
-    if (facesContext != null)
-      isEmail = facesContext.getExternalContext().getRequestParameterMap().
-                        get(_EMAIL_PARAM);
-
-    if ("true".equals(isEmail))
+    boolean isEmailRequest = (context == null) ? false : _showAsEmail(context.getExternalContext());
+    
+    // rather than test against "true", we test whether the value is 
+    if (isEmailRequest)
     {
       _populateEmailAgentImpl(agent);
       return;
@@ -963,7 +973,6 @@ public class AgentFactoryImpl implements AgentFactory
    */
   private void _populateMozillaAgentImpl(String agent, AgentImpl agentObj)
   {
-    int ieTridentIndex = -1;
     int paren = agent.indexOf('(');
     agentObj.setType(Agent.TYPE_DESKTOP); //Is this default realli okay??? These days Mobile agents also use Mozilla/xx.xx
 
@@ -977,13 +986,15 @@ public class AgentFactoryImpl implements AgentFactory
     {
       paren = paren + 1;
 
+      int ieTridentIndex = agent.indexOf("Trident", paren);
+
       if (agent.indexOf("Konqueror", paren) >= 0)
       {
         agentObj.setType(Agent.TYPE_DESKTOP);
         agentObj.setAgent(Agent.AGENT_KONQUEROR);
         agentObj.setAgentVersion(_getVersion(agent, agent.lastIndexOf('/')));
       }
-      else if ((ieTridentIndex = agent.indexOf("Trident", paren)) > -1) 
+      else if (ieTridentIndex >= 0) 
       {
         agentObj.setAgent(Agent.AGENT_IE);
 
@@ -1147,8 +1158,6 @@ public class AgentFactoryImpl implements AgentFactory
     }
   }
   
-  static private final String _EMAIL_PARAM =
-    "org.apache.myfaces.trinidad.agent.email";
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 

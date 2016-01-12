@@ -152,27 +152,6 @@
           </input>
         </span>
       </span>
-<!--AttributeTest[label,null]-->
-
-      <span
-           class="af_selectBooleanCheckbox"
-           id="mainId__xc_c"
-          >
-        
-        <span
-             class="af_selectBooleanCheckbox_content"
-            >
-          
-          <input
-               id="mainId"
-               name="mainId"
-               type="checkbox"
-               value="t"
-              >
-            
-          </input>
-        </span>
-      </span>
 <!--AttributeTest[readOnly,false]-->
 
       <span

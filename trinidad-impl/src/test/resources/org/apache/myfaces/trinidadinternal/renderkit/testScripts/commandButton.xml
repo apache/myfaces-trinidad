@@ -3,7 +3,7 @@
   <base-component tr:type="org.apache.myfaces.trinidad.CoreCommandButton" text="ButtonText"/>
 
   <!-- ungrouped -->
-  <attribute-test name="accessKey" value="u"/>
+  <attribute-test name="accessKey" value="u" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <boolean-test name="disabled"/>
   <boolean-test name="immediate"/>
   <boolean-test name="partialSubmit"/>

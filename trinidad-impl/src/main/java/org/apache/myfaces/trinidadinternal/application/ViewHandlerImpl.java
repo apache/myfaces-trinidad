@@ -82,7 +82,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
 
     _initIfNeeded(context);
 
-    if (_checkTimestamp(context, viewId))
+    if (_isTimestampCheckEnabled(context, viewId))
     {
       try
       {
@@ -202,7 +202,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     
     boolean uptodate = true;
 
-    if (_checkTimestamp(context, viewId))
+    if (_isTimestampCheckEnabled(context, viewId))
     {
       try
       {
@@ -330,17 +330,29 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
                               ExtendedRenderKitService.class);
   }
 
-  private boolean _checkTimestamp(FacesContext context, String viewId)
+  /**
+   * Reads org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION context param and determines if
+   * the flag is enabled or not.
+   * If the context parameter is not specified, default value used is: "false" for
+   * ProjectStage.Production and "true" for all other stages.
+   * For InternalViews this method always return "false"
+   *
+   * @param context
+   * @param viewId
+   * @return
+   */
+  private boolean _isTimestampCheckEnabled(FacesContext context, String viewId)
   {
     if (_checkTimestamp == null)
     {
-      boolean checkTimestampParam;
-      String checkTimestamp =
+      boolean productionStage = context.isProjectStage(ProjectStage.Production);
+      boolean checkTimestamp;
+      String checkTimestampContextParam =
         context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
       
-      if (checkTimestamp != null)
+      if (checkTimestampContextParam != null)
       {
-        checkTimestampParam = "true".equals(checkTimestamp);  
+        checkTimestamp = "true".equals(checkTimestampContextParam);
       }
       else
       {
@@ -348,45 +360,28 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
         // apply the DEFAULT values for the certain Project Stages:
         // -PRODUCTION we want this value to be FALSE;
         // -other stages we use TRUE
-        checkTimestampParam = !(context.isProjectStage(ProjectStage.Production));
+        checkTimestamp = !productionStage;
       }
 
-      boolean developmentStage = context.isProjectStage(ProjectStage.Development);
-      
-      // if Apache MyFaces Trinidad is running in production stage CHECK_TIMESTAMP_PARAM should
-      // be FALSE, otherwise we generate a WARNING message
-      boolean productionStage = developmentStage || context.isProjectStage(ProjectStage.Production);
-      
-      boolean performCheck = checkTimestampParam || developmentStage;
-      _checkTimestamp = Boolean.valueOf(performCheck);
-      
-      if (checkTimestampParam)
+      _checkTimestamp = Boolean.valueOf(checkTimestamp);
+
+      // if Apache MyFaces Trinidad is running in ProjectStage.Production,
+      // then CHECK_TIMESTAMP_PARAM should be FALSE, otherwise we generate a WARNING message
+      if (productionStage && checkTimestamp)
       {
-        if (productionStage)
-        {
-          _LOG.warning("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
-              Configuration.CHECK_TIMESTAMP_PARAM);
-        }
-        else
-        {
-          _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
-                    Configuration.CHECK_TIMESTAMP_PARAM);
-        }
+        _LOG.warning("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
+            Configuration.CHECK_TIMESTAMP_PARAM);
       }
     }
 
-    // Even if _checkTimestamp is TRUE, we do not want to perform the check for the InternalViews
-    boolean check = _checkTimestamp.booleanValue();
-    
-    if (check)
+    // Even if _isTimestampCheckEnabled is TRUE, we do not want to perform the check for the InternalViews
+    if (_checkTimestamp
+          && getViewDeclarationLanguage(context, viewId) instanceof InternalViewHandlingStrategy)
     {
-      if (getViewDeclarationLanguage(context, viewId) 
-                              instanceof InternalViewHandlingStrategy)
-      {
-        return false;
-      }
+      return false;
     }
-    return check;
+
+    return _checkTimestamp;
   }
 
 

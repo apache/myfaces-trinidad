@@ -4182,21 +4182,6 @@
 }
 /* end stylesheet */
 
-/** CJK style sheet for all **/
-@locale ja, zh, ko {
-
-  /**
-    We don't specify a font family for CJK languages, since most browsers
-    (Netscape, ICE, IE) seem to have problems displaying CJK text with
-    our default font-family list (Arial, Helvetica, etc...).  We're better
-    off letting the font-family default.
-  **/
-  .AFDefaultFontFamily:alias {
-    -tr-inhibit: font-family;
-  }
-
-}
-
 /** But: in CJK, IE is having some bad problems with sizing lists
   and choices correctly - this is bug 2440402.  For the two styles
   that are relevant here, work around the problem using size 100%.  That's

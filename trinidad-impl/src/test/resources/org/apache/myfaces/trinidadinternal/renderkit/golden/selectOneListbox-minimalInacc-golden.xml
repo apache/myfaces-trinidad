@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -57,6 +58,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -110,6 +112,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -162,6 +165,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -214,6 +218,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -266,6 +271,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -323,6 +329,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -375,6 +382,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -428,6 +436,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -480,6 +489,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -538,6 +548,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -590,6 +601,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -625,6 +637,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -677,6 +690,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -735,6 +749,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -787,6 +802,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="test-id__xc_"
+           role="presentation"
           >
         
         <tr
@@ -839,6 +855,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -891,6 +908,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -943,6 +961,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1001,6 +1020,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1059,6 +1079,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1117,6 +1138,7 @@
            cellspacing="0"
            class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1175,6 +1197,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
           >
         
@@ -1228,6 +1251,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
            title="test-shortDesc"
           >
         
@@ -1282,6 +1306,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1335,6 +1360,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1388,6 +1414,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1441,6 +1468,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1494,6 +1522,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1547,6 +1576,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1600,6 +1630,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1653,6 +1684,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1706,6 +1738,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1759,6 +1792,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1812,6 +1846,7 @@
            cellspacing="0"
            class="af_selectOneListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr

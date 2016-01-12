@@ -18,64 +18,174 @@
  */
 
 /**
- * constructor for TrNumberFormat.
+ * Constructor for TrNumberFormat. 
+ * @param type Can be one of: 'number', 'percent' or 'currency'
+ * @param locale Locale object
+ * @param config An optional configuration object. 
+ *   Supported configuration paramters are:
+ *     1. 'currencyCode'      The ISO 4217 currency code, applied when formatting currencies. 
+ *                            This currency code will substitute the locale's default currency symbol for number formatting, 
+ *                            provided type is set to 'currency'.
+ *                            However the placement of the currencyCode is determined by the locale.
+ *     2. 'currencySymbol'    Currency symbol applied when formatting currencies.
+ *                            If currency code is set then symbol will be ignored. 
+                              This currency symbol will substitute the locale's default currency symbol for number 
+                              formatting, provided type is set to 'currency'.
+                              However the placement of the currencySymbol is determined by the locale.
+ *     3. 'negativePrefix'    Prefix for a negative number
+ *     4. 'negativeSuffix'    Suffix for a negative number
+ *     5. 'isGroupingUsed'    true, if number grouping has to be supported. 
+ *     6. 'maxFractionDigits' Sets the maximum number of fraction digits that are printed when formatting. 
+ *                            If the maximum is less than the number of fraction digits, the least significant digits are truncated.
+ *     7. 'maxIntegerDigits'  Used to specify the new maximum count of integer digits that are printed
+ *                            when formatting. If the maximum is less than the number of integer digits, 
+ *                            the most significant digits are truncated.
+ *     8. 'minFractionDigits' Sets the minimum number of fraction digits that are printed when formatting. 
+ *     9. 'minIntegerDigits'  Sets the minimum number of integer digits that are printed when formatting.
  */
- function TrNumberFormat(type, locale)
+function TrNumberFormat(type, locale, config)
 {
   if(!type)
     alert("type for TrNumberFormat not defined!");
+    
   this._type = type;
   
-  this._localeSymbols = getLocaleSymbols(locale);
-  this._pPre = this._localeSymbols.getPositivePrefix();
-  this._pSuf = this._localeSymbols.getPositiveSuffix();
-  this._nPre = this._localeSymbols.getNegativePrefix();
-  this._nSuf = this._localeSymbols.getNegativeSuffix();
+  if (!config)
+  {
+    config = {};
+  }
+  
+  TrNumberFormat.CURRENCY_CODE       = "currencyCode";
+  TrNumberFormat.CURRENCY_SYMBOL     = "currencySymbol";
+  TrNumberFormat.NEGATIVE_PREFIX     = "negativePrefix";
+  TrNumberFormat.NEGATIVE_SUFFIX     = "negativeSuffix";
+  TrNumberFormat.IS_GROUPING_USED    = "isGroupingUsed";
+  TrNumberFormat.MAX_FRACTION_DIGITS = "maxFractionDigits";
+  TrNumberFormat.MAX_INTEGER_DIGITS  = "maxIntegerDigits";
+  TrNumberFormat.MIN_FRACTION_DIGITS = "minFractionDigits";
+  TrNumberFormat.MIN_INTEGER_DIGITS  = "minIntegerDigits";
+  TrNumberFormat.ROUNDING_MODE       = "roundingMode";
 
   //default values, similar to JDK (values from Apache Harmony)
   if(this._type=="percent")
-    this._maxFractionDigits = 0;
+  {
+    this.setMaximumFractionDigits((config[TrNumberFormat.MAX_FRACTION_DIGITS] != null)? config[TrNumberFormat.MAX_FRACTION_DIGITS] : 0);
+  }
   else
-    this._maxFractionDigits = 3;
-  this._maxIntegerDigits  = 40;
+  {
+    this.setMaximumFractionDigits((config[TrNumberFormat.MAX_FRACTION_DIGITS] != null)? config[TrNumberFormat.MAX_FRACTION_DIGITS] : 3);
+  }
+    
+  this.setMaximumIntegerDigits((config[TrNumberFormat.MAX_INTEGER_DIGITS] != null)? config[TrNumberFormat.MAX_INTEGER_DIGITS] : 40);
+  
   if(this._type=="currency")
   {
-    this._minFractionDigits = 2;
+    this.setMinimumFractionDigits((config[TrNumberFormat.MIN_FRACTION_DIGITS] != null)? config[TrNumberFormat.MIN_FRACTION_DIGITS] : 2);
   }
   else
   {
-    this._minFractionDigits = 0;
+    this.setMinimumFractionDigits((config[TrNumberFormat.MIN_FRACTION_DIGITS] != null)? config[TrNumberFormat.MIN_FRACTION_DIGITS] : 0);
   }
-  this._minIntegerDigits  = 1;
-  this._groupingUsed = true;
   
+  this.setMinimumIntegerDigits((config[TrNumberFormat.MIN_INTEGER_DIGITS] != null)? config[TrNumberFormat.MIN_INTEGER_DIGITS] : 1);
+  this.setGroupingUsed((config[TrNumberFormat.IS_GROUPING_USED] != null)? config[TrNumberFormat.IS_GROUPING_USED] : true);    
+  this.setRoundingMode(config[TrNumberFormat.ROUNDING_MODE]);
+  
+  this._updateLocaleAndSymbols(locale, config);
 }
+
 //***********************
 // static
 //***********************
 
 /**
  * Returns a number formater.
+ * @param locale Locale object
+ * @param config Optional configuration object. 
+ *   Supported configuration paramters are:
+ *     1. 'currencyCode'      The ISO 4217 currency code, applied when formatting currencies. 
+ *                            This currency code will substitute the locale's default currency symbol for number formatting, 
+ *                            provided type is set to 'currency'.
+ *                            However the placement of the currencyCode is determined by the locale.
+ *     2. 'currencySymbol'    Currency symbol applied when formatting currencies.
+ *                            If currency code is set then symbol will be ignored. 
+                              This currency symbol will substitute the locale's default currency symbol for number 
+                              formatting, provided type is set to 'currency'.
+                              However the placement of the currencySymbol is determined by the locale.
+ *     3. 'negativePrefix'    Prefix for a negative number
+ *     4. 'negativeSuffix'    Suffix for a negative number
+ *     5. 'isGroupingUsed'    true, if number grouping has to be supported. 
+ *     6. 'maxFractionDigits' Sets the maximum number of fraction digits that are printed when formatting. 
+ *                            If the maximum is less than the number of fraction digits, the least significant digits are truncated.
+ *     7. 'maxIntegerDigits'  Used to specify the new maximum count of integer digits that are printed
+ *                            when formatting. If the maximum is less than the number of integer digits, 
+ *                            the most significant digits are truncated.
+ *     8. 'minFractionDigits' Sets the minimum number of fraction digits that are printed when formatting. 
+ *     9. 'minIntegerDigits'  Sets the minimum number of integer digits that are printed when formatting.
  */
-TrNumberFormat.getNumberInstance = function(locale)
+TrNumberFormat.getNumberInstance = function(locale, config)
 {
-  return new TrNumberFormat("number", locale);
+  return new TrNumberFormat("number", locale, config);
 }
 
 /**
- * Returns a currency formater.
+ * Returns a currency formatter
+ * @param locale Locale object
+ * @param config Optional configuration object. 
+ *   Supported configuration paramters are:
+ *     1. 'currencyCode'      The ISO 4217 currency code, applied when formatting currencies. 
+ *                            This currency code will substitute the locale's default currency symbol for number formatting, 
+ *                            provided type is set to 'currency'.
+ *                            However the placement of the currencyCode is determined by the locale.
+ *     2. 'currencySymbol'    Currency symbol applied when formatting currencies.
+ *                            If currency code is set then symbol will be ignored. 
+                              This currency symbol will substitute the locale's default currency symbol for number 
+                              formatting, provided type is set to 'currency'.
+                              However the placement of the currencySymbol is determined by the locale.
+ *     3. 'negativePrefix'    Prefix for a negative number
+ *     4. 'negativeSuffix'    Suffix for a negative number
+ *     5. 'isGroupingUsed'    true, if number grouping has to be supported. 
+ *     6. 'maxFractionDigits' Sets the maximum number of fraction digits that are printed when formatting. 
+ *                            If the maximum is less than the number of fraction digits, the least significant digits are truncated.
+ *     7. 'maxIntegerDigits'  Used to specify the new maximum count of integer digits that are printed
+ *                            when formatting. If the maximum is less than the number of integer digits, 
+ *                            the most significant digits are truncated.
+ *     8. 'minFractionDigits' Sets the minimum number of fraction digits that are printed when formatting. 
+ *     9. 'minIntegerDigits'  Sets the minimum number of integer digits that are printed when formatting.
  */
-TrNumberFormat.getCurrencyInstance = function(locale)
+TrNumberFormat.getCurrencyInstance = function(locale, config)
 {
-  return new TrNumberFormat("currency", locale);
+  return new TrNumberFormat("currency", locale, config);
 }
 
 /**
  * Returns a percent formater.
+ * @param locale Locale object
+ * @param config Optional configuration object. 
+ *   Supported configuration paramters are:
+ *     1. 'currencyCode'      The ISO 4217 currency code, applied when formatting currencies. 
+ *                            This currency code will substitute the locale's default currency symbol for number formatting, 
+ *                            provided type is set to 'currency'.
+ *                            However the placement of the currencyCode is determined by the locale.
+ *     2. 'currencySymbol'    Currency symbol applied when formatting currencies.
+ *                            If currency code is set then symbol will be ignored. 
+                              This currency symbol will substitute the locale's default currency symbol for number 
+                              formatting, provided type is set to 'currency'.
+                              However the placement of the currencySymbol is determined by the locale.
+ *     3. 'negativePrefix'    Prefix for a negative number
+ *     4. 'negativeSuffix'    Suffix for a negative number
+ *     5. 'isGroupingUsed'    true, if number grouping has to be supported. 
+ *     6. 'maxFractionDigits' Sets the maximum number of fraction digits that are printed when formatting. 
+ *                            If the maximum is less than the number of fraction digits, the least significant digits are truncated.
+ *     7. 'maxIntegerDigits'  Used to specify the new maximum count of integer digits that are printed
+ *                            when formatting. If the maximum is less than the number of integer digits, 
+ *                            the most significant digits are truncated.
+ *     8. 'minFractionDigits' Sets the minimum number of fraction digits that are printed when formatting. 
+ *     9. 'minIntegerDigits'  Sets the minimum number of integer digits that are printed when formatting.
  */
-TrNumberFormat.getPercentInstance = function(locale)
+TrNumberFormat.getPercentInstance = function(locale, config)
 {
-  return new TrNumberFormat("percent", locale);
+  return new TrNumberFormat("percent", locale, config);
 }
 
 /**
@@ -101,6 +211,36 @@ TrNumberFormat.prototype.isGroupingUsed = function()
 }
 
 /**
+ * Sets the chosen decimal rounding mode.
+ * 
+ * @param Rounding mode can be one of:
+ * {null, "UP", "DOWN", "CEILING", "FLOOR", "HALF_UP", "HALF_DOWN", "HALF_EVEN", "UNNECESSARY"}
+ */
+TrNumberFormat.prototype.setRoundingMode = function(roundingMode)
+{
+  this._roundingMode = roundingMode;
+}
+
+/**
+ * Gets the decimal rouding mode.
+ * 
+ * @return Rounding mode, can be one of:
+ * {null, "UP", "DOWN", "CEILING", "FLOOR", "HALF_UP", "HALF_DOWN", "HALF_EVEN", "UNNECESSARY"}
+ */
+TrNumberFormat.prototype.getRoundingMode = function()
+{
+  return this._roundingMode;
+}
+
+/**
+ * @return true if a decimal rounding mode is specifed
+ */
+TrNumberFormat.prototype.isRoundingModeSpecified = function() 
+{
+  return this.getRoundingMode() != null;
+}
+
+/**
  * Used to specify the new maximum count of integer digits that are printed
  * when formatting. If the maximum is less than the number of integer
  * digits, the most significant digits are truncated.
@@ -110,7 +250,7 @@ TrNumberFormat.prototype.isGroupingUsed = function()
 TrNumberFormat.prototype.setMaximumIntegerDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._maxIntegerDigits = number < 0 ? 0 : number;
     if (this._minIntegerDigits > this._maxIntegerDigits)
@@ -143,7 +283,7 @@ TrNumberFormat.prototype.getMaximumIntegerDigits = function()
 TrNumberFormat.prototype.setMaximumFractionDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._maxFractionDigits = number < 0 ? 0 : number;
     if (this._maxFractionDigits < this._minFractionDigits)
@@ -176,7 +316,7 @@ TrNumberFormat.prototype.getMaximumFractionDigits = function()
 TrNumberFormat.prototype.setMinimumIntegerDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._minIntegerDigits = number < 0 ? 0 : number;
     if(this._minIntegerDigits > this._maxIntegerDigits)
@@ -207,7 +347,7 @@ TrNumberFormat.prototype.getMinimumIntegerDigits = function()
 TrNumberFormat.prototype.setMinimumFractionDigits = function(number)
 {
   //taken from the Apache Harmony project
-  if(number)
+  if(number != null)
   {
     this._minFractionDigits = number < 0 ? 0 : number;
     if (this._maxFractionDigits < this._minFractionDigits)
@@ -258,44 +398,70 @@ TrNumberFormat.prototype.parse = function(string)
 
 /**
  * Formats a number string into a number.
+ * @param numberString Number in string form
+ * @return Number
  */
 TrNumberFormat.prototype.stringToNumber = function(numberString)
 {
+  var hasPrefixNSuffix =  this.hasPrefixOrSuffix(numberString);
+  // multiplier = 1 for positive numbers, -1 for negative numbers
+  var multiplier = 1;
+  
+  if (hasPrefixNSuffix) 
+  {
+    var arr = this.removePrefixAndSuffix(numberString);
+    numberString = arr[0]
+    var isPosNum = arr[1];   
+    
+    if (!isPosNum)
+      multiplier = -1;
+  }
+  
   // parseFloat("123abc45") returns 123, but 123abc45 is considered an invalid number on the server, 
   // so check for a valid number first. Exclude non-numbers and disallow exponential notation.
   if (isNaN(numberString) || numberString.indexOf('e') != -1 || numberString.indexOf('E') != -1)
   {
     throw new TrParseException("not able to parse number");
   }
-  return parseFloat(numberString);
+  
+  return parseFloat(numberString) * multiplier;
 }
 
 /**
- * Returns true if there is a currency prefix and suffix in the currency string
+ * Returns true if there is a prefix and suffix in the string
  */
-TrNumberFormat.prototype.hasCurrencyPrefixAndSuffix = function(currencyString)
+TrNumberFormat.prototype.hasPrefixOrSuffix = function(numberString)
 {
-  var negP = currencyString.indexOf(this._nPre);
-  var nSufNoSpace = this._nSuf;
-  if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
+  var negP = numberString.indexOf(this._nPrefix);
+  var nSufNoSpace = this._nSuffix;
+  if (nSufNoSpace && (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0'))
+  {
     nSufNoSpace = nSufNoSpace.substring(1);
-  var negS = currencyString.indexOf(nSufNoSpace);
+  }
+  
+  // Treat "" string as null to prevent indexOf returning 0 for "" suffix
+  var negS = numberString.indexOf((nSufNoSpace == "")? null : nSufNoSpace);
 
   // insist that prefix always starts at 0
-  if(negP == 0 && negS != -1)
+  if(negP == 0 || negS != -1)
   {
     return true;
   }
   else
   {
-    var posP = currencyString.indexOf(this._pPre);
-    var pSufNoSpace = this._pSuf;
-    if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
+    var posP = numberString.indexOf(this._pPrefix);
+    var pSufNoSpace = this._pSuffix;
+    
+    if (pSufNoSpace && (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0'))
+    {
       pSufNoSpace = pSufNoSpace.substring(1);
-    var posS = currencyString.indexOf(pSufNoSpace);
+    }
+    
+    // Treat "" string as null to prevent indexOf returning 0 for "" suffix
+    var posS = numberString.indexOf((pSufNoSpace == "")? null : pSufNoSpace);
 
     // insist that prefix always starts at 0
-    if(posP == 0 && posS != -1)
+    if(posP == 0 || posS != -1)
     {
       return true;
     }
@@ -309,56 +475,52 @@ TrNumberFormat.prototype.hasCurrencyPrefixAndSuffix = function(currencyString)
  */
 TrNumberFormat.prototype.stringToCurrency = function(numberString)
 {
-  var arr = this.removeCurrencyPrefixAndSuffix(numberString);
-  numberString = arr[0]
-  var isPosNum = arr[1];
-
-  if (isPosNum)
-  {
-    return this.stringToNumber(numberString);
-  }
-  else
-  {
-    return (this.stringToNumber(numberString) * -1);
-  }
+  return this.stringToNumber(numberString);
 }
 
 /**
- * Removes the locale specific currency prefix and suffix from a currencyString
+ * Removes the locale specific prefix and suffix from a numberString
  * and returns an array with 2 elements,
  *     arr[0]  -> converted string
  *     arr[1]  -> boolean, true if number is positive, false if number is negative
  */
-TrNumberFormat.prototype.removeCurrencyPrefixAndSuffix = function(currencyString)
+TrNumberFormat.prototype.removePrefixAndSuffix = function(numberString)
 {
   //is the string negative ?
   var retArr = [];
-  var negP = currencyString.indexOf(this._nPre);
-  var nSufNoSpace = this._nSuf;
-  if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
+  var negP = numberString.indexOf(this._nPrefix);
+  var nSufNoSpace = this._nSuffix;
+  
+  if (nSufNoSpace && (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0'))
+  {
     nSufNoSpace = nSufNoSpace.substring(1);
-  var negS = currencyString.indexOf(nSufNoSpace);
-
+  }
+  
+  var negS = numberString.indexOf(nSufNoSpace);
 
   // TRINIDAD-1958: In Arabic the values for negPrefix and posPrefix are the same, so it is insufficient to test for
   // the presence of (only) negPrefix to determine if the number is negative.
   if(negP != -1 && negS != -1)
   {
-    retArr.push(currencyString.substr(this._nPre.length, currencyString.length - (this._nPre.length + nSufNoSpace.length)));
+    retArr.push(numberString.substr(this._nPrefix.length, numberString.length - (this._nPrefix.length + nSufNoSpace.length)));
     retArr.push(false);
     return retArr;
   }
   else
   {
-    var posP = currencyString.indexOf(this._pPre);
-    var pSufNoSpace = this._pSuf;
-    if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
+    var posP = numberString.indexOf(this._pPrefix);
+    var pSufNoSpace = this._pSuffix;
+   
+    if (pSufNoSpace && (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0'))
+    {
       pSufNoSpace = pSufNoSpace.substring(1);
-    var posS = currencyString.indexOf(pSufNoSpace);
+    }
+    
+    var posS = numberString.indexOf(pSufNoSpace);
 
     if(posP != -1 && posS != -1)
     {
-      retArr.push(currencyString.substr(this._pPre.length, currencyString.length - (this._pPre.length + pSufNoSpace.length)));
+      retArr.push(numberString.substr(this._pPrefix.length, numberString.length - (this._pPrefix.length + pSufNoSpace.length)));
       retArr.push(true);
       return retArr;
     }
@@ -374,20 +536,27 @@ TrNumberFormat.prototype.removeCurrencyPrefixAndSuffix = function(currencyString
  */
 TrNumberFormat.prototype.stringToPercentage = function(percentString)
 {
-  var isPercentage = (percentString.indexOf('%') != -1);
+  // Check for presence of %age symbol in the number string
+  // Trimming of locale specific percentage symbol is required, because some locales have a white-space 
+  // before the %age symbol, but the user input may not always have the locale mandated space character before %age.
+  var percentSymbl = this._localeSymbols.getPercentSuffix().trim();  
+  var isPercentage = (percentString.indexOf(percentSymbl) != -1);
+  
   if (!isPercentage)
   {
     throw new TrParseException("not able to parse number");
   }
   
-  var numberString = percentString.replace(/\%/g, '');
+  var numberString = percentString.replace(new RegExp(percentSymbl, 'g'), '');
   return this.stringToNumber(numberString);
 }
 
 /**
  * Formats a number into a a formatted string.
+ * @param number The number to be represented in string form
+ * @param mandatorySuffix An optional suffix that needs to be appended to the number. Generally this is '%'
  */
-TrNumberFormat.prototype.numberToString = function(number)
+TrNumberFormat.prototype.numberToString = function(number, mandatorySuffix)
 {
   //negative ?
   var negative = number<0;
@@ -424,25 +593,45 @@ TrNumberFormat.prototype.numberToString = function(number)
   else
     numberString = (ints);
   
-  if(negative)
-    numberString = "-" + numberString;
+  if (mandatorySuffix)
+    numberString = numberString + mandatorySuffix;
+    
+  if(negative) 
+  {
+    // If we have either the negative prefix or suffix, then merge them into the number string,
+    // else we just prefix the negative sign
+    if (this._nPrefix || this._nSuffix) 
+    {
+      numberString = this.addPrefixAndSuffix(numberString, false);
+    }
+    else 
+    {
+      numberString = "-" + numberString;    
+    }
+  }
+  else 
+  {
+    if (this._pPrefix || this._pSuffix) 
+    {
+      numberString = this.addPrefixAndSuffix(numberString, true);
+    }    
+  }   
   
-  return numberString;
-  
+  return numberString;  
 }
 
 /**
- * Adds locale specific currency prefix and suffix to the number string
+ * Adds locale specific prefix and suffix to the number string
  */
-TrNumberFormat.prototype.addCurrencyPrefixAndSuffix = function(numberString, hasPositivePrefix)
+TrNumberFormat.prototype.addPrefixAndSuffix = function(numberString, hasPositivePrefix)
 {
   if(hasPositivePrefix)
   {
-    return this._pPre + numberString + this._pSuf;
+    return ((this._pPrefix)? this._pPrefix : '') + numberString + ((this._pSuffix)? this._pSuffix : '');
   }
   else
   {
-    return this._nPre + numberString + this._nSuf;
+    return ((this._nPrefix)? this._nPrefix : '') + numberString + ((this._nSuffix)? this._nSuffix : '');
   }
 }
 
@@ -451,18 +640,7 @@ TrNumberFormat.prototype.addCurrencyPrefixAndSuffix = function(numberString, has
  */
 TrNumberFormat.prototype.currencyToString = function(number)
 {
-  //negative ?
-  if(number<0)
-  {
-    number = (number*-1)+"";
-    number = this.numberToString(number);
-    return this.addCurrencyPrefixAndSuffix(number, false);
-  }
-  else
-  {
-    number = this.numberToString(number);
-    return this.addCurrencyPrefixAndSuffix(number, true);
-  }
+  return this.numberToString(number);
 }
 
 /**
@@ -476,8 +654,10 @@ TrNumberFormat.prototype.percentageToString = function(number)
   // have at most 2 fractional digits, regardless of the value of maxFractionDigits. 
   // Hence, if maxFractionDigits is set, don't call this method and let 
   // numberToString format the string appropriately. 
-  if (this._isMaxFractionDigitsSet == null)
+  if (this._isMaxFractionDigitsSet == null &&
+       !this.isRoundingModeSpecified())
     number = this.getRounded(number);
+    
   if (isNaN(number))
   {
     throw new TrParseException("not able to parse number");
@@ -490,13 +670,13 @@ TrNumberFormat.prototype.percentageToString = function(number)
   // should start by looking at _getPercentData() in:
   // maven-i18n-plugin\src\main\java\org\apache\myfaces\trinidadbuild\plugin\i18n\uixtools\JSLocaleElementsGenerator.java
   var suffix = this._localeSymbols.getPercentSuffix();
+  
   if (!suffix || suffix == "")
   {
     throw new TrParseException("percent suffix undefined or empty");
   }
   
-  number = this.numberToString(number);
-  return number + suffix;
+  return this.numberToString(number, suffix);
 }
 
 /**
@@ -654,6 +834,163 @@ TrNumberFormat.prototype.getZeros = function(places)
 //***********************
 
 /**
+ * Updates the locale symbols and Currency prefix and suffixes
+ * @param locale Locale object
+ * @param config Configuration object. 
+ *   Supported configuration paramters are:
+ *     1. TrNumberFormat.CURRENCY_CODE  The ISO 4217 currency code, applied when formatting currencies. 
+ *                                      This currency code will substitute the locale's default currency symbol 
+ *                                      for number formatting, provided type is set to 'currency'.
+ *                                      However the placement of the currencyCode is determined by the locale.
+ *     2. TrNumberFormat.CURRENCY_SYMBOL Currency symbol applied when formatting currencies.
+ *                                      If currency code is set then symbol will be ignored. 
+ *                                      This currency symbol will substitute the locale's default currency symbol for 
+ *                                      number formatting, provided type is set to 'currency'.
+ *                                      However the placement of the currencySymbol is determined by the locale.
+ *     3. TrNumberFormat.NEGATIVE_PREFIX negativePrefix Prefix for a negative number
+ *     4. TrNumberFormat.NEGATIVE_SUFFIX negativeSuffix Suffix for a negative number
+ */
+TrNumberFormat.prototype._updateLocaleAndSymbols = function(locale, config) 
+{
+  var currencyCode = (config)? config[TrNumberFormat.CURRENCY_CODE] : null;
+  var currencySymbol = (config)? config[TrNumberFormat.CURRENCY_SYMBOL] : null;
+  var negPrefix = (config)? config[TrNumberFormat.NEGATIVE_PREFIX] : null;
+  var negSuffix = (config)? config[TrNumberFormat.NEGATIVE_SUFFIX] : null;  
+  this._localeSymbols = getLocaleSymbols(locale);
+  
+  if (this._type=="percent" || this._type=="number") 
+  {
+    this._nPrefix = (negPrefix)? negPrefix : null;
+    this._nSuffix = (negSuffix)? negSuffix : null;         
+
+    // No support as yet for positive prefix/suffix on percent and number data
+    this._pPrefix = null;
+    this._pSuffix = null;    
+  }
+  else 
+  {
+    // assume _type=="currency"  
+    // We have some additional processing for currencies.
+    // 1. If negPrefix and/or negSuffix is specified, replace the non-currency formatting characters in 
+    //    the localized negative currency prefix and suffix string with negPrefix/negSuffix
+    //    Ex: If locale default negative currency prefix is '($ ' and negPrefix is '[', then resultant custom prefix
+    //        will be '[$ '. 
+    // 2. If custom currencyCode/CurrencySymbol is speified, then replace the currency symbol in the locale default 
+    //    +ve/-ve currency prefix/suffix with custom code/symbol.    
+
+    // Localized prefix and suffix format for positive currency data
+    // This will mostly contain just the currency symbol of the specified locale,
+    // however presence of additional formatting characters like + cannot be ruled out
+    // Customizing positive prefix/suffix is not supported, so we settle with the locale defaults
+    this._pPrefix = this._localeSymbols.getPositivePrefix();
+    this._pSuffix = this._localeSymbols.getPositiveSuffix();
+    
+    // Localized prefix and suffix format for negative currency data
+    // In addition to the currency symbol of the specified locale,
+    // the prefix and suffix can contain some additioanl formatting characters like (,),- 
+    nCurrencyPrefix = this._localeSymbols.getNegativePrefix();
+    nCurrencySuffix = this._localeSymbols.getNegativeSuffix();     
+    var localeDefaultCurSymb = this._localeSymbols.getCurrencySymbol();
+   
+    // Replace the formatting characters in 'nCurrencyPrefix' with negPrefix, leave the currency symbol alone
+    this._nPrefix = this._replaceFormattingPrefixAndSuffix(nCurrencyPrefix, localeDefaultCurSymb, negPrefix, true);
+
+    // Replace the formatting characters in 'nCurrencySuffix' with negSuffix, leave the currency symbol alone
+    this._nSuffix = this._replaceFormattingPrefixAndSuffix(nCurrencySuffix, localeDefaultCurSymb, negSuffix, false);
+
+    // If custom currency is supplied, override the locale default currency representation
+    if (currencyCode) 
+    {    
+      var localeDefaultCurCode = this._localeSymbols.getCurrencyCode();
+
+      // First check if the locale default currency code matches the custom currency code 
+      // If so, we want to retain the localized currency symbol
+      // Example: If locale is en_US and currency code is "INR", then we use INR as currency prefix/suffix (positioning 
+      // is determined by the formatting locale in_IN). So "INR 1,000.00" is okay
+      // But if the locale is in_IN, if the currency code is "INR", then we have the ability to display "Rs." prefix
+      // instead of generic INR prefix. So in this case we display "Rs. 1,000.00"
+      if (localeDefaultCurCode != currencyCode)
+      {
+        // if currencyCode is set we honour currency code.
+        // Replaces all occurrences of locale default currency symbol with currencyCode
+        this._replaceCurrencyPrefixAndSuffix(localeDefaultCurSymb, currencyCode);
+      }
+    } 
+    else if (currencySymbol) 
+    {
+      // if only currencySymbol is (currencyCode is null) set we honour currency symbol.
+      // Replaces all occurrences of locale default currency symbol with custom currencySymbol
+      this._replaceCurrencyPrefixAndSuffix(localeDefaultCurSymb, currencySymbol);
+    }   
+  }  
+}
+
+/**
+ * Replaces the locale default currency symbol in prefix/suffix with custom currency symbol 
+ */
+TrNumberFormat.prototype._replaceCurrencyPrefixAndSuffix = function(localeDefault, customCurrency) 
+{
+  this._pPrefix = this._pPrefix.replace(localeDefault, customCurrency);
+  this._pSuffix = this._pSuffix.replace(localeDefault, customCurrency);
+  this._nPrefix = this._nPrefix.replace(localeDefault, customCurrency);
+  this._nSuffix = this._nSuffix.replace(localeDefault, customCurrency);   
+}
+
+/**
+ * Replaces the locale specific formatting characters in the prefix/suffix with custom formatting, leaving the currency
+ * symbol intact.
+ * @param localePattern Locale specific currency prefix or suffix
+ * @param localeDefaultCurSymbol The currency symbol used in 'localePattern'
+ * @param customPattern The replacement for the locale specific formatting characters
+ * @param isPrefix true if localePattern is used as prefix, false if localePattern is a suffix
+ * @return The customized prefix/suffix string
+ */
+TrNumberFormat.prototype._replaceFormattingPrefixAndSuffix = function(
+  localePattern, 
+  localeDefaultCurSymb, 
+  customPattern, 
+  isPrefix) 
+{
+  var newPattern = localePattern;
+  
+  if (customPattern) 
+  {
+    // Spare the currency symbol while replacing the negative formatting characters
+    var curSymblIdx = localePattern.trim().indexOf(localeDefaultCurSymb);
+     
+    if (curSymblIdx == -1) 
+    {
+      // No currency symbol found in the localized currency prefix/suffix string
+      // Replace the locale pattern entirely with the custom pattern
+      newPattern = customPattern;
+    }
+    else 
+    {
+      // if the localized currency prefix/suffix string only has the currency symbol
+      if (localePattern.trim() == localeDefaultCurSymb)
+      {
+        // In case of prefix formatting: put the custom prefix before the currency symbol. Ex: '(' + 'Rs.'
+        // In case of suffix formatting: put the currency symbol before the custom prefix. Ex: 'Rs.' + ')'
+        newPattern = (isPrefix)? customPattern + localeDefaultCurSymb : localeDefaultCurSymb + customPattern;    
+      }
+      else if (curSymblIdx == 0)
+      {
+        // If currency code is located at the head of the localized prefix/suffix string
+        // we can safely assume that the formatting chars follow the currency symbol in the pattern
+        newPattern = localeDefaultCurSymb + customPattern;
+      }
+      else 
+      {
+        // we can safely assume that the formatting chars come before the currency symbol in the prefix
+        newPattern = customPattern + localeDefaultCurSymb;
+      }
+    }
+  }
+  
+  return newPattern;
+}
+
+/**
  * Formats the integer part of a number
  */
 TrNumberFormat.prototype._formatIntegers = function(ints)
@@ -702,7 +1039,9 @@ TrNumberFormat.prototype._formatFractions = function(fracs)
 
   if(fracsLength > maxFra && maxFra >= minFra)
   {
-    fracs = fracs.substring(0, maxFra);
+    // Do not attempt to truncate fractional digits if rounding is enabled
+    var fracsToRetain = (this.isRoundingModeSpecified())? fracsLength : maxFra;
+    fracs = fracs.substring(0, fracsToRetain);
   }
   if(fracsLength <minFra)
   {

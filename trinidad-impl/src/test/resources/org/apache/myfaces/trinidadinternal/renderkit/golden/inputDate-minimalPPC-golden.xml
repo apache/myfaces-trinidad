@@ -8,6 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -70,6 +71,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -130,6 +132,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -192,6 +195,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -236,73 +240,6 @@
           </tr>
         </table>
       </div>
-<!--AttributeTest[label,null]-->
-
-      <div
-           id="mainId__xc_"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class="af_inputDate"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_inputDate_label"
-                >
-              
-              <label
-                   for="mainId"
-                  >
-                test-label
-              </label>
-            </td>
-            <td
-                 class="AFContentCell"
-                 valign="top"
-                >
-              
-              <input
-                   class="af_inputDate_content"
-                   id="mainId"
-                   name="mainId"
-                   onblur="_dfb(this)"
-                   size="10"
-                   type="text"
-                  >
-                
-              </input>
-              <img
-                   alt=""
-                   height="1"
-                   width="8"
-                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                  >
-                
-              </img>
-              <div
-                  >
-                
-                <img
-                     alt=""
-                     height="0"
-                     width="1"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                    >
-                  
-                </img>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
 <!--AttributeTest[readOnly,false]-->
 
       <div
@@ -314,6 +251,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -376,6 +314,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -426,6 +365,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -488,6 +428,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -556,6 +497,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -618,6 +560,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -680,6 +623,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -748,6 +692,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -816,6 +761,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -884,6 +830,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -952,6 +899,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1014,6 +962,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              style="background-color:red"
              summary=""
              width="100%"
@@ -1077,6 +1026,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -1141,6 +1091,7 @@
              cellpadding="0"
              cellspacing="0"
              class="test-styleClass af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1203,6 +1154,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1265,6 +1217,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1328,6 +1281,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1391,6 +1345,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1454,6 +1409,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1517,6 +1473,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1580,6 +1537,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1643,6 +1601,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1706,6 +1665,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1769,6 +1729,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1832,6 +1793,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputDate"
+             role="presentation"
              summary=""
              width="100%"
             >

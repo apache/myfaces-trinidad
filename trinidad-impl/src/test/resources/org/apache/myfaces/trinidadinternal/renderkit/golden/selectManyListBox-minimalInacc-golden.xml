@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -58,6 +59,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -112,6 +114,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -165,6 +168,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -218,6 +222,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -271,6 +276,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -329,6 +335,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -382,6 +389,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -436,6 +444,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -489,6 +498,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -542,6 +552,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -577,6 +588,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -630,6 +642,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -689,6 +702,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -742,6 +756,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -795,6 +810,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -848,6 +864,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -907,6 +924,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -966,6 +984,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1025,6 +1044,7 @@
            cellspacing="0"
            class="af_selectManyListbox p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1084,6 +1104,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="test-id__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1137,6 +1158,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
           >
         
@@ -1191,6 +1213,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
            title="test-shortDesc"
           >
         
@@ -1246,6 +1269,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1300,6 +1324,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1354,6 +1379,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1408,6 +1434,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1462,6 +1489,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1516,6 +1544,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1570,6 +1599,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1624,6 +1654,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1678,6 +1709,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1732,6 +1764,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr
@@ -1786,6 +1819,7 @@
            cellspacing="0"
            class="af_selectManyListbox"
            id="mainId__xc_"
+           role="presentation"
           >
         
         <tr

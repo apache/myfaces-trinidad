@@ -8,17 +8,6 @@
           >
         LinkText
       </a>
-<!--AttributeTest[accessKey,i]-->
-
-      <a
-           class="OraLink"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           href="uri-attr:encoded-action-url:#"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        LinkText
-      </a>
 <!--AttributeTest[disabled,false]-->
 
       <a

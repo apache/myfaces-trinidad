@@ -59,4 +59,13 @@ public class BaseSkin extends SkinImpl
   public Map<String,String> getSkinFeatures(){
     return null;
   }
+
+  /**
+   * @return true, since this skin implementation is internal
+   */
+  @Override
+  public boolean isCacheable()
+  {
+    return true;
+  }
 }

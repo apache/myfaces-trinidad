@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_singleStepButtonBar"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -54,6 +55,7 @@
            cellspacing="0"
            class="af_singleStepButtonBar"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -108,6 +110,7 @@
            cellspacing="0"
            class="af_singleStepButtonBar"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -185,6 +188,7 @@
            cellspacing="0"
            class="af_singleStepButtonBar"
            id="test-id"
+           role="presentation"
            summary=""
           >
         

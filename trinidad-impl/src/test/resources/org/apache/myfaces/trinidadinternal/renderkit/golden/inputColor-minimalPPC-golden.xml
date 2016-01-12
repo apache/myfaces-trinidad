@@ -8,168 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_inputColor_label"
-                >
-              
-            </td>
-            <td
-                 class="AFContentCell"
-                 valign="top"
-                >
-              
-              <input
-                   class="af_inputColor_content"
-                   id="mainId"
-                   name="mainId"
-                   onblur="_fixCFF(this);"
-                   size="11"
-                   type="text"
-                  >
-                
-              </input>
-              <div
-                  >
-                
-                <img
-                     alt=""
-                     height="0"
-                     width="1"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                    >
-                  
-                </img>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-<!--AttributeTest[chooseId,null]-->
-
-      <div
-           id="mainId__xc_"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class="af_inputColor"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_inputColor_label"
-                >
-              
-            </td>
-            <td
-                 class="AFContentCell"
-                 valign="top"
-                >
-              
-              <input
-                   class="af_inputColor_content"
-                   id="mainId"
-                   name="mainId"
-                   onblur="_fixCFF(this);"
-                   size="11"
-                   type="text"
-                  >
-                
-              </input>
-              <div
-                  >
-                
-                <img
-                     alt=""
-                     height="0"
-                     width="1"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                    >
-                  
-                </img>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-<!--AttributeTest[compact,false]-->
-
-      <div
-           id="mainId__xc_"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class="af_inputColor"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_inputColor_label"
-                >
-              
-            </td>
-            <td
-                 class="AFContentCell"
-                 valign="top"
-                >
-              
-              <input
-                   class="af_inputColor_content"
-                   id="mainId"
-                   name="mainId"
-                   onblur="_fixCFF(this);"
-                   size="11"
-                   type="text"
-                  >
-                
-              </input>
-              <div
-                  >
-                
-                <img
-                     alt=""
-                     height="0"
-                     width="1"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                    >
-                  
-                </img>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-<!--AttributeTest[compact,true]-->
-
-      <div
-           id="mainId__xc_"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -224,6 +63,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -278,6 +118,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -333,6 +174,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -392,6 +234,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -446,6 +289,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -496,6 +340,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -550,6 +395,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -610,6 +456,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -664,6 +511,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -718,6 +566,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -778,6 +627,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -838,6 +688,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -898,6 +749,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -958,6 +810,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1012,6 +865,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              style="background-color:red"
              summary=""
              width="100%"
@@ -1067,6 +921,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -1123,6 +978,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1177,6 +1033,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1232,6 +1089,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1287,6 +1145,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1342,6 +1201,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1397,6 +1257,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1452,6 +1313,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1507,6 +1369,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1562,6 +1425,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_inputColor"
+             role="presentation"
              summary=""
              width="100%"
             >

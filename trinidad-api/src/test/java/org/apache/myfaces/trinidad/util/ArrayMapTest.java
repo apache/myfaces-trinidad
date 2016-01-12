@@ -43,4 +43,10 @@ public class ArrayMapTest extends org.apache.myfaces.trinidadbuild.test.MapTestC
   {
     return new ArrayMap<String, Object>();
   }
+
+  @Override
+  protected Map<LameKey, Object> createMapWithLameKey()
+  {
+    return new ArrayMap<LameKey, Object>();
+  }
 }

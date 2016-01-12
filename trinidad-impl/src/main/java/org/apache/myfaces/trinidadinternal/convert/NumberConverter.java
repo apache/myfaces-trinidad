@@ -41,8 +41,9 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
         bodyContent="empty",
         id="org.apache.myfaces.trinidad.Number",
         tagClass="org.apache.myfaces.trinidadinternal.taglib.convert.ConvertNumberTag")
-public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
-                   implements ClientConverter
+public class NumberConverter 
+  extends org.apache.myfaces.trinidad.convert.NumberConverter
+  implements ClientConverter
 {
   public NumberConverter()
   {
@@ -149,9 +150,18 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
     boolean formating = _formatingAttributesSet();
 
     if(formating)
-      params = new Object[12];
+    {
+      // order of parameters: 
+      // pattern, type, locale, messagesMap, isInt, isGrouped, CurrencyCode, CurrencySymbol,
+      // maxFractions, maxInts, minFractions, minInts, negPrefix, negSuffix, roundingMode  
+      params = new Object[15];
+    }
     else
+    {
+      // order of parameters: 
+      // pattern, type, locale, messagesMap
       params = new Object[4];
+    }
 
     // We call this since the pattern may contain the generic currency sign, which we don't 
     // want to display to the user.
@@ -161,8 +171,6 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
     params[2] = this.getLocale() != null ? this.getLocale().toString() : null;
     params[3] = messages;
     
-    //TODO we don't really need these attributes all the time,
-    //only if specified.
     if(formating)
     {
       params[4] = this.isIntegerOnly();
@@ -173,6 +181,9 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       params[9] = this.isMaximumIntegerDigitsSet() ? this.getMaxIntegerDigits() : null;
       params[10] = this.isMinimumFractionDigitsSet() ? this.getMinFractionDigits() : null;
       params[11] = this.isMinimumIntegerDigitsSet() ? this.getMinIntegerDigits() : null;
+      params[12] = this.isNegativePrefixSet() ? this.getNegativePrefix() : null;
+      params[13] = this.isNegativeSuffixSet() ? this.getNegativeSuffix() : null;
+      params[14] = this.isRoundingModeSet() ? this.getRoundingMode().toString() : null;
     }
 
     return params;
@@ -191,7 +202,10 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       this.isMaximumFractionDigitsSet() ||
       this.isMaximumIntegerDigitsSet() ||
       this.isMinimumFractionDigitsSet() ||
-      this.isMinimumIntegerDigitsSet());
+      this.isMinimumIntegerDigitsSet() ||
+      this.isNegativePrefixSet() ||
+      this.isNegativeSuffixSet() ||
+      this.isRoundingModeSet());
   }
   
   private String _getTrNumberConverter(

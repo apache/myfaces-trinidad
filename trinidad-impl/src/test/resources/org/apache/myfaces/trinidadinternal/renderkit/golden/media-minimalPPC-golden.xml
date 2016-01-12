@@ -5,22 +5,6 @@
           >
         
       </a>
-<!--AttributeTest[autostart,false]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[autostart,true]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
 <!--AttributeTest[contentType,null]-->
 
       <a
@@ -30,79 +14,7 @@
           >
         
       </a>
-<!--AttributeTest[controls,none]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[controls,noneVisible]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[controls,minimal]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
 <!--AttributeTest[controls,typical]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[controls,all]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[innerWidth,160,AttributeTest[width,190]]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[innerHeight,112,AttributeTest[height,130]]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[width,160]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[height,112]-->
-
-      <a
-           id="mainId"
-           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
-          >
-        
-      </a>
-<!--AttributeTest[player,real]-->
 
       <a
            id="mainId"

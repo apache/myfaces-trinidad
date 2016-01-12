@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
           >
         
         <tbody
@@ -109,6 +110,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
           >
         
         <tbody
@@ -213,6 +215,7 @@
            cellspacing="0"
            class="af_messages"
            id="id_val"
+           role="presentation"
           >
         
         <tbody
@@ -317,6 +320,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
            style="background-color:red"
           >
         
@@ -423,6 +427,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
           >
         
         <tbody
@@ -532,6 +537,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
           >
         
         <tbody
@@ -636,6 +642,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
            title="shortDesc_val"
           >
         
@@ -742,6 +749,7 @@
            cellspacing="0"
            class="styleClass_val af_messages"
            id="mainId"
+           role="presentation"
           >
         
         <tbody
@@ -847,6 +855,7 @@
            cellspacing="0"
            class="af_messages"
            id="mainId"
+           role="presentation"
           >
         
         <tbody

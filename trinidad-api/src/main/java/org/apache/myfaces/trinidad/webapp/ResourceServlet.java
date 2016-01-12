@@ -34,6 +34,9 @@ import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -88,9 +91,10 @@ import org.apache.myfaces.trinidad.util.URLUtils;
 public class ResourceServlet extends HttpServlet
 {
   /**
-   * 
-   */
-  private static final long serialVersionUID = 4547362994406585148L;
+     *
+     */
+    @SuppressWarnings("compatibility:8282627001212629976")
+    private static final long serialVersionUID = 4547362994406585148L;
   
   /**
    * Override of Servlet.destroy();
@@ -240,6 +244,14 @@ public class ResourceServlet extends HttpServlet
     connection.setDoInput(true);
     connection.setDoOutput(false);
 
+    //We need to do a connect here.  Some connections, like file connections and
+    //whatnot may have header information right away.  Other connections, like
+    //to external resources, will not have been able to connect until this is called.
+    //The reason this worked before is the getInputStream implicitly called the
+    //connect, but the header information which was returned would before the stream
+    //was obtained would not be avialble.
+    connection.connect();    
+ 
     _setHeaders(connection, response, loader);
 
     InputStream in = connection.getInputStream();
@@ -751,26 +763,59 @@ public class ResourceServlet extends HttpServlet
     }
     catch (IOException exception)
     {
-      lastModified = -1;
+      lastModified = 0;
     }
 
-    if (lastModified >= 0)
+    if (lastModified == 0)
       response.setDateHeader("Last-Modified", lastModified);
 
-    // If we're not in debug mode, set cache headers
-    if (!_debug)
+    //Handle cache controls.  So this is a bit complex and confusing.  If
+    //either of the cache headers are provide AND we are not in debug mode
+    //then we should set the cache to a default value.  This is to maintain
+    //backward compatibility.  If, however, the expiration or cache control
+    //headers are provided, we should just use those.
+    String cacheControl =  connection.getHeaderField("cache-control");
+    Long expires = connection.getExpiration();
+    
+    if (!_debug && null == cacheControl && 0 == expires)
     {
       // We set two headers: Cache-Control and Expires.
       // This combination lets browsers know that it is
       // okay to cache the resource indefinitely.
 
       // Set Cache-Control to "Public".
-      response.setHeader("Cache-Control", "Public");
-
-      // Set Expires to current time + one year.
-      long currentTime = System.currentTimeMillis();
-
-      response.setDateHeader("Expires", currentTime + ONE_YEAR_MILLIS);
+      cacheControl = "Public";
+      expires = System.currentTimeMillis() + ONE_YEAR_MILLIS;
+    }
+    
+    if(null != cacheControl)
+    {
+      response.setHeader("Cache-Control", cacheControl);
+    }
+    
+    if(0 != expires)
+    {
+      response.setDateHeader("Expires", expires);
+    }
+    
+    Map<String, List<String>> headerMap = connection.getHeaderFields();
+    if(null != headerMap) //There are some wonkey impl's out there, best to guard against null
+    {
+      //put additional headers
+      for(Map.Entry<String, List<String>> entry: connection.getHeaderFields().entrySet())
+      {
+        //We handled a number of headers above and there are others we might want
+        //to exclude.  We test for those headers here.
+        String key = entry.getKey();
+        if(Arrays.binarySearch(_INCLUDED_HEADERS, key.toLowerCase()) >= 0 && null != entry.getValue())
+        {
+          //Header is not excluded, add all the entries
+          for(String value:entry.getValue())
+          {
+            response.addHeader(key, value);
+          }
+        }
+      }
     }
   }
 
@@ -931,11 +976,58 @@ public class ResourceServlet extends HttpServlet
 
   // Size of buffer used to read in resource contents
   private static final int _BUFFER_SIZE = 2048;
-
+  
   private volatile boolean _debug;
   private volatile ConcurrentMap<String, ResourceLoader> _loaders;
   private volatile ConcurrentMap<String, Class<?>> _loaderErrors;
   private volatile FacesContextFactory _facesContextFactory;
   private volatile Lifecycle _lifecycle;
   private volatile ProjectStage _projectStage;
+
+  //There are only a handful of headers that this servlet supports being propigated
+  //to the server.  Headers must be included in this white-list in order to be sent
+  //over.  The reason we provide a white-list instead of a black-list is primarily 
+  //for security.
+  private static final String[] _INCLUDED_HEADERS;
+
+  static 
+  {
+    //Here are some notable headers that are missing from the list:
+    // "Content-Type"      - Set directly on the response
+    //  "Last-Modified"    - Sets directly on the response
+    //  "Cache-Control"    - This is added because the servlet sets its own
+    //  "Expires"          - This is addded because the servlet sets its own
+    //  "Server"           - This should reflect THIS server
+    //  "Set-Cookie"       - Cookies, right now, are not preserved in the client.  
+    //                       We are a proxy, we need better cookie handling.
+    //  "Status"           - Returned by the servlet container
+    //  "Via"              - Intentionally mask any proxying behind the firwall
+    //  "WWW-Authenticate" - This should be handled by this servlet
+    //  "Allow"            - Returned by this servlet    
+
+    String[] tempArray = new String[]
+    {
+      "age",
+      "content-language",
+      "content-location",
+      "content-md5",
+      "content-disposition",
+      "content-range",
+      "date",
+      "link",
+      "p3p",
+      "refresh",
+      "retry-after",
+      "strict-transport-security",
+      "trailer",
+//      "transfer-encoding",
+//      "vary",
+      "warning"
+    };
+          
+    //Ensure the items are in natural order so they can be binary searched.
+    Arrays.sort(tempArray);
+    
+    _INCLUDED_HEADERS = tempArray;
+  }
 }

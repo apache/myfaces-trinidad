@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -125,6 +126,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -245,6 +247,7 @@
            cellspacing="0"
            class="af_panelBox_medium"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -365,6 +368,7 @@
            cellspacing="0"
            class="af_panelBox_dark"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -485,6 +489,7 @@
            cellspacing="0"
            class="af_panelBox_transparent"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -605,6 +610,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -646,6 +652,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -757,6 +764,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -798,6 +806,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   role="presentation"
                    summary=""
                    width="100%"
                   >
@@ -903,6 +912,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -1024,6 +1034,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="test-id"
+           role="presentation"
            summary=""
           >
         
@@ -1144,6 +1155,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            style="test-inlineStyle"
            summary=""
           >
@@ -1267,6 +1279,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -1387,6 +1400,7 @@
            cellspacing="0"
            class="af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -1508,6 +1522,7 @@
            cellspacing="0"
            class="test-styleClass af_panelBox_light"
            id="mainId"
+           role="presentation"
            summary=""
           >
         
@@ -1629,6 +1644,7 @@
            class="af_panelBox_light"
            id="mainId"
            onclick="test-onclick"
+           role="presentation"
            summary=""
           >
         
@@ -1750,6 +1766,7 @@
            class="af_panelBox_light"
            id="mainId"
            ondblclick="test-ondblclick"
+           role="presentation"
            summary=""
           >
         
@@ -1871,6 +1888,7 @@
            class="af_panelBox_light"
            id="mainId"
            onkeydown="test-onkeydown"
+           role="presentation"
            summary=""
           >
         
@@ -1992,6 +2010,7 @@
            class="af_panelBox_light"
            id="mainId"
            onkeypress="test-onkeypress"
+           role="presentation"
            summary=""
           >
         
@@ -2113,6 +2132,7 @@
            class="af_panelBox_light"
            id="mainId"
            onkeyup="test-onkeyup"
+           role="presentation"
            summary=""
           >
         
@@ -2234,6 +2254,7 @@
            class="af_panelBox_light"
            id="mainId"
            onmousedown="test-onmousedown"
+           role="presentation"
            summary=""
           >
         
@@ -2355,6 +2376,7 @@
            class="af_panelBox_light"
            id="mainId"
            onmousemove="test-onmousemove"
+           role="presentation"
            summary=""
           >
         
@@ -2476,6 +2498,7 @@
            class="af_panelBox_light"
            id="mainId"
            onmouseout="test-onmouseout"
+           role="presentation"
            summary=""
           >
         
@@ -2597,6 +2620,7 @@
            class="af_panelBox_light"
            id="mainId"
            onmouseover="test-onmouseover"
+           role="presentation"
            summary=""
           >
         
@@ -2718,6 +2742,7 @@
            class="af_panelBox_light"
            id="mainId"
            onmouseup="test-onmouseup"
+           role="presentation"
            summary=""
           >
         

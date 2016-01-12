@@ -8,6 +8,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -31,6 +32,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -117,6 +119,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -435,6 +438,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -458,6 +462,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -544,6 +549,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -862,6 +868,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -885,6 +892,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -971,6 +979,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1290,6 +1299,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1313,6 +1323,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -1399,6 +1410,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1757,6 +1769,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1780,6 +1793,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -1866,6 +1880,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2184,6 +2199,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2207,6 +2223,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -2293,6 +2310,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2611,6 +2629,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -2634,6 +2653,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -2720,6 +2740,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3010,860 +3031,6 @@
                  class="af_column_cell-text OraTableBorder1111"
                  headers="mainId:separate-id"
                  style="test-inlineStyle"
-                >
-              5
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-        </table>
-        <script
-             type="text/javascript"
-            >
-          _uixt_mainId=new CollectionComponent('formId','mainId');
-        </script>
-        <input
-             name="mainId:rangeStart"
-             type="hidden"
-             value="0"
-            >
-          
-        </input>
-      </div>
-<!--AttributeTest[allDetailsEnabled,false]-->
-
-      <div
-           class="af_table"
-           id="mainId"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_table_control-bar-top"
-                >
-              
-              <div
-                   valign="middle"
-                  >
-                
-                <div
-                     id="mainId-nb"
-                    >
-                  
-                  <table
-                       border="0"
-                       cellpadding="0"
-                       cellspacing="0"
-                       summary=""
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <span
-                             class="OraNavBarInactiveLink"
-                            >
-                          Previous
-                        </span>
-                      </td>
-                      <td
-                          >
-                        &#160;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <select
-                             class="AFFieldText"
-                             id="mainId-nb__xc_c"
-                             onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                             onfocus="this._lastValue = this.selectedIndex"
-                             title="Select record set"
-                            >
-                          
-                          <option
-                               value="all"
-                              >
-                            Show All 6
-                          </option>
-                          <option
-                               selected="selected"
-                               value="1"
-                              >
-                            1-5 of 6
-                          </option>
-                          <option
-                               value="6"
-                              >
-                            6-6 of 6
-                          </option>
-                        </select>
-                        <script
-                             type="text/javascript"
-                            >
-                          _setSelectIndexById("mainId-nb__xc_c",1)
-                        </script>
-                      </td>
-                      <td
-                          >
-                        &#160;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <a
-                             class="OraNavBarActiveLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId',1,'6');return false"
-                             href="uri-attr:#"
-                            >
-                          Next 1
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table
-             border="1"
-             cellpadding="2"
-             cellspacing="0"
-             class="af_table_content"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <th
-                 class="af_column_header-text"
-                 id="_idXXX"
-                 nowrap="nowrap"
-                 style="word-break:keep-all"
-                 width="1%"
-                >
-              Details
-            </th>
-            <th
-                 class="af_column_sortable-header-text"
-                 id="mainId:test-id"
-                >
-              StringHeader&#160;
-              <a
-                   onclick="return _tableSort('formId',1,'mainId','string');"
-                   href="uri-attr:#"
-                  >
-                
-                <img
-                     align="middle"
-                     alt="Not sorted"
-                     border="0"
-                     height="7"
-                     title="Not sorted"
-                     width="16"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/oracle/msrt.gif"
-                    >
-                  
-                </img>
-              </a>
-            </th>
-            <th
-                 class="af_column_sortable-header-text"
-                 id="mainId:separate-id"
-                >
-              IntHeader&#160;
-              <a
-                   onclick="return _tableSort('formId',1,'mainId','int');"
-                   href="uri-attr:#"
-                  >
-                
-                <img
-                     align="middle"
-                     alt="Not sorted"
-                     border="0"
-                     height="7"
-                     title="Not sorted"
-                     width="16"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/oracle/msrt.gif"
-                    >
-                  
-                </img>
-              </a>
-            </th>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd0"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              First
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              1
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd1"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Second
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              2
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd2"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Three
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              3
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd3"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Four
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              4
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd4"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Five
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              5
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-        </table>
-        <script
-             type="text/javascript"
-            >
-          _uixt_mainId=new CollectionComponent('formId','mainId');
-        </script>
-        <input
-             name="mainId:rangeStart"
-             type="hidden"
-             value="0"
-            >
-          
-        </input>
-      </div>
-<!--AttributeTest[allDetailsEnabled,true]-->
-
-      <div
-           class="af_table"
-           id="mainId"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_table_control-bar-top"
-                >
-              
-              <div
-                   valign="middle"
-                  >
-                
-                <div
-                     id="mainId-nb"
-                    >
-                  
-                  <table
-                       border="0"
-                       cellpadding="0"
-                       cellspacing="0"
-                       summary=""
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <span
-                             class="OraNavBarInactiveLink"
-                            >
-                          Previous
-                        </span>
-                      </td>
-                      <td
-                          >
-                        &#160;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <select
-                             class="AFFieldText"
-                             id="mainId-nb__xc_c"
-                             onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                             onfocus="this._lastValue = this.selectedIndex"
-                             title="Select record set"
-                            >
-                          
-                          <option
-                               value="all"
-                              >
-                            Show All 6
-                          </option>
-                          <option
-                               selected="selected"
-                               value="1"
-                              >
-                            1-5 of 6
-                          </option>
-                          <option
-                               value="6"
-                              >
-                            6-6 of 6
-                          </option>
-                        </select>
-                        <script
-                             type="text/javascript"
-                            >
-                          _setSelectIndexById("mainId-nb__xc_c",1)
-                        </script>
-                      </td>
-                      <td
-                          >
-                        &#160;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <a
-                             class="OraNavBarActiveLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId',1,'6');return false"
-                             href="uri-attr:#"
-                            >
-                          Next 1
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table
-             border="1"
-             cellpadding="2"
-             cellspacing="0"
-             class="af_table_content"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <th
-                 class="af_column_header-text"
-                 id="_idXXX"
-                 nowrap="nowrap"
-                 style="word-break:keep-all"
-                 width="1%"
-                >
-              Details
-            </th>
-            <th
-                 class="af_column_sortable-header-text"
-                 id="mainId:test-id"
-                >
-              StringHeader&#160;
-              <a
-                   onclick="return _tableSort('formId',1,'mainId','string');"
-                   href="uri-attr:#"
-                  >
-                
-                <img
-                     align="middle"
-                     alt="Not sorted"
-                     border="0"
-                     height="7"
-                     title="Not sorted"
-                     width="16"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/oracle/msrt.gif"
-                    >
-                  
-                </img>
-              </a>
-            </th>
-            <th
-                 class="af_column_sortable-header-text"
-                 id="mainId:separate-id"
-                >
-              IntHeader&#160;
-              <a
-                   onclick="return _tableSort('formId',1,'mainId','int');"
-                   href="uri-attr:#"
-                  >
-                
-                <img
-                     align="middle"
-                     alt="Not sorted"
-                     border="0"
-                     height="7"
-                     title="Not sorted"
-                     width="16"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/oracle/msrt.gif"
-                    >
-                  
-                </img>
-              </a>
-            </th>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd0"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              First
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              1
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd1"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Second
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              2
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd2"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Three
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              3
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd3"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Four
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              4
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd4"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Five
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
                 >
               5
               <div
@@ -3897,6 +3064,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -3920,6 +3088,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -4006,6 +3175,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -4419,6 +3589,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -4442,6 +3613,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -4528,6 +3700,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -4846,6 +4019,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -4869,6 +4043,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -4955,6 +4130,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -5273,6 +4449,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -5296,6 +4473,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -5382,6 +4560,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -5700,6 +4879,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -5723,6 +4903,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -5809,6 +4990,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -6127,6 +5309,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -6150,6 +5333,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -6236,6 +5420,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -6554,6 +5739,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -6577,6 +5763,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -6663,6 +5850,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -6947,433 +6135,6 @@
             </td>
             <td
                  class="af_column_cell-text OraTableBorder0100"
-                 headers="mainId:separate-id"
-                >
-              5
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-        </table>
-        <script
-             type="text/javascript"
-            >
-          _uixt_mainId=new CollectionComponent('formId','mainId');
-        </script>
-        <input
-             name="mainId:rangeStart"
-             type="hidden"
-             value="0"
-            >
-          
-        </input>
-      </div>
-<!--AttributeTest[summary,testTableSummary]-->
-
-      <div
-           class="af_table"
-           id="mainId"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_table_control-bar-top"
-                >
-              
-              <div
-                   valign="middle"
-                  >
-                
-                <div
-                     id="mainId-nb"
-                    >
-                  
-                  <table
-                       border="0"
-                       cellpadding="0"
-                       cellspacing="0"
-                       summary=""
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <span
-                             class="OraNavBarInactiveLink"
-                            >
-                          Previous
-                        </span>
-                      </td>
-                      <td
-                          >
-                        &#160;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <select
-                             class="AFFieldText"
-                             id="mainId-nb__xc_c"
-                             onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                             onfocus="this._lastValue = this.selectedIndex"
-                             title="Select record set"
-                            >
-                          
-                          <option
-                               value="all"
-                              >
-                            Show All 6
-                          </option>
-                          <option
-                               selected="selected"
-                               value="1"
-                              >
-                            1-5 of 6
-                          </option>
-                          <option
-                               value="6"
-                              >
-                            6-6 of 6
-                          </option>
-                        </select>
-                        <script
-                             type="text/javascript"
-                            >
-                          _setSelectIndexById("mainId-nb__xc_c",1)
-                        </script>
-                      </td>
-                      <td
-                          >
-                        &#160;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <a
-                             class="OraNavBarActiveLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId',1,'6');return false"
-                             href="uri-attr:#"
-                            >
-                          Next 1
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table
-             border="1"
-             cellpadding="2"
-             cellspacing="0"
-             class="af_table_content"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <th
-                 class="af_column_header-text"
-                 id="_idXXX"
-                 nowrap="nowrap"
-                 style="word-break:keep-all"
-                 width="1%"
-                >
-              Details
-            </th>
-            <th
-                 class="af_column_sortable-header-text"
-                 id="mainId:test-id"
-                >
-              StringHeader&#160;
-              <a
-                   onclick="return _tableSort('formId',1,'mainId','string');"
-                   href="uri-attr:#"
-                  >
-                
-                <img
-                     align="middle"
-                     alt="Not sorted"
-                     border="0"
-                     height="7"
-                     title="Not sorted"
-                     width="16"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/oracle/msrt.gif"
-                    >
-                  
-                </img>
-              </a>
-            </th>
-            <th
-                 class="af_column_sortable-header-text"
-                 id="mainId:separate-id"
-                >
-              IntHeader&#160;
-              <a
-                   onclick="return _tableSort('formId',1,'mainId','int');"
-                   href="uri-attr:#"
-                  >
-                
-                <img
-                     align="middle"
-                     alt="Not sorted"
-                     border="0"
-                     height="7"
-                     title="Not sorted"
-                     width="16"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/oracle/msrt.gif"
-                    >
-                  
-                </img>
-              </a>
-            </th>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd0"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              First
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              1
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd1"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Second
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              2
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd2"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Three
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              3
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd3"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Four
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:separate-id"
-                >
-              4
-              <div
-                  >
-                
-              </div>Introduced for separateRows attribute check
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="_idXXX"
-                 nowrap="nowrap"
-                >
-              
-              <div
-                  >
-                
-                <a
-                     class="OraLink af_showDetail_disclosure-icon-link"
-                     id="mainIddd4"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                     href="uri-attr:#"
-                    >
-                  
-                </a>
-                <a
-                     class="OraLink af_showDetail_prompt-link"
-                     onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                     href="uri-attr:#"
-                    >
-                  Show
-                </a>
-              </div>
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
-                 headers="mainId:test-id"
-                >
-              Five
-            </td>
-            <td
-                 class="af_column_cell-text OraTableBorder1111"
                  headers="mainId:separate-id"
                 >
               5
@@ -7408,6 +6169,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="70%"
             >
@@ -7431,6 +6193,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -7517,6 +6280,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="70%"
             >
@@ -7835,6 +6599,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -7858,6 +6623,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -7944,6 +6710,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -8262,6 +7029,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -8285,6 +7053,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -8371,6 +7140,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >

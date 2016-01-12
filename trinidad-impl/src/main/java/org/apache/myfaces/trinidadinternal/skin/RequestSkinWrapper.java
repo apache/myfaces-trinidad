@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
+import org.apache.myfaces.trinidad.util.ToStringHelper;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -90,8 +91,9 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
   }
 
   /**
-   * Returns the Skin that is wrapped by this request-specific
-   * wrapper skin.
+   * Returns the Skin that is wrapped by this request-specific wrapper skin.
+   * Note that in order to avoid infinite call loop the implementation of getWrappedSkin() in this 
+   * class or sub classes should not call toString().
    */
   public Skin getWrappedSkin()
   {
@@ -341,6 +343,20 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
   public void setDirty(boolean dirty)
   {
     _skin.setDirty(dirty);
+  }
+
+  /**
+   * @inheritDoc
+   * Note that in order to avoid infinite call loop the implementation of getWrappedSkin() in this 
+   * class or its sub classes should  not call toString().
+   */
+  @Override
+  public String toString()
+  {
+    return 
+      new ToStringHelper(this).
+      append("wrappedSkin", getWrappedSkin()).
+      toString();
   }
 
   // Returns request-specific map of icon names to Icons

@@ -32,7 +32,10 @@ function TrNumberConverter(
   maxFractionDigits,
   maxIntegerDigits,
   minFractionDigits,
-  minIntegerDigits)
+  minIntegerDigits,
+  negativePrefix,
+  negativeSuffix,
+  roundingMode)
 {
   this._pattern = pattern;
   this._type = type;
@@ -44,7 +47,10 @@ function TrNumberConverter(
   this._maxIntegerDigits = maxIntegerDigits;
   this._minFractionDigits = minFractionDigits;
   this._minIntegerDigits = minIntegerDigits;
-  
+  this._negativePrefix = negativePrefix;
+  this._negativeSuffix = negativeSuffix;
+  this._roundingMode = roundingMode;
+
   //set the integerOnly value
   if(integerOnly !== undefined)
     this._integerOnly = integerOnly;
@@ -58,11 +64,19 @@ function TrNumberConverter(
     this._groupingUsed = true;
     
   //init the TrNumberFormat
-  this._initNumberFormat(locale);
+  this._initNumberFormat(locale, currencyCode, currencySymbol, negativePrefix, negativeSuffix);
   
   // for debugging
   this._class = "TrNumberConverter";
-
+  
+  TrNumberConverter.ROUND_UP =           "UP";
+  TrNumberConverter.ROUND_DOWN =         "DOWN";
+  TrNumberConverter.ROUND_CEILING =      "CEILING";
+  TrNumberConverter.ROUND_FLOOR =        "FLOOR";
+  TrNumberConverter.ROUND_HALF_UP =      "HALF_UP";
+  TrNumberConverter.ROUND_HALF_DOWN =    "HALF_DOWN";
+  TrNumberConverter.ROUND_HALF_EVEN =    "HALF_EVEN";
+  TrNumberConverter.ROUND_UNNECESSARY =  "UNNECESSARY";
 }
 
 TrNumberConverter.prototype = new TrConverter();
@@ -124,6 +138,26 @@ TrNumberConverter.prototype.getMinIntegerDigits = function()
   return this._minIntegerDigits;
 }
 
+TrNumberConverter.prototype.setNegativePrefix = function(negPrefix) 
+{
+  this._negativePrefix = negPrefix;    
+}
+
+TrNumberConverter.prototype.getNegativePrefix = function() 
+{
+  return this._negativePrefix;    
+}
+
+TrNumberConverter.prototype.setNegativeSuffix = function(negSuffix) 
+{
+  this._negativeSuffix = negSuffix;    
+}
+
+TrNumberConverter.prototype.getNegativeSuffix = function() 
+{
+  return this._negativeSuffix;    
+}
+
 TrNumberConverter.prototype.setGroupingUsed = function(groupingUsed)
 {
   this._groupingUsed = groupingUsed;
@@ -140,6 +174,20 @@ TrNumberConverter.prototype.setIntegerOnly = function(integerOnly)
 TrNumberConverter.prototype.isIntegerOnly = function()
 {
   return this._integerOnly;
+}
+
+TrNumberConverter.prototype.setRoundingMode = function(roundingMode)
+{
+  this._roundingMode = roundingMode;
+}
+TrNumberConverter.prototype.getRoundingMode = function()
+{
+  return this._roundingMode;
+}
+TrNumberConverter.prototype.isJSDefaultRoundingMode = function()
+{
+  // JavaScript using HALF_UP rounding mode
+  return this._roundingMode == TrNumberConverter.ROUND_HALF_UP;
 }
 
 TrNumberConverter.prototype.getFormatHint = function()
@@ -177,21 +225,7 @@ TrNumberConverter.prototype.getAsString = function(
   {
     if(this._type=="percent" || this._type=="currency")
     {
-      var string = this._numberFormat.format(number);
-      if(this._type=="currency")
-      {
-        //In Trinidad the currencyCode gets preference over currencySymbol
-        //this is similar on the server-side
-        if(this._currencyCode)
-        {
-          string = string.replace(getLocaleSymbols().getCurrencyCode(), this._currencyCode);
-        }
-        else if(this._currencySymbol)
-        {
-          string = string.replace(getLocaleSymbols().getCurrencySymbol(), this._currencySymbol);
-        }
-      }
-      return string;
+      return this._numberFormat.format(number);
     }
     else
     {
@@ -201,7 +235,10 @@ TrNumberConverter.prototype.getAsString = function(
       }
       else
       {
-        return this._numberFormat.format(parseFloat(number.toFixed(this._numberFormat.getMaximumFractionDigits())));
+        // The default rounding mode in JS is HALF-UP. 
+        // If a rounding mode other than HALF-UP is specified, do not attempt to format the number
+        var fmtNumber = (false)? number.toFixed(this._numberFormat.getMaximumFractionDigits()) : number;
+        return this._numberFormat.format(parseFloat(fmtNumber));
       }
     }
   }
@@ -237,20 +274,19 @@ TrNumberConverter.prototype.getAsObject = function(
     var parsedValue;
     var localeSymbols = getLocaleSymbols(this._locale);
     var isPosNum = false;
-    var processCurrency = (this._type == "currency" && this._numberFormat.hasCurrencyPrefixAndSuffix(numberString));
+    var hasPrefixOrSuffix = this._numberFormat.hasPrefixOrSuffix(numberString);
 
     try
     {
-      // remove and preserve the currency prefix and suffix if one exists
-      // this is done to avoid any corruption of prefix and suffix while performing
-      // other string replacement operations that follows.
-      if (processCurrency)
+      if (hasPrefixOrSuffix)
       {
-        var arr = this._numberFormat.removeCurrencyPrefixAndSuffix(numberString);
+        // Let the formatter remove and preserve the prefix and suffix if one exists
+        // this is done to avoid any corruption of prefix and suffix while performing
+        // other string replacement operations that follows.
+        var arr = this._numberFormat.removePrefixAndSuffix(numberString);
         numberString = arr[0];
         isPosNum = arr[1];
       }
-
 
       // TODO matzew - see TRINIDAD-682
       // Remove the thousands separator - which Javascript doesn't want to see
@@ -271,10 +307,10 @@ TrNumberConverter.prototype.getAsObject = function(
       var decimal = new RegExp("\\" + decimalSeparator, "g");
       numberString = numberString.replace(decimal, ".");
 
-      // put the prefix and suffix back for currency if required
-      if (processCurrency)
+      // put the prefix and suffix back 
+      if (hasPrefixOrSuffix)
       {
-        numberString = this._numberFormat.addCurrencyPrefixAndSuffix(numberString, isPosNum);
+        numberString = this._numberFormat.addPrefixAndSuffix(numberString, isPosNum);
       }
 
       // parse the numberString
@@ -327,7 +363,10 @@ TrNumberConverter.prototype.getAsObject = function(
                          label,
                          !this.isIntegerOnly());
 
-    parsedValue = parseFloat(parsedValue.toFixed(this._numberFormat.getMaximumFractionDigits()));
+    // The default rounding mode in JS is HALF-UP. 
+    // If a rounding mode other than HALF-UP is specified, do not attempt to format the number
+    var fmtNumber = (this.isJSDefaultRoundingMode())? parsedValue.toFixed(this._numberFormat.getMaximumFractionDigits()) : parsedValue; 
+    parsedValue = parseFloat(fmtNumber);
 
     if(this._type=="percent")
     {
@@ -362,27 +401,49 @@ TrNumberConverter.prototype._isConvertible = function(numberString)
 
 /**
  * runs the creation of the used TrNumberFormat class
+ * @param locale Locale object
+ * @param currencyCode The ISO 4217 currency code, applied when formatting currencies. 
+ * This currency code will substitute the locale's default currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencyCode is strictly determined by the locale.
+ * @param currencySymbol Currency symbol applied when formatting currencies.
+ * If currency code is set then symbol will be ignored. This currency sybmol will substitute the locale's default 
+ * currency symbol for number formatting, provided type is set to 'currency'.
+ * However the placement of the currencySymbol is determined by the locale.
+ * @param negativePrefix Prefix to be used while formatting negative numbers
+ * @param negativeSuffix Suffix to be used while formatting negative numbers
  */
-TrNumberConverter.prototype._initNumberFormat = function(locale)
+TrNumberConverter.prototype._initNumberFormat = function(
+  locale, 
+  currencyCode, 
+  currencySymbol,
+  negativePrefix,
+  negativeSuffix)
 {
+  var numberFormatConfig = { 
+      "currencyCode":   currencyCode,
+      "currencySymbol": currencySymbol,
+      "negativePrefix": negativePrefix,
+      "negativeSuffix": negativeSuffix,
+      "isGroupingUsed": this.isGroupingUsed(),
+      "maxFractionDigits": this.getMaxFractionDigits(),
+      "maxIntegerDigits": this.getMaxIntegerDigits(),
+      "minFractionDigits": this.getMinFractionDigits(),
+      "minIntegerDigits": this.getMinIntegerDigits(),
+      "roundingMode": this.getRoundingMode()
+    };
+                      
   if(this._type=="percent")
   {
     this._example = 0.3423;
-    this._numberFormat = TrNumberFormat.getPercentInstance(locale);
+    this._numberFormat = TrNumberFormat.getPercentInstance(locale, numberFormatConfig);
   }
   else if(this._type=="currency")
   {
     this._example = 10250;
-    this._numberFormat = TrNumberFormat.getCurrencyInstance(locale);
+    this._numberFormat = TrNumberFormat.getCurrencyInstance(locale, numberFormatConfig);
   }
   else if(this._type=="number")
   {
-  	this._numberFormat = TrNumberFormat.getNumberInstance(locale);
+    this._numberFormat = TrNumberFormat.getNumberInstance(locale, numberFormatConfig);
   }
-
-  this._numberFormat.setGroupingUsed(this.isGroupingUsed());
-  this._numberFormat.setMaximumFractionDigits(this.getMaxFractionDigits());
-  this._numberFormat.setMaximumIntegerDigits(this.getMaxIntegerDigits());
-  this._numberFormat.setMinimumFractionDigits(this.getMinFractionDigits());
-  this._numberFormat.setMinimumIntegerDigits(this.getMinIntegerDigits());
 }

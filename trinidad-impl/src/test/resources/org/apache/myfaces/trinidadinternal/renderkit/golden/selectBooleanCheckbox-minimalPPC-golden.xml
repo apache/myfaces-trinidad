@@ -8,63 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
-             summary=""
-             width="100%"
-            >
-          
-          <tr
-              >
-            
-            <td
-                 class="af_selectBooleanCheckbox_label"
-                >
-              
-            </td>
-            <td
-                 class="AFContentCell"
-                 valign="top"
-                >
-              
-              <span
-                   class="af_selectBooleanCheckbox_content"
-                  >
-                
-                <input
-                     id="mainId"
-                     name="mainId"
-                     type="checkbox"
-                     value="t"
-                    >
-                  
-                </input>
-              </span>
-              <div
-                  >
-                
-                <img
-                     alt=""
-                     height="0"
-                     width="1"
-                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                    >
-                  
-                </img>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-<!--AttributeTest[accessKey,a]-->
-
-      <div
-           id="mainId__xc_"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -122,6 +66,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -179,6 +124,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -242,6 +188,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -300,6 +247,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -357,6 +305,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox p_AFDisabled"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -415,6 +364,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -477,6 +427,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -534,6 +485,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox p_AFReadOnly"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -593,6 +545,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -650,6 +603,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -713,6 +667,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -770,6 +725,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -828,6 +784,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -890,6 +847,7 @@
              cellpadding="0"
              cellspacing="0"
              class="test-styleClass af_selectBooleanCheckbox"
+             role="presentation"
              style="color:red"
              summary=""
              width="100%"
@@ -953,6 +911,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1010,6 +969,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox p_AFRequired"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1073,6 +1033,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1130,6 +1091,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              title="test-shortDesc"
              width="100%"
@@ -1189,6 +1151,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1247,6 +1210,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1305,6 +1269,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1363,6 +1328,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1421,6 +1387,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1479,6 +1446,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1537,6 +1505,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1595,6 +1564,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1653,6 +1623,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1711,6 +1682,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1769,6 +1741,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1827,6 +1800,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -1885,6 +1859,7 @@
              cellpadding="0"
              cellspacing="0"
              class="af_selectBooleanCheckbox"
+             role="presentation"
              summary=""
              width="100%"
             >

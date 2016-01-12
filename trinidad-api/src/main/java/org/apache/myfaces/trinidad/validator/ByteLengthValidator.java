@@ -50,7 +50,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * the value of the corresponding component for its byte length for the set
  * character encoding. The following algorithm is implemented:</p>
  * <ul>
- * <li>If the passed value is <code>null</code>, exit immediately.</li>
+ * <li>If the passed value is <code>null</code> or empty string, exit immediately.</li>
  * <li>If the current component value is not of String type throw
  *      IllegalArgumentException
  * <li>If both <code>encoding</code> and <code>maximum</code> property
@@ -231,29 +231,29 @@ public class ByteLengthValidator  implements StateHolder, Validator
     
     if ((context == null) || (component == null))
     {
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
+      throw new NullPointerException(_LOG.getMessage("NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
     if (value != null)
     {
-      ValidatorUtils.assertIsString(value,
-                                    "'value' is not of type java.lang.String.");
+      ValidatorUtils.assertIsString(value, "'value' is not of type java.lang.String.");
       String theValue  = (String)value;
+      
+      // Skip checking byte length on empty field values for optimization
+      if (theValue.isEmpty())
+        return;
 
       int maxBytes = getMaximum();
       try
       {
         byte[] bytes = theValue.getBytes(getEncoding());
+          
         if (bytes.length > maxBytes)
-          throw new ValidatorException(
-            getLengthValidationFailureMessage(context, component, theValue));
-
+          throw new ValidatorException(getLengthValidationFailureMessage(context, component, theValue));
       }
       catch (UnsupportedEncodingException uee)
       {
-        throw new IllegalCharsetNameException(_LOG.getMessage(
-          "ENCODING_NOT_SUPPORTED_BY_JVM", getEncoding()));
+        throw new IllegalCharsetNameException(_LOG.getMessage("ENCODING_NOT_SUPPORTED_BY_JVM", getEncoding()));
       }
     }
   }

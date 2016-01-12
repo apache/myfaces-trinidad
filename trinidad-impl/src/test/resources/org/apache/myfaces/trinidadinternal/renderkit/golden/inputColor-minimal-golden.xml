@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -81,6 +82,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -145,6 +147,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -221,6 +224,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -286,6 +290,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -362,6 +367,7 @@
            cellspacing="0"
            class="af_inputColor p_AFDisabled"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -421,6 +427,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -502,6 +509,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -578,6 +586,7 @@
            cellspacing="0"
            class="af_inputColor p_AFReadOnly"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -632,6 +641,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -708,6 +718,7 @@
            cellspacing="0"
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -790,6 +801,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -866,6 +878,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -942,6 +955,7 @@
            cellspacing="0"
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1024,6 +1038,7 @@
            cellspacing="0"
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1106,6 +1121,7 @@
            cellspacing="0"
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1188,6 +1204,7 @@
            cellspacing="0"
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1270,6 +1287,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="test-id__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1346,6 +1364,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            style="background-color:red"
            summary=""
           >
@@ -1423,6 +1442,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
            title="test-shortDesc"
           >
@@ -1507,6 +1527,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1583,6 +1604,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1660,6 +1682,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1737,6 +1760,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1814,6 +1838,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1891,6 +1916,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -1968,6 +1994,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2045,6 +2072,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         
@@ -2122,6 +2150,7 @@
            cellspacing="0"
            class="af_inputColor"
            id="mainId__xc_"
+           role="presentation"
            summary=""
           >
         

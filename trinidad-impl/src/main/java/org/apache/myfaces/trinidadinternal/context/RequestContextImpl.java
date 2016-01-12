@@ -22,9 +22,9 @@ import java.awt.Color;
 
 import java.io.Serializable;
 
-import java.util.ArrayDeque;
 import java.math.RoundingMode;
 
+import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -138,8 +138,6 @@ public class RequestContextImpl extends RequestContext
                                             dialogIsInaccessible);
   }
 
-
-
   /**
    * Launch a dialog.
    * @todo Don't save parameters for state-saving, page-flow scope, etc.
@@ -179,13 +177,13 @@ public class RequestContextImpl extends RequestContext
   {
     return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_DISK_SPACE_KEY);
   }
-  
+
   @Override
   public Long getUploadedFileMaxFileSize()
   {
     return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_FILE_SIZE_KEY);
   }
-  
+
   @Override
   public Long getUploadedFileMaxChunkSize()
   {
@@ -291,12 +289,12 @@ public class RequestContextImpl extends RequestContext
   {
     return (String) _bean.getProperty(RequestContextBean.SKIN_FAMILY_KEY);
   }
-  
+
   @Override
   public String getSkinVersion()
   {
     return (String) _bean.getProperty(RequestContextBean.SKIN_VERSION_KEY);
-  } 
+  }
 
   @Override
   public Accessibility getAccessibilityMode()

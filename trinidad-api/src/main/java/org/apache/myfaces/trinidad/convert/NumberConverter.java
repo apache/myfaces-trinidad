@@ -120,7 +120,8 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * <p>
  */
 @JSFConverter(configExcluded=true)
-public class NumberConverter extends javax.faces.convert.NumberConverter
+public class NumberConverter 
+  extends javax.faces.convert.NumberConverter
 {
 
   /**
@@ -206,6 +207,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     String pattern = getPattern();
     String type = getType();
+    int typeIdx = _getType(pattern, type);
 
     if (null == pattern && null == type)
     {
@@ -219,8 +221,21 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
     
     DecimalFormat df = (DecimalFormat)fmt;
+    if(typeIdx == _CURRENCY_TYPE)
+    {
+      // Setup custom currency code/symbol if any
+      _setCurrencyFormattingProperties(reqCtx, fmt);
+    }
+      
+    _setFormatProperties(fmt, typeIdx, reqCtx);
     df.setParseBigDecimal(true); // TODO What does this do?
     DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+    
+    if("currency".equals(type))
+    {
+      // Setup custom currency code/symbol if any
+      _setCurrencyFormattingProperties(reqCtx, fmt);
+    }
     
     // We change the grouping_separator b/c TRINIDAD-849
     // source is this JDK bug: 4510618.
@@ -246,7 +261,6 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     Number num = (Number)fmt.parseObject(value, pp);   
     
     // The following determines whether the percent/currency symbol was left off.
-    int typeIdx = _getType(pattern, type);
     if (num == null && (typeIdx == _CURRENCY_TYPE || typeIdx == _PERCENT_TYPE))
     {
       // For parsing 'value' as a Number when the percent/currency symbol is left off.
@@ -383,15 +397,14 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     RequestContext reqCtx = RequestContext.getCurrentInstance();
     Locale locale  = _getLocale(reqCtx, context);
-
     NumberFormat formatter = _getNumberFormat(pattern, type, locale, reqCtx);
+    int typeIndx = _getType(pattern, type);
 
-    _setFormatProperties(formatter, reqCtx);
-
-    if("currency".equals(type))
+    if(typeIndx == _CURRENCY_TYPE)
     {
       _setCurrencyFormattingProperties(reqCtx, formatter);
     }
+    _setFormatProperties(formatter, typeIndx, reqCtx);
 
     return formatter.format(value);
   }
@@ -772,6 +785,52 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     return (roundingMode != null ? (RoundingMode) roundingMode : null);
   }
 
+  /**
+   * Sets the negative prefix on the converter. The negative prefix set using this method will override the negative 
+   * prefix pattern, if any, specified through {@link #setPattern(String)} or any other means. 
+   * @param negPrefix Prefix to be applied on negative number
+   */
+  public void setNegativePrefix(String negPrefix)
+  {
+    _facesBean.setProperty(_NEGATIVE_PREFIX_KEY, negPrefix);
+  }
+  
+  /**
+   * Gets the negative prefix that is applied on the number. 
+   * Will return the prefix or null if no negative prefix is specified via {@link #setNegativePrefix(String)}.
+   * Negative prefix specified using negative pattern string has no affect on this method. 
+   * @return The prefix as set using {@link #setNegativePrefix(String)} or null
+   */
+  @JSFProperty
+  public String getNegativePrefix()
+  {
+    Object negPrefix = _facesBean.getProperty(_NEGATIVE_PREFIX_KEY);
+    return ComponentUtils.resolveString(negPrefix, true);
+  }
+  
+  /**
+   * Sets the negative suffix on the converter. The negative suffix set using this method will override the negative 
+   * suffix pattern, if any, specified through {@link #setPattern(String)} or any other means. 
+   * @param negSuffix Suffix to be applied on negative number
+   */
+  public void setNegativeSuffix(String negSuffix)
+  {
+    _facesBean.setProperty(_NEGATIVE_SUFFIX_KEY, negSuffix);
+  }
+  
+  /**
+   * Gets the negative suffix that is applied on the number. 
+   * Will return the suffix or null if no negative suffix is specified via {@link #setNegativeSuffix(String)}.
+   * Negative suffix specified using negative pattern string has no affect on this method. 
+   * @return The suffix as set using {@link #setNegativeSuffix(String)} or null
+   */
+  @JSFProperty
+  public String getNegativeSuffix()
+  {
+    Object negSuffix = _facesBean.getProperty(_NEGATIVE_SUFFIX_KEY);
+    return ComponentUtils.resolveString(negSuffix, true);
+  }
+        
   @Override
   public void setPattern(String pattern)
   {
@@ -888,6 +947,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     result = result * 37 + (isGroupingUsed() ? 1: 0);
     result = result * 37 + (isIntegerOnly()? 1: 0);
     result = result * 37 + (isTransient() ? 1: 0);
+    result = result * 37 + _getHashValue(getNegativePrefix());
+    result = result * 37 + _getHashValue(getNegativeSuffix());
     result = result * 37 + _getHashValue(getMessageDetailConvertPattern());
     result = result * 37 + _getHashValue(getMessageDetailConvertNumber());
     result = result * 37 + _getHashValue(getMessageDetailConvertCurrency());
@@ -922,6 +983,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         ConverterUtils.equals(getLocale(), nConv.getLocale()) &&
         ConverterUtils.equals(getCurrencyCode(), nConv.getCurrencyCode()) &&
         ConverterUtils.equals(getCurrencySymbol(), nConv.getCurrencySymbol()) &&
+        ConverterUtils.equals(getNegativePrefix(), nConv.getNegativePrefix()) &&
+        ConverterUtils.equals(getNegativeSuffix(), nConv.getNegativeSuffix()) &&
         ConverterUtils.equals(getPattern(), nConv.getPattern()) &&
         ConverterUtils.equals(getMessageDetailConvertPattern(),
                               nConv.getMessageDetailConvertPattern()) &&
@@ -1141,8 +1204,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
    // Configure the specified NumberFormat  based on the
    // formatting properties that have been set.
-  private void _setFormatProperties(NumberFormat formatter, RequestContext reqCtx) {
-
+  private void _setFormatProperties(NumberFormat formatter, int typeIdx, RequestContext reqCtx)
+  {
     formatter.setGroupingUsed(isGroupingUsed());
 
     if (isMaximumFractionDigitsSet())
@@ -1164,6 +1227,61 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     {
       formatter.setMinimumIntegerDigits(getMinIntegerDigits());
     }
+    
+    if (formatter instanceof DecimalFormat) 
+    {
+      DecimalFormat dFormatter = ((DecimalFormat)formatter);
+      
+      if (isNegativePrefixSet()) 
+      {
+        String negativePrefix = "";
+        
+        if (typeIdx == _CURRENCY_TYPE) 
+        {
+          DecimalFormatSymbols symbols = dFormatter.getDecimalFormatSymbols();          
+          negativePrefix = _replaceCurrencyFormattingCharacters(dFormatter.getNegativePrefix(),
+                                                                    symbols.getCurrencySymbol(),
+                                                                    getNegativePrefix(),
+                                                                    true);
+        }
+        else
+        {
+          negativePrefix = getNegativePrefix();
+        }
+        
+        dFormatter.setNegativePrefix(negativePrefix);
+      }
+      if (isNegativeSuffixSet()) 
+      {
+        String negativeSuffix = "";
+        
+        if (typeIdx == _CURRENCY_TYPE) 
+        {
+          DecimalFormatSymbols symbols = dFormatter.getDecimalFormatSymbols();          
+          negativeSuffix = _replaceCurrencyFormattingCharacters(dFormatter.getNegativeSuffix(),
+                                                                     symbols.getCurrencySymbol(),
+                                                                     getNegativeSuffix(),
+                                                                     false);
+        }
+        else if (typeIdx == _PERCENT_TYPE) 
+        {
+          // If type="percent", retain the % symbol in the suffix
+          negativeSuffix = dFormatter.getNegativeSuffix() + getNegativeSuffix();
+        }
+        else 
+        {
+          negativeSuffix = getNegativeSuffix();
+        }
+                        
+        dFormatter.setNegativeSuffix(negativeSuffix);         
+      }
+    }
+    else 
+    {
+      _LOG.warning("Failed to get hold of DecimalFormat \n" +
+                   "negative prefix, negative suffix will be defaulted based on locale " + 
+                   reqCtx.getFormattingLocale().toString());
+    }
 
     RoundingMode rmode = _getRoundingMode (reqCtx);
     if (rmode != null)    
@@ -1172,6 +1290,60 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
   }
 
+  /**
+   * Replaces the locale specific formatting characters in the prefix/suffix with custom formatting, leaving the currency
+   * symbol intact.
+   * @param localePattern Locale specific currency prefix or suffix
+   * @param localeDefaultCurSymb The currency symbol used in 'localePattern'
+   * @param customPattern The replacement for the locale specific formatting characters
+   * @param isPrefix true if localePattern is used as prefix, false if localePattern is a suffix
+   * @return The customized prefix/suffix string
+   */
+  private String _replaceCurrencyFormattingCharacters(
+    String   localePattern, 
+    String   localeDefaultCurSymb, 
+    String   customPattern, 
+    boolean  isPrefix) 
+  {
+    String newPattern = localePattern;
+  
+    if (customPattern != null) 
+    {
+      // Spare the currency symbol while replacing the negative formatting characters
+      int curSymblIdx = localePattern.trim().indexOf(localeDefaultCurSymb);
+     
+      if (curSymblIdx == -1) 
+      {
+        // No currency symbol found in the localized currency prefix/suffix string
+        // Replace the locale pattern entirely with the custom pattern
+        newPattern = customPattern;
+      }
+      else 
+      {
+        // if the localized currency prefix/suffix string only has the currency symbol
+        if (localePattern.trim().equals(localeDefaultCurSymb))
+        {
+          // In case of prefix formatting: put the custom prefix before the currency symbol. Ex: '(' + 'Rs.'
+          // In case of suffix formatting: put the currency symbol before the custom prefix. Ex: 'Rs.' + ')'
+          newPattern = (isPrefix)? customPattern + localeDefaultCurSymb : localeDefaultCurSymb + customPattern;    
+        }
+        else if (curSymblIdx == 0)
+        {
+          // If currency code is located at the head of the localized prefix/suffix string
+          // we can safely assume that the formatting chars follow the currency symbol in the pattern
+          newPattern = localeDefaultCurSymb + customPattern;
+        }
+        else 
+        {
+          // we can safely assume that the formatting chars come before the currency symbol in the prefix
+          newPattern = customPattern + localeDefaultCurSymb;
+        }
+      }
+    }
+  
+    return newPattern;
+  }
+  
   private void _setCurrencyInformation(
     RequestContext context,
     DecimalFormatSymbols symbols)
@@ -1430,6 +1602,36 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     return _facesBean.getProperty(_MIN_INTEGER_DIGITS_KEY) != null;
   }
 
+  /**
+   * Return true if a non-null negative prefix has been set via {@link #setNegativePrefix(String)}. 
+   * If not set, return false;
+   * @return true, if the negative prefix has been set. 
+   */
+  public boolean isNegativePrefixSet()
+  {
+    return _facesBean.getProperty(_NEGATIVE_PREFIX_KEY) != null;
+  }
+     
+  /**
+   * Return true if a non-null negative suffix has been set via {@link #setNegativeSuffix(String)}. 
+   * If not set, return false;
+   * @return true, if the negative suffix has been set. 
+   */
+  public boolean isNegativeSuffixSet()
+  {
+    return _facesBean.getProperty(_NEGATIVE_SUFFIX_KEY) != null;
+  }
+  
+  /**
+   * Return true if a non-null rounding mode has been set via {@link #setRoundingMode(RoundingMode)}. 
+   * If not set, return false;
+   * @return true, if the rounding mode has been set. 
+   */
+  public boolean isRoundingModeSet()
+  {
+    return _facesBean.getProperty(_ROUNDING_MODE_KEY) != null;
+  }
+        
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
   private static final PropertyKey _CONVERT_CURRENCY_MESSAGE_DETAIL_KEY
@@ -1480,6 +1682,11 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   private static final PropertyKey  _ROUNDING_MODE_KEY
    = _TYPE.registerKey("roundingMode", RoundingMode.class);
 
+  private static final PropertyKey  _NEGATIVE_PREFIX_KEY
+   = _TYPE.registerKey("negativePrefix", String.class);
+     
+  private static final PropertyKey  _NEGATIVE_SUFFIX_KEY
+   = _TYPE.registerKey("negativeSuffix", String.class);
 
   private static final PropertyKey  _TYPE_KEY
    = _TYPE.registerKey("type", String.class, "numeric");

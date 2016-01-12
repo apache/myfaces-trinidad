@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.taglib.listener;
 import javax.el.ValueExpression;
 
 import javax.faces.component.StateHolder;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
@@ -57,7 +58,7 @@ public class ReturnActionListener extends FacesBeanImpl
   public void setValue(ValueExpression value)
   {
     if (value.isLiteralText())
-      setProperty(VALUE_KEY, value.getValue(null));
+      setProperty(VALUE_KEY, value.getValue(FacesContext.getCurrentInstance().getELContext()));
     else
       setValueExpression(VALUE_KEY, value);
   }

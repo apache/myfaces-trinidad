@@ -236,19 +236,20 @@ class SkinStyleSheetParserUtils
           // but we do not enforce this. So user can be already using such a selector as
           // "af|style-icon" and now want to specify it using a nested selector
           // this use case will not work if we remove the leading dot.
-          if (selectorName.charAt(0) == '.' &&  selectorName.indexOf("Icon:alias") > -1)
-            selectorName = selectorName.substring(1);
+          String selectorNameForIcon = selectorName;
+          if (selectorNameForIcon.charAt(0) == '.' &&  selectorNameForIcon.indexOf("Icon:alias") > -1)
+            selectorNameForIcon = selectorNameForIcon.substring(1);
           // strip out :alias
-          selectorName = selectorName.replaceFirst(":alias", "");
+          selectorNameForIcon = selectorNameForIcon.replaceFirst(":alias", "");
           // add :rtl if the direction is rtl
           if (direction == LocaleUtils.DIRECTION_RIGHTTOLEFT)
-            selectorName = selectorName.concat(StyleUtils.RTL_CSS_SUFFIX);
+            selectorNameForIcon = selectorNameForIcon.concat(StyleUtils.RTL_CSS_SUFFIX);
 
           // create an IconNode object and add it to the iconNodeList
           // This method returns hasContentProperty=false if there isn't a content attribute.
           boolean hasContentProperty = _addIconNode(sourceName,
                                                     baseSourceURI,
-                                                    selectorName,
+                                                    selectorNameForIcon,
                                                     clientRule,
                                                     noTrPropertyList,
                                                     resolvedProperties.getTrRuleRefList(),
@@ -264,8 +265,8 @@ class SkinStyleSheetParserUtils
             if (resolvedProperties.getTrRuleRefList() == null || 
                 resolvedProperties.getTrRuleRefList().isEmpty())
             {
-              if (_LOG.isWarning())
-                _LOG.warning("SELECTOR_SHOULD_NOT_END_IN_ICON", selectorName);
+              if (_LOG.isInfo())
+                _LOG.info("SELECTOR_SHOULD_NOT_END_IN_ICON", selectorName);
             }
             _addStyleNode(selectorName,
                           clientRule,

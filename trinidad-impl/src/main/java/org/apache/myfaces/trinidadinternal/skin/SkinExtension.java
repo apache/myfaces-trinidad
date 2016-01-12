@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,10 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidad.skin.SkinFeatures;
 import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
+import org.apache.myfaces.trinidad.util.ToStringHelper;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
@@ -52,7 +55,8 @@ public class SkinExtension extends SkinImpl
 {
   /**
    * Constructs a SkinExtension of id and family and renderKitId. It also
-   * sets the styleSheetname and a resourceBundle name.
+   * sets the styleSheetname and a resourceBundle name. Since this constructor
+   * is only used ot create internal skins, cacheabilty will be set to true
    * 
    * @param baseSkin The base Skin that this custom
    *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
@@ -78,8 +82,9 @@ public class SkinExtension extends SkinImpl
    *    to be used to translate strings that a renderer renders.
 
    * @throws NullPointerException if baseSkin, id, or family is null.
-   *
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
    */
+  @Deprecated
   public SkinExtension(
      Skin baseSkin,
      String id,
@@ -92,24 +97,250 @@ public class SkinExtension extends SkinImpl
      String resourceBundleName
      )
   {
-    if (baseSkin == null)
-     throw new NullPointerException("Null baseSkin");
-    if (id == null)
-     throw new NullPointerException(_LOG.getMessage(
-       "NULL_SKIN_ID"));
-    if (family == null)
-     throw new NullPointerException("Null family");
-    if (renderKitId == null)
-     renderKitId = _DEFAULT_RENDERKIT;
-    if (version == null)
-     version = SkinVersion.EMPTY_SKIN_VERSION;
+    this(baseSkin,
+         new SkinMetadata.Builder().id(id)
+                                   .family(family)
+                                   .renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId))
+                                   .styleSheetName(styleSheetName)
+                                   .translationSource(translationSourceValueExpression)
+                                   .version(version)
+                                   .features(new SkinFeatures(features))
+                                   .resourceBundleName(resourceBundleName)
+                                   .build(),
+         true);
+  }
 
-    //Since SkinAdditionParser makes sure both the bundle and EL are not set, we
-    //do not need to do it here
+  /**
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @param styleSheetName
+   * @param resourceBundleName
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    String resourceBundleName
+    )
+  {
+    this(baseSkin, id, family, renderKitId, styleSheetName, 
+         resourceBundleName, SkinVersion.EMPTY_SKIN_VERSION);
+  }
+
+  /**
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @param styleSheetName
+   * @param resourceBundleName
+   * @param version
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated 
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    String resourceBundleName,
+    SkinVersion version
+    )
+  {
+    this(baseSkin,
+         new SkinMetadata.Builder().id(id)
+                                   .family(family)
+                                   .renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId))
+                                   .styleSheetName(styleSheetName)
+                                   .resourceBundleName(resourceBundleName)
+                                   .version(version)
+                                   .build(),
+        true);
+
+  }
+
+  /**
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @param styleSheetName
+   * @param translationSourceValueExpression
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated
+  public SkinExtension(
+    Skin   baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    ValueExpression translationSourceValueExpression
+    )
+  {
+    this(baseSkin, id, family, renderKitId, styleSheetName, 
+         translationSourceValueExpression, SkinVersion.EMPTY_SKIN_VERSION);
+  }
+
+  /**
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @param styleSheetName
+   * @param translationSourceValueExpression
+   * @param version
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated
+  public SkinExtension(
+    Skin   baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    ValueExpression translationSourceValueExpression,
+    SkinVersion version
+    )
+  {
+    this(baseSkin,
+         new SkinMetadata.Builder().id(id)
+                                   .family(family)
+                                   .renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId))
+                                   .styleSheetName(styleSheetName)
+                                   .translationSource(translationSourceValueExpression)
+                                   .version(version)
+                                   .build(),
+        true);
+  }
+
+  /**
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @param styleSheetName
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName
+    )
+  {
+    this(baseSkin, id, family, renderKitId, styleSheetName, SkinVersion.EMPTY_SKIN_VERSION);
+  }
+  
+  /**
+   * SkinExtension without the resource bundle information, but with the version information.
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @param styleSheetName
+   * @param version
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    SkinVersion version
+    )
+  {
+    this(baseSkin,
+         new SkinMetadata.Builder().id(id)
+                                   .family(family)
+                                   .renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId))
+                                   .styleSheetName(styleSheetName)
+                                   .version(version)
+                                   .build(),
+         true);
+  }
+
+  /**
+   * Since this constructor is only used ot create internal skins, cacheabilty will be set to true
+   * @param baseSkin
+   * @param id
+   * @param family
+   * @param renderKitId
+   * @deprecated Use SkinExtension(baseSkin, metadata, cacheability)
+   */
+  @Deprecated
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId
+    )
+  {
+    this(baseSkin, id, family, renderKitId, null);
+  }
+
+  /**
+   * Creates SkinExtension from SkinMetadata and base Skin
+   * This constructor is used for creating skins for external SkinProvider implementations.
+   * We keep skins thus created as not-cacheable.
+   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl
+   * @param baseSkin
+   * @param skinMetadata
+   */
+  public SkinExtension(Skin baseSkin, SkinMetadata skinMetadata)
+  {
+    this(baseSkin, skinMetadata, false);
+  }
+
+  /**
+   * Creates SkinExtension from SkinMetadata, base Skin and cacheability
+   * This constructor is used only for INTERNAL skins
+   * @see org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider
+   * @param baseSkin
+   * @param skinMetadata
+   */
+  public SkinExtension(Skin baseSkin, SkinMetadata skinMetadata, boolean isCacheable)
+  {
+    String id = skinMetadata.getId();
+    String family = skinMetadata.getFamily();
+    String renderKitId = skinMetadata.getRenderKitId();
+    String styleSheetName = skinMetadata.getStyleSheetName();
+    ValueExpression translationSourceValueExpression = skinMetadata.getTranslationSource();
+    SkinVersion version = skinMetadata.getVersion();
+    Map<String,String> features = skinMetadata.getFeatures().getFeatures();
+    String resourceBundleName = skinMetadata.getResourceBundleName();
+
+    if (baseSkin == null)
+      throw new NullPointerException("Null baseSkin");
+    if (id == null)
+      throw new NullPointerException(_LOG.getMessage("NULL_SKIN_ID"));
+    if (family == null)
+      throw new NullPointerException("Null family");
+    if (renderKitId == null)
+      renderKitId = _DEFAULT_RENDERKIT;
+    if (version == null)
+      version = SkinVersion.EMPTY_SKIN_VERSION;
 
     baseSkin = _ensureBaseSkinType(baseSkin);
 
-    //bundle-name takes precedence over translation-source, prevent both from being set
+    //bundle-name takes precedence over translation-source
     if(resourceBundleName != null && translationSourceValueExpression != null)
     {
       translationSourceValueExpression = null;
@@ -124,180 +355,13 @@ public class SkinExtension extends SkinImpl
     _translationSourceVE = translationSourceValueExpression;
     _version = version;
     _skinFeatures = features;
+    _isCacheable = isCacheable;
   }
-
-  @Deprecated
-  public SkinExtension(
-    Skin baseSkin,
-    String id,
-    String family,
-    String renderKitId,
-    String styleSheetName,
-    String resourceBundleName
-    )
-  {
-    this(baseSkin, id, family, renderKitId, styleSheetName, 
-         resourceBundleName, SkinVersion.EMPTY_SKIN_VERSION);
-  }
-   
-  @Deprecated 
-  public SkinExtension(
-    Skin baseSkin,
-    String id,
-    String family,
-    String renderKitId,
-    String styleSheetName,
-    String resourceBundleName,
-    SkinVersion version
-    )
-  {
-    if (baseSkin == null)
-      throw new NullPointerException("Null baseSkin");
-    if (id == null)
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_SKIN_ID"));
-    if (family == null)
-      throw new NullPointerException("Null family");
-    if (renderKitId == null)
-      renderKitId = _DEFAULT_RENDERKIT;
-    if (version == null)
-      version = SkinVersion.EMPTY_SKIN_VERSION;
-
-    baseSkin = _ensureBaseSkinType(baseSkin);
-
-    _baseSkin = baseSkin;
-    _id = id;
-    _family = family;
-    _renderKitId = renderKitId;
-    _styleSheetName = styleSheetName;
-    _bundleName = resourceBundleName;
-    _translationSourceVE = null;
-    _version = version;    
-  }
-
-  @Deprecated
-  public SkinExtension(
-    Skin   baseSkin,
-    String id,
-    String family,
-    String renderKitId,
-    String styleSheetName,
-    ValueExpression translationSourceValueExpression
-    )
-  {
-    this(baseSkin, id, family, renderKitId, styleSheetName, 
-         translationSourceValueExpression, SkinVersion.EMPTY_SKIN_VERSION);
-  }
-  
-  @Deprecated
-  public SkinExtension(
-    Skin   baseSkin,
-    String id,
-    String family,
-    String renderKitId,
-    String styleSheetName,
-    ValueExpression translationSourceValueExpression,
-    SkinVersion version
-    )
-  {
-    if (baseSkin == null)
-      throw new NullPointerException("Null baseSkin");
-    if (id == null)
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_SKIN_ID"));
-    if (family == null)
-      throw new NullPointerException("Null family");
-    if (renderKitId == null)
-      renderKitId = _DEFAULT_RENDERKIT;
-    if (version == null)
-      version = SkinVersion.EMPTY_SKIN_VERSION;
-
-    baseSkin = _ensureBaseSkinType(baseSkin);
-
-    _baseSkin = baseSkin;
-    _id = id;
-    _family = family;
-    _renderKitId = renderKitId;
-    _styleSheetName = styleSheetName;
-    _bundleName = null;
-    _translationSourceVE = translationSourceValueExpression;
-    _version = version;
-  }  
-
-  @Deprecated
-  public SkinExtension(
-    Skin baseSkin,
-    String id,
-    String family,
-    String renderKitId,
-    String styleSheetName
-    )
-  {
-    this(baseSkin, id, family, renderKitId, styleSheetName, SkinVersion.EMPTY_SKIN_VERSION);
-  }
-  
-  /*
-   * SkinExtension without the resource bundle information, but with the version information.
-   */
-  @Deprecated
-  public SkinExtension(
-    Skin baseSkin,
-    String id,
-    String family,
-    String renderKitId,
-    String styleSheetName,
-    SkinVersion version
-    )
-  {
-    if (baseSkin == null)
-      throw new NullPointerException("Null baseSkin");
-    if (id == null)
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_SKIN_ID"));
-    if (family == null)
-      throw new NullPointerException("Null family");
-    if (renderKitId == null)
-      renderKitId = _DEFAULT_RENDERKIT;
-    if (version == null)
-      version = SkinVersion.EMPTY_SKIN_VERSION;
-
-    baseSkin = _ensureBaseSkinType(baseSkin);
-
-    _baseSkin = baseSkin;
-    _id = id;
-    _family = family;
-    _renderKitId = renderKitId;
-    _styleSheetName = styleSheetName;
-    _bundleName = null;
-    _translationSourceVE = null;
-    _version = version;
-  }
-  
-  
-  @Deprecated
-  public SkinExtension(
-    Skin baseSkin,
-    String id,
-    String family,
-    String renderKitId
-    )
-  {
-    this(baseSkin, id, family, renderKitId, null);
-  }
-
-  public SkinExtension(Skin baseSkin, SkinMetadata skinMetadata)
-  {
-    this(baseSkin,
-         skinMetadata.getId(), skinMetadata.getFamily(), skinMetadata.getRenderKitId(),
-          skinMetadata.getStyleSheetName(), skinMetadata.getTranslationSource(), skinMetadata.getVersion(),
-          skinMetadata.getFeatures().getFeatures(), skinMetadata.getResourceBundleName());
-  }
-
-
 
   /**
-   * Returns the base Skin which this custom Skin
-   * "extends".
+   * Returns the base Skin which this custom Skin "extends".
+   * Note that in order to avoid infinite call loop the implementation of getBaseSkin() in this 
+   * class or sub classes should not call toString().
    */
   public Skin getBaseSkin()
   {
@@ -404,10 +468,12 @@ public class SkinExtension extends SkinImpl
    * Returns the name of the bundle for this SkinExtension.
    * @deprecated Use the constructor that takes a resourceBundleName instead
    */
+  @Deprecated
   public void setBundleName(String bundleName)
   {
      // TODO take out method once sufficient time has past since deprecation
-    // in July, 2007
+     // TODO in July, 2007
+     // TODO also make _bundleName final
     _bundleName = bundleName;
   }
 
@@ -452,8 +518,6 @@ public class SkinExtension extends SkinImpl
     return _baseSkin.getStyleClassMap(arc);
   }
 
-
-
   /**
     * Override of Skin.getTranslatedValue() which
     * supports pulling translations from Skin and if not found from the base Skin.
@@ -464,7 +528,7 @@ public class SkinExtension extends SkinImpl
     String        key
     ) throws MissingResourceException
   {
-    // Look for the skin's translated value 
+    // Look for the skin's translated value
     // -first Skin's translation source, then SkinAddition translation sources.
     // A translation source is either a bundleName or 
     // a translationSourceValueExpression
@@ -472,17 +536,17 @@ public class SkinExtension extends SkinImpl
     // getCachedTranslatedValue will protect against MissingResourceExceptions
 
     Object translatedValue = getCachedTranslatedValue(lContext, key);
-
+    
     if (translatedValue == null)
     {
       translatedValue = getBaseSkin().getTranslatedValue(lContext, key);
+      
       // Cache the non-null translated value with the SkinExtension to avoid looking
       // at the base skin's map.
       if (translatedValue != null)
         putTranslatedValueInLocaleCache(lContext, key, translatedValue);
-
     }
-
+    
     return translatedValue;
   }
    
@@ -582,8 +646,11 @@ public class SkinExtension extends SkinImpl
    * Sets the name of the style sheet for this Skin.
    * @deprecated Use the SkinExtension constructor that takes a styleSheetName instead.
    */
+  @Deprecated
   public void setStyleSheetName(String styleSheetName)
   {
+    // TODO take out method once sufficient time has past since deprecation
+    // TODO also make _styleSheetName final
     _styleSheetName = styleSheetName;
   }
 
@@ -647,6 +714,29 @@ public class SkinExtension extends SkinImpl
     super.setDirty(dirty);
     // also, set the base skin's dirty flag
     getBaseSkin().setDirty(dirty);
+  }
+
+  @Override
+  public boolean isCacheable()
+  {
+    return _isCacheable;
+  }
+
+  @Override
+  protected void addPropertiesToString(ToStringHelper helper)
+  {
+    super.addPropertiesToString(helper);
+    
+    Skin baseSkin = this.getBaseSkin();
+    List<String> baseSkinIds = new ArrayList<String>();
+    
+    while (baseSkin != null)
+    {
+      baseSkinIds.add(baseSkin.getId());
+      baseSkin = baseSkin.getBaseSkin();
+    }
+    
+    helper.append("extends", baseSkinIds);
   }
 
   /**
@@ -744,9 +834,6 @@ public class SkinExtension extends SkinImpl
     return stack.contains(value);
   }
 
-  private SkinExtension() {}
-
-
   // Icon class that we use as a placeholder for null icons
   private static class NullIcon extends Icon
   {
@@ -760,17 +847,19 @@ public class SkinExtension extends SkinImpl
       // null icons don't render anything
     }
   }
-  
-  private String          _id;
-  private String          _family;
-  private String          _renderKitId;
-  private Skin            _baseSkin;
-  private String          _styleSheetName;
-  private ValueExpression _translationSourceVE;
-  private String          _bundleName;
-  private SkinVersion     _version;
-  private Map<String, String> _skinFeatures;
-  
+
+  private final String              _id;
+  private final String              _family;
+  private final String              _renderKitId;
+  private final Skin                _baseSkin;
+  private final ValueExpression     _translationSourceVE;
+  private final SkinVersion         _version;
+  private final Map<String, String> _skinFeatures;
+  private final boolean             _isCacheable;
+
+  // TODO make these final after the deprecated setter is removed
+  private String _styleSheetName;
+  private String _bundleName;
 
   // The StyleSheetDocument for the base LookAndFeel's style sheet
   private StyleSheetDocument _baseStyleSheetDocument;
@@ -784,13 +873,9 @@ public class SkinExtension extends SkinImpl
   private StyleSheetDocument _fullStyleSheetDocument;
 
   // Placeholder for null icons
-  private static final Icon _NULL_ICON = new NullIcon();
-  
-  private static final String _DEFAULT_RENDERKIT = 
-    "org.apache.myfaces.trinidad.desktop";
-
+  private static final Icon           _NULL_ICON              = new NullIcon();
+  private static final String         _DEFAULT_RENDERKIT      = "org.apache.myfaces.trinidad.desktop";
   // Error messages
-  private static final String _CIRCULAR_INCLUDE_ERROR =
-    "Circular dependency detected in skin reference icon ";
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinExtension.class);
+  private static final String         _CIRCULAR_INCLUDE_ERROR = "Circular dependency detected in skin reference icon ";
+  private static final TrinidadLogger _LOG                    = TrinidadLogger.createTrinidadLogger(SkinExtension.class);
 }

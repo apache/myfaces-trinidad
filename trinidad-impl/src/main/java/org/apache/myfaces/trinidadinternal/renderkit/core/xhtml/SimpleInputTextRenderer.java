@@ -387,7 +387,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       // can do is turn on "pre"formatted mode.
       if (!renderAsElement)
       {
-        rw.startElement("pre", null);
+        rw.startElement("pre", component);
 
         renderId(context, component);
         rw.writeAttribute("title", getShortDesc(component, bean), "shortDesc");

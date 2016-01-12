@@ -267,6 +267,20 @@
       </property-extension>            
     </property>
     <property>
+      <description><![CDATA[Specifies the negative prefix, to be applied only when formatting negative numbers. 
+        Negative prefix specified through this attribute will override any negative prefix implied using the pattern attribute]]>
+      </description>
+      <property-name>negativePrefix</property-name>
+      <property-class>java.lang.String</property-class>
+    </property>
+    <property>
+      <description><![CDATA[Specifies the negative suffix, to be applied only when formatting negative numbers.
+        Negative suffix specified through this attribute will override any negative suffix implied using the pattern attribute]]>
+      </description>
+      <property-name>negativeSuffix</property-name>
+      <property-class>java.lang.String</property-class>
+    </property>
+    <property>
       <description><![CDATA[Custom formatting pattern which determins how the number string should be
           formatted and parsed.]]>
       </description>

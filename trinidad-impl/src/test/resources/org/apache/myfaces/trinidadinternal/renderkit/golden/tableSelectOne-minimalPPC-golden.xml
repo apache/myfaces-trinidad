@@ -8,6 +8,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -31,6 +32,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -117,6 +119,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -234,6 +237,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -257,6 +261,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -343,6 +348,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -460,6 +466,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              summary=""
              width="100%"
             >
@@ -483,6 +490,7 @@
                        border="0"
                        cellpadding="0"
                        cellspacing="0"
+                       role="presentation"
                        summary=""
                       >
                     
@@ -569,6 +577,7 @@
              cellpadding="2"
              cellspacing="0"
              class="af_table_content"
+             role="presentation"
              summary=""
              width="100%"
             >

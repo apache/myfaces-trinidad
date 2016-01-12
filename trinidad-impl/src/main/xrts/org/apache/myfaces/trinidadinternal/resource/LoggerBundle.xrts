@@ -274,6 +274,15 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <!-- SKIN_CONFIG_PROCESS_FAILURE -->
 <resource key="SKIN_CONFIG_PROCESS_FAILURE">Failed to process skin config file: {0}.</resource>
 
+<!-- TRANSLATION_VALUE -->
+<resource key="TRANSLATION_VALUE">Translated value "{0}" for key "{1}" and locale "{2}" found in skin {3}"</resource>
+
+<!-- SKIN_FAILED_TO_GET_BUNDLE -->
+<resource key="SKIN_FAILED_TO_GET_BUNDLE">Failed to get resource bundle "{0}" in skin "{1}"</resource>
+
+<!-- ADDED_SKIN_ADDITION -->
+<resource key="ADDED_SKIN_ADDITION">Added skin addition {0} to skin {1}</resource>
+
 <!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
 <resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE">The skin's translation-source ValueExpression is not of the expected type Map or ResourceBundle, so it will be ignored.</resource>
 
@@ -1233,5 +1242,16 @@ The skin {0} specified on the requestMap will be used even though the consumer''
 <resource key="SP_CANNOT_FIND_MATCHING_SKIN">Can''t find a skin that matches family {0} and renderkit {1}.</resource>
 
 <resource key="SP_LOADING_UNKNOWN_SKIN">Cannot load skin with id {0}. This skin is unknown to the current TrinidadSkinProvider.</resource>
+
+<resource key="EXC_PLEASE_SEE_ERROR_LOG">An error occurred while processing the request. For more information, please see the server's error log for an entry beginning with: {0}</resource>
+
+<resource key="EXC_PPR_ERROR_PREFIX">Server Exception during PPR, #{0}</resource>
+
+<resource key="STYLE_ENTRY_RETRIEVAL_INTERRUPTED">Retrieval of style sheet {0} was interrupted.  Will retry on next request</resource>
+
+<resource key="STYLE_ENTRY_CREATION_FAILED">Creation of style sheet {0} has failed.  Will retry on next request.</resource>
+
+<resource key="STYLE_ENTRY_CREATION_FAILED_NO_STYLES">Creation of style sheet {0} has failed.  No styles found.</resource>
+
 
 </resources>

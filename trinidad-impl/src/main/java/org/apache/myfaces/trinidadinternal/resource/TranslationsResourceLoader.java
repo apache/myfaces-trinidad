@@ -32,6 +32,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.faces.application.Application;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
@@ -192,10 +193,12 @@ abstract public class TranslationsResourceLoader
   protected Skin getSkin(FacesContext context)
   {
     Skin skin = null;
-    SkinProvider skinProvider = SkinProvider.getCurrentInstance(context.getExternalContext());
-    Object skinIdObj = context.getExternalContext().getRequestParameterMap().get("skinId");
+    ExternalContext externalContext = context.getExternalContext();
+    SkinProvider skinProvider = SkinProvider.getCurrentInstance(externalContext);
+    Object skinIdObj = externalContext.getRequestParameterMap().get("skinId");
+
     if (skinIdObj != null)
-      skin = skinProvider.getSkin(context, new SkinMetadata.Builder().id(skinIdObj.toString()).build());
+      skin = skinProvider.getSkin(externalContext, new SkinMetadata.Builder().id(skinIdObj.toString()).build());
 
     return skin;
   }

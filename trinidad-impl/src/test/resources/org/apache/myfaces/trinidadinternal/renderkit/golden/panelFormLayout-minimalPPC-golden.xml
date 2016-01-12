@@ -8,6 +8,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -27,6 +28,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -363,441 +365,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     summary=""
-                     width="100%"
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                          >
-                        
-                      </td>
-                      <td
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Footer
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-<!--AttributeTest[rows,2,AttributeTest[maxColumns,2]]-->
-
-      <div
-           class="af_panelFormLayout"
-           id="mainId"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             style="width: auto"
-             summary=""
-            >
-          
-          <tbody
-              >
-            
-            <tr
-                >
-              
-              <td
-                   class="af_panelFormLayout_column"
-                   colspan="1"
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     summary=""
-                     width="100%"
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                          >
-                        
-                      </td>
-                      <td
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 1
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 2
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 3
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 4
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 5
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 6
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr
-                         class="af_inputText"
-                         id="_idXXX__xc_"
-                        >
-                      
-                      <td
-                           class="af_inputText_label af_panelFormLayout_label-cell"
-                          >
-                        
-                        <label
-                             for="_idXXX"
-                            >
-                          Attribute 7
-                        </label>
-                      </td>
-                      <td
-                           class="af_panelFormLayout_content-cell"
-                           valign="top"
-                          >
-                        
-                        <input
-                             class="af_inputText_content"
-                             id="_idXXX"
-                             name="_idXXX"
-                             size="11"
-                             type="text"
-                            >
-                          
-                        </input>
-                        <div
-                            >
-                          
-                          <img
-                               alt=""
-                               height="0"
-                               width="1"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr
-                >
-              
-              <td
-                   class="af_panelFormLayout_column"
-                   colspan="1"
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -878,6 +446,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: 100%"
              summary=""
             >
@@ -897,6 +466,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -1235,6 +805,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -1317,6 +888,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: 100%"
              summary=""
             >
@@ -1336,6 +908,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -1674,6 +1247,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -1756,6 +1330,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -1775,6 +1350,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -2111,6 +1687,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -2192,6 +1769,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -2211,6 +1789,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -2547,6 +2126,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -2628,6 +2208,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -2647,6 +2228,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -2983,6 +2565,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -3065,6 +2648,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -3084,6 +2668,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -3420,6 +3005,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -3501,6 +3087,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -3520,6 +3107,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -3856,6 +3444,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -3936,6 +3525,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -3955,6 +3545,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -4291,6 +3882,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -4372,6 +3964,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -4391,6 +3984,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -4727,6 +4321,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -4808,6 +4403,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -4827,6 +4423,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -5163,6 +4760,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -5244,6 +4842,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -5263,6 +4862,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -5599,6 +5199,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -5680,6 +5281,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -5699,6 +5301,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -6035,6 +5638,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -6116,6 +5720,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -6135,6 +5740,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -6471,6 +6077,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -6552,6 +6159,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -6571,6 +6179,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -6907,6 +6516,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -6988,6 +6598,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -7007,6 +6618,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -7343,6 +6955,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -7424,6 +7037,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -7443,6 +7057,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -7779,6 +7394,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -7860,6 +7476,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -7879,6 +7496,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -8215,6 +7833,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -8296,6 +7915,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              style="width: auto"
              summary=""
             >
@@ -8315,6 +7935,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >
@@ -8651,6 +8272,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
+                     role="presentation"
                      summary=""
                      width="100%"
                     >

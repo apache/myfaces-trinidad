@@ -18,11 +18,14 @@
  */
 package org.apache.myfaces.trinidad.validator;
 
+import java.text.DateFormatSymbols;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
@@ -231,43 +234,69 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     if (value != null)
     {
       Calendar calendar = getCalendar();
-      calendar.setTime(getDateValue(value));
-      Date convertedDate = calendar.getTime();
+      Converter converter = _getConverter(context, component);
       
-      String weekday = _dayMap.get(calendar.get(Calendar.DAY_OF_WEEK));
+      // If we have a DateTimeConverter, use the converter timezone if configured
+      if (converter instanceof DateTimeConverter)
+      {
+        TimeZone tz = ((DateTimeConverter) converter).getTimeZone();
+        
+        if (tz != null) 
+        {
+          calendar.setTimeZone(tz);    
+        }
+      }
+
+      calendar.setTime(getDateValue(value));
+      int dayOfTheWeekIndex = calendar.get(Calendar.DAY_OF_WEEK);
+      String weekday = _dayMap.get(dayOfTheWeekIndex);
+      
       if (_getInvalidDaysOfWeek().contains(weekday))
       {
-        throw new ValidatorException(
-            _getWrongWeekDayMessage(context, component, value, weekday));
+        throw new ValidatorException(_getWrongWeekDayMessage(context, component, converter, value, dayOfTheWeekIndex));
       }
       
-      String month = _monthMap.get(calendar.get(Calendar.MONTH));
+      int monthIndex = calendar.get(Calendar.MONTH);
+      String month = _monthMap.get(monthIndex);
       if ( _getInvalidMonths().contains(month))
       {
-        throw new ValidatorException(
-            _getWrongMonthMessage(context, component, value, month));
+        throw new ValidatorException(_getWrongMonthMessage(context, component, converter, value, monthIndex));
       }
       
       DateListProvider dlp = getInvalidDays();
-      List<Date> dates = null;
+        
       if (dlp != null)
       {
-        dates = dlp.getDateList(context, calendar, calendar.getTime(), calendar.getTime());
-      }
-      
-      if(dates!=null)
-      {
-        for (Date date : dates)
+        Calendar base = (Calendar)calendar.clone();
+          
+        // Reset the time part for range-start
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date rangeStart = calendar.getTime();
+          
+        // Max out the time part for range-end
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.add(Calendar.MILLISECOND, -1);
+        Date rangeEnd = calendar.getTime();
+          
+        // Get disabled/invalid dates between start and end range.
+        List<Date> dates = dlp.getDateList(context, base, rangeStart, rangeEnd);
+        
+        if(dates != null)
         {
-          //range is only one submitted day...
-          if(!date.before(convertedDate) && !date.after(convertedDate))
+          for (Date date : dates)
           {
-            throw new ValidatorException(
-                _getWrongDayMessage(context, component, value, date));
-          }
-        }
-      }
-    }
+            //range is only one submitted day...
+            if(!date.before(rangeStart) && !date.after(rangeEnd))
+            {
+              throw new ValidatorException(_getWrongDayMessage(context, component, value, date));
+            }
+          } //end-for
+        } //end if(dates!=null)
+      } // end  if (dlp != null)
+    } // end if (value != null)
   }
 
   //  StateHolder Methods
@@ -438,6 +467,40 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     return (disabled != null) ? disabled.booleanValue() : false;
   }  
 
+  protected Calendar getCalendar()
+  {
+    TimeZone tz = null;
+    RequestContext rctx = RequestContext.getCurrentInstance();
+  
+    if (rctx != null)
+    {
+      tz = rctx.getTimeZone();
+    }
+    else
+    {
+      tz = TimeZone.getDefault();
+    }
+  
+    return Calendar.getInstance(tz);
+  }
+  
+  /**
+   * Parses the already converted value to a <code>java.util.Date</code>.
+   * @param value converted value
+   * @return fulltyped <code>java.util.Date</code>
+   * @throws IllegalArgumentException
+   */
+  protected static Date getDateValue(Object value) 
+    throws IllegalArgumentException
+  {
+    if (value instanceof Date)
+    {
+      return ( (Date)value );
+    }
+
+    throw new IllegalArgumentException(_LOG.getMessage("VALUE_IS_NOT_DATE_TYPE"));
+  }  
+    
   private Converter _getConverter(
     FacesContext context,
     UIComponent component)
@@ -453,8 +516,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
       // Use the DateTimeConverter's CONVERTER_ID, not Date.class,
       // because there is in fact not usually a converter registered
       // at Date.class
-      converter = context.getApplication().createConverter(
-                      DateTimeConverter.CONVERTER_ID);
+      converter = context.getApplication().createConverter(DateTimeConverter.CONVERTER_ID);
     }
 
     assert(converter != null);
@@ -462,108 +524,107 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     return converter;
   }
 
-  
-  protected Calendar getCalendar()
-  {
-    TimeZone tz = null;
-    RequestContext rctx = RequestContext.getCurrentInstance();
-    if (rctx != null)
-    {
-      tz = rctx.getTimeZone();
-    }
-    else
-    {
-      tz = TimeZone.getDefault();
-    }
-    return Calendar.getInstance(tz);
-
-  }
-  
   /**
-   * Parses the already converted value to a <code>java.util.Date</code>.
-   * @param value converted value
-   * @return fulltyped <code>java.util.Date</code>
-   * @throws IllegalArgumentException
+   * Builds an error message indicating invalid week-day selection
+   * @param context FacesContext
+   * @param component inputDate instance
+   * @param converter date converter instance
+   * @param value user submitted value
+   * @param dayOfTheWeekIndex Week day index as returned by Calendar.DAY_OF_WEEK on the value
+   * @return FacesMessage
    */
-  protected static Date getDateValue(
-      Object value) throws IllegalArgumentException
-    {
-      if (value instanceof Date)
-      {
-        return ( (Date)value );
-      }
-
-      throw new IllegalArgumentException(_LOG.getMessage(
-        "VALUE_IS_NOT_DATE_TYPE"));
-    }
-
   private FacesMessage _getWrongWeekDayMessage(
-      FacesContext context,
-      UIComponent component,
-      Object value,
-      Object weekday)
+    FacesContext  context,
+    UIComponent   component,
+    Converter     converter,
+    Object        value,
+    int           dayOfTheWeekIndex)
   { 
-      Converter converter = _getConverter(context, component);
+    RequestContext reqContext = RequestContext.getCurrentInstance();      
+    Locale locale = reqContext.getFormattingLocale();
 
-      Object cValue = _getConvertedValue(context, component, converter, value);
-      Object cWeekday   = _getConvertedValue(context, component, converter, weekday);
+    if (locale == null)
+    {
+      locale = context.getViewRoot().getLocale();
+    }
+      
+    Object cValue = _getConvertedValue(context, component, converter, value);
+    Object msg   = _getRawInvalidDaysOfWeekMessageDetail();
+    Object label = ValidatorUtils.getComponentLabel(component);
+    String[] weekdays = new DateFormatSymbols(locale).getWeekdays();
 
-      Object msg   = _getRawInvalidDaysOfWeekMessageDetail();
-      Object label = ValidatorUtils.getComponentLabel(component);
+    // Fetch the localized week name 
+    Object[] params = {label, cValue, weekdays[dayOfTheWeekIndex]};
 
-      Object[] params = {label, cValue, cWeekday};
-
-      return MessageFactory.getMessage(context, WEEKDAY_MESSAGE_ID,
-                                        msg, params, component);
+    return MessageFactory.getMessage(context, WEEKDAY_MESSAGE_ID, msg, params, component);
   }
+  
   private Object _getRawInvalidDaysOfWeekMessageDetail()
   {
     return _facesBean.getRawProperty(_INVALID_DAYS_OF_WEEK_MESSAGE_DETAIL_KEY);
   }
 
+  /**
+   * Builds an error message indicating invalid month selection
+   * @param context FacesContext
+   * @param component inputDate instance
+   * @param converter date converter instance
+   * @param value user submitted value
+   * @param monthIndex Month index as returned by Calendar.MONTH on the value
+   * @return FacesMessage
+   */
   private FacesMessage _getWrongMonthMessage(
-      FacesContext context,
-      UIComponent component,
-      Object value,
-      Object weekday)
+    FacesContext  context,
+    UIComponent   component,
+    Converter     converter,
+    Object        value,
+    int           monthIndex)
   { 
-      Converter converter = _getConverter(context, component);
+    RequestContext reqContext = RequestContext.getCurrentInstance();  
+    Locale locale = reqContext.getFormattingLocale();
 
-      Object cValue = _getConvertedValue(context, component, converter, value);
-      Object cWeekday   = _getConvertedValue(context, component, converter, weekday);
+    if (locale == null)
+    {
+      locale = context.getViewRoot().getLocale();
+    }
+    
+    Object cValue = _getConvertedValue(context, component, converter, value);
 
-      Object msg   = _getRawInvalidMonthMessageDetail();
-      Object label = ValidatorUtils.getComponentLabel(component);
+    Object msg   = _getRawInvalidMonthMessageDetail();
+    Object label = ValidatorUtils.getComponentLabel(component);
+    
+    // Fetch the localized month name 
+    String[] months = new DateFormatSymbols(locale).getMonths();
 
-      Object[] params = {label, cValue, cWeekday};
+    Object[] params = {label, cValue, months[monthIndex]};
 
-      return MessageFactory.getMessage(context, MONTH_MESSAGE_ID,
-                                        msg, params, component);
+    return MessageFactory.getMessage(context, MONTH_MESSAGE_ID, msg, params, component);
   }
+  
   private Object _getRawInvalidMonthMessageDetail()
   {
     return _facesBean.getRawProperty(_INVALID_MONTHS_MESSAGE_DETAIL_KEY);
   }
 
   private FacesMessage _getWrongDayMessage(
-      FacesContext context,
-      UIComponent component,
-      Object value,
-      Object day)
+    FacesContext context,
+    UIComponent component,
+    Object value,
+    Object day)
   { 
-      Converter converter = _getConverter(context, component);
+    Converter converter = _getConverter(context, component);
 
-      Object cValue = _getConvertedValue(context, component, converter, value);
-      Object cDay   = _getConvertedValue(context, component, converter, day);
+    Object cValue = _getConvertedValue(context, component, converter, value);
+    Object cDay   = _getConvertedValue(context, component, converter, day);
 
-      Object msg   = _getRawInvalidDaysMessageDetail();
-      Object label = ValidatorUtils.getComponentLabel(component);
+    Object msg   = _getRawInvalidDaysMessageDetail();
+    Object label = ValidatorUtils.getComponentLabel(component);
 
-      Object[] params = {label, cValue, cDay};
+    Object[] params = {label, cValue, cDay};
 
-      return MessageFactory.getMessage(context, DAY_MESSAGE_ID,
-                                        msg, params, component);
+    return MessageFactory.getMessage(context, DAY_MESSAGE_ID, msg, params, component);
   }
+  
   private Object _getRawInvalidDaysMessageDetail()
   {
     return _facesBean.getRawProperty(_INVALID_DAYS_MESSAGE_DETAIL_KEY);

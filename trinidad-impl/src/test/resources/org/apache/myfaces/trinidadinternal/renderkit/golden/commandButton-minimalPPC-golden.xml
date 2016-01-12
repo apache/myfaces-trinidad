@@ -9,18 +9,6 @@
           >
         
       </input>
-<!--AttributeTest[accessKey,u]-->
-
-      <input
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="submit"
-           value="ButtonText"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        
-      </input>
 <!--AttributeTest[disabled,false]-->
 
       <input

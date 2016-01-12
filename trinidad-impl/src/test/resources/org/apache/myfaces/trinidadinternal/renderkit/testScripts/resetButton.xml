@@ -4,7 +4,7 @@
 
   <js-test/>
 
-  <attribute-test name="accessKey" value="u"/>
+  <attribute-test name="accessKey" value="u" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <attribute-test name="id" value="myid"/>
   <attribute-test name="inlineStyle" value="background-color:red"/>
   <attribute-test name="shortDesc" value="my button"/>

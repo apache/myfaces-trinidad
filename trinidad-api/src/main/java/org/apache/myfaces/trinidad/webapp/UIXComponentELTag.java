@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import java.util.logging.Level;
+
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
@@ -79,7 +81,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   {
     FacesContext context = getFacesContext();
     Map<String, Object> reqMap = context.getExternalContext().getRequestMap();
-    
+
     Map<Object, Object> facesContextAttributes = getFacesContext().getAttributes();
 
     // Only support skipping the body of a tag when not iterating. This is due to the fact that
@@ -204,7 +206,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
   /**
    * When within a component binding context, the component bindings (stored in backing bean)
-   * will be cleared so a new component instance can be created. 
+   * will be cleared so a new component instance can be created.
    * @param context FacesContext instance
    * @param newId id for the component
    */
@@ -219,23 +221,23 @@ abstract public class UIXComponentELTag extends UIComponentELTag
      ValueExpression binding = _getBinding();
      binding.setValue(getELContext(), null);
     }
-    
+
     component = super.createComponent(context, newId);
-    // if the component was pulled out of a component binding during createComponent() it is likely 
+    // if the component was pulled out of a component binding during createComponent() it is likely
     // to be attached to some component in the tree - and thus the (severe) error is justified
     if (component != null && component.getParent() != null)
-      _logSevereStaleParentError(context, component, component.getParent());
-    
+      _logStaleParent(context, component, component.getParent());
+
     return component;
   }
-  
+
   @Override
   public void release()
   {
     this._binding = null;
     super.release();
   }
-  
+
   /**
    * Allows a child tag to check if its children should be executed based on the grand-parent.
    * Used for components where a parent-child relationship has been established. For example,
@@ -294,7 +296,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, expression.getValue(null));
+      bean.setProperty(key, expression.getValue(FacesContext.getCurrentInstance().getELContext()));
     }
     else
     {
@@ -319,7 +321,8 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, TagUtils.parseNameTokens(expression.getValue(null)));
+      bean.setProperty(key, TagUtils.parseNameTokens(
+        expression.getValue(FacesContext.getCurrentInstance().getELContext())));
     }
     else
     {
@@ -346,7 +349,8 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, TagUtils.parseNameTokensAsList(expression.getValue(null)));
+      bean.setProperty(key, TagUtils.parseNameTokensAsList(
+        expression.getValue(FacesContext.getCurrentInstance().getELContext())));
     }
     else
     {
@@ -371,7 +375,8 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, TagUtils.parseNameTokensAsSet(expression.getValue(null)));
+      bean.setProperty(key, TagUtils.parseNameTokensAsSet(
+        expression.getValue(FacesContext.getCurrentInstance().getELContext())));
     }
     else
     {
@@ -395,7 +400,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      Object value = expression.getValue(null);
+      Object value = expression.getValue(FacesContext.getCurrentInstance().getELContext());
       if (value != null)
       {
         if (value instanceof Number)
@@ -435,7 +440,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      Object value = expression.getValue(null);
+      Object value = expression.getValue(FacesContext.getCurrentInstance().getELContext());
       if (value != null)
       {
         String[] strings = TagUtils.parseNameTokens(value);
@@ -474,12 +479,12 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     super.setBinding(valueExpression);
   }
 
-  private ValueExpression _getBinding()  
+  private ValueExpression _getBinding()
   {
     return _binding;
   }
-  
-  
+
+
   /**
    * Set a property of type java.util.Date.  If the value
    * is an EL expression, it will be stored as a ValueExpression.
@@ -496,7 +501,8 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      bean.setProperty(key, _parseISODate(expression.getValue(null)));
+      bean.setProperty(key, _parseISODate(
+        expression.getValue(FacesContext.getCurrentInstance().getELContext())));
     }
     else
     {
@@ -521,7 +527,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
     if (expression.isLiteralText())
     {
-      Date d = _parseISODate(expression.getValue(null));
+      Date d = _parseISODate(expression.getValue(FacesContext.getCurrentInstance().getELContext()));
       Calendar c = Calendar.getInstance();
       TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
       if (tz != null)
@@ -639,11 +645,11 @@ abstract public class UIXComponentELTag extends UIComponentELTag
      String scopedId = _getScopedId(component, viewRoot);
      String parentScopedId = _getParentScopedId(viewRoot);
 
-     String message = _LOG.getMessage("ERROR_PARSING_COMPONENT_TAG", 
+     String message = _LOG.getMessage("ERROR_PARSING_COMPONENT_TAG",
                                       new Object[] {scopedId, parentScopedId});
      _LOG.severe(message, e);
    }
-   
+
    private String _getScopedId(UIComponent component, UIViewRoot viewRoot)
    {
      if (component == null)
@@ -656,30 +662,47 @@ abstract public class UIXComponentELTag extends UIComponentELTag
        return ComponentUtils.getScopedIdForComponent(component, viewRoot);
      }
    }
-   
+
+  /**
+   * Logs a message when a stale component is detected during create component.
+   * @param context FacesContext
+   * @param child the UIComponent being created
+   * @param oldParent the parent UIComponent
+   */
+  private void _logStaleParent(FacesContext context,
+                               UIComponent child,
+                               UIComponent oldParent)
+  {
+    _logStaleParentAtLevel(context, child, oldParent, Level.INFO);
+  }
+
    /**
-    * Logs a severe error when a stale component is detected during create component.
+    * Logs a message at a specified level when a stale component is detected during create component.
     * @param context FacesContext
     * @param child the UIComponent being created
-    * @param pldParent the parent UIComponent 
+    * @param oldParent the parent UIComponent
+    * @param level the level at which to log the message
     */
-   private void _logSevereStaleParentError(FacesContext context, 
-                                           UIComponent child, 
-                                           UIComponent oldParent)
+   private void _logStaleParentAtLevel(FacesContext context,
+                                       UIComponent child,
+                                       UIComponent oldParent,
+                                       Level level)
    {
-     UIViewRoot viewRoot = context.getViewRoot();
+     if (_LOG.isLoggable(level))
+     {
+       UIViewRoot viewRoot = context.getViewRoot();
 
-     String scopedId = ComponentUtils.getScopedIdForComponent(child, viewRoot);
-     String oldParentScopedId = ComponentUtils.getScopedIdForComponent(oldParent, viewRoot);
-     String newParentScopedId = _getParentScopedId(viewRoot);
-       
-     String bindingEL = _getBindingExpression();
-     
-     _LOG.severe("ERROR_CREATE_COMPONENT_STALE", 
-                 new Object[] {scopedId, oldParentScopedId, newParentScopedId, bindingEL});
-     
+       String scopedId = ComponentUtils.getScopedIdForComponent(child, viewRoot);
+       String oldParentScopedId = ComponentUtils.getScopedIdForComponent(oldParent, viewRoot);
+       String newParentScopedId = _getParentScopedId(viewRoot);
+
+       String bindingEL = _getBindingExpression();
+
+       _LOG.log(level, "ERROR_CREATE_COMPONENT_STALE",
+                   new Object[] {scopedId, oldParentScopedId, newParentScopedId, bindingEL});
+     }
    }
-   
+
    /**
     * Returns the expression set for the component's binding attribute or null.
     * @return String
@@ -690,21 +713,21 @@ abstract public class UIXComponentELTag extends UIComponentELTag
      {
        if (_bindingExpression == null)
          _bindingExpression = _getBinding().getExpressionString();
-       
+
        return _bindingExpression;
      }
-    
+
      return null;
    }
-   
+
    /**
-    * Gets the scopedId of the parent component of the current tag's parent. 
+    * Gets the scopedId of the parent component of the current tag's parent.
     * @param viewRoot UIViewRoot instance
-    * @return String 
+    * @return String
     */
    private String _getParentScopedId(UIViewRoot viewRoot)
    {
-     UIComponentClassicTagBase parentTag = 
+     UIComponentClassicTagBase parentTag =
        UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
      if (parentTag != null)
      {
@@ -714,7 +737,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
 
      return null;
    }
-   
+
   /**
    * Parse a string into a java.util.Date object.  The
    * string must be in ISO 9601 format (yyyy-MM-dd).

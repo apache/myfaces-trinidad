@@ -24,24 +24,22 @@ import java.net.URI;
 
 import java.net.URISyntaxException;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ArrayMap;
-import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.util.LRUCache;
+import org.apache.myfaces.trinidadinternal.util.CopyOnWriteArrayMap;
 
 /**
  * CSS-related utilities. I think as we move away from xss, most of this code will
@@ -763,13 +761,13 @@ public class CSSUtils
   {
     Color sharedColor = _sColorCache.get(Integer.valueOf(rgb));
 
-    if (sharedColor == null)
-    {
-      sharedColor = new Color(rgb);
-      _sColorCache.put(Integer.valueOf(rgb), sharedColor);
-    }
+    if (sharedColor != null)
+      return sharedColor;
 
-    return sharedColor;
+    sharedColor = new Color(rgb);
+    Color existing = _sColorCache.putIfAbsent(Integer.valueOf(rgb), sharedColor);
+
+    return (existing != null) ? existing : sharedColor;
   }
 
   private static Color _getSharedColor(int r, int g, int b)
@@ -982,8 +980,7 @@ public class CSSUtils
     }
     
     return value.indexOf("url(") >= 0;
-  }  
-  
+  }
 
   private static final String _PARENTHESES_BEGIN = "(";
 
@@ -1007,8 +1004,7 @@ public class CSSUtils
   // We keep a cache of shared Color instances, hashed by RGB value, so
   // that we don't end up with one Color instance for each color in each
   // cache key in the Tecate image cache.
-  private static final Map<Integer, Color> _sColorCache = 
-    Collections.synchronizedMap(new LRUCache<Integer, Color>(50));
+  private static final ConcurrentMap<Integer, Color> _sColorCache = CopyOnWriteArrayMap.newLRUConcurrentMap(50);
 
   // CSS named color values
   private static final Object[] _NAMED_COLORS = new Object[]
@@ -1089,10 +1085,11 @@ public class CSSUtils
     "smaller",  10,
     "larger",   14
   };
-  
+
 
   // Set of values that are legal for url() values
   private static final Set<String> _URI_PROPERTIES = new HashSet<String>();
+
   static
   {
     _URI_PROPERTIES.add("background-image");
@@ -1103,12 +1100,13 @@ public class CSSUtils
 
   // Set of values that are legal for url() values
   private static final Set<String> _SPECIAL_URI_VALUES = new HashSet<String>();
+
   static
   {
     _SPECIAL_URI_VALUES.add("none");
     _SPECIAL_URI_VALUES.add("inherit");
     _SPECIAL_URI_VALUES.add("-moz-linear-gradient");
-    _SPECIAL_URI_VALUES.add("-webkit-gradient");    
+    _SPECIAL_URI_VALUES.add("-webkit-gradient");
     _SPECIAL_URI_VALUES.add("-webkit-linear-gradient");
     _SPECIAL_URI_VALUES.add("radial-gradient");
     _SPECIAL_URI_VALUES.add("linear-gradient");
@@ -1117,5 +1115,4 @@ public class CSSUtils
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSUtils.class);
-
 }

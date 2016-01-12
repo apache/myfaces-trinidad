@@ -93,20 +93,30 @@ function _dfsv(
       // target, etc.
       if (_agent.isIE)
       {
-        // attach the value change listener
-        dateField.onpropertychange = function()
-        {
-          var event = window.event;
-          if (event.propertyName == 'value')
+	    // IE 11 won't support onpropertychange
+	    if (dateField.onpropertychange) {
+          // attach the value change listener
+          dateField.onpropertychange = function()
           {
-            // detach the value change listener
-            dateField.onpropertychange = function(){};
+            var event = window.event;
+            if (event.propertyName == 'value')
+            {
+              // detach the value change listener
+              dateField.onpropertychange = function(){};
               
-            dateField.onchange(event);
+              dateField.onchange(event);
+            }
           }
-        }
 
-        dateField.value = newValue;
+          dateField.value = newValue;
+	    } else {
+	      dateField.value = newValue;
+
+          var event = new Object();
+          event.type = 'change';
+          event.target = dateField;
+          dateField.onchange(event);
+	    }
       }
       else
       {
@@ -170,7 +180,8 @@ function _returnCalendarValue(
 
 function _returnPopupCalendarValue(
   props,
-  value
+  value,
+  serverOffsetInMins
   )
 {
   // Callback method registered with the popup
@@ -180,7 +191,8 @@ function _returnPopupCalendarValue(
     var formName = props['formName'];
     var fieldName = props['fieldName'];
     var dateField = document.forms[formName][fieldName];
-    _dfsv(dateField, value);
+     // The serverOffsetInMins is also required to get the correct timezone offset difference.
+    _dfsv(dateField, value, serverOffsetInMins);
   }
 }
 

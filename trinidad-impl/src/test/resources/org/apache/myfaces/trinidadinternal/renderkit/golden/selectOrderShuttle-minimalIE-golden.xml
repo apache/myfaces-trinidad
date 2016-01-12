@@ -5,6 +5,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -40,6 +41,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -85,6 +87,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -316,6 +319,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -361,6 +365,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -551,6 +556,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -586,6 +592,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -631,6 +638,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -862,6 +870,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -907,6 +916,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -1097,6 +1107,7 @@
            cellspacing="0"
            class="af_selectManyShuttle p_AFDisabled"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -1132,6 +1143,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -1177,6 +1189,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -1401,6 +1414,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -1446,6 +1460,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -1633,6 +1648,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -1668,6 +1684,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -1713,6 +1730,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -1944,6 +1962,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -1989,6 +2008,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -2179,6 +2199,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -2214,6 +2235,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -2259,6 +2281,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -2555,6 +2578,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -2600,6 +2624,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -2854,6 +2879,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -2889,6 +2915,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -2934,6 +2961,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -3172,6 +3200,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -3217,6 +3246,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -3407,6 +3437,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -3442,6 +3473,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -3487,6 +3519,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -3718,6 +3751,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -3763,6 +3797,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -3953,6 +3988,7 @@
            cellspacing="0"
            class="af_selectManyShuttle p_AFReadOnly"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -3988,6 +4024,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -4033,6 +4070,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -4257,6 +4295,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -4302,6 +4341,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -4489,6 +4529,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -4524,6 +4565,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -4569,6 +4611,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -4800,6 +4843,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -4845,6 +4889,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -5035,6 +5080,7 @@
            cellspacing="0"
            class="af_selectManyShuttle p_AFRequired"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -5081,6 +5127,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -5126,6 +5173,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -5357,6 +5405,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -5402,6 +5451,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -5592,6 +5642,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -5627,6 +5678,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -5672,6 +5724,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -5903,6 +5956,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -5948,6 +6002,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -6138,6 +6193,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -6173,6 +6229,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -6218,6 +6275,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -6449,6 +6507,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -6494,6 +6553,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -6684,6 +6744,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -6719,6 +6780,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -6764,6 +6826,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -7059,6 +7122,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -7104,6 +7168,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -7359,6 +7424,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -7394,6 +7460,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -7439,6 +7506,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -7670,6 +7738,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -7715,6 +7784,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -7912,6 +7982,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="test-id"
+           role="presentation"
            summary=""
            width="10%"
           >
@@ -7947,6 +8018,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -7992,6 +8064,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -8223,6 +8296,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -8268,6 +8342,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -8458,6 +8533,7 @@
            cellspacing="0"
            class="af_selectManyShuttle"
            id="mainId"
+           role="presentation"
            summary=""
            title="test-shortDesc"
            width="10%"
@@ -8494,6 +8570,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -8539,6 +8616,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         
@@ -8770,6 +8848,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectOrderShuttle_box"
+                 role="presentation"
                  style="width:100%"
                  summary=""
                 >
@@ -8815,6 +8894,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           role="presentation"
                            summary=""
                           >
                         

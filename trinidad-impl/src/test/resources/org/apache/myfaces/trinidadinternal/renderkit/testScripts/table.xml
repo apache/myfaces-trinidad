@@ -24,7 +24,7 @@
     </component>
   </base-component>
   
-  <boolean-test name="allDetailsEnabled" default="false"/> 
+  <boolean-test name="allDetailsEnabled" default="false" unsupportedDevices="pda"/> 
   <attribute-test name="disclosedRowKeys" value="#{disclosureState}"/>
   <attribute-test name="rowBandingInterval" value="1"/>
   <attribute-test name="columnBandingInterval" value="1"/>
@@ -36,7 +36,7 @@
     <attribute-test name="horizontalGridVisible" value="false"/>
   </attribute-test>
     
-  <attribute-test name="summary" value="testTableSummary"/>
+  <attribute-test name="summary" value="testTableSummary" accessibilityModeNotSupported="INACCESSIBLE" unsupportedDevices="pda"/>
   <attribute-test name="width" value="70%"/>   
   <!-- tableSortCriteria is a custom attribute. This is not renderer or component attribute.
   The render kit framework handles this condition in the code. -->        

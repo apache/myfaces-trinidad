@@ -503,7 +503,11 @@ public final class ComponentUtils
                                                  currAncestor,
                                                  component);
 
-        if (location == null)
+        if (location != null)
+        {
+          break;
+        }
+        else
         {
           // 2b. try to get the location of the fragment that the ancestor could have inserted
           location = _getInsertingComponentLocation(context,

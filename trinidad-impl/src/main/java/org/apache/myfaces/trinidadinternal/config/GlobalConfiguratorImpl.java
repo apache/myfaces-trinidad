@@ -71,7 +71,7 @@ import org.apache.myfaces.trinidadinternal.skin.provider.TrinidadSkinProvider;
  * the Trindad developer.
  *
  * @see org.apache.myfaces.trinidad.config.Configurator
- * @version $Revision$ $Date$
+ * @version $Revision: daschnei_20131204_er17813713/3 $ $Date: 2014/01/21 13:53:38 $
  */
 public final class GlobalConfiguratorImpl
   extends Configurator
@@ -265,16 +265,16 @@ public final class GlobalConfiguratorImpl
   @Override
   public void destroy()
   {
-    
+
     if (_initialized.get())
-    { 
+    {
       try
       {
         //Forces atomic operations with init.  If we are in the middle of an init or another destroy, we'll
         //wait on this lock until our operations are complete.  We then have to recheck our initialized state.
-        
+
         _initLock.lock();
-        if(_initialized.get())
+        if (_initialized.get())
         {
           for (final Configurator config: _services)
           {
@@ -317,7 +317,7 @@ public final class GlobalConfiguratorImpl
     {
       try
       {
-         _endRequest(ec, state);
+        _endRequest(ec, state);
       }
       finally
       {
@@ -343,7 +343,7 @@ public final class GlobalConfiguratorImpl
   {
     RequestStateMap state = RequestStateMap.getInstance(ec);
     RequestType type = (RequestType) state.get(_REQUEST_TYPE);
-    
+
     //Install the URLEncoder plugin system
     ec = new URLEncoderExternalContext(ec);
 
@@ -376,7 +376,7 @@ public final class GlobalConfiguratorImpl
         ec = config.getExternalContext(ec);
       }
     }
-    
+
     //After all this request wrapping there is just one more thing we want to handle.  IF we are not in a PPR
     //request AND we are in a processAction, we need to be able to track when a redirect is performed.  The
     //reason for this is that if a redirect is performed during the processAction then we need to remember this
@@ -384,7 +384,7 @@ public final class GlobalConfiguratorImpl
     //at the end of ProcessAction so the subsequent render will start fresh.  In the PPR case, and the case where
     //we do not have a performAction, we can skip this wrapper.  This information will be saved and removed from
     //the request.
-    if(RequestType.ACTION.equals(type))
+    if (RequestType.ACTION.equals(type))
     {
       //We have an action, add the wrapper.
       ec = new RecordRedirectExternalContext(ec);
@@ -409,7 +409,7 @@ public final class GlobalConfiguratorImpl
   public void init(ExternalContext ec)
   {
     assert ec != null;
-    
+
     if (!_initialized.get())
     {
       try
@@ -419,43 +419,55 @@ public final class GlobalConfiguratorImpl
         //is checked again for validity.
         _initLock.lock();
         //Check the AtomicBoolean for a change
-        if(!_initialized.get())
-      {
-        _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-
-        // set up the RequestContext Factory as needed.
-        _setupRequestContextFactory();
-
-        // Create a new SkinFactory if needed.
-        if (SkinFactory.getFactory() == null)
+        if (!_initialized.get())
         {
-          SkinFactory.setFactory(new SkinFactoryImpl());
-        }
+          _services = ClassLoaderUtils.getServices(Configurator.class.getName());
 
-        // init external skin provider
-        // this has to be done before SkinProviderRegistry, because SkinProviderRegistry uses this
-        Object externalSkinProvider = ec.getApplicationMap().get(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY);
+          // set up the RequestContext Factory as needed.
+          _setupRequestContextFactory();
 
-        if (externalSkinProvider == null)
-          ec.getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY, new ExternalSkinProvider());
+          // Create a new SkinFactory if needed.
+          // SkinFactory is now deprecated. For backward compatibility, SkinFactory internally
+          // calls SkinProvider. So when we init SkinFactory we need to init SkinProvider as well.
+          // SkinProviderRegistry is the implementation of SkinProvider. This in turn needs other
+          // internal SkinProviders such as ExternalSkinProvider, TrinidadSkinProvider to be
+          // available. So we init all of that one by one.
+          if (SkinFactory.getFactory() == null)
+          {
+            SkinFactory.setFactory(new SkinFactoryImpl());
+          }
 
-        // init trinidad skin provider
-        // this has to be done before SkinProviderRegistry, because SkinProviderRegistry uses this
-        Object trinidadSkinProvider = ec.getApplicationMap().get(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY);
+          // init external skin provider before init of SkinProviderRegistry
+          Object externalSkinProvider = ec.getApplicationMap()
+                                          .get(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY);
 
-        if (trinidadSkinProvider  == null)
-          ec.getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY, new TrinidadSkinProvider());
+          if (externalSkinProvider == null)
+            ec.getApplicationMap().put(ExternalSkinProvider.EXTERNAL_SKIN_PROVIDER_KEY,
+                                       new ExternalSkinProvider());
 
-        // init skin provider
-        Object provider = ec.getApplicationMap().get(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY);
+          // init trinidad skin provider before init of SkinProviderRegistry
+          Object trinidadSkinProvider = ec.getApplicationMap()
+                                          .get(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY);
 
-        if (provider == null)
-          ec.getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY, new SkinProviderRegistry());
+          if (trinidadSkinProvider == null)
+            ec.getApplicationMap().put(TrinidadSkinProvider.TRINDIAD_SKIN_PROVIDER_KEY,
+                                       new TrinidadSkinProvider());
 
-        for (final Configurator config: _services)
-        {
-          config.init(ec);
-        }
+          // init skin provider
+          Object provider = ec.getApplicationMap()
+                              .get(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY);
+
+          if (provider == null)
+            ec.getApplicationMap().put(SkinProvider.SKIN_PROVIDER_INSTANCE_KEY,
+                                       new SkinProviderRegistry());
+
+          // init the config property service
+          ConfigPropertyServiceImpl.initialize(ec);
+
+          for (final Configurator config: _services)
+          {
+            config.init(ec);
+          }
 
           // we do not register the skin extensions found in trinidad-skins.xml eagerly.
           // with SkinProvider SPI we are lazy loading skins as and when required
@@ -509,7 +521,7 @@ public final class GlobalConfiguratorImpl
   }
 
   /**
-   * Setup request context factory as needed. 
+   * Setup request context factory as needed.
    */
   private void _setupRequestContextFactory()
   {
@@ -517,7 +529,8 @@ public final class GlobalConfiguratorImpl
       return;
 
     RequestContextFactory requestContextFactory = null;
-    List<RequestContextFactory> factories = ClassLoaderUtils.getServices(RequestContextFactory.class.getName());;    
+    List<RequestContextFactory> factories = ClassLoaderUtils.getServices(RequestContextFactory.class.getName());
+    ;
     if (factories.isEmpty())
       requestContextFactory = new RequestContextFactoryImpl();
     else
@@ -585,15 +598,16 @@ public final class GlobalConfiguratorImpl
   private void _endConfiguratorServiceRequest(ExternalContext ec, RequestStateMap state)
   {
     boolean isRedirected = (null != ec.getRequestMap().remove(_REDIRECT_ISSUED));
-    
+
     try
     {
       //Only end services at the end of a writable response.  This will
       //generally be RENDER, RESOURCE, and SERVLET.
-      
+
       //WE had to add a check to see if a redirect was issued in order to handle a bug where endRequest was not
       //executed on a redirect.
-      if ((ExternalContextUtils.isResponseWritable(ec) || isRedirected) && !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
+      if ((ExternalContextUtils.isResponseWritable(ec) || isRedirected) &&
+          !Boolean.TRUE.equals(state.get(_CONFIGURATORS_ABORTED)))
       {
         _endConfiguratorServices(ec);
       }
@@ -601,7 +615,7 @@ public final class GlobalConfiguratorImpl
     finally
     {
       //If redirect was issued, we do not want to save the state.  Let it burn..  :D
-      if(!isRedirected)
+      if (!isRedirected)
       {
         state.saveState(ec);
       }
@@ -620,7 +634,7 @@ public final class GlobalConfiguratorImpl
       _finishComponentReferenceInitialization(ec);
     }
   }
-  
+
   private void _releaseThreadLocals(ExternalContext ec)
   {
     try
@@ -663,26 +677,26 @@ public final class GlobalConfiguratorImpl
   private void _finishComponentReferenceInitialization(ExternalContext ec)
   {
     Map<String, Object> requestMap = ec.getRequestMap();
-    
-    Collection<ComponentReference<?>> initializeList = (Collection<ComponentReference<?>>)
-                                             requestMap.get(_FINISH_INITIALIZATION_LIST_KEY);
-    
+
+    Collection<ComponentReference<?>> initializeList =
+      (Collection<ComponentReference<?>>) requestMap.get(_FINISH_INITIALIZATION_LIST_KEY);
+
     if ((initializeList != null) && !initializeList.isEmpty())
     {
       RuntimeException initializationException = null;
 
-      for (ComponentReference<?> reference : initializeList)
+      for (ComponentReference<?> reference: initializeList)
       {
         try
         {
-        reference.ensureInitialization();
-      }
+          reference.ensureInitialization();
+        }
         catch (RuntimeException rte)
         {
           initializationException = rte;
         }
       }
-      
+
       // we've initialized everything, so we're done
       initializeList.clear();
 
@@ -737,22 +751,22 @@ public final class GlobalConfiguratorImpl
       }
     }
   }
-  
+
   private boolean _beginWindowManagerRequest(ExternalContext ec)
   {
     WindowManager wm = RequestContext.getCurrentInstance().getWindowManager();
-    boolean cont = true;  
-    
+    boolean cont = true;
+
     try
     {
       cont = wm.beginRequest(ec);
     }
-    catch(IOException e)
+    catch (IOException e)
     {
       _LOG.severe(e);
     }
-                        
-    return cont;                    
+
+    return cont;
   }
 
   static private boolean _isSetRequestBugPresent(ExternalContext ec)
@@ -788,7 +802,8 @@ public final class GlobalConfiguratorImpl
   // This handles an issue with the ExternalContext object prior to
   // JSF1.2_04.
 
-  static private class ClearRequestExternalContext extends ExternalContextDecorator
+  static private class ClearRequestExternalContext
+    extends ExternalContextDecorator
   {
     private ExternalContext _ec;
     private Map<String, Object> _requestCookieMap;
@@ -884,8 +899,7 @@ public final class GlobalConfiguratorImpl
       _checkRequest();
       if (_requestParameterValuesMap == null)
       {
-        _requestParameterValuesMap =
-            new ServletRequestParameterValuesMap((ServletRequest) getRequest());
+        _requestParameterValuesMap = new ServletRequestParameterValuesMap((ServletRequest) getRequest());
       }
       return _requestParameterValuesMap;
     }
@@ -910,66 +924,64 @@ public final class GlobalConfiguratorImpl
     }
   }
 
-  static private class RecordRedirectExternalContext extends ExternalContextDecorator
+  static private class RecordRedirectExternalContext
+    extends ExternalContextDecorator
   {
     public RecordRedirectExternalContext(ExternalContext ec)
     {
-      assert(ec != null);
+      assert (ec != null);
       _ec = ec;
     }
-    
+
     @Override
     public void redirect(String url)
       throws IOException
     {
       super.redirect(url);
-      
+
       //We set a parameter on the request saying that we indeed have a redirect.
       _ec.getRequestMap().put(_REDIRECT_ISSUED, AppliedClass.APPLIED);
     }
-    
+
     @Override
     protected ExternalContext getExternalContext()
     {
       return _ec;
     }
-    
+
     private ExternalContext _ec;
   }
 
   private static volatile boolean _sSetRequestBugTested = false;
   private static boolean _sHasSetRequestBug = false;
-  
+
   private final ReentrantLock _initLock = new ReentrantLock();
 
   private AtomicBoolean _initialized = new AtomicBoolean(false);
   private List<Configurator> _services;
   static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS =
     new HashMap<ClassLoader, GlobalConfiguratorImpl>();
-  static private final String _IN_REQUEST =
-    GlobalConfiguratorImpl.class.getName() + ".IN_REQUEST";
-  static private final String _REQUEST_CONTEXT =
-    GlobalConfiguratorImpl.class.getName() + ".REQUEST_CONTEXT";
-  static private final String _REQUEST_TYPE =
-    GlobalConfiguratorImpl.class.getName() + ".REQUEST_TYPE";
-  
+  static private final String _IN_REQUEST = GlobalConfiguratorImpl.class.getName() + ".IN_REQUEST";
+  static private final String _REQUEST_CONTEXT = GlobalConfiguratorImpl.class.getName() + ".REQUEST_CONTEXT";
+  static private final String _REQUEST_TYPE = GlobalConfiguratorImpl.class.getName() + ".REQUEST_TYPE";
+
   static private final String _CONFIGURATORS_ABORTED =
     GlobalConfiguratorImpl.class.getName() + ".CONFIGURATORS_ABORTED";
 
   //This should be saved on the ManagedRequestScope and needs to implement
   //@ExcludeFromManagedRequestScope to be totally safe
-  static private final String _REDIRECT_ISSUED =
-    GlobalConfiguratorImpl.class.getName() + ".REDIRECT_ISSUED";
-  
+  static private final String _REDIRECT_ISSUED = GlobalConfiguratorImpl.class.getName() + ".REDIRECT_ISSUED";
+
   //This will ensure the property is removed on the next request.  It should be used
   //as the value for _REDIRECT_ISSUED.
+
   @ExcludeFromManagedRequestScope
   static private class AppliedClass
   {
     static public final AppliedClass APPLIED = new AppliedClass();
   }
 
-  
+
   static private class TestRequest
     extends ServletRequestWrapper
   {
@@ -998,14 +1010,12 @@ public final class GlobalConfiguratorImpl
   }
 
   // skanky duplication of key from ComponentReference Class
-  private static final String _FINISH_INITIALIZATION_LIST_KEY = ComponentReference.class.getName() +
-                                                                "#FINISH_INITIALIZATION";
+  private static final String _FINISH_INITIALIZATION_LIST_KEY =
+    ComponentReference.class.getName() + "#FINISH_INITIALIZATION";
 
   // hacky reference to the ThreadLocalResetter used to clean up request-scoped
   // ThreadLocals
-  private AtomicReference<ThreadLocalResetter> _threadResetter =
-    new AtomicReference<ThreadLocalResetter>();
+  private AtomicReference<ThreadLocalResetter> _threadResetter = new AtomicReference<ThreadLocalResetter>();
 
-  static private final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);
 }

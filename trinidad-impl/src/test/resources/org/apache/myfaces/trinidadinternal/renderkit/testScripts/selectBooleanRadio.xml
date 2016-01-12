@@ -2,7 +2,7 @@
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <!-- Set required group attribute -->
   <base-component tr:type="org.apache.myfaces.trinidad.CoreSelectBooleanRadio" group="groupTest"/>
-  <!--attribute-test name="accessKey" value="a"/-->
+  <!--attribute-test name="accessKey" value="a" requiredCapabilities="accessKeys"/-->
   <boolean-test name="autoSubmit"/>
   <attribute-test name="autoSubmit" value="true">  
     <attribute-test name="immediate" value="true"/>

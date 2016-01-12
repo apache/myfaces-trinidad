@@ -15,7 +15,7 @@
   <!--attribute-test name="accessKey" /-->
   <boolean-test name="autoSubmit"/>
   <boolean-test name="disabled"/>
-  <attribute-test name="label"/>
+  <attribute-test name="label" accessibilityModeNotSupported="INACCESSIBLE" unsupportedDevices="pda"/>
   <boolean-test name="readOnly"/> 
   <attribute-test name="readOnly" value="true">
     <attribute-test name="value" value="4"/>

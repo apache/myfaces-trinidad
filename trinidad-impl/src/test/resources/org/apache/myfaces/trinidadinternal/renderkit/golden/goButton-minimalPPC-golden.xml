@@ -9,18 +9,6 @@
           >
         
       </input>
-<!--AttributeTest[accessKey,u]-->
-
-      <input
-           class="af_goButton"
-           onclick="document.location='encoded-action-url:http://www.oracle.com'"
-           type="button"
-           value="ButtonText"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        
-      </input>
 <!--AttributeTest[disabled,false]-->
 
       <input
@@ -38,18 +26,6 @@
       <input
            class="af_goButton p_AFDisabled"
            disabled="disabled"
-           type="button"
-           value="ButtonText"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        
-      </input>
-<!--AttributeTest[targetFrame,mytarget]-->
-
-      <input
-           class="af_goButton"
-           onclick="top[mytarget].location='encoded-action-url:http://www.oracle.com'"
            type="button"
            value="ButtonText"
            id="uri-attr:mainId"

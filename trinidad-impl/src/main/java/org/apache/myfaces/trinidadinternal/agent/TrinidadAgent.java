@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.agent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.Version;
 
@@ -786,6 +788,20 @@ public abstract class TrinidadAgent implements Agent, Cloneable
    */
   public static final String SKIN_WINDOWS_MOBILE = "windowsmobile";
 
+  /**
+   * Returns the agent as a TrinidadAgent
+   */
+  public static TrinidadAgent asTrinidadAgent(FacesContext context, Agent agent)
+  {
+    if (agent instanceof TrinidadAgent)
+    {
+      return (TrinidadAgent)agent;
+    }
+    else
+    {
+      return new TrinidadAgentImpl(context, agent);
+    }
+  }
   /**
    * Returns the type of agent to which we're rendering.  Currently,
    * only web browsers are understood.

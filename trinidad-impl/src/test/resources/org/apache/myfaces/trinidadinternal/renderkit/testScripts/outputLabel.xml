@@ -3,7 +3,7 @@
   <base-component tr:type="org.apache.myfaces.trinidad.CoreOutputLabel" for="input" value="label-noaccess">
     <component tr:type="org.apache.myfaces.trinidad.CoreInputText" id="input"/>
   </base-component>
-  <attribute-test name="accessKey" value="a"/>
+  <attribute-test name="accessKey" value="a" accessibilityModeNotSupported="SCREEN_READER" requiredCapabilities="accessKeys"/>
   <boolean-test name="showRequired"/>
   <attribute-test name="id"/>
   <boolean-test name="rendered"/>

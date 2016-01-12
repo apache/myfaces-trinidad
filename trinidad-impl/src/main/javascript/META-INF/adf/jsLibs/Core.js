@@ -247,11 +247,18 @@ function _agentInit()
   // Indicate browser's validation capability support
   var supportsValidation  = true;
 
-  if (agentString.indexOf("msie") != -1)
+  if (agentString.indexOf("msie") != -1
+			|| agentString.indexOf("trident") != -1)
   {
+    var matches = null;
     // extract ie's version from the ie string
-    var matches = agentString.match(/msie (.*);/);
-    version = parseFloat(matches[1]);
+    if (agentString.indexOf("msie") != -1) {
+        matches = agentString.match(/msie (.*);/);
+        version = parseFloat(matches[1]);
+    } else if (agentString.indexOf("trident") != -1) {
+        matches = agentString.match(/trident\/(.*);/);
+        version = parseFloat(matches[1]) + 4.0;
+    }
     isIEGroup = true;
 
     // All IE based mobile browsers

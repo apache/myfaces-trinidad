@@ -791,16 +791,32 @@ public class CSSGenerationUtils
    * with "OraNav1Enabled" and "text".
    * .OraLink:visited returns "OraLink"
    * .star.moon returns "star" and "moon"
+   * namespaced style classes like af|table are not returned
    */
-  public static Iterator<String> getStyleClasses(String selector)
+  public static Iterator<String> getNonNamespacedStyleClasses(String selector)
   {
     ArrayList<String> styleClasses = null;
+    boolean inAttributeSet = false;
     int styleClassStartIndex = -1;
     int length = selector.length();
 
     for (int i = 0; i < length; i++)
     {
       char c = selector.charAt(i);
+
+      // attribute set can be id["something"] or img["foo/bar/baz.gif"]
+      // inAttributeSet is set to true when we find '['
+      // we want to skip till ']' so that we skip the entire attribute set
+      if (inAttributeSet)
+      {
+        if (c == ']')
+        {
+          inAttributeSet = false;
+        }
+
+        // skip until and including ']'
+        continue;
+      }
 
       // If we aren't inside of a style class yet,
       // check to see if we are about to enter one.
@@ -810,10 +826,14 @@ public class CSSGenerationUtils
       {
         if (c == '.')
           styleClassStartIndex = i;
+        else if (c == '[')
+          inAttributeSet = true;
+
       }
       else
       {
         boolean end = _isStyleClassTerminator(c);
+
         if (!end)
         {
           // Check to see if we are at the end of the string
@@ -830,6 +850,11 @@ public class CSSGenerationUtils
         // If we're at the end of the style class, add it to the list
         if (end)
         {
+          // if we are at the end due to '[' we want to skip processing the entire
+          // attributeSet before we start looking for next selector
+          if (c == '[')
+            inAttributeSet = true;
+
           String styleClass = selector.substring(styleClassStartIndex + 1, i);
           if (styleClasses == null)
             styleClasses = new ArrayList<String>(3);
@@ -1907,7 +1932,8 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":hover");
     _BUILT_IN_PSEUDO_CLASSES.add(":active");
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
-    _BUILT_IN_PSEUDO_CLASSES.add(":-moz-placeholder");
+    _BUILT_IN_PSEUDO_CLASSES.add(":-moz-placeholder"); // FF <= 18
+    _BUILT_IN_PSEUDO_CLASSES.add(":-ms-input-placeholder"); // IE
 
     /** Special case CSS2 pseudo-elements used as pseudo-classes
      * for compatibility reasons.
@@ -1949,8 +1975,9 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_ELEMENTS.add("::marker");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::line-marker");
     _BUILT_IN_PSEUDO_ELEMENTS.add("::selection");
-    _BUILT_IN_PSEUDO_ELEMENTS.add("::-webkit-input-placeholder");
-
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::-webkit-input-placeholder"); // Chrome
+    _BUILT_IN_PSEUDO_ELEMENTS.add("::-moz-placeholder"); // FF >= 19
+    
     /** @page pseudo classes*/
     _AT_PAGE_PSEUDO_CLASSES.add(":first");
     _AT_PAGE_PSEUDO_CLASSES.add(":left");

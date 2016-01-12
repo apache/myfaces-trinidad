@@ -201,7 +201,9 @@ TrPopupDialog._initDialogPage = function()
   // Resize the dialog to the page content
   if (!dialog._fixedSize)
   {
-    if (_agent.isIE)
+    // The Document property is not available on the iframe object
+	// in ie10 but, the contentDocument property is available since IE8.
+    if (_agent.isIE && _agent.version < 8)
     {
       dialog._resizeIFrame(
         dialog._iframe.Document.body.scrollWidth+40, 
@@ -218,7 +220,7 @@ TrPopupDialog._initDialogPage = function()
   {
     if(dialog._variableWidth)
     {
-      if (_agent.isIE)
+      if (_agent.isIE && _agent.version < 8)
       {
         dialog._resizeIFrame(dialog._iframe.Document.body.scrollWidth+40, null);
       }
@@ -230,7 +232,7 @@ TrPopupDialog._initDialogPage = function()
 
     if(dialog._variableHeight)
     {
-      if (_agent.isIE)
+      if (_agent.isIE && _agent.version < 8)
       {
         dialog._resizeIFrame(null, dialog._iframe.Document.body.scrollHeight+40);
       }

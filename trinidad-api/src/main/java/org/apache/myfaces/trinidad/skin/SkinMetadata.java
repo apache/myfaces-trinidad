@@ -24,31 +24,37 @@ import java.util.Map;
 import javax.el.ValueExpression;
 
 /**
- * SkinMetadata encapsulates information about a skin. SkinMetadata is instantiated using the nested Builder class.
+ * SkinMetadata encapsulates information about a skin. SkinMetadata is instantiated using the nested
+ * Builder class.
  * <pre>
  * {@code
- * SkinMetadata mySkinMetadata = new SkinMetadata.Builder().baseSkinId("alta-v1.desktop").id("mySkin.desktop")
- *                               .family("mySkin").renderKitId(SkinMetadata.RenderKit.DESKTOP)
- *                              .styleSheetName("my/css/location.css").version(new SkinVersion("v1")).build();
+ * SkinMetadata mySkinMetadata = new SkinMetadata.Builder()
+ *                                    .baseSkinId("alta-v1.desktop")
+ *                                    .id("mySkin.desktop")
+ *                                    .family("mySkin")
+ *                                    .renderKitId(SkinMetadata.RenderKit.DESKTOP)
+ *                                    .styleSheetName("my/css/location.css")
+ *                                    .version(new SkinVersion("v1"))
+ *                                    .build();
  * }
  * </pre>
- * SkinMetadata is used mainly in two ways:
- * First, as a representation of a Skin.
- * Second, as a means to query Skins.
+ * SkinMetadata is used mainly in two ways: First, as a representation of a Skin. Second, as a means
+ * to query Skins.
  * <p/>
- * SkinProvider#getSkinMetadata returns a collection of SkinMetadata.
- * The collection returned from this method can be built by the SkinProvider implementations beforehand, so that
- * it can publish the information about the skins that it supports to callers. Creation of SkinMetadata is a far
- * less costly process than creating a Skin. SkinMetadata created for this purpose should contain all relevant
- * information.
- * SkinProviders can also use SkinMetadata objects to create the actual Skin objects using SkinFactory#createSkin
- * API as well. In this case, SkinMetadata should be well formed with all relevant information so that SkinFactory
- * can create the skin.
+ * SkinProvider#getSkinMetadata returns a collection of SkinMetadata. The collection returned from
+ * this method can be built by the SkinProvider implementations beforehand, so that it can publish
+ * the information about the skins that it supports to callers. Creation of SkinMetadata is a far
+ * less costly process than creating a Skin. SkinMetadata created for this purpose should contain
+ * all relevant information. SkinProviders can also use SkinMetadata objects to create the actual
+ * Skin objects using SkinFactory#createSkin API as well. In this case, SkinMetadata should be well
+ * formed with all relevant information so that SkinFactory can create the skin.
  * <p/>
- * SkinMetadata is used as query object to retrieve Skin from a SkinProvider#getSkin. Querying Skins are based on
- * id, family, version and renderkit. For querying Skins, user should set either id or family as mandatory.
- * Other information (even if present) are not relevant while searching for a skin.
+ * SkinMetadata is used as query object to retrieve Skin from a SkinProvider#getSkin. Querying Skins
+ * are based on id, family, version and renderkit. For querying Skins, user should set either id or
+ * family as mandatory. Other information (even if present) are not relevant while searching for a
+ * skin.
  * <p/>
+ *
  * @see SkinProvider
  * @see Builder
  * @see Skin
@@ -114,9 +120,8 @@ public final class SkinMetadata
   }
 
   /**
-   * @return styleSheetName for the Skin. This points to the actual Skin file
-   * and is loaded using NameResolver
-   * {@link org.apache.myfaces.trinidad.share.io.NameResolver} implementation.
+   * @return styleSheetName for the Skin. This points to the actual Skin file and is loaded using
+   * NameResolver {@link org.apache.myfaces.trinidad.share.io.NameResolver} implementation.
    */
   public String getStyleSheetName()
   {
@@ -124,9 +129,9 @@ public final class SkinMetadata
   }
 
   /**
-   * @return resource bundle name for the Skin which contains the translations.
-   * If both translationSource and resourceBundleName is provided,
-   * resourceBundleName takes the preceedence.
+   * @return resource bundle name for the Skin which contains the translations. If both
+   * translationSource and resourceBundleName is provided, resourceBundleName takes the
+   * precedence.
    */
   public String getResourceBundleName()
   {
@@ -134,9 +139,9 @@ public final class SkinMetadata
   }
 
   /**
-   * @return translation source for the Skin, alternate way to specify the translations.
-   * If both translationSource and resourceBundleName is provided,
-   * resourceBundleName takes the preceedence.
+   * @return translation source for the Skin, alternate way to specify the translations. If both
+   * translationSource and resourceBundleName is provided, resourceBundleName takes the
+   * precedence.
    */
   public ValueExpression getTranslationSource()
   {
@@ -178,14 +183,24 @@ public final class SkinMetadata
 
     if (_id != null ? !_id.equals(that._id) : that._id != null) return false;
     if (_family != null ? !_family.equals(that._family) : that._family != null) return false;
-    if (_renderKitId != null ? !_renderKitId.equals(that._renderKitId) : that._renderKitId != null) return false;
-    if (_resourceBundleName != null ? !_resourceBundleName.equals(that._resourceBundleName) : that._resourceBundleName != null) return false;
-    if (_styleSheetName != null ? !_styleSheetName.equals(that._styleSheetName) : that._styleSheetName != null) return false;
-    if (_translationSource != null ? !_translationSource.equals(that._translationSource) : that._translationSource != null) return false;
+    if (_renderKitId != null ? !_renderKitId.equals(that._renderKitId) : that._renderKitId != null)
+      return false;
+    if (_resourceBundleName != null
+        ? !_resourceBundleName.equals(that._resourceBundleName)
+        : that._resourceBundleName != null) return false;
+    if (_styleSheetName != null
+        ? !_styleSheetName.equals(that._styleSheetName)
+        : that._styleSheetName != null) return false;
+    if (_translationSource != null
+        ? !_translationSource.equals(that._translationSource)
+        : that._translationSource != null) return false;
     if (_version != null ? !_version.equals(that._version) : that._version != null) return false;
-    if (_baseSkinId != null ? !_baseSkinId.equals(that._baseSkinId) : that._baseSkinId != null) return false;
-    if (_features != null ? !_features.equals(that._features) : that._features != null) return false;
-    if (_metadata != null ? !_metadata.equals(that._metadata) : that._metadata != null) return false;
+    if (_baseSkinId != null ? !_baseSkinId.equals(that._baseSkinId) : that._baseSkinId != null)
+      return false;
+    if (_features != null ? !_features.equals(that._features) : that._features != null)
+      return false;
+    if (_metadata != null ? !_metadata.equals(that._metadata) : that._metadata != null)
+      return false;
 
     return true;
   }
@@ -232,7 +247,7 @@ public final class SkinMetadata
       toString.append(_features).append(", ");
     if (_metadata != null && !_metadata.isEmpty())
       toString.append(_metadata).append(", ");
-    toString.append(']') ;
+    toString.append(']');
 
     return toString.toString();
   }
@@ -279,7 +294,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Returns the RenderKit instance or <code>null</code> if no id matches or id is passed as null.
+     * Returns the RenderKit instance or <code>null</code> if no id matches or id is passed as
+     * null.
+     *
      * @param id of RenderKit to return
      * @return RenderKit with the specified id
      * @throws IllegalArgumentException if there is no enum with the specified name.
@@ -297,7 +314,8 @@ public final class SkinMetadata
       return renderKit;
     }
 
-    private static final Map<String, RenderKitId> ID_TO_RENDER_KIT = new HashMap<String, RenderKitId>();
+    private static final Map<String, RenderKitId> ID_TO_RENDER_KIT =
+      new HashMap<String, RenderKitId>();
 
     static
     {
@@ -313,13 +331,17 @@ public final class SkinMetadata
   }
 
   /**
-   * convenience builder class for SkinMetadata
-   * SkinMetadata object can be created using this:
+   * convenience builder class for SkinMetadata SkinMetadata object can be created using this:
    * <pre>
    * {@code
-   * SkinMetadata mySkinMetadata = new SkinMetadata.Builder().baseSkinId("alta-v1.desktop").id("mySkin.desktop")
-   *                               .family("mySkin").renderKitId(SkinMetadata.RenderKit.DESKTOP)
-   *                              .styleSheetName("my/css/location.css").version(new SkinVersion("v1")).build();
+   * SkinMetadata mySkinMetadata = new SkinMetadata.Builder()
+   *                                .baseSkinId("alta-v1.desktop")
+   *                                .id("mySkin.desktop")
+   *                                .family("mySkin")
+   *                                .renderKitId(SkinMetadata.RenderKit.DESKTOP)
+   *                                .styleSheetName("my/css/location.css")
+   *                                .version(new SkinVersion("v1"))
+   *                                .build();
    * }
    * </pre>
    */
@@ -333,9 +355,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Mandatory while creating a Skin using SkinFactory#createSkin
-     * can be used while querying Skin using SkinProvider#getSkin
-     * either this or family is typically set while querying Skin
+     * Mandatory while creating a Skin using SkinFactory#createSkin can be used while querying Skin
+     * using SkinProvider#getSkin either this or family is typically set while querying Skin
+     *
      * @param id
      * @return
      */
@@ -346,9 +368,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Mandatory while creating a Skin using SkinFactory#createSkin
-     * can be used while querying Skin using SkinProvider#getSkin
-     * either this or id is typically set while querying Skin
+     * Mandatory while creating a Skin using SkinFactory#createSkin can be used while querying Skin
+     * using SkinProvider#getSkin either this or id is typically set while querying Skin
+     *
      * @param family
      * @return
      */
@@ -359,8 +381,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Recommended to be set while creating a Skin using SkinFactory#createSkin
-     * can be used while querying Skin using SkinProvider#getSkin
+     * Recommended to be set while creating a Skin using SkinFactory#createSkin can be used while
+     * querying Skin using SkinProvider#getSkin
+     *
      * @param renderKitId
      * @return
      */
@@ -371,8 +394,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Mandatory while creating a Skin using SkinFactory#createSkin
-     * Not used while querying Skin using SkinProvider#getSkin
+     * Mandatory while creating a Skin using SkinFactory#createSkin Not used while querying Skin
+     * using SkinProvider#getSkin
+     *
      * @param styleSheetName
      * @return
      */
@@ -383,8 +407,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Recommended to be set while creating a Skin using SkinFactory#createSkin
-     * Not used while querying Skin using SkinProvider#getSkin
+     * Recommended to be set while creating a Skin using SkinFactory#createSkin Not used while
+     * querying Skin using SkinProvider#getSkin
+     *
      * @param resourceBundleName
      * @return
      */
@@ -395,8 +420,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Recommended to be set while creating a Skin using SkinFactory#createSkin
-     * Not used while querying Skin using SkinProvider#getSkin
+     * Recommended to be set while creating a Skin using SkinFactory#createSkin Not used while
+     * querying Skin using SkinProvider#getSkin
+     *
      * @param translationSource
      * @return
      */
@@ -407,8 +433,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Mandatory while creating a Skin using SkinFactory#createSkin
-     * Not used while querying Skin using SkinProvider#getSkin
+     * Mandatory while creating a Skin using SkinFactory#createSkin Not used while querying Skin
+     * using SkinProvider#getSkin
+     *
      * @param baseSkinId
      * @return
      */
@@ -419,8 +446,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Recommended to be set while creating a Skin using SkinFactory#createSkin
-     * can be used while querying Skin using SkinProvider#getSkin
+     * Recommended to be set while creating a Skin using SkinFactory#createSkin can be used while
+     * querying Skin using SkinProvider#getSkin
+     *
      * @param version
      * @return
      */
@@ -431,8 +459,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Recommended to be set (if applicable) while creating a Skin using SkinFactory#createSkin
-     * Not used while querying Skin using SkinProvider#getSkin
+     * Recommended to be set (if applicable) while creating a Skin using SkinFactory#createSkin Not
+     * used while querying Skin using SkinProvider#getSkin
+     *
      * @param features
      * @return
      */
@@ -447,8 +476,9 @@ public final class SkinMetadata
     }
 
     /**
-     * Recommended to be set (if applicable) while creating a Skin using SkinFactory#createSkin
-     * Not used while querying Skin using SkinProvider#getSkin
+     * Recommended to be set (if applicable) while creating a Skin using SkinFactory#createSkin Not
+     * used while querying Skin using SkinProvider#getSkin
+     *
      * @param metadata
      * @return
      */
@@ -464,6 +494,7 @@ public final class SkinMetadata
 
     /**
      * call this method after you have set all the information that you wanted to
+     *
      * @return
      */
     public SkinMetadata build()
@@ -471,26 +502,26 @@ public final class SkinMetadata
       return new SkinMetadata(this);
     }
 
-    private String _id;
-    private String _family;
-    private RenderKitId _renderKitId;
-    private String _styleSheetName;
-    private String _resourceBundleName;
+    private String          _id;
+    private String          _family;
+    private RenderKitId     _renderKitId;
+    private String          _styleSheetName;
+    private String          _resourceBundleName;
     private ValueExpression _translationSource;
-    private String _baseSkinId;
-    private SkinVersion _version;
-    private SkinFeatures _features;
-    private CustomMetadata _metadata;
+    private String          _baseSkinId;
+    private SkinVersion     _version;
+    private SkinFeatures    _features;
+    private CustomMetadata  _metadata;
   }
 
-  private String _id;
-  private String _family;
-  private RenderKitId _renderKitId;
-  private String _baseSkinId;
-  private String _styleSheetName;
-  private String _resourceBundleName;
+  private String          _id;
+  private String          _family;
+  private RenderKitId     _renderKitId;
+  private String          _baseSkinId;
+  private String          _styleSheetName;
+  private String          _resourceBundleName;
   private ValueExpression _translationSource;
-  private SkinVersion _version;
-  private SkinFeatures _features;
-  private CustomMetadata _metadata;
+  private SkinVersion     _version;
+  private SkinFeatures    _features;
+  private CustomMetadata  _metadata;
 }

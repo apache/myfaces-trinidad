@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -32,13 +33,13 @@ import org.apache.myfaces.trinidad.skin.SkinFeatures;
 import org.apache.myfaces.trinidad.skin.SkinMetadata;
 import org.apache.myfaces.trinidad.skin.SkinProvider;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.provider.ExternalSkinProvider;
 
 
 /**
- * Factory for creating Skin objects.
- * To create and manage skins external to skin framework, use SkinProvider.
+ * Factory for creating Skin objects. To create and manage skins external to skin framework, use
+ * SkinProvider.
+ *
  * @see org.apache.myfaces.trinidad.skin.SkinProvider
  */
 public class SkinFactoryImpl extends SkinFactory
@@ -56,15 +57,19 @@ public class SkinFactoryImpl extends SkinFactory
    * @inheritDoc
    */
   @Override
-  public Skin createSkin(FacesContext context, SkinMetadata baseSkinMetadata, SkinMetadata skinMetadata)
+  public Skin createSkin(
+    ExternalContext externalContext,
+    SkinMetadata baseSkinMetadata,
+    SkinMetadata skinMetadata)
   {
-    if (context == null ||  baseSkinMetadata == null || skinMetadata == null)
+    if (externalContext == null || baseSkinMetadata == null || skinMetadata == null)
       throw new NullPointerException(_LOG.getMessage("NULL_FC_SKIN_BASE_SKIN_METADATA"));
 
-    if (baseSkinMetadata.getId() != null && !baseSkinMetadata.getId().equals(skinMetadata.getBaseSkinId()))
+    if (baseSkinMetadata.getId() != null &&
+          !baseSkinMetadata.getId().equals(skinMetadata.getBaseSkinId()))
       throw new IllegalArgumentException(_LOG.getMessage("INVALID_BASE_SKIN_ID"));
 
-    Skin baseSkin = SkinProvider.getCurrentInstance(context.getExternalContext()).getSkin(context, baseSkinMetadata);
+    Skin baseSkin = SkinProvider.getCurrentInstance(externalContext).getSkin(externalContext, baseSkinMetadata);
 
     if (baseSkin == null)
       throw new IllegalArgumentException(_LOG.getMessage("INVALID_BASE_SKIN"));
@@ -76,17 +81,18 @@ public class SkinFactoryImpl extends SkinFactory
    * @inheritDoc
    */
   @Override
-  public Skin createSkin(FacesContext context, SkinMetadata skinMetadata)
+  public Skin createSkin(ExternalContext externalContext, SkinMetadata skinMetadata)
   {
-    if (context == null || skinMetadata == null)
+    if (externalContext == null || skinMetadata == null)
       throw new NullPointerException(_LOG.getMessage("NULL_FC_SKIN_METADATA"));
 
     if (skinMetadata.getBaseSkinId() == null)
       throw new NullPointerException(_LOG.getMessage("NULL_BASE_SKIN_ID"));
 
-    SkinMetadata baseSkinMetadata = new SkinMetadata.Builder().id(skinMetadata.getBaseSkinId()).build();
+    SkinMetadata baseSkinMetadata =
+      new SkinMetadata.Builder().id(skinMetadata.getBaseSkinId()).build();
 
-    return createSkin(context, baseSkinMetadata, skinMetadata);
+    return createSkin(externalContext, baseSkinMetadata, skinMetadata);
   }
 
    /**
@@ -94,7 +100,7 @@ public class SkinFactoryImpl extends SkinFactory
     * the specified <code>skinId</code>, to be supported by this
     * {@link SkinFactory}, replacing any previously registered
     * {@link Skin} for this identifier.</p>
-    * 
+    *
     * <p>A warning will be logged if a previously registered {@link Skin} was replaced, since it could produce
     * inconsistent results if the application cached the previously registered Skin.</p>
     *
@@ -104,9 +110,7 @@ public class SkinFactoryImpl extends SkinFactory
     */
   @Override
   @Deprecated
-  public  void addSkin(
-    String skinId,
-    Skin   skin)
+  public void addSkin(String skinId, Skin skin)
   {
     if (skinId == null || skin == null)
     {
@@ -114,9 +118,11 @@ public class SkinFactoryImpl extends SkinFactory
       return;
     }
 
+    SkinMetadata.RenderKitId renderKitId = SkinMetadata.RenderKitId.fromId(skin.getRenderKitId());
     SkinMetadata.Builder builder = new SkinMetadata.Builder().id(skinId)
-            .family(skin.getFamily()).version(skin.getVersion())
-            .renderKitId(SkinMetadata.RenderKitId.fromId(skin.getRenderKitId()));
+                                                             .family(skin.getFamily())
+                                                             .version(skin.getVersion())
+                                                             .renderKitId(renderKitId);
 
     if (skin.getBaseSkin() != null)
       builder.baseSkinId(skin.getBaseSkin().getId());
@@ -124,7 +130,7 @@ public class SkinFactoryImpl extends SkinFactory
     if (skin.getSkinFeatures() != null)
       builder.features(new SkinFeatures(skin.getSkinFeatures()));
 
-    Skin previousValue = _getExternalSkinProvider(null).addSkin(builder.build(), skin);
+    Skin previousValue = _getExternalSkinProvider().addSkin(builder.build(), skin);
 
     if (previousValue != null)
       _LOG.warning("DUPLICATE_ADD_SKIN_TO_SKIN_FACTORY", skinId);
@@ -133,6 +139,7 @@ public class SkinFactoryImpl extends SkinFactory
 
   /**
    * given the skinId, pass back the Skin.
+   *
    * @param context FacesContext. If not available, pass in null.
    * @param skinId
    * @return Skin that is in this SkinFactory and has the skinId.
@@ -140,10 +147,9 @@ public class SkinFactoryImpl extends SkinFactory
    */
   @Deprecated
   @Override
-  public Skin getSkin(
-    FacesContext context,
-    String       skinId)
+  public Skin getSkin(FacesContext context, String skinId)
   {
+    context = SkinUtils.getNonNullFacesContext(context);
 
     if (skinId == null)
     {
@@ -151,44 +157,43 @@ public class SkinFactoryImpl extends SkinFactory
       return null;
     }
 
-    return SkinUtils.getSkinProvider(context).getSkin(context, new SkinMetadata.Builder().id(skinId).build());
+    ExternalContext ec = context.getExternalContext();
+    SkinMetadata skinMetadata = new SkinMetadata.Builder().id(skinId).build();
+    return SkinProvider.getCurrentInstance(ec).getSkin(ec, skinMetadata);
   }
 
   /**
    * given the skinFamily and renderKitId, pass back the Skin.
-   * @param context FacesContext for the request currently being
-   * processed, or <code>null</code> if none is available.
-   * @param family skin family of the requested {@link Skin} instance
-   * @param renderKitId RenderKit identifier of the requested:
-   * XhtmlConstants.APACHE_TRINIDAD_DESKTOP, XhtmlConstants.APACHE_TRINIDAD_PDA, or
-   * XhtmlConstants.APACHE_TRINIDAD_PORTLET
-   *  {@link Skin} instance
+   *
+   * @param context     FacesContext for the request currently being processed, or <code>null</code>
+   *                    if none is available.
+   * @param family      skin family of the requested {@link Skin} instance
+   * @param renderKitId RenderKit identifier of the requested: XhtmlConstants
+   *                    .APACHE_TRINIDAD_DESKTOP, XhtmlConstants.APACHE_TRINIDAD_PDA, or
+   *                    XhtmlConstants.APACHE_TRINIDAD_PORTLET {@link Skin} instance
    * @deprecated use SkinProvider to query skins
    */
   @Deprecated
   @Override
-  public Skin getSkin(
-    FacesContext context,
-    String       family,
-    String       renderKitId)
+  public Skin getSkin(FacesContext context, String family, String renderKitId)
   {
     return getSkin(context, family, renderKitId, null);
   }
 
   /**
-   * Given the skin family, renderKitId, and version, return the best matched skin.
-   * The skin picking logic is:
-   * If an exact family, renderKitId, and version (including null or "") is found, return that skin
-   * Else if the user asks for version "default", return the skin with family and renderKitId with version marked
-   * default. If version wasn't default and does not match any version for the skins with family and renderKitId, 
-   * then return the 'default' skin if there is one marked or return the last entry in the list
-   * of matching family/renderKitId skins.
+   * Given the skin family, renderKitId, and version, return the best matched skin. The skin picking
+   * logic is: If an exact family, renderKitId, and version (including null or "") is found, return
+   * that skin Else if the user asks for version "default", return the skin with family and
+   * renderKitId with version marked default. If version wasn't default and does not match any
+   * version for the skins with family and renderKitId, then return the 'default' skin if there is
+   * one marked or return the last entry in the list of matching family/renderKitId skins.
+   *
    * @param context
    * @param family
    * @param renderKitId
-   * @param version The version of the skin you want to return. This can be 
-   *                "default", or a version name (e.g., "v1"), or null or ""
-   *                (if you want the skin that does not have a version set).
+   * @param version     The version of the skin you want to return. This can be "default", or a
+   *                    version name (e.g., "v1"), or null or "" (if you want the skin that does not
+   *                    have a version set).
    * @return the best matched Skin given the family, renderKitId, and version.
    * @deprecated use SkinProvider to query skins
    */
@@ -196,25 +201,34 @@ public class SkinFactoryImpl extends SkinFactory
   @Override
   public Skin getSkin(
     FacesContext context,
-    String       family,
-    String       renderKitId,
-    String       version)
+    String family,
+    String renderKitId,
+    String version)
   {
+    context = SkinUtils.getNonNullFacesContext(context);
+
     // By setting the version to the empty string if version is null, we can
     // get the skin that has a matching family and renderkit and has no skin version.
     // (A Skin with no version returns SkinVersion.EMPTY_SKIN_VERSION for skin.getVersion(),
     // and getName will be "")
     if (version == null)
-        version = "";
-  
+      version = "";
+
     // given a skinFamily and a renderKitId, figure out the skinId.
     // If we don't have an exact match, use the simple skin that matches the
     // renderKitId (simple.desktop or simple.pda)
     if (family == null)
-     throw new NullPointerException("Null skin family");
+      throw new NullPointerException("Null skin family");
 
-    Skin matchingSkin = SkinUtils.getSkinProvider(context).getSkin(context, new SkinMetadata.Builder().
-      family(family).version(new SkinVersion(version)).renderKitId(SkinMetadata.RenderKitId.fromId(renderKitId)).build());
+    SkinVersion skinVersion = new SkinVersion(version);
+    SkinMetadata.RenderKitId renderKitIdObj = SkinMetadata.RenderKitId.fromId(renderKitId);
+    SkinMetadata metadata = new SkinMetadata.Builder().family(family)
+                                                      .version(skinVersion)
+                                                      .renderKitId(renderKitIdObj)
+                                                      .build();
+
+    ExternalContext ec = context.getExternalContext();
+    Skin matchingSkin = SkinProvider.getCurrentInstance(ec).getSkin(ec, metadata);
 
     return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin);
   }
@@ -226,7 +240,10 @@ public class SkinFactoryImpl extends SkinFactory
   @Override
   public Iterator<String> getSkinIds()
   {
-    Collection<SkinMetadata> metadatas = _getExternalSkinProvider(null).getSkinMetadata(null);
+    FacesContext context = SkinUtils.getNonNullFacesContext(null);
+    ExternalContext extContext = context.getExternalContext();
+    ExternalSkinProvider extSkinProvider = ExternalSkinProvider.getCurrentInstance(extContext);
+    Collection<SkinMetadata> metadatas = extSkinProvider.getSkinMetadata(extContext);
     Set<String> ids = new HashSet<String>();
 
     for (SkinMetadata metadata : metadatas)
@@ -242,18 +259,14 @@ public class SkinFactoryImpl extends SkinFactory
   @Override
   public void reload()
   {
-    _getExternalSkinProvider(null).reload();
+    _getExternalSkinProvider().reload();
   }
 
-  private ExternalSkinProvider _getExternalSkinProvider(FacesContext context)
+  private ExternalSkinProvider _getExternalSkinProvider()
   {
-    if (context == null)
-      context = FacesContext.getCurrentInstance();
-
-    if (context == null)
-      throw new NullPointerException("Cannot retrieve FacesContext. FacesContext is null.");
-
-    return ExternalSkinProvider.getCurrentInstance(context.getExternalContext());
+    FacesContext context = SkinUtils.getNonNullFacesContext(null);
+    ExternalContext extContext = context.getExternalContext();
+    return ExternalSkinProvider.getCurrentInstance(extContext);
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);

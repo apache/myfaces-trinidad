@@ -18,6 +18,13 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.Externalizable;
+
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
 import javax.faces.application.FacesMessage;
 
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
@@ -28,8 +35,13 @@ import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/FacesMessageWrapper.java#0 $) $Date: 10-nov-2005.19:09:45 $
  */
-class FacesMessageWrapper extends LabeledFacesMessage
+class FacesMessageWrapper extends LabeledFacesMessage implements Externalizable
 {
+  public FacesMessageWrapper()
+  {
+    this(new FacesMessage(), null);
+  }
+  
   public FacesMessageWrapper(FacesMessage wrapped, Object label)
   {
     _wrapped = wrapped;
@@ -55,6 +67,17 @@ class FacesMessageWrapper extends LabeledFacesMessage
   }
 
   @Override
+  public Object getLabel()
+  {
+    if(_wrapped instanceof LabeledFacesMessage)
+    {
+      return ((LabeledFacesMessage)_wrapped).getLabel();
+    }
+    
+    return _label;
+  }
+
+  @Override
   public void setDetail(String detail)
   {
     _wrapped.setDetail(detail);
@@ -72,6 +95,56 @@ class FacesMessageWrapper extends LabeledFacesMessage
     _wrapped.setSummary(summary);
   }
 
+  @Override
+  public void setLabel(Object label)
+  {
+    if(_wrapped instanceof LabeledFacesMessage)
+    {
+      ((LabeledFacesMessage)_wrapped).setLabel(label);
+    }
+    else
+    {
+      _label = label;
+    }
+  }  
+
+  /**
+   * Writes this object to the serialized stream.
+   * 
+   * @param objectOutput
+   * @throws IOException
+   */
+  public void writeExternal(ObjectOutput objectOutput)
+    throws IOException
+  {
+    objectOutput.writeLong(serialVersionUID);
+    objectOutput.writeObject(_wrapped);
+    objectOutput.writeObject(_label);
+  }
+
+  /**
+   * Reads this object from the serialized stream.
+   * 
+   * @param objectInput
+   * @throws IOException
+   * @throws ClassNotFoundException
+   */
+  public void readExternal(ObjectInput objectInput)
+    throws IOException, ClassNotFoundException
+  {
+    Long version = objectInput.readLong();
+    
+    if(version != serialVersionUID)
+    {
+      throw new InvalidClassException("Classes are not compatible.  Received serialVersionUID = " + version + ", local serialVersionUID = "+ serialVersionUID);
+    }
+
+    _wrapped = (FacesMessage)objectInput.readObject();
+    _label = objectInput.readObject();
+  }
+
   private FacesMessage _wrapped;
+  private Object _label;
   private static final long serialVersionUID = 1L;
+
 }

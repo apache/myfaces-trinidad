@@ -28,6 +28,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
@@ -45,6 +46,7 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidad.skin.SkinVersion;
+import org.apache.myfaces.trinidad.util.ToStringHelper;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -53,6 +55,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
+
 /**
  * Defines the components (icons, styles, etc)
  * which are used to implement a particular skin.
@@ -60,8 +63,9 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
  * This implementation class adds the details that should
  * not be exposed outside of this API.
  *
- * @see SkinFactory
- * @see org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext#getSkinFactory
+ * @see org.apache.myfaces.trinidad.skin.SkinFactory
+ * @see org.apache.myfaces.trinidad.skin.SkinProvider
+ * @see org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl#reloadSkins
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/Skin.java#0 $) $Date: 10-nov-2005.18:58:54 $
  */
@@ -69,10 +73,11 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
 {
 
   /**
-   * Returns an string identifier which uniquely identies
-   * this Skin implementation.  Skin implementations
-   * can be retrieved by id via SkinFactory.getSkin().
-   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactory#getSkin
+   * Returns an string identifier which uniquely identifies this Skin implementation. Skin
+   * implementations can be retrieved by id via SkinFactory.getSkin().
+   * Note that in order to avoid infinite call loop the implementation of getId() in this class or
+   * sub classes should not call toString().
+   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl#getSkin
    */
   @Override
   public String getId()
@@ -94,7 +99,12 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   {
     return null;
   }
-  
+
+  /**
+   * Note that in order to avoid infinite call loop the implementation of getVersion() in this class
+   * or sub classes should not call toString().
+   * @return
+   */
   @Override
   public SkinVersion getVersion()
   {
@@ -124,6 +134,8 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
 
   /**
    * Returns the name of the style sheet for this Skin.
+   * Note that in order to avoid infinite call loop the implementation of getStyleSheetName() in 
+   * this class or sub classes should not call toString().
    */
   @Override
   abstract public String getStyleSheetName();
@@ -175,19 +187,15 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       return null;
 
     Object translatedValue = getCachedTranslatedValue(lContext, key);
+    
     if (translatedValue == null)
     {
-      throw new MissingResourceException("Can't find resource for bundle",
-                                         getBundleName(),
-                                         key);
+      _handleNullTranslatedValue(lContext, key);
     }
 
     return translatedValue;
-
-
   }
-
-
+  
   /**
    * Our renderers call this to get the icon. This returns a renderable
    * icon. (ReferenceIcons are resolved -- the real icon they point to is
@@ -251,9 +259,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   /**
    * Adds a SkinAddition on this Skin. You can call this method as many times
    * as you like for the Skin, and it will add the SkinAddition to the list of
-   * SkinAdditions.
-   * However, it does not make sense to call this method more than once
-   * with the same SkinAddition object.
+   * SkinAdditions, if it is unique.
    * This is meant for the skin-addition use-cases, where a custom component
    * developer has a style sheet and/or resource bundle for their custom
    * components, and they want the style sheet and/or resource bundle
@@ -268,18 +274,19 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @throws NullPointerException if SkinAddition is null.
    */
   @Override
-  public void addSkinAddition (
-    SkinAddition skinAddition
-    )
+  public void addSkinAddition(SkinAddition skinAddition)
   {
-     if (skinAddition == null)
-       throw new NullPointerException("NULL_SKINADDITION");
+    if (skinAddition == null)
+      throw new NullPointerException("NULL_SKINADDITION");
 
-     if (_skinAdditions == null)
-     {
-       _skinAdditions = new ArrayList<SkinAddition>();
-     }
-     _skinAdditions.add(skinAddition);
+    // _skinAdditions is set as ConcurrentSkipListSet.
+    // will insert SkinAddition objects in order according to
+    // comparable.  This yields log(n) performance which is as good
+    // as it gets for this type of insertion.
+    if (_skinAdditions.add(skinAddition) && _LOG.isInfo())
+    {
+      _LOG.info("ADDED_SKIN_ADDITION", new Object[]{skinAddition, this});
+    }
   }
 
   /**
@@ -297,7 +304,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       return Collections.emptyList();
     }
     else
-      return Collections.unmodifiableList(_skinAdditions);
+      return Collections.unmodifiableList(new ArrayList<SkinAddition>(_skinAdditions));
   }
 
    /**
@@ -386,6 +393,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
    * @see #addSkinAddition(SkinAddition)
    * @deprecated Use addSkinAddition instead
    */
+  @Deprecated
   @Override
   public void registerStyleSheet(String styleSheetName)
   {
@@ -449,6 +457,30 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   {
     _dirty = dirty;
   }
+
+  /**
+   * @inheritDoc
+   * Note that in order to avoid infinite call loop the implementation of getId(), getVersion(),
+   * getStyleSheetName(), getBundleName() and getBaseSkin() in this class or its sub classes should 
+   * not call toString().
+   * This implementation relies on addPropertiesToString() in this class or in the overriding
+   * implementation of sub classes to be able to add the different member field and values.
+   * 
+   * @see #addPropertiesToString(ToStringHelper);
+   */
+  @Override
+  public final String toString()
+  {
+    ToStringHelper helper = new ToStringHelper(this);
+    addPropertiesToString(helper);
+    return helper.toString();
+  }
+
+  /**
+   * Used by SkinStyleProvider to decide whether to cache the StyleProvider or not.
+   * @return true if skin is internal to the framework.
+   */
+  public abstract boolean isCacheable();
 
   /**
    * Returns a translated value in the LocaleContext's translation Locale, or null
@@ -530,14 +562,31 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       _createKeyValueMapStatusInCache(locale, key, value);
     }
   }
+  
+  /**
+   * Adds to the supplied string helper, the various properties that this class holds to be
+   * included in the toString() implementation.
+   * 
+   * @see #toString()
+   */
+  protected void addPropertiesToString(ToStringHelper helper)
+  {
+    helper.
+     append("id", getId()).
+     append("version", getVersion()).
+     append("styleSheetName", getStyleSheetName()).
+     append("bundleName", getBundleName());
+  }
 
   /**
   * Returns the name of the ResourceBundle for this Skin instance.
   * This does not include the SkinAddition resource bundles.
   * We differentiate between the two types of resource bundles so that
   * the Skin's own resource bundle can take precedence.
-  * Note: A skin cannot have both a bundleName and a translation source
+  * A skin cannot have both a bundleName and a translation source
   * value expression. If they do, then the bundlename takes precedence.
+  * Note that in order to avoid infinite call loop the implementation of getBundleName() in this 
+  * class or sub classes should not call toString().
   */
   abstract protected String getBundleName();
 
@@ -551,6 +600,21 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   */
   abstract protected ValueExpression getTranslationSourceValueExpression();
 
+  // if the translated value for a resource key is not found in this skin's cache
+  //  we log a message and throw MissingResourceException
+  private void _handleNullTranslatedValue(LocaleContext lContext, String key)
+  {
+    String msg = _LOG.getMessage("TRANSLATION_VALUE", 
+                                 new Object[]{"null", key, lContext.getFormattingLocale(), this});
+    
+    // CoreRenderingContext logs this, but additionally log here to cover for 
+    //  case where caller possibly gobbles up "MissingResourceException"
+    //  without logging
+    _LOG.info(msg);
+
+    throw new MissingResourceException(msg, getBundleName(), key);
+  }
+  
   // Checks to see whether any of our style sheets have been updated
   // or if the skin has been marked dirty
   private boolean _checkStylesModified(
@@ -792,6 +856,21 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
 
     // cache in instance variable
     _translationSourceList = translationSourceList;
+    
+    if (_LOG.isInfo())
+    {
+      String translationSourceListString = 
+        _translationSourceList.isEmpty() ? "null" : _translationSourceList.toString();
+      
+      // this is very fine level diagnostic message, dont bother to translate
+      StringBuilder builder = 
+        new StringBuilder("Translation sources for skin ").
+        append(this).
+        append(" are ").
+        append(translationSourceListString);
+
+      _LOG.info(builder.toString());
+    }
 
     return _translationSourceList;
   }
@@ -1062,15 +1141,30 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       }
       catch (MissingResourceException e)
       {
-         // It is possible that the call to getBundle() might
-         // fail with a MissingResourceException if the customer
-         // has only provided a custom bundle for certain languages.
-         // This is okay, so we just eat these exceptions.
-         ;
-      }
+        // It is possible that the call to getBundle() might fail with a MissingResourceException 
+        //   if the customer has only provided a custom bundle for certain languages.
+        // This is okay, so we just log these exceptions.
+        //
+        // We could optimize logging this once per locale, however the chance that the application
+        //  has logging enabled for INFO level and expecting a lot of hits from different locale
+        //  is very low, so ignoring the optimization for now.
+        if (_LOG.isInfo())
+        {
+          _LOG.info("SKIN_FAILED_TO_GET_BUNDLE", new Object[]{_bundleName, this});
+        }
+      } 
 
       _fillInKeyValueMapFromResourceBundle(bundle, keyValueMap, checkForKey);
 
+    }
+    
+    @Override
+    public String toString()
+    {
+      return 
+        new ToStringHelper(this).
+        append("bundleName", _bundleName).
+        toString();
     }
 
     public final String        _bundleName;
@@ -1115,6 +1209,15 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       }
     }
 
+    @Override
+    public String toString()
+    {
+      return 
+        new ToStringHelper(this).
+        append("translationValExpr", _translationSourceVE.getExpressionString()).
+        toString();
+    }
+
     public final ValueExpression _translationSourceVE;
   }
 
@@ -1155,6 +1258,15 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       {
         _LOG.warning("INVALID_TRANSLATION_SOURCE_VE_TYPE");
       }
+    }
+
+    @Override
+    public String toString()
+    {
+      return 
+        new ToStringHelper(this).
+        append("translationValExpr", _translationSourceVB.getExpressionString()).
+        toString();
     }
 
     public final ValueBinding _translationSourceVB;
@@ -1252,20 +1364,17 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   // plus all the SkinAdditions translation sources.
   private List<TranslationSource> _translationSourceList;
 
-  // List of skin-additions for this Skin
-  private List<SkinAddition> _skinAdditions;
+  // Set of skin-additions for this Skin
+  // creating the set here in order to make creation of this set thread-safe
+  private Set<SkinAddition> _skinAdditions = new ConcurrentSkipListSet<SkinAddition>();
 
   // Optional features for rendering
   protected Map<String, String> _skinFeatures;
 
-
   // HashMap of Skin properties
-  private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();
+  private final ConcurrentHashMap<Object, Object> _properties = new ConcurrentHashMap<Object, Object>();
 
-  private boolean _dirty;
-  
+  private volatile boolean _dirty;
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
-  
-  private static final String _FORCE_DISABLE_CONTENT_COMPRESSION_PARAM="org.apache.myfaces.trinidad.skin.disableStyleCompression";
-
 }

@@ -36,9 +36,9 @@
   <attribute-test name="inlineStyle" value="border:dashed"/>
   <attribute-test name="shortDesc" value="myShortDesc"/>
   <attribute-test name="styleClass" value="myStyle"/>
-  <attribute-test name="frameSpacing" value="2"/>
-  <attribute-test name="borderWidth" value="3"/>
-  <attribute-test name="frameBorderWidth" value="4"/>
-  <js-test/>
+  <attribute-test name="frameSpacing" value="2" requiredCapabilities="frames"/>
+  <attribute-test name="borderWidth" value="3" requiredCapabilities="frames"/>
+  <attribute-test name="frameBorderWidth" value="4" requiredCapabilities="frames"/>
+  <js-test requiredCapabilities="frames"/>
   
 </test>

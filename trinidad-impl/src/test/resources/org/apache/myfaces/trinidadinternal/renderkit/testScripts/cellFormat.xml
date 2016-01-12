@@ -15,7 +15,7 @@
   <attribute-test name="shortText" value="myShortText"/>
   <enum-test name="valign"/>
   <attribute-test name="width" value="75%"/>
-  <boolean-test name="wrappingDisabled"/>
+  <boolean-test name="wrappingDisabled" unsupportedDevices="pda"/>
   
   <!-- core attributes -->
   <attribute-test name="id" value="myCellId"/>

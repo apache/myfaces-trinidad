@@ -38,11 +38,12 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils
 public class GatherContent extends UIComponentBase
 {
   @SuppressWarnings("unchecked")
-  public GatherContent(Writer writer,
-                       UIComponent child,
-                       TestResult result,
-                       Test       test,
-                       boolean    lenient)
+  public GatherContent(
+    Writer      writer,
+    UIComponent child,
+    TestResult result,
+    Test       test,
+    boolean    lenient)
   {
     _writer = writer;
     _result = result;
@@ -59,20 +60,57 @@ public class GatherContent extends UIComponentBase
   }
 
   @Override
+  public void encodeAll(FacesContext context)
+  {
+    try
+    {
+      super.encodeAll(context);
+    }
+    catch (Throwable t)
+    {
+      Throwable failure = new Throwable("Exception during rendering", t);
+      _result.addError(_test, failure);
+      
+    }
+  }
+  
+  @Override
   public void encodeBegin(FacesContext context)
   {
     _savedWriter = context.getResponseWriter();
-    if (_lenient)
-      context.setResponseWriter(_savedWriter.cloneWithWriter(_writer));
-    else
-      context.setResponseWriter(
-        new CheckUIComponent(_savedWriter.cloneWithWriter(_writer)));
+    
+    ResponseWriter wrappedWriter = _savedWriter.cloneWithWriter(_writer);
+    
+    if (!_lenient)
+      wrappedWriter = new CheckUIComponent(wrappedWriter);
+        
+    context.setResponseWriter(wrappedWriter);
   }
 
   @Override
   public void encodeEnd(FacesContext context)
   {
+    // check that we have balanced elements in the CheckUIComponent
+    if (!_lenient)
+    {
+      ResponseWriter wrappedWriter = context.getResponseWriter();
+      
+      if (wrappedWriter instanceof CheckUIComponent)
+      {
+        int finishingDepth = ((CheckUIComponent)wrappedWriter).getDepth();
+        
+        if (finishingDepth != 0)
+        {
+          AssertionFailedError failure = new AssertionFailedError("Elements not completely popped during rendering");
+          
+          _result.addError(_test, failure);          
+        }
+      }
+    }
+    
     context.setResponseWriter(_savedWriter);
+    _savedWriter = null;
+    
     RenderingContext arc = RenderingContext.getCurrentInstance();
 
     // Our hidden label utility code makes sure it never writes out
@@ -86,6 +124,11 @@ public class GatherContent extends UIComponentBase
     public CheckUIComponent(ResponseWriter out)
     {
       super(out);
+    }
+
+    public int getDepth()
+    {
+      return _depth;
     }
 
     @Override
@@ -133,10 +176,10 @@ public class GatherContent extends UIComponentBase
     private int _depth = 0;
   }
 
-  private UIComponent _child;
-  private TestResult _result;
-  private Test       _test;
-  private boolean    _lenient;
-  private Writer _writer;
+  private final UIComponent _child;
+  private final TestResult _result;
+  private final Test       _test;
+  private final boolean    _lenient;
+  private final Writer _writer;
   private ResponseWriter _savedWriter;
 }

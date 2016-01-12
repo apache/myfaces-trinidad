@@ -8,6 +8,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -21,6 +22,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -42,6 +44,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -146,6 +149,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -325,6 +329,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -338,6 +343,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -359,6 +365,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -463,6 +470,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -642,6 +650,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -655,6 +664,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -676,6 +686,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -780,6 +791,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   role="presentation"
                    width="100%"
                   >
                 

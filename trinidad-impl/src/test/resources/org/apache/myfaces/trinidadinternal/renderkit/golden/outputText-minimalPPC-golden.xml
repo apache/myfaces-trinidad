@@ -4,13 +4,6 @@
           >
         This is some &lt;Text&gt;
       </span>
-<!--AttributeTest[description,null]-->
-
-      <span
-           id="mainId"
-          >
-        This is some &lt;Text&gt;
-      </span>
 <!--AttributeTest[escape,false]-->
 This is some <Text>
 <!--AttributeTest[escape,true]-->

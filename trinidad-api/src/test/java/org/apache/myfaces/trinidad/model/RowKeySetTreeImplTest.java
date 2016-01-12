@@ -77,12 +77,10 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     _add(pathSet, _0, _011, _20);
 
     Iterator<Object> iter = pathSet.iterator();
-    // there is no requirement that the paths come out in the following
-    // order. However, I want to make writing this test easy, so
-    // I am taking advantage of the order:
-    assertEquals(_20, iter.next());
+    // The paths come out in the order they are selected
     assertEquals(_0, iter.next());
     assertEquals(_011, iter.next());
+    assertEquals(_20, iter.next());
     assertFalse(iter.hasNext());
   }
 

@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
        xmlns:tr="http://myfaces.apache.org/trinidad"
-       agentNotSupported="pda">
+       agentNotSupported="pda" accessibilityModeNotSupported="SCREEN_READER">
  <base-component tr:type="org.apache.myfaces.trinidad.CoreChooseDate"
      value="#{midDate}" minValue="#{oldDate}" maxValue="#{newDate}"
      currTime="#{currTime}" 

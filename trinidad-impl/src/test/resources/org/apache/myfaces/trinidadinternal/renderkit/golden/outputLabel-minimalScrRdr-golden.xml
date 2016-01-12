@@ -10,19 +10,6 @@
           label-noaccess
         </label>
       </span>
-<!--AttributeTest[accessKey,a]-->
-
-      <span
-           class="af_outputLabel"
-           id="mainId"
-          >
-        
-        <label
-             for="input"
-            >
-          label-noaccess
-        </label>
-      </span>
 <!--AttributeTest[showRequired,false]-->
 
       <span

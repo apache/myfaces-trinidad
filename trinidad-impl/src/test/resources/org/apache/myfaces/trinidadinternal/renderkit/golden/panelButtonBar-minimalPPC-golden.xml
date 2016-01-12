@@ -193,38 +193,6 @@
           
         </input>
       </span>
-<!--AttributeTest[halign,right]-->
-
-      <span
-           class="af_panelGroupLayout"
-           id="mainId"
-          >
-        
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 1"
-            >
-          
-        </input>&#160;
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 2"
-            >
-          
-        </input>&#160;
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 3"
-            >
-          
-        </input>
-      </span>
 <!--AttributeTest[halign,start]-->
 
       <span
@@ -258,70 +226,6 @@
         </input>
       </span>
 <!--AttributeTest[halign,left]-->
-
-      <span
-           class="af_panelGroupLayout"
-           id="mainId"
-          >
-        
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 1"
-            >
-          
-        </input>&#160;
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 2"
-            >
-          
-        </input>&#160;
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 3"
-            >
-          
-        </input>
-      </span>
-<!--AttributeTest[halign,end]-->
-
-      <span
-           class="af_panelGroupLayout"
-           id="mainId"
-          >
-        
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 1"
-            >
-          
-        </input>&#160;
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 2"
-            >
-          
-        </input>&#160;
-        <input
-             class="af_commandButton"
-             onclick="submitForm('formId',1,{source:'j_idXXX'});return false;"
-             type="submit"
-             value="button 3"
-            >
-          
-        </input>
-      </span>
-<!--AttributeTest[halign,center]-->
 
       <span
            class="af_panelGroupLayout"

@@ -577,6 +577,14 @@ public class ServletExternalContext extends ExternalContext
   }
 
 
+  @Override
+  public void setResponseHeader(String name, String value)
+  {
+   _checkResponse();
+   if (_servletResponse instanceof HttpServletResponse)
+     ((HttpServletResponse) _servletResponse).setHeader(name, value);
+  }
+
   public void release()
   {
     _servletContext = null;

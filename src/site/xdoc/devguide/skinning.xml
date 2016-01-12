@@ -68,6 +68,8 @@
               </li>
               <li><a href="#client-side-at-rules">Client side at-rules</a>
               </li>
+              <li><a href="#server-side-pseudo-classes">Server side pseudo classes</a>
+              </li>
             </ul>
           </li>
           <li>
@@ -1176,94 +1178,69 @@ public class SkinTranslationMapDemo
         <strong>@mode</strong> {/skin definitions go here/} - >
         Possible values are quirks or standards. This is to define styles particular only for browser quirks or standard mode.
         </li>
-        <li>
-        <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when the browser 
-        is in a right-to-left language. The best example is that of images that are not symmetric.
-        If you set a skin selector that uses a asymmetrical image, when you set your browser to
-        the right-to-left reading direction, then you want your image to be flipped. To do this,
-        you use the :rtl pseudo-class at the end of your selector and point it to a flipped-looking image.
-        </li>
-        <li>
-        :lang - >  Not yet implemented in Trinidad.         
-        </li>          
         </ul>
           
         <source>
-        /** for ie and gecko on windows, linux and solaris, make the color pink **/
-        @platform windows, linux, solaris
-        {
-          @agent ie, gecko
-          {
-            af|inputText::content {background-color:pink}
-          }
-        }
-        
-        af|someComponent {color: red; width: 10px; padding: 4px}
-        
-        /* for ie, we need to increase the width, so we override the width. 
-        We still want the color and padding; this gets merged in. We want to add height in IE.  */
-        @agent ie
-        {
-          af|someComponent {width: 25px; height: 10px}
-        }
+/** for ie and gecko on windows, linux and solaris, make the color pink **/
+@platform windows, linux, solaris
+{
+  @agent ie, gecko
+  {
+    af|inputText::content {background-color:pink}
+  }
+}
 
-        /* for ie 5 and 6, we also need some margins.*/
-        @agent ie and (version: 5), ie and (version: 6)
-        {
-          af|someComponent {margin: 5px;}
-        }
-        
-        /* for Firefox 3 (gecko 1.9) use a smaller margin.*/
-        @agent gecko and (version: 1.9)
-        {
-          af|someComponent {margin: 4px;}
-        }
+af|someComponent {color: red; width: 10px; padding: 4px}
 
-        @locale en, de {
-           af|commandButton {
-              color: red;
-           }
-         }
-         @locale ro-RO {
-           af|commandButton {
-             color: blue;
-           }
-         }
-        
-        /* The following selectors are for all platforms and all browsers */
-        
-         /* rounded corners on the top-start and top-end */
-         /* shows how to use :rtl mode pseudo-class. The start image in ltr mode is the same as the 
-         end image in the right-to-left mode */
-        af|panelBox::medium af|panelBox::top-start,
-        af|panelBox::medium af|panelBox::top-end:rtl {
-          background-image: url(/skins/purple/images/panelBoxStart.gif);
-          width:8px; 
-          height:8px
-        }
-        
-        af|panelBox::medium af|panelBox::top-end,
-        af|panelBox::medium af|panelBox::top-start:rtl {
-          background-image: url(/skins/purple/images/panelBoxEnd.gif);
-          height: 8px;
-          width:  8px;
-        }  
-        /* don't use the base skin's background-image */
-        af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
-          -tr-inhibit: background-image;  
-        }
-        /* this should end up with  .portlet-form-input-field {padding: 8px} */
-        .portlet-form-input-field {
-        /* This should first inhibit all inherited styles. Then everything else
-           should be included.*/
-          -tr-inhibit: all;
-          padding: 8px;
-          /* This should inhibit the background-color that is inherited and/or included, 
-          like in .AFLightAccentBackground:alias
-          The order of this does not matter. */
-          -tr-inhibit: background-color;
-          -tr-rule-ref: selector(".AFLightAccentBackground:alias");
-        }        
+/* for ie, we need to increase the width, so we override the width.
+We still want the color and padding; this gets merged in. We want to add height in IE.  */
+@agent ie
+{
+  af|someComponent {width: 25px; height: 10px}
+}
+
+/* for ie 5 and 6, we also need some margins.*/
+@agent ie and (version: 5), ie and (version: 6)
+{
+  af|someComponent {margin: 5px;}
+}
+
+/* for Firefox 3 (gecko 1.9) use a smaller margin.*/
+@agent gecko and (version: 1.9)
+{
+  af|someComponent {margin: 4px;}
+}
+
+@locale en, de {
+   af|commandButton {
+      color: red;
+   }
+ }
+ @locale ro-RO {
+   af|commandButton {
+     color: blue;
+   }
+ }
+
+/* The following selectors are for all platforms and all browsers */
+
+/* don't use the base skin's background-image */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
+  -tr-inhibit: background-image;
+}
+
+/* this should end up with  .portlet-form-input-field {padding: 8px} */
+.portlet-form-input-field {
+/* This should first inhibit all inherited styles. Then everything else
+   should be included.*/
+  -tr-inhibit: all;
+  padding: 8px;
+  /* This should inhibit the background-color that is inherited and/or included,
+  like in .AFLightAccentBackground:alias
+  The order of this does not matter. */
+  -tr-inhibit: background-color;
+  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
+}
         
         </source>
        </subsection>
@@ -1291,14 +1268,19 @@ public class SkinTranslationMapDemo
           <P>
           If you use any rule which is not listed in either server side at-rules or client side at-rules, it will be
           rendered as client side rule similar to @media or @document.
-          <b>Note:</b>
-          Styles inside client side at-rules cannot be used with tr-rules. This is because, in server side, we do not
-          know if the referred style will be rendered.
-          On the contrary, tr-rules can be used inside client side at-rules to refer styles or properties define outside
-          client rules.
-
-          Some example usages:
           </P>
+          <p>
+          <b>Notes:</b>
+            <ul>
+              <li>Styles inside client side at-rules cannot be used with tr-rules. This is
+                because, in server side, we do not know if the referred style will be rendered.
+                On the contrary, tr-rules can be used inside client side at-rules to refer styles
+                or properties define outside client rules.</li>
+              <li>Aliases cannot be specified inside client rules. Aliases are evaluated at the
+                server side, and thus we cannot pick aliases based on client rules.</li>
+            </ul>
+          Some example usages:
+          </p>
           <source>
 
 af|document {
@@ -1365,6 +1347,62 @@ af|document {
   }
 }
           </source>
+        </subsection>
+        <a name="server-side-pseudo-classes"></a>
+        <subsection name="Server side pseudo classes">
+          <P>
+            Generally, pseudo classes are executed at the client side. CSS supports pseudo
+            classes such as ":hover", ":focus" etc and these pseudo classes are rendered as is
+            into the CSS generated by skinning framework and gets applied by the browser
+            automatically.
+          </P>
+          <P>
+            There are some special pseudo classes supported by skinning framework, which are
+            evaluated at the server side. These pseudo classes are not rendered into the
+            generated CSS, but the decision to render the selector is taken at the server side
+            base on the user agent or application configuration.
+          </P>
+          <ul>
+            <li>
+              <strong>:ltr</strong> - >  pseudo-class to create a style or icon definition when
+              the browser is in a left-to-right language.
+            </li>
+            <li>
+              <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when
+              the browser is in a right-to-left language. The best example is that of images that
+              are not symmetric. If you set a skin selector that uses a asymmetrical image, when
+              you set your browser to the right-to-left reading direction, then you want your
+              image to be flipped. To do this, you use the :rtl pseudo-class at the end of your
+              selector and point it to a flipped-looking image.
+              <source>
+/* rounded corners on the top-start and top-end */
+/* shows how to use :rtl mode pseudo-class. The start image in ltr mode is the same as the
+end image in the right-to-left mode */
+af|panelBox::medium af|panelBox::top-start,
+af|panelBox::medium af|panelBox::top-end:rtl {
+  background-image: url(/skins/purple/images/panelBoxStart.gif);
+  width:8px;
+  height:8px
+}
+
+af|panelBox::medium af|panelBox::top-end,
+af|panelBox::medium af|panelBox::top-start:rtl {
+  background-image: url(/skins/purple/images/panelBoxEnd.gif);
+  height: 8px;
+  width:  8px;
+}
+              </source>
+            </li>
+            <li>
+              :lang - >  Not yet implemented in Trinidad.
+            </li>
+          </ul>
+          <P>
+            <strong>Note about "rtl" and "lrt" pseudo classes</strong>: A selector which does not
+            use "lrt" or "rtl" pseudo class is applicable to <strong>both</strong>. A selector
+            with "lrt" or "rtl" pseudo class will override one without it. "lrt" or "rtl" pseudo
+            class selectors are used to define selectors specific to the direction.
+          </P>
         </subsection>
       </section>
       <a name="Package_Skin_In_JAR"></a>

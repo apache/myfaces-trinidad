@@ -8,6 +8,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -21,6 +22,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -42,6 +44,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -449,6 +452,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -462,6 +466,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -483,6 +488,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -895,6 +901,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -908,6 +915,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -929,6 +937,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -1337,6 +1346,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -1350,6 +1360,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -1371,6 +1382,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -1813,6 +1825,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -1826,6 +1839,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -1847,6 +1861,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -2254,6 +2269,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -2267,6 +2283,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -2288,6 +2305,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -2695,6 +2713,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -2708,6 +2727,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -2729,6 +2749,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -3141,6 +3162,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -3154,6 +3176,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -3175,6 +3198,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -3582,6 +3606,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -3595,6 +3620,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -3616,6 +3642,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -3720,6 +3747,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -4066,6 +4094,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -4079,6 +4108,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -4100,6 +4130,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -4602,6 +4633,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -4615,6 +4647,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -4636,6 +4669,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -5043,6 +5077,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -5056,6 +5091,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -5077,6 +5113,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -5484,6 +5521,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -5497,6 +5535,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -5518,6 +5557,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -5925,6 +5965,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -5938,6 +5979,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -5959,6 +6001,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -6366,6 +6409,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -6379,6 +6423,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -6400,6 +6445,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -6807,6 +6853,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -6820,6 +6867,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -6841,6 +6889,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -7213,447 +7262,6 @@
                   </td>
                   <td
                        class="af_column_cell-text OraTableBorder0100"
-                      >
-                    5
-                    <div
-                        >
-                      
-                    </div>Introduced for separateRows attribute check
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-        <script
-            >
-          _uixt_mainId=new CollectionComponent('formId','mainId');
-        </script>
-        <input
-             name="mainId:rangeStart"
-             type="hidden"
-             value="0"
-            >
-          
-        </input>
-      </div>
-<!--AttributeTest[summary,testTableSummary]-->
-
-      <div
-           class="af_table"
-           id="mainId"
-          >
-        
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-            >
-          
-          <tr
-              >
-            
-            <td
-                >
-              
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   class="af_table_control-bar-top"
-                   width="100%"
-                  >
-                
-                <tr
-                    >
-                  
-                  <td
-                       width="100%"
-                      >
-                    
-                  </td>
-                  <td
-                       align="right"
-                       valign="middle"
-                      >
-                    
-                    <table
-                         border="0"
-                         cellpadding="0"
-                         cellspacing="0"
-                         id="mainId-nb"
-                        >
-                      
-                      <tr
-                          >
-                        
-                        <td
-                             nowrap="nowrap"
-                             valign="middle"
-                            >
-                          
-                          <span
-                               class="OraNavBarInactiveLink"
-                              >
-                            Previous
-                          </span>
-                        </td>
-                        <td
-                            >
-                          
-                          <img
-                               height="1"
-                               width="5"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </td>
-                        <td
-                             nowrap="nowrap"
-                             valign="middle"
-                            >
-                          
-                          <select
-                               class="AFFieldText"
-                               id="mainId-nb__xc_c"
-                               onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                               onfocus="this._lastValue = this.selectedIndex"
-                               title="Select record set"
-                              >
-                            
-                            <option
-                                 value="all"
-                                >
-                              Show All 6
-                            </option>
-                            <option
-                                 selected="selected"
-                                 value="1"
-                                >
-                              1-5 of 6
-                            </option>
-                            <option
-                                 value="6"
-                                >
-                              6-6 of 6
-                            </option>
-                          </select>
-                          <script
-                              >
-                            _setSelectIndexById("mainId-nb__xc_c",1)
-                          </script>
-                        </td>
-                        <td
-                            >
-                          
-                          <img
-                               height="1"
-                               width="5"
-                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-                              >
-                            
-                          </img>
-                        </td>
-                        <td
-                             nowrap="nowrap"
-                             valign="middle"
-                            >
-                          
-                          <a
-                               class="OraNavBarActiveLink"
-                               onclick="_navSubmit('formId', 'goto', 'mainId',1,'6');return false"
-                               href="uri-attr:#"
-                              >
-                            Next 1
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr
-              >
-            
-            <td
-                >
-              
-              <table
-                   border="0"
-                   cellpadding="1"
-                   cellspacing="0"
-                   class="af_table_content"
-                   width="100%"
-                  >
-                
-                <tr
-                    >
-                  
-                  <th
-                       class="af_column_header-text"
-                       nowrap="nowrap"
-                       scope="col"
-                       width="1%"
-                      >
-                    Details
-                  </th>
-                  <th
-                       class="af_column_sortable-header-text"
-                       id="mainId:test-id"
-                       onclick="return _tableSort('formId',1,'mainId','string');"
-                       scope="col"
-                      >
-                    StringHeader
-                  </th>
-                  <th
-                       class="af_column_sortable-header-text"
-                       id="mainId:separate-id"
-                       onclick="return _tableSort('formId',1,'mainId','int');"
-                       scope="col"
-                      >
-                    IntHeader
-                  </th>
-                </tr>
-                <tr
-                    >
-                  
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                       nowrap="nowrap"
-                      >
-                    
-                    <div
-                        >
-                      
-                      <a
-                           class="OraLink af_showDetail_disclosure-icon-link"
-                           id="mainIddd0"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                           href="uri-attr:#"
-                          >
-                        
-                        <span
-                             class="p_OraHideShowDisclosedSymbol"
-                             title="Select to show information"
-                            >
-                          &#9658;
-                        </span>
-                      </a>
-                      <a
-                           class="OraLink af_showDetail_prompt-link"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
-                           href="uri-attr:#"
-                          >
-                        Show
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    First
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    1
-                    <div
-                        >
-                      
-                    </div>Introduced for separateRows attribute check
-                  </td>
-                </tr>
-                <tr
-                    >
-                  
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                       nowrap="nowrap"
-                      >
-                    
-                    <div
-                        >
-                      
-                      <a
-                           class="OraLink af_showDetail_disclosure-icon-link"
-                           id="mainIddd1"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                           href="uri-attr:#"
-                          >
-                        
-                        <span
-                             class="p_OraHideShowDisclosedSymbol"
-                             title="Select to show information"
-                            >
-                          &#9658;
-                        </span>
-                      </a>
-                      <a
-                           class="OraLink af_showDetail_prompt-link"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
-                           href="uri-attr:#"
-                          >
-                        Show
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    Second
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    2
-                    <div
-                        >
-                      
-                    </div>Introduced for separateRows attribute check
-                  </td>
-                </tr>
-                <tr
-                    >
-                  
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                       nowrap="nowrap"
-                      >
-                    
-                    <div
-                        >
-                      
-                      <a
-                           class="OraLink af_showDetail_disclosure-icon-link"
-                           id="mainIddd2"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                           href="uri-attr:#"
-                          >
-                        
-                        <span
-                             class="p_OraHideShowDisclosedSymbol"
-                             title="Select to show information"
-                            >
-                          &#9658;
-                        </span>
-                      </a>
-                      <a
-                           class="OraLink af_showDetail_prompt-link"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
-                           href="uri-attr:#"
-                          >
-                        Show
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    Three
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    3
-                    <div
-                        >
-                      
-                    </div>Introduced for separateRows attribute check
-                  </td>
-                </tr>
-                <tr
-                    >
-                  
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                       nowrap="nowrap"
-                      >
-                    
-                    <div
-                        >
-                      
-                      <a
-                           class="OraLink af_showDetail_disclosure-icon-link"
-                           id="mainIddd3"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                           href="uri-attr:#"
-                          >
-                        
-                        <span
-                             class="p_OraHideShowDisclosedSymbol"
-                             title="Select to show information"
-                            >
-                          &#9658;
-                        </span>
-                      </a>
-                      <a
-                           class="OraLink af_showDetail_prompt-link"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
-                           href="uri-attr:#"
-                          >
-                        Show
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    Four
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    4
-                    <div
-                        >
-                      
-                    </div>Introduced for separateRows attribute check
-                  </td>
-                </tr>
-                <tr
-                    >
-                  
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                       nowrap="nowrap"
-                      >
-                    
-                    <div
-                        >
-                      
-                      <a
-                           class="OraLink af_showDetail_disclosure-icon-link"
-                           id="mainIddd4"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                           href="uri-attr:#"
-                          >
-                        
-                        <span
-                             class="p_OraHideShowDisclosedSymbol"
-                             title="Select to show information"
-                            >
-                          &#9658;
-                        </span>
-                      </a>
-                      <a
-                           class="OraLink af_showDetail_prompt-link"
-                           onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
-                           href="uri-attr:#"
-                          >
-                        Show
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
-                      >
-                    Five
-                  </td>
-                  <td
-                       class="af_column_cell-text OraTableBorder1111"
                       >
                     5
                     <div
@@ -7689,6 +7297,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
              width="70%"
             >
           
@@ -7703,6 +7312,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -7724,6 +7334,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -8131,6 +7742,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -8144,6 +7756,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -8165,6 +7778,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr
@@ -8581,6 +8195,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             role="presentation"
             >
           
           <tr
@@ -8594,6 +8209,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   role="presentation"
                    width="100%"
                   >
                 
@@ -8615,6 +8231,7 @@
                          cellpadding="0"
                          cellspacing="0"
                          id="mainId-nb"
+                         role="presentation"
                         >
                       
                       <tr

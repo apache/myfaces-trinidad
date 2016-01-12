@@ -10,9 +10,9 @@
   <attribute-test name="shortDesc"/>
   <attribute-test name="inlineStyle" value="background-color:red"/>
   <enum-test name="valign"/>
-  <attribute-test name="halign" value="right"/>
+  <attribute-test name="halign" value="right" unsupportedDevices="pda" noRTL="true"/>
   <attribute-test name="halign" value="start" matchesBase="true"/>
-  <attribute-test name="halign" value="left" matchesBase="true"/>
-  <attribute-test name="halign" value="end"/>
-  <attribute-test name="halign" value="center"/>
+  <attribute-test name="halign" value="left" matchesBase="true" noRTL="true"/>
+  <attribute-test name="halign" value="end" unsupportedDevices="pda"/>
+  <attribute-test name="halign" value="center" unsupportedDevices="pda"/>
 </test>

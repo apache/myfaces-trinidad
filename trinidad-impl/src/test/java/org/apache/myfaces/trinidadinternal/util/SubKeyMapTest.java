@@ -77,4 +77,10 @@ public class SubKeyMapTest extends org.apache.myfaces.trinidadbuild.test.MapTest
             
     return new SubKeyMap(base, "prefix1");
   }
+
+  @Override
+  protected Map<LameKey, Object> createMapWithLameKey()
+  {
+    return null;
+  }
 }
