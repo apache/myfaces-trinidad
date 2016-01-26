@@ -50,7 +50,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>11</version>
+    <version>16</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -169,7 +169,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-2.1.1</developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/trinidad/tags/trinidad-2.1.1</url>
   </scm>
-
+  
+  <!--
   <distributionManagement>
     <site>
       <id>apache-site</id>
@@ -177,6 +178,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       <url>scp://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
   </distributionManagement>
+  -->
 
   <dependencyManagement>
     <dependencies>
@@ -354,6 +356,16 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   </modules>
 
   <build>
+  
+    <!-- Since Maven 3.0, this is required to add scpexe as protocol for deploy. -->
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh-external</artifactId>
+        <version>1.0-beta-7</version>
+      </extension>
+    </extensions>
+        
     <pluginManagement>
       <plugins>
         <plugin>

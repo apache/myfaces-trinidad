@@ -268,7 +268,7 @@ function openWindow(
 
     if (isModal && !atMostIE4)
     {
-      if (_agent.atLeast("ie", 4))
+      if (_agent.atLeast("ie", 4) || _agent.isSafari)
       {
         var dimmer = parentDoc.getElementById("_trDialogDimmer");
         if (dimmer == null)
@@ -284,7 +284,7 @@ function openWindow(
 		  // IE 9 and greater won't support alpha(opacity)
 		  if (_agent.isIE && _agent.version < 9) {
 			dimmerStyle.filter = "alpha(opacity=50)";
-		  } else if (_agent.isIE && _agent.version >= 9) {
+		  } else if (_agent.isIE && _agent.version >= 9 || _agent.isSafari) {
 			  dimmerStyle.opacity = "0.5";
 		  }
           // Position the dimmer element, account for scrolling:
