@@ -62,6 +62,12 @@ public class FacesContextFactoryImpl
     return new CacheRenderKit(_factory.getFacesContext(context, request, response, lifecycle));
   }
   
+  @Override
+  public FacesContextFactory getWrapped()
+  { 
+    return _factory;
+  } 
+  
   static public class CacheRenderKit extends FacesContextWrapper
   {
     @SuppressWarnings("unchecked")
