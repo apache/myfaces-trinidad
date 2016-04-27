@@ -1,0 +1,46 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:panelGroupLayout>
+            <tr:outputFormatted value="&lt;b>Search Cheap Airline Tickets, by date:&lt;b>"/>
+            <tr:spacer height="25px"/>
+            <tr:panelHorizontalLayout valign="top">
+                <tr:spacer width="10px"/>
+                <tr:inputDate id="departDate" chooseId="dateChooser" label="Depart:"/>
+                <tr:spacer width="10px"/>
+                <tr:inputDate id="returnDate" chooseId="dateChooser" label="Return:"/>
+            </tr:panelHorizontalLayout>
+            <tr:spacer width="10px"/>
+            <tr:panelHorizontalLayout>
+                <tr:spacer width="15px"/>
+                <tr:chooseDate id="dateChooser" minValue="2004-07-01"
+                               maxValue="2014-12-31"/>
+            </tr:panelHorizontalLayout>
+        </tr:panelGroupLayout>
+
+    </ui:define>
+</ui:composition>

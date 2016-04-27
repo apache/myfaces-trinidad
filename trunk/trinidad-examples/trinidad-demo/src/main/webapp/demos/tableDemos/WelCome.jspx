@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" 
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:h="http://java.sun.com/jsf/html" 
+  xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+  xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Table Feature Demos">
+      <tr:form >
+        <tr:panelPage>
+          <f:facet name="navigationGlobal">
+          <tr:navigationPane hint="buttons">
+            <tr:commandNavigationItem text="Return to Feature Demos page"
+                                immediate="true"
+                                action="demos"/>
+           </tr:navigationPane>
+          </f:facet>
+          <tr:outputFormatted styleUsage="instruction" 
+            value="These demos show how you can play around with table data"/>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:panelHeader text="Add Row Demo">
+              <tr:outputFormatted styleUsage="instruction" 
+                value="This demo shows you how to add a row to your model 
+                      based on user input"/>
+              <tr:commandButton id="AddRowButton" 
+                text="go to AddRow Demo" action="addRow"/>
+            </tr:panelHeader>
+            <tr:panelHeader text="Total Row Demo">
+              <tr:outputFormatted styleUsage="instruction" 
+                value="This demo shows you how to calculate totals for
+                a particular column in your table."/>
+              <tr:commandButton id="TotalRowButton" text="go to TotalRow Demo" 
+                action="totalRow"/>
+            </tr:panelHeader>
+            <tr:panelHeader text="Export to CSV Demo">
+              <tr:outputFormatted styleUsage="instruction" 
+                value="This demo shows you how to export the contents of
+a table as CSV."/>
+              <tr:goButton text="Go to CSV Demo" destination="/demos/tableDemos/exportAsCSV.jspx"/>
+            </tr:panelHeader>
+          </tr:panelGroupLayout>
+        </tr:panelPage>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

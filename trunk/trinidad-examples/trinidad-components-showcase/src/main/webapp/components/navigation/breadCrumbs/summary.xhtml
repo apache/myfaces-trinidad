@@ -1,0 +1,52 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    A breadCrumbs component is used in hierarchical site layouts to indicate the path back to
+    the root page of the hierarchy with links. A child representing the current page should be the last child. This
+    child may or may not be rendered depending on variables like the device type or look and feel, but it should
+    always be added.
+
+    <br/>
+
+    <tr:outputText value="The links indicating the hierarchy may be added as children or a menu model may be bound
+        to the breadCrumbs component. If a menu model is bound, of class org.apache.myfaces.trinidad.model.MenuModel,
+        the nodes along the focus path will be rendered."/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="MenuModel extends TreeModel, but it also knows how to go from the current viewId to the
+        focus path. Notice that the menuModel has no special knowledge of page navigation and places no requirements on
+        the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet, which should
+        contain a commandNavigationItem component, which allows the default actionListener mechanism to be used for page
+        navigation."/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The &quot;orientation&quot; property may be used to specify the orientation of the
+        breadCrumbs. If the orientation is &quot;horizontal&quot;, successive links will be put on the same line. If the
+        orientation is &quot;vertical&quot;, successive links will be put on a new line, and indented from their parents.
+        In most cases, the orientation should be horizontal. A vertical breadCrumbs should be used only when the text
+        for the links is known to be very long and likely to cause undesirable scrolling. The default value is
+        horizontal.  -  HORIZONTAL"/>
+    
+</ui:composition>

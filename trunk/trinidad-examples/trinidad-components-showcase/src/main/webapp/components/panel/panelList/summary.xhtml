@@ -1,0 +1,37 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The panelList component outputs each visible child in a list with a bullet next to it.
+    The list can be split into columns. This is done by setting the &quot;rows&quot; attribute. This is the multiple
+    of children at which to add another column. For example, if the &quot;rows&quot; attribute was set to 6 then if
+    there were 1-6 visible children there would be one column, 7 to 12 visible children there would be 2 columns,
+    and 13+ visible children would be shown in 3 columns. The number of columns is determined by the value set for
+    &quot;maxColumns&quot; attribute. So if there were 100 visible children with &quot;rows&quot; set to 30 and
+    &quot;maxColumns&quot; was set to 3 children, there will be 3 columns (and 34 rows). If &quot;rows&quot;
+    attribute is not specified, all visible contents will be in one column. The &quot;maxColumns&quot; that can be
+    set is dependent on the type of Agent. If the value set for &quot;maxColumns&quot; is greater than the default
+    for the agent, then it is defaulted. The default maxColumns value is 2 for the PDA. Children are not
+    displayed/rendered if value of &quot;maxColumns&quot; or &quot;rows&quot; is less than one. The split is based
+    solely on the number of visible children and not on their size.
+    
+</ui:composition>

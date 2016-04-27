@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Change Persistence Feature Demos">
+       <tr:form>
+
+        <tr:panelPage>
+         <f:facet name="navigationGlobal">
+          <tr:navigationPane hint="buttons">
+            <tr:commandNavigationItem text="Return to Feature Demos page"
+                                immediate="true"
+                                action="demos"/>
+           </tr:navigationPane>
+          </f:facet>
+
+         <tr:panelHeader text="Change Persistence Feature Demos">
+          <tr:panelHeader text="Demos and overview">
+            <tr:panelGroupLayout layout="vertical">
+              <f:facet name="separator">
+                <tr:separator/>
+              </f:facet>
+              <tr:panelGroupLayout layout="vertical">
+                <tr:commandLink 
+                  text="Attribute Change Demo - Implicit Change registration" 
+                  action="demos.attributeChange_Implicit"/>
+               <tr:outputFormatted 
+                  styleUsage="instruction"
+                  value="Certain of the user actions on few Trinidad components,
+                    alter the attributes implicitly. AttributeChange behind such 
+                    changes are implicitly created and registered, so that the 
+                    UI is restored upon re-visit to the page. In this demo upon
+                    interaction with the following components, one can see this 
+                    happen:"/>
+                <tr:panelList>
+                  <tr:outputFormatted 
+                    styleUsage="instruction" 
+                    value="showDetail: Disclosure state"/>
+                  <tr:outputFormatted 
+                    styleUsage="instruction" 
+                    value="table: Row range, Row selection"/>
+                  <tr:outputFormatted 
+                    styleUsage="instruction" 
+                    value="tree: The expansion state of the nodes"/>
+                </tr:panelList>
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="vertical">
+                <tr:commandLink 
+                  text="Attribute Change Demo - Explicit Change registration"
+                  action="demos.attributeChange_Explicit"/>
+               <tr:outputFormatted 
+                  styleUsage="instruction"
+                  value="This demo shows how AttributeChanges can be created 
+                    explicitly and added to ChangeManager, at any 
+                    point in the JSF lifecycle. These will be restored when the 
+                    page is visited again. There are a few components in this 
+                    page, with buttons against them, that when clicked on, 
+                    alters an attribute of the component, thereby reflecting as 
+                    a change in the UI. A managed bean behind the scene, changes 
+                    the attributes, and in addition creates and registers 
+                    AttributeChanges."/>
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="vertical">
+                <tr:commandLink 
+                  text="Add, Remove or Reorder Children Change Demo - 
+                    Explicit Change registration" 
+                  action="demos.addRemoveReorderChildrenChange_Explicit"/>
+               <tr:outputFormatted 
+                  styleUsage="instruction"
+                  value="This demo shows usage of AddChildChange, 
+                    RemoveChildChange and ReorderChildChange. In this demo page, 
+                    there are a few buttons, that when clicked on, gets some 
+                    components removed or added, or the existing order of 
+                    children reversed. A managed bean behind the scene, changes 
+                    the component tree, and in addition creates and registers 
+                    these Changes explicitly. Upon re-visit to the page, one can
+                    see that these Changes are automatically applied, resulting
+                    in the component tree being restored to the last known state."/>
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="vertical">
+                <tr:commandLink 
+                  text="Add or Remove Facets Change Demo - 
+                    Explicit Change registration"
+                  action="demos.addRemoveFacetsChange_Explicit"/>
+               <tr:outputFormatted 
+                  styleUsage="instruction"
+                  value="This demo shows usage of AddFacetChange and 
+                    RemoveFacetChange. This demo page contains a panelPage, with 
+                    a few facets. In the content area are few buttons that when 
+                    clicked, will result in facets being added or removed. 
+                    Correspondingly Changes are created and registered 
+                    explicitly, so that the UI state is restored upon re-visit 
+                    to this page. All this is done by a managed bean behind the 
+                    scene."/>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+          </tr:panelHeader>
+         </tr:panelHeader>
+        </tr:panelPage>
+
+       </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

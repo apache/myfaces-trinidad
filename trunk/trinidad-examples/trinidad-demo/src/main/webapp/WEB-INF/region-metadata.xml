@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<faces-config>
+  <component>
+    <component-type>org.apache.myfaces.trinidaddemo.region.stock</component-type>
+    <component-class>
+      org.apache.myfaces.trinidad.component.UIXRegion
+    </component-class>
+    <component-extension>
+      <region-jsp-ui-def>/components/regions/stock.jspx</region-jsp-ui-def>
+    </component-extension>
+    <attribute>
+      <attribute-name>symbol</attribute-name>
+      <attribute-class>java.lang.String</attribute-class>
+      <attribute-extension>
+        <required>true</required>
+      </attribute-extension>
+    </attribute>
+    <attribute>
+      <attribute-name>amount</attribute-name>
+      <attribute-class>float</attribute-class>
+      <default-value>0</default-value>
+    </attribute>
+    <attribute>
+      <attribute-name>company</attribute-name>
+      <attribute-class>java.lang.String</attribute-class>
+      <default-value>Default Company</default-value>
+    </attribute>
+    <attribute>
+      <attribute-name>description</attribute-name>
+      <attribute-class>java.lang.String</attribute-class>
+      <default-value>Default Description</default-value>
+    </attribute>
+  </component>
+
+</faces-config>
+

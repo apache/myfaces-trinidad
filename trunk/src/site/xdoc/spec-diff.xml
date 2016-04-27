@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Converting From Standard JSF Tags to Apache Trinidad Tags</title>
+  </properties>
+
+  <body>
+    <section name="Converting From Standard JSF Tags to Apache Trinidad Tags">
+      <p>
+       <ul>
+        <li>
+          <a href="#Overview">Overview</a>
+        </li>
+        <li>
+          <a href="#Getting Started">Getting Started</a>
+        </li>
+        <li>
+          <a href="#Differences">Differences</a>
+        </li>
+        <li>
+          <a href="#Additional features">Additional features</a>
+        </li>
+
+       </ul>
+      </p>
+    </section>
+    <section name="Overview">
+<p>
+Apache Trinidad includes replacements for many of the tags in the JavaServer Faces (JSF)
+specification. It is important to emphasize that there is no
+requirement whatsoever that you convert from standard JSF tags
+to Apache Trinidad tags. Standard JSF tags and Apache Trinidad tags can be
+mixed freely within a single page. In general, the Apache Trinidad tags are 
+more powerful, because they:
+<ul>
+<li>Often offer more features than the standard tags</li>
+<li>Can be used inside of the <code>&lt;tr:forEach&gt;</code> tag (it is,
+unfortunately, not possible to support standard tags inside
+<code>&lt;tr:forEach&gt;</code>)</li>
+<li>Provide more efficient implementations of client-side state saving
+(reduced per-component size)</li>
+</ul>
+Some of the enhanced features of Apache Trinidad tags are described <a href="#Table features">below</a>.
+</p>
+    </section>
+    <section name="Getting Started">
+<p>
+If you're using Apache Trinidad for the first time, and you're adding ADF
+Faces tags into existing JSF pages, you'll need to know a few tips
+to get everything working correctly.
+</p>
+<p>
+First, Apache Trinidad needs its stylesheet in each page to look correct.  You
+should replace &lt;HTML&gt;, &lt;HEAD&gt;, and &lt;BODY&gt; tag 
+with our &lt;tr:document&gt; tag which creates these standard root elements as well as 
+includes our stylesheet in the page.
+</p>
+<p>
+Second, if you call the Javascript <code>form.submit()</code>
+function, you'll bypass the Apache Trinidad support for client-side
+validation.  Use the "autoSubmit" property on our input components or use the
+command components.
+</p>
+
+    </section>
+    <section name="Differences">
+<p>
+Unless noted, the Apache Trinidad tag name is the same as the standard JSF tag with the exception of the prefix. Apache Trinidad tags use the prefix 'tr'. For example, <code>&lt;h:commandButton&gt;</code> is <code>&lt;tr:commandButton&gt;</code> in Apache Trinidad.</p>
+<p>
+The following list shows some of the common h: attributes and how they map to tr: attributes: 
+<ul>
+<li><code>accesskey</code> - use <code>accessKey</code> </li>
+<li><code>readonly</code> - use <code>readOnly</code> </li>
+<li><code>alt</code> and/or <code>title</code> - use <code>shortDesc</code> </li>
+<li><code>style</code> - use <code>inlineStyle</code> </li>
+<li><code>dir</code>, <code>lang</code>, <code>tabindex</code> - n/a</li>
+</ul>
+The following table shows the standard JSF tags and how they map to Apache Trinidad tags.  
+</p>
+<table>
+<tr>
+<th>Standard JSF tag</th><th>Apache Trinidad tag</th><th>Attribute Mapping/Notes</th>
+</tr>
+
+<tr><td><code>
+&lt;h:column&gt;</code></td>
+<td><code>&lt;tr:column&gt;</code></td>
+<td>The <code>tr:column</code> must be the immediate child of <code>tr:table</code>. See the
+<a href="#Table features">Table features </a>section below.
+</td></tr>
+
+<tr><td><code>
+&lt;h:commandButton&gt; </code></td>
+<td><code>&lt;tr:commandButton&gt; or &lt;tr:resetButton&gt; or &lt;tr:objectImage&gt;</code></td>
+<td>
+<div><code><b>value - use text</b></code></div>
+<div><code>type = "reset", use &lt;tr:resetButton&gt; tag</code></div>
+<div><code>image - use &lt;tr:objectImage&gt; tag</code></div>
+<div><code>onblur, onchange, onfocus, readonly - n/a.</code></div>
+</td></tr>
+
+<tr><td><code>
+&lt;h:commandLink&gt;  </code></td>
+<td><code>&lt;tr:commandLink&gt;  </code></td>
+<td>
+<div><code><b>value - use text</b></code></div>
+<div><code>charset, coords, hrefrel, rev, shape - n/a.</code></div>
+</td></tr>
+
+<tr><td><code>
+&lt;h:dataTable&gt; </code></td>
+<td><code>&lt;tr:table&gt;</code></td>
+  <td><code><b>see the <a href="#Table features">Table features </a>section below.</b>
+</code></td></tr>
+
+<tr><td><code>&lt;h:form&gt;</code></td>
+<td><code>&lt;tr:form&gt;</code></td>
+<td><code>
+<div><code><b>enctype="multipart/form-data", use usesUpload="true"</b></code></div>
+<div><code><b><a href="#NotANamingContainer">Not a NamingContainer</a></b></code></div>
+<div><code>target - use targetFrame</code></div>
+<div><code>accept, acceptcharset, endtype onreset - n/a.</code></div>
+
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:graphicImage&gt; </code></td>
+<td><code>&lt;tr:objectImage&gt;</code></td>
+<td><code>
+<div><code><b>value or url - use source</b></code></div>
+<div><code>ismap  - use imageMapType="server"</code></div>
+<div><code>longdesc - use longDescURL </code></div>
+<div><code>usemap - n/a.</code></div>
+</code></td></tr>
+
+<tr><td><code>&lt;h:inputHidden&gt;</code></td>
+<td><code>&lt;tr:inputHidden&gt;</code></td>
+<td><code>
+<div><code>required - n/a</code></div>
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:inputSecret&gt; </code></td>
+<td><code>&lt;tr:inputText&gt;</code></td>
+<td><code> 
+<div><code><b>set tr:inputText's "secret" attribute to true</b></code></div>
+<div><code>maxlength - use maximumLength</code></div>
+<div><code>size - use columns</code></div>
+<div><code>redisplay - n/a.</code></div>
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:inputText&gt;</code></td>
+<td><code>&lt;tr:inputText&gt;</code></td>
+<td><code>
+<div><code>maxlength - use maximumLength</code></div>
+<div><code>size - use columns</code></div>
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:inputTextarea&gt; </code></td>
+<td><code>&lt;tr:inputText&gt;</code></td>
+<td><code>
+<div><code><b>set the tr:inputText's "rows" attribute to the desired number of rows > 1</b></code></div>
+<div><code>cols - use columns</code></div>
+
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:message&gt;</code></td>
+<td><code>&lt;tr:message&gt;</code></td>
+<td><code>showDetail, showSummary, xyzClass, xyzStyle, tooltip - n/a
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:messages&gt;</code></td>
+<td><code>&lt;tr:messages&gt;</code></td>
+<td><code>globalOnly, showDetail, showSummary, xyzClass, xyzStyle, layout, tooltip - n/a
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:outputFormat&gt; </code></td>
+<td><code><i> no tr: equivalent</i>
+</code></td><td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:outputLabel&gt; </code></td>
+<td><code>&lt;tr:outputLabel&gt;</code></td>
+<td><code>
+<div><code>onblur, onfocus - n/a.</code></div>
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:outputLink&gt; </code></td>
+<td><code>&lt;tr:goLink&gt;</code></td>
+<td><code>
+<div><code><b>value - use destination</b></code></div>
+<div><code><b>use text for the link's text</b></code></div>
+<div><code>target - use targetFrame</code></div>
+<div><code>converter, charset, coords,hrefrel, rev, shape, type - n/a.</code></div>
+</code></td></tr>
+
+<tr><td><code>
+&lt;h:outputText&gt; </code></td>
+<td><code>&lt;tr:outputText&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:panelGrid&gt; </code></td><td><code><i> no tr: equivalent</i>
+</code></td><td><br/></td></tr> 
+
+<tr><td><code>
+&lt;h:panelGroup&gt;</code></td>
+<td><code>&lt;tr:panelGroup&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:selectBooleanCheckbox&gt;</code></td>
+<td><code>&lt;tr:selectBooleanCheckbox&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:selectManyCheckbox&gt;</code></td>
+<td><code>&lt;tr:selectManyCheckbox&gt;</code></td>
+<td>
+<div><code><b>layout - "vertical" and "horizontal" instead of "pageDirection" and "lineDirection";  also, the default is vertical, not horizontal</b></code></div>
+</td></tr>
+
+<tr><td><code>
+&lt;h:selectManyListbox&gt;</code></td>
+<td><code>&lt;tr:selectManyListbox&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:selectManyMenu&gt; </code></td>
+<td><code>&lt;tr:selectManyListbox&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:selectOneListbox&gt;</code></td>
+<td><code>&lt;tr:selectOneListbox&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:selectOneMenu&gt; </code></td>
+<td><code>&lt;tr:selectOneChoice&gt;</code></td>
+<td><br/></td></tr>
+
+<tr><td><code>
+&lt;h:selectOneRadio&gt; </code></td>
+<td><code>&lt;tr:selectOneRadio&gt;</code></td>
+<td>
+<div><code>border, disabledClass, enabledClass, layout - n/a.</code></div>
+</td></tr>
+</table>
+<p>
+<a name="NotANamingContainer"></a>The ADF <code>&lt;tr:form&gt;</code>
+component does not implement the JSF <code>NamingContainer</code> API.
+When you use the <code>&lt;tr:form&gt;</code> tag, the ID in the generated HTML does not
+include the form's ID as a prefix.  For example:
+<source>
+  &lt;h:form id="foo"&gt;
+   &lt;!-- This inputText will have an id of "foo:bar" --&gt;
+   &lt;tr:inputText id="bar"/&gt;
+  &lt;/h:form&gt;
+
+  &lt;tr:form id="foo2"&gt;
+   &lt;!-- This inputText will have an id of just "bar2" --&gt;
+   &lt;tr:inputText id="bar2"/&gt;
+  &lt;/tr:form&gt;
+</source>
+
+This makes it easier to write JavaScript (and results in smaller, more
+concise HTML) - especially in cases where you may not know the ID of
+the form - and enables the use of some CSS features on these fields.
+On the other hand, this means that pages using multiple forms cannot
+reuse IDs among forms. You can use the <code>&lt;f:subview&gt;</code> tag around
+an <code>&lt;tr:form&gt;</code> if you need to reuse ID values, or you can just
+continue using <code>&lt;h:form&gt;</code>.
+
+</p>    
+    </section>
+    <section name="Additional features">
+<p>As mentioned earlier, the Apache Trinidad tags offer some general features
+that are not available with the standard JSF tags - such as <code>&lt;tr:forEach&gt;</code> support
+and more efficient (smaller) client-side state saving. There are
+many other features supported by the Apache Trinidad tags and components that are 
+not supported by the standard JSF tags. It'd take too much
+space to discuss all of these features, but a couple of the more important
+ones are discussed here.</p>
+<subsection name="Label and message support">
+<p>Apache Trinidad input components make it much easier to support the
+standard label-and-message pattern for laying out forms. Typically,
+a JSF page might contain content like:</p>
+<source>
+  &lt;h:panelGrid columns="2"&gt;
+   &lt;!-- Use outputLabel; outputText doesn't support accessibility --&gt;
+   &lt;h:outputLabel for="nameInput" value="Name:  "&gt;
+   &lt;h:panelGroup&gt;
+     &lt;h:inputText id="nameInput" value="Enter a name"/&gt;
+     &lt;f:verbatim&gt;&lt;br&gt;&lt;/f:verbatim&gt;
+     &lt;h:message for="nameInput"/&gt;
+   &lt;/h:panelGroup&gt;
+ &lt;/h:panelGrid&gt;
+</source>
+<p>All the Apache Trinidad input components automate this pattern; the
+single entry of:</p>
+<source>
+  &lt;tr:inputText label="Name:" value="Enter a name"/&gt;
+</source>
+<p>...gives you all the layout of the JSF example above - automatic
+label and message layout and accessibility support.
+When you use a series of Apache Trinidad input components, you'll
+need to line up the labels and fields. For this purpose, Apache Trinidad
+provides the <code>&lt;tr:panelForm&gt;</code> layout panel that will stack
+Apache Trinidad input components.</p>
+<source>
+  &lt;tr:panelForm&gt;
+    &lt;tr:inputText label="First name:" value="/&gt;
+    &lt;tr:inputText label="Last name:" value="/&gt;
+  &lt;/tr:panelForm&gt; 
+</source>
+<p>If you want to use an Apache Trinidad input component, but do not
+want any of these features (because you require a more flexible
+layout strategy, for example, or are already providing messaging),
+set the "simple" attribute to "true":
+</p>
+<source>
+  &lt;!-- No label or messaging --&gt;
+  &lt;tr:inputText simple="true" value="Enter a name"/&gt;
+</source>
+</subsection>
+<subsection name="Table features">
+<p>The Apache Trinidad <code>&lt;tr:table&gt;</code> component (a replacement for <code>&lt;h:dataTable&gt;</code>)
+adds many features, including:
+<ul>
+<li>Built-in support for paging through data sets</li>
+<li>Support for identifying rows by key instead of by index</li>
+<li>No-code support for partial-page rendering (re-rendering only the table,
+not the entire page)</li>
+<li>Support for sorting</li>
+<li>"Single" and "multiple" selection columns</li>
+</ul>
+For more information, see <a href="devguide/table.html">Using Apache Trinidad Tables</a> in <em>Development Guidelines for Apache MyFaces Trinidad Applications</em>.
+</p>
+</subsection>
+<subsection name="Message customization">
+<p>In Apache Trinidad, for error messages that are reported for cases of invalid input for 
+   editable components, during conversion and validation can be customized for 
+   every converter or validator. This also applies to "required" validation on all input 
+   components.</p>
+ <source>
+   &lt;tr:selectInputDate id="mdf6" value="2004/09/06"
+                    label="Date of birth"
+                    tip="1/20/1972 or 1972/20/2"&gt;
+
+    &lt;tr:convertDateTime 
+           secondaryPattern="d/M/yyyy" pattern="yyyy/M/d" 
+           convertDateMessageDetail="&amp;quot;{0}&amp;quot; in &amp;quot;{1}&amp;quot;
+                                  is not a valid date. Example: &amp;quot;{4}&amp;quot;"/&gt;
+                                      
+   &lt;/tr:selectInputDate&gt;
+ </source>
+ <p>For a invalid input value say 2004/15/1 - It would result in error message:<br/>
+ "2004/15/1" in "Date of birth" is not a valid date. Example: "2005/11/29".</p>
+ 
+</subsection>
+    </section>
+  </body>
+</document>

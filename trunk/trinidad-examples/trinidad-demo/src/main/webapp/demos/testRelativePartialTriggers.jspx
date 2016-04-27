@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Partial Page Rendering Demos">
+      <tr:form>
+        <tr:panelPage>
+          <f:facet name="navigationGlobal">
+            <tr:navigationPane hint="buttons">
+              <tr:commandNavigationItem text="Return to Feature Demos page"
+                                        immediate="true" action="demos"/>
+              <tr:commandNavigationItem text="Return to PPR Demo page"
+                                  immediate="true"
+                                  action="demos.ppr"/>
+            </tr:navigationPane>
+          </f:facet>
+          <tr:outputText  styleClass="AFInstructionText" 
+            value="This tests the syntax for partialTriggers. :: pops you out of the current NamingContainer 
+            including yourself if you are a naming container. Each additional colon pops out of a NamingContainer."/>
+          <tr:separator/>
+          <f:subview id="nc1">
+            <tr:commandButton text="commandButton 1" partialSubmit="true"
+                              id="commandButton1"
+                              action="#{testTriggers.commandButton1_action}"/>
+            <tr:commandButton text="commandButton 2"
+                              binding="#{testTriggers.commandButton2}"
+                              id="commandButton2"
+                              partialTriggers="commandButton1"/>
+            <f:subview id="nc2">
+              <tr:panelGroupLayout>
+                <tr:inputText label="Label 1"
+                              binding="#{testTriggers.inputText1}"
+                              id="inputText1"
+                              partialTriggers="::commandButton1 ::nc4:table1:commandButton3"/>
+              </tr:panelGroupLayout>
+            </f:subview>
+            <f:subview id="nc3">
+              <tr:inputText label="Label 2" binding="#{testTriggers.inputText2}"
+                            id="inputText2"
+                            partialTriggers="::commandButton1 ::nc4:table1:commandButton3"/>
+            </f:subview>
+            <f:subview id="nc4">
+              <tr:table value="#{testTriggers.tableData}" id="table1" var="row"
+                        partialTriggers=":::commandButton1 commandButton3  ::commandButton4"
+                        binding="#{testTriggers.table1}">
+                <tr:column headerText="Column">
+                  <tr:panelGroupLayout>
+                    <tr:inputText value="#{row.name}" id="inputText3"
+                                  binding="#{testTriggers.inputText3}"
+                                  partialTriggers=":::commandButton1 commandButton3"/>
+                    <tr:commandButton text="Make table pink"
+                                      action="#{testTriggers.commandButton3_action}"
+                                      id="commandButton3" partialSubmit="true"/>
+                  </tr:panelGroupLayout>
+                </tr:column>
+              </tr:table>
+              <tr:commandButton text="Make table gold"
+                                action="#{testTriggers.commandButton4_action}"
+                                id="commandButton4" partialSubmit="true"/>
+            </f:subview>
+            <tr:separator/>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:outputText styleClass="AFInstructionText"
+                             value="table's partialTrigger is the first command button on the page. Nobody is listening for the inputText's to change."/>                                
+            </tr:panelGroupLayout>
+            <f:subview id="nc5">
+              <tr:panelHeader text="Header">
+                <tr:table value="#{testTriggers.tableData}" id="table2"
+                          var="row" partialTriggers=":::commandButton1"
+                          binding="#{testTriggers.table2}">
+                  <tr:column headerText="Table2Column">
+                    <tr:inputText value="#{row.name}" id="inputText4" autoSubmit="true"/>
+                  </tr:column>
+                </tr:table>
+              </tr:panelHeader>
+            </f:subview>
+            
+            <!-- type in inputText, outputText should turn red, commandButton's color turns red --> 
+            <!-- click on the button, the outputText should turn pink -->
+            <!-- select a row in the table, and the outputText should turn aqua -->
+            <tr:panelGroupLayout layout="vertical">
+              <tr:outputText styleClass="AFInstructionText"
+                             value="type in inputText, outputText should turn red, commandButton's color turns red"/>
+              <tr:outputText styleClass="AFInstructionText"
+                             value="click on the button, the outputText should turn pink"/>  
+              <tr:outputText styleClass="AFInstructionText"
+                             value="select a row in the table, and the outputText should turn aqua, button color turns aqua"/>                                
+            </tr:panelGroupLayout>
+            <tr:commandButton id="commandButton1x" action="#{testTriggers.commandButton1x_action}" text="Make output pink"
+              binding="#{testTriggers.commandButton1x}"
+              partialTriggers="table1x:inputText1x table1x"/>
+            <tr:table id="table1x" value="#{testTriggers.tableData}" autoSubmit="true" rowSelection="single" selectionListener="#{testTriggers.tableRowSelected}" >
+                <tr:column>
+                    <tr:inputText id="inputText1x" autoSubmit="true" valueChangeListener="#{testTriggers.input1xChanged}"/>
+                </tr:column>
+                <tr:column>
+                    <tr:outputText id="outputText1x" partialTriggers="inputText1x ::commandButton1x ::table1x" value="hello, outputText"
+                                  binding ="#{testTriggers.outputText1x}"/>
+                </tr:column>
+            </tr:table>
+
+          </f:subview>
+          
+        <!-- a couple of ways you can do the same thing -->
+        <tr:panelGroupLayout layout="vertical">
+          <tr:outputText styleClass="AFInstructionText"
+                             value="type in inputText, and see the value in the fields below"/>                          
+        </tr:panelGroupLayout>
+        <tr:subform id="autosf">
+          <tr:inputText autoSubmit="true" id="inputText5" label="inputText"
+                         value="#{testTriggers.inputText5Value}"/>
+          <tr:inputText partialTriggers="inputText5" label="value submitted" id="xxxxx" readOnly="true"
+                         value="#{testTriggers.inputText5Value}"/>
+          <tr:inputText partialTriggers="::autosf:inputText5" label="value submitted" id="xxxxxy" readOnly="true"
+                         value="#{testTriggers.inputText5Value}"/>   
+          <tr:inputText partialTriggers=":::::::autosf:inputText5" label="value submitted" id="xxxxxz" readOnly="true"
+                         value="#{testTriggers.inputText5Value}"/>                           
+        </tr:subform>
+           <tr:inputText partialTriggers="autosf:inputText5" label="value submitted out of subform" id="xxxxxza" readOnly="true"
+                         value="#{testTriggers.inputText5Value}"/>       
+        
+        </tr:panelPage>
+
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>
+

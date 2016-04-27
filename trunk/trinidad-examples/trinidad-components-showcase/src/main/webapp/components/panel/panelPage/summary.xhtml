@@ -1,0 +1,31 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    PanelPage lays out an entire page. It supports several navigation and content areas for
+    the creation of pages. When the panelPage is geometry managed, the last indexed child will be stretched
+    vertically to fit in the leftover space not consumed by the other indexed children. If you do not want this
+    stretching behavior, you must wrap your indexed children with a panelGroup with layout=&quot;vertical&quot;
+    and inlineStyle=&quot;overflow: auto;&quot;. This way, the panelGroup will be stretched to fit and scrollbars
+    will appear when the content inside is larger than the allocated space.
+    
+</ui:composition>

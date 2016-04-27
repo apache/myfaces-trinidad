@@ -1,0 +1,92 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    <tr:subform>
+        <div class="page_bar_container">
+            <div id="page_bar">
+                <div class="top_bevel">
+                    <ul id="main_menu">
+                        <li>
+                            <tr:goLink destination="/faces/pages/demoStart.xhtml">
+                                <tr:outputText id="showcaseId" value="Components Showcase"/>
+                            </tr:goLink>
+                        </li>
+                        <li>
+                            <tr:goLink destination="/faces/pages/featureDemo.xhtml">
+                                <tr:outputText id="demosId" value="Feature Demos"/>
+                            </tr:goLink>
+                        </li>
+                        <li>
+                            <a class="expand" href="#">
+                                <tr:outputText id="sampleId" value="Sample Applications"/>
+                                <span class="menu_anchor">
+                                    <div class="submenu_container">
+                                    <table class="submenu">
+                                        <tr><td>
+                                            <tr:goLink destination="/faces/samples/email/e-mailTemplate.xhtml">
+                                                <tr:outputText id="emailId" value="Email"/>
+                                            </tr:goLink>
+                                        </td></tr>
+                                        <tr><td>
+                                            <tr:goLink destination="/faces/pages/notImplemented.xhtml">
+                                                <tr:outputText id="surveyId" value="Survey"/>
+                                            </tr:goLink>
+                                        </td></tr>
+                                    </table>
+                                    </div><!-- cloase submenu container -->
+                                </span>
+                            </a><!-- close main menu link -->
+                        </li><!-- close main menu option -->
+                    </ul>
+                    <ul id="skin_menu">
+                        <li>
+                            <a class="expand" href="#">
+                                <tr:outputText id="skinId" value="Skin"/>
+                                <span class="menu_anchor">
+                                    <div class="submenu_container">
+                                    <table class="submenu">
+                                        <tr><td>
+                                            <tr:commandLink>
+                                                <tr:outputText id="minimalId" value="Minimal"/>
+                                                <f:setPropertyActionListener value="minimal" target="#{skinFamilySelection.skinFamily}"/>
+                                            </tr:commandLink>
+                                        </td></tr>
+                                        <tr><td>
+                                            <tr:commandLink>
+                                                <tr:outputText id="casablancaId" value="Casablanca"/>
+                                                <f:setPropertyActionListener value="Casablanca" target="#{skinFamilySelection.skinFamily}"/>
+                                            </tr:commandLink>
+                                        </td></tr>
+                                    </table>
+                                    </div><!-- cloase submenu container -->
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div><!-- close top bevel -->
+ 	        </div><!-- close page bar -->
+        </div><!-- close epage bar container -->
+    </tr:subform>
+    
+</ui:composition>

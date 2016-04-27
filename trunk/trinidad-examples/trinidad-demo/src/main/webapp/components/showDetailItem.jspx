@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="ShowDetailItem Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_showDetailItem.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>showDetailItem&lt;/b>"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="A panelTabbed component with showDetailItem children"/>
+          <tr:panelFormLayout>
+            <tr:inputText readOnly="true" label="Date/Time from last full page refresh"
+                          value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+              <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+            </tr:inputText>
+          </tr:panelFormLayout>
+          <tr:panelTabbed>
+            <tr:showDetailItem id="editedComponent" binding="#{editor.component}" text="Tab 1">
+              <tr:panelHeader text="Header 1">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 1-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 2">
+              <tr:panelHeader text="Header 2 - This ShowDetailItem contains a ShowDetail in it">
+                <tr:panelGroupLayout>
+                  <tr:showDetail id="hs1" partialTriggers="hs1">
+                    <tr:panelFormLayout>
+                      <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                    value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                        <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                      </tr:inputText>
+                      <tr:inputColor label="Color"/>
+                    </tr:panelFormLayout>
+                  </tr:showDetail>
+                </tr:panelGroupLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 3" disclosed="true" immediate="false">
+              <tr:panelHeader text="Header 3 - This showDetailItem has its immediate attribute set to false">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 3-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                  <tr:inputText label="This is a required field" required="true"/>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 4" disabled="true"/>
+            <tr:showDetailItem text="Tab 5">
+              <tr:panelHeader text="Header 5">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 5-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+          </tr:panelTabbed>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

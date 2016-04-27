@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Row Header Column Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_column.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#column"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:commandLink immediate="true" text="Column Demo" action="guide.column"/>
+          <tr:commandLink immediate="true" text="Column Group" action="guide.column.group"/>
+          <tr:commandLink immediate="true" text="Sortable Column" action="guide.column.sortable"/>
+          <tr:commandLink immediate="true" text="Column Footer" action="guide.column.footer"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;br>&lt;b>RowHeader Column&lt;/b>"/>
+          <tr:table value="#{periodicTable.tableData}" rows="7" rowSelection="single" var="row"
+                    summary="Row Header Column Demo">
+            <tr:column rowHeader="true" binding="#{editor.component}">
+              <tr:outputText value="#{row.group}"/>
+            </tr:column>
+            <tr:column>
+              <f:facet name="header">
+                <tr:outputText value="Symbol"/>
+              </f:facet>
+              <tr:outputText value="#{row.symbol}"/>
+            </tr:column>
+            <tr:column>
+              <f:facet name="header">
+                <tr:outputText value="Name"/>
+              </f:facet>
+              <tr:outputText value="#{row.name}"/>
+            </tr:column>
+            <tr:column>
+              <f:facet name="header">
+                <tr:outputText value="Number"/>
+              </f:facet>
+              <tr:outputText value="#{row.number}"/>
+            </tr:column>
+          </tr:table>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;br>This Editor controls the RowHeader Column:"/>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

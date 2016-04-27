@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="PanelFormLayout Demo">
+      <tr:form>
+
+        <!-- initialize session variables -->
+        <jsp:scriptlet>
+        if (session.getAttribute("flagInitialized") == null)
+        {
+          session.setAttribute("flag8", true);
+          session.setAttribute("flagInitialized", "done");
+        }
+        </jsp:scriptlet>
+
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelFormLayout.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelFormLayout"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelFormLayout&lt;/b>"/>
+          <tr:panelFormLayout binding="#{editor.component}" rows="5" labelWidth="33%"
+                              fieldWidth="67%">
+            <tr:inputText columns="5" label="label 1">
+              <f:facet name="help">
+                <tr:outputText value="Enter an integer."/>
+              </f:facet>
+            </tr:inputText>
+            <tr:group>
+              <tr:inputText columns="5" label="group item 1"/>
+              <tr:inputText columns="5" label="group item 2"/>
+              <tr:inputText columns="5" label="group item 3"/>
+            </tr:group>
+            <tr:inputDate id="df1" label="label 2"/>
+            <tr:panelLabelAndMessage rendered="true" label="label 3">
+              <tr:commandButton text="Submit"/>
+            </tr:panelLabelAndMessage>
+            <tr:selectManyListbox id="rs" label="label 4" shortDesc="Select Option">
+              <tr:selectItem label="option 1"/>
+              <tr:selectItem label="option 2"/>
+              <tr:selectItem label="option 3"/>
+              <tr:selectItem label="option 4"/>
+            </tr:selectManyListbox>
+            <tr:panelLabelAndMessage label="label 5"
+                                     labelStyle="vertical-align:top;padding-top:0.4em;">
+              <f:facet name="help">
+                <tr:outputText value="tip 5"/>
+              </f:facet>
+              <tr:commandButton text="Hello World" partialSubmit="true"/>
+            </tr:panelLabelAndMessage>
+            <tr:inputText rows="2" label="label 6" secret="true"/>
+            <tr:selectBooleanRadio id="rb" group="rbGroup" shortDesc="Label 7" label="label 7"/>
+            <tr:selectBooleanCheckbox id="trCheckbox" shortDesc="label 8" label="label 8"
+                                      value="#{sessionScope.flag8}" autoSubmit="true"
+                                      immediate="true"/>
+            <tr:panelLabelAndMessage label="label 9">
+              <tr:outputText partialTriggers="trCheckbox partialSaveTr"
+                             value="flag8 = #{sessionScope.flag8}"/>
+              <tr:commandButton id="partialSaveTr" text="Partial Submit" partialSubmit="true"/>
+            </tr:panelLabelAndMessage>
+            <tr:inputText id="trInput" label="label 10 #{sessionScope.flag8}"
+                          value="#{sessionScope.flag8}" partialTriggers="trCheckbox partialSaveTr"
+                          disabled="#{!sessionScope.flag8}" required="#{sessionScope.flag8}"/>
+            <tr:panelLabelAndMessage label="label 11"
+                                     labelStyle="vertical-align:top;padding-top:0.3em;">
+              <tr:panelGroupLayout layout="vertical">
+                <tr:selectBooleanCheckbox shortDesc="option 1" text="option 1" simple="true"/>
+                <tr:panelFormLayout>
+                  <tr:inputText styleClass="AFFieldTextMarker" label="sub item 1" value="hello"/>
+                  <tr:inputText styleClass="AFFieldTextMarker" label="sub item 2" value="world"/>
+                  <tr:selectOneChoice label="sub item 3">
+                    <tr:selectItem label="coffee" value="bean" shortDesc="Coffee from Kona"/>
+                    <f:selectItem itemLabel="tea" itemValue="leaf" itemDescription="Tea from China"/>
+                    <tr:selectItem label="milk" value="moo" rendered="false"/>
+                    <f:selectItems value="#{demoInput.selectItems}"/>
+                  </tr:selectOneChoice>
+                </tr:panelFormLayout>
+                <tr:selectBooleanCheckbox shortDesc="option 2" text="option 2" simple="true"/>
+                <tr:selectBooleanCheckbox shortDesc="option 3" text="option 3" simple="true"/>
+              </tr:panelGroupLayout>
+            </tr:panelLabelAndMessage>
+            <f:facet name="footer">
+              <tr:group>
+                <tr:inputText rows="2" label="footer item 1"/>
+                <tr:group>
+                  <tr:inputText columns="5" label="footer group item 1"/>
+                  <tr:inputText columns="5" label="footer group item 2"/>
+                  <tr:inputText columns="5" label="footer group item 3"/>
+                </tr:group>
+                <tr:panelHorizontalLayout>
+                  <f:facet name="separator">
+                    <tr:spacer width="10"/>
+                  </f:facet>
+                  <tr:commandButton text="Page 1" partialSubmit="true"/>
+                  <tr:commandButton text="Page 2" partialSubmit="true"/>
+                </tr:panelHorizontalLayout>
+              </tr:group>
+            </f:facet>
+          </tr:panelFormLayout>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>Iterated children&lt;/b>"/>
+          <tr:panelFormLayout rows="1" maxColumns="4">
+            <tr:iterator var="row" varStatus="status" value="#{periodicTable.tableData}">
+              <tr:group>
+                <tr:panelLabelAndMessage label="Count">
+                  <tr:outputText value="#{status.count}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Element">
+                  <tr:outputText value="#{row.name}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Atomic Number">
+                  <tr:outputText value="#{row.number}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Symbol">
+                  <tr:outputText value="#{row.symbol}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Group">
+                  <tr:outputText value="#{row.group}"/>
+                </tr:panelLabelAndMessage>
+              </tr:group>
+            </tr:iterator>
+          </tr:panelFormLayout>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
+  <f:view>
+   <tr:form>
+   <tr:panelGroupLayout layout="vertical">
+   
+   <!-- EACH OF THE BLOCK BELOW IS A SINGLE TEST CASE, UNCOMMENT EACH AND TEST -->
+   
+   <!-- 'begin' and 'end' should default to '0' and size of 'items' respectively 
+      value of 'var' is substring of value of 'varStatus', should work fine -->
+    <!--<tr:forEach var="item" varStatus="itemitem" step="3" end="500" items="#{table}">
+      <tr:outputText 
+        value="item: #{item.string} varStatus.current: #{itemitem.current.string} varStatus.index: #{itemitem.index}"/>
+    </tr:forEach>-->
+
+    <!-- 'items' not specified, there should be iterations governed by 'begin'
+      and 'end' #{item} should resolve to an integer same as #{itemitem.index}"-->
+    <!--<tr:forEach var="item" varStatus="itemitem" begin="0" end="500">
+      <tr:outputText 
+        value="item: #{item} varStatus.current: #{itemitem.current} varStatus.index: #{itemitem.index}"/>
+    </tr:forEach>-->
+
+    <!-- 'items' not specified, but used in the expressions, some EL parsing errors expected -->
+    <!--<tr:forEach var="item" varStatus="itemitem" begin="0" end="500">
+      <tr:outputText 
+        value="item: #{item.string} varStatus.current: #{itemitem.current.string} varStatus.index: #{itemitem.index}"/>
+    </tr:forEach>-->
+
+    <!-- 'begin' greater than size of 'items' - hence no looping -->
+    <!--<tr:forEach var="item" varStatus="itemitem" begin="20" step="3" end="500" items="#{table}">
+      <tr:outputText 
+        value="item: #{item.string} varStatus.current: #{itemitem.current.string} varStatus.index: #{itemitem.index}"/>
+    </tr:forEach>-->
+    
+    <!-- 'items' do not resolve to anything valid, there should be no looping hence -->
+    <!--<tr:forEach var="item" varStatus="itemitem" begin="0" end="500" items="#{error_on_resolution}">
+      <tr:outputText 
+        value="item: #{item.string} varStatus.current: #{itemitem.current.string} varStatus.index: #{itemitem.index}"/>
+    </tr:forEach>-->
+
+    <!-- the EL expressions should not be tried to be resolved as the usage of values from
+      'var' and 'varStatus' is not correct -->
+    <!--@todo =-=pu:  FAILURE
+    <tr:forEach var="item" varStatus="itemitem" step="3" end="500" items="#{table}">
+      <tr:outputText 
+        value="item: #{itemerror.string} varStatus.current: #{itemitemerror.current.string} varStatus.index: #{itemitem[1].index}"/>
+    </tr:forEach>
+    FAILURE -->
+    
+    <!-- Nested use of forEach with 'items' specified -->
+    <!--<tr:forEach var="outer" items="#{listOfLists}">
+      <tr:forEach var="inner" items="#{outer}">
+        <tr:outputText id="myStyledText" rendered="#{(inner.int % 2 == 0)}" value="#{inner.string}"/>
+      </tr:forEach>
+    </tr:forEach>-->
+    
+    <!-- The varStatus.current should be same as varStatus.index below, nesting
+      scope should be respected for variables -->
+    <!--<tr:forEach varStatus="outer" begin="1" end="10" step="2">
+      <tr:forEach varStatus="inner" begin="1" end="5">
+        <tr:outputText id="ot1" value="outer.index: #{outer.index} | outer.count: #{outer.count} | outer.begin: #{outer.begin} | outer.end: #{outer.end} | outer.step: #{outer.step} | outer.isFirst: #{outer.first} | outer.isLast: #{outer.last} | outer.current: #{outer.current}"/>
+        <tr:outputText id="ot2" value="inner.index: #{inner.index} | inner.count: #{inner.count} | inner.begin: #{inner.begin} | inner.end: #{inner.end} | inner.step: #{inner.step} | inner.isFirst: #{inner.first} | inner.isLast: #{inner.last} | inner.current: #{inner.current}"/>
+      </tr:forEach>
+    </tr:forEach>-->
+    
+    <!-- Should throw an Jsp error as 'begin' and 'end' are must in absence of 'items' -->
+    <!--<tr:forEach varStatus="inner" begin="1">
+    </tr:forEach>-->
+    
+    <!-- Should throw an Jsp error as 'begin' > 'end' -->
+    <!--<tr:forEach varStatus="inner" begin="10" end="1">
+    </tr:forEach>-->
+    
+    <!-- Should throw an Jsp error as 'begin' < 0 -->
+    <!--<tr:forEach varStatus="inner" begin="-1" end="0">
+    </tr:forEach>-->
+
+    <!-- Should throw an Jsp error as 'step' !> 0 -->
+    <!--<tr:forEach varStatus="inner" begin="0" end="10" step="0">
+    </tr:forEach>-->
+    
+    <!-- Only one iteration as the step is very large -->
+    <!--<tr:forEach varStatus="outer" begin="1" end="10" step="20">
+        <tr:outputText id="ot1" value="outer.index: #{outer.index} | outer.count: #{outer.count} | outer.begin: #{outer.begin} | outer.end: #{outer.end} | outer.step: #{outer.step} | outer.isFirst: #{outer.first} | outer.isLast: #{outer.last}"/>
+    </tr:forEach>-->
+
+    <!-- 'var' and 'varStatus' cannot have the same value  - should throw Jsp error-->
+    <!--<tr:forEach varStatus="outer" var="outer" begin="1" end="10" step="20">
+    </tr:forEach>-->
+
+   </tr:panelGroupLayout>
+   </tr:form>   
+  </f:view>
+</jsp:root>

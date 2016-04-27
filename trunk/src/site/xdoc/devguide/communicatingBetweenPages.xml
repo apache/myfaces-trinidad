@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Communicating Between Pages: pageFlowScope</title>
+  </properties>
+  <body>
+    <section name="Communicating Between Pages">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="#pageFlowScope">pageFlowScope</a>
+          </li>
+          <li>
+            <a href="#tr:setActionListener">tr:setActionListener</a>
+          </li>
+          <li>
+            <a href="#Bookmarking support">Bookmarking support</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+    <section name="Overview">
+      <p>
+One of the most common questions about application development
+in JavaServer Faces (JSF) is how to communicate values between pages.  For example,
+how do I pick one row out of a table, and show it on a second
+page to start editing it?  How do I take search criteria entered
+on one page, and show the results on a second?  Both of these 
+(and many other common web application scenarios) require some
+mechanism to pass a value from one page to another.   The two
+common solutions in JSF have been storing values on the
+request or on the session.  Both can be made to work, but
+both have major limitations.  Apache Trinidad introduces a new "pageFlowScope"
+that seeks to offer the best of both.  (This support is built entirely
+off of existing, specified hooks in the Faces specification, and
+is not based on proprietary extensions.  If there
+is interest from the rest of the Faces expert group, we would be
+very interested in contributing this back into the specification.)
+      </p>
+      <p>
+When using a request-scope value, an action listener might take
+the ID of that table row, or the collection of search results,
+and place that object into request scope, either directly:
+     </p>
+<source>
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.getExternalContext().getRequestMap().put("search", criteria);
+</source> <p>
+... or indirectly, by storing it as a property of a request-scoped
+<code>&lt;managed-bean&gt;</code>.  This works, but has some significant drawbacks:
+<ul>
+<li>The <code>&lt;navigation-case&gt;</code> used for page navigation can't
+specify <code>&lt;redirect/&gt;</code>, because that would lead to 
+a client-side redirect, which would mean the second page
+gets rendered on a new request.  <code>&lt;redirect/&gt;</code> is very
+useful for supporting bookmarking and better Back button
+support.</li>
+
+<li>Even if you don't redirect, the second page still has the
+problem of making sure that this request-scoped value is
+still available for its own purposes when it posts back.</li>
+</ul>
+     </p>
+     <p>
+To avoid these problems, developers might use session-scoped
+variables instead.  This fixes both of those problems, but
+adds new ones:
+<ul>
+<li>A single user cannot have two windows open simultaneously;  session-scoped
+variables are global to the user.  So, for instance, a user could
+not work with two different search results simultaneously.
+</li>
+
+<li>
+Back button support is highly limited, since navigating back
+can't magically restore the session to its old state.
+</li>
+</ul>
+     </p>
+     <p>
+Finally, both session- and request-scoped parameters make bookmark
+support completely hopeless;  similarly, they make it very difficult
+if you need to support emailing a link to a page.  The URL does not
+and cannot contain enough information on its own to show a target page.
+     </p>
+     <p>
+Apache Trinidad offers a new scope - "pageFlowScope" - that aims to solve
+all of these problems.  It's a very new and experimental feature,
+and we're interested in feedback on how well it addresses the
+problem (it's not a panacea - some limitations are described below).
+     </p>
+    </section>
+    <section name="pageFlowScope">
+<p>
+In addition to the standard JSF scopes - applicationScope,
+sessionScope, and requestScope - Apache Trinidad adds a new scope,
+pageFlowScope.  Values added to this scope will automatically continue
+to be available as the user continues navigating from one page to
+another.  This is true even if you use <code>&lt;redirect/&gt;</code>.
+But unlike session scope, these values are only visible in
+the current "page flow".  If the user opens up a new window
+and starts navigating, that series of windows will have
+their own page flow, and values stored in each window will
+remain independent.  And clicking the Back button will
+automatically reset the page flow scope to its original
+state. 
+</p>
+<p>
+From the JSF EL, it looks just like any other scope:
+<source>
+     &lt;h:outputText value="#{pageFlowScope.someKey}"/>
+</source>
+<b>Note:</b>  As you can see in this example, "pageFlowScope"
+is supported for <b>all</b> JSF components, not just Apache Trinidad
+components.
+</p>
+<p>
+
+From Java code, you can access the page flow scope as a
+<code>java.util.Map</code> off of the <code>RequestContext</code>
+API.  (Despite its name, this class does not extend
+<code>FacesContext</code>, but it is a similar idea.)
+
+<source>
+import org.apache.myfaces.trinidad.context.RequestContext;
+
+public class BackingBean
+{
+  public String myAction()
+  {
+    Object someValue = ...;
+
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.getPageFlowScope().put("someKey", someValue);
+
+    return "myOutcome";
+  } 
+}
+</source>
+</p>
+     <subsection name="Example:">
+<p>
+  Let's start with an <code>&lt;h:dataTable&gt;</code> showing some data:
+</p>
+<source>
+            &lt;h:dataTable var="employee" value="#{....}"&gt;
+              ...
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.name}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.id}"/>
+              &lt;h:column&gt;
+            &lt;/h:dataTable&gt;
+</source>
+<p>
+Now, we want to show more information about that employee on
+another detail page.  We'll add a commandButton, and tie it
+to a "showEmployee" action in our backing bean:
+<source>
+            &lt;h:dataTable var="employee" value="#{....}"&gt;
+              ...
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.name}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.id}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:commandButton value="Show more"
+                                 action="#{backingBean.showEmployee}"/>
+              &lt;h:column&gt;
+            &lt;/h:dataTable&gt;
+</source>
+</p>
+<p>Now all we've got to do is write the code for <code>showEmployee()</code>.
+First, we'll find the current employee, and then we'll put it onto
+the page flow scope.
+<source>
+import javax.faces.context.FacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+
+public class BackingBean
+{
+  public String showEmployee()
+  {
+    // Find the current employee.  I'll just look on the VariableResolver.
+    // (A lot of code out on the web manually creates a ValueBinding
+    // for "#{employee}" and executes it - this is a much simpler approach!
+    FacesContext context = FacesContext.getCurrentInstance();
+    Employee emp = (Employee)
+       context.getVariableResolver().resolveVariable(context, "employee");
+    if (emp == null)
+      return "error";
+   
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.getPageFlowScope().put("detailEmployee", emp);
+
+    // Navigate to whatever page handles the "showEmployee" outcome
+    return "showEmployee";
+  }
+}
+</source>
+</p>
+
+<p>If you owned the code for "Employee", you might
+consider moving <code>showEmployee()</code> directly onto
+<code>Employee</code>, in which case the code would simply be:
+
+<source>
+import org.apache.myfaces.trinidad.context.RequestContext;
+
+public class Employee
+{
+  ...
+  public String showEmployee()
+  {
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    // No need to find the employee - it's "this"
+    requestContext.getPageFlowScope().put("detailEmployee", this);
+
+    // Navigate to whatever page handles the "showEmployee" outcome
+    return "showEmployee";
+  }
+}
+</source>
+... but as you'll see below, there's an even easier way.
+</p>
+<p>
+Now, on our detail page, we can just refer to the
+"pageFlowScope.detailEmployee" object:
+<source>
+  &lt;h:panelGrid columns="2"&gt;
+    &lt;h:outputText value="Name:"/&gt;
+    &lt;h:outputText value="#{pageFlowScope.detailEmployee.name}"/&gt;
+
+    &lt;h:outputText value="Employee ID:"/&gt;
+    &lt;h:outputText value="#{pageFlowScope.detailEmployee.id}"/&gt;
+
+    &lt;h:outputText value="Salary"/&gt;
+    &lt;h:outputText value="#{pageFlowScope.detailEmployee.salary}"&gt;
+      &lt;f:convertNumber type="currency"/&gt;
+    &lt;h:outputText&gt;
+  &lt;/h:panelGrid&gt;
+</source>
+</p>
+<p>
+That's all there is to it.  The detail page does need to know where to
+look for the incoming value.  The
+"detailEmployee" object also persists automatically at pageFlowScope
+if there were a "Show Even More Details" button on this detail page.
+</p>
+     </subsection>
+     <subsection name="Limitations of pageFlowScope">
+<p>
+Before moving on, there are, however, a number of limitations of pageFlowScope.
+</p>
+<p>First, since pageFlowScope is not part of the standard JSF 
+specification, a couple of the niceties of standard scopes
+can't be supported:
+<ul>
+
+<li>EL expressions do not automatically look into pageFlowScope;  if you wish to locate a page flow-scoped value, you must
+include "pageFlowScope." (For instance, in the previous example, we couldn't write "#{employeeDetail}" - we had to write "#{pageFlowScope.employeeDetail}".)</li>
+
+<li>"page flow" cannot be used as a <code>&lt;managed-bean-scope&gt;</code>.  (But
+the <code>&lt;value&gt;</code> of a <code>&lt;managed-property&gt;</code> can refer to
+page flow-scoped values.) </li>
+
+</ul>
+</p>
+<p>Second, because the original and detail pages have to agree on
+the name of the page flow-scoped variable, they are more tightly
+coupled than is ideal.
+</p>
+<p>
+Finally, pageFlowScope never empties itself;  the only way 
+to clear pageFlowScope is to manually force it to clear:
+<source>
+     RequestContext requestContext = RequestContext.getCurrentInstance();
+     requestContext.getPageFlowScope().clear();
+</source>
+</p>
+     </subsection>
+    </section>
+
+    <section name="tr:setActionListener">
+
+<p>This code is easy, but to make coding even simpler, we provide a
+new <code>ActionListener</code> tag that lets you code this style
+without writing <em>any</em> Java code.  The
+<code>&lt;tr:setActionListener&gt;</code> tag has two properties,
+"from" and "to", and simply takes a value from the "from" attribute
+and puts it where "to" says to put it.  Let's recode the last example
+with this tag:
+</p>
+<source>
+            &lt;h:dataTable var="employee" value="#{....}"&gt;
+              ...
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.name}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.id}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:commandButton value="Show more" action="showEmployee"&gt;
+                  &lt;tr:setActionListener from="#{employee}"
+                                        to="#{pageFlowScope.employeeDetail}"/&gt;
+                &lt;/h:commandButton&gt;
+              &lt;h:column&gt;
+            &lt;/h:dataTable&gt;
+</source>
+
+<p>And that's it!  No code is required in your backing bean at all
+to implement this pattern.  Let's walk through how this page works
+when the button is clicked:
+<ol>
+<li>An <code>ActionEvent</code> fires on the commandButton.  Since
+it's inside a table row, the "employee" EL variable is pointing at
+the current row.</li>
+<li><code>ActionListeners</code> execute before any <code>"action"</code>
+excute, so <code>&lt;tr:setActionListener&gt;</code> executes.</li>
+<li><code>&lt;tr:setActionListener&gt;</code> retrieves the
+   employee using the "#{employee}" EL expression.</li>
+<li><code>&lt;tr:setActionListener&gt;</code> stores the 
+   employee into page flow scope with the "#{pageFlowScope.employeeDetail}"
+   EL expression.</li>
+<li>Finally, the "action" executes with a static outcome - always
+show the employee.  No backing bean is needed.</li>
+</ol>
+</p>
+<p>Some may point out that this tag amounts to putting code in the UI,
+and that is actually quite true.  It is a matter of personal taste
+whether this style of coding is acceptable or not, but used sparingly,
+it can greatly simplify reading and understanding page logic.  We
+would never recommend using <code>&lt;tr:setActionListener&gt;</code>
+to write values into a true model object. For example, you <em>could</em>
+write:
+<source>
+            &lt;h:dataTable var="employee" value="#{....}"&gt;
+              ...
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.name}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:outputText value="#{employee.id}"/>
+              &lt;h:column&gt;
+              &lt;h:column&gt;
+                &lt;h:commandButton value="Give Raise"&gt;
+                  &lt;tr:setActionListener from="#{employee.salary + 500}"
+                                        to="#{employee.salary}"/&gt;
+                &lt;/h:commandButton&gt;
+              &lt;h:column&gt;
+            &lt;/h:dataTable&gt;
+</source>
+... but this style of coding mixes application logic directly
+into your page.  This is all well and good for quick prototyping, but 
+is very dangerous for writing production code that has to be maintained.
+</p>
+
+    </section>
+    <section name="Bookmarking support">
+<p>
+
+The current implementation of pageFlowScope adds a single query
+parameter to your URL, for example, "?_afPfm=4".  This token points into
+internal structures stored by Apache Trinidad at session scope.  The
+strategy allows pageFlowScope to store objects of any type, but does
+nothing to help with bookmarking (the tokens are not persistent across
+requests or users).  In future versions of Apache Trinidad, wemay
+support an augmented strategy that will detect when pageFlowScope
+contains nothing but primitive objects - such as strings,
+<code>java.lang.Integers</code> - and automatically store
+these values directly on the URL.  This can directly and 
+transparently enable bookmarkability (especially if you use
+<code>&lt;redirect/&gt;</code> in <code>&lt;navigation-case&gt;</code>)
+for web developers using pageFlowScope with that restriction.
+</p>
+    </section>
+  </body>
+</document>

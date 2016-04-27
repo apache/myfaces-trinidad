@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Table Demo">
+      <tr:form>
+        <tr:messages/>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_table.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#table"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>table&lt;/b>"/>
+          <tr:table allDetailsEnabled="true" var="row" binding="#{editor.component}"
+                    rowBandingInterval="2" value="#{periodicTable.tableData}" rows="10"
+                    summary="Element information">
+            <f:facet name="actions">
+              <tr:outputText value="(Actions)"/>
+            </f:facet>
+            <tr:column headerText="Name">
+              <tr:outputText value="#{row.name}"/>
+            </tr:column>
+            <tr:column headerText="Symbol">
+              <tr:outputText value="#{row.symbol}"/>
+            </tr:column>
+            <tr:column headerText="Action Column">
+              <tr:commandButton text="Action" action="#{row.action}"/>
+            </tr:column>
+            <f:facet name="detailStamp">
+              <tr:panelGroupLayout layout="vertical">
+                <tr:outputText value="Element Name: #{row.name}"/>
+                <tr:outputText value="Atomic Number: #{row.number}"/>
+                <tr:outputText value="Symbol: #{row.symbol}"/>
+                <tr:outputText value="Group: #{row.group}"/>
+              </tr:panelGroupLayout>
+            </f:facet>
+          </tr:table>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Editable table&lt;/b>"/>
+          <tr:table var="row" value="#{periodicTable.tableData}" rows="5"
+                    summary="Element information">
+            <tr:column headerText="Name">
+              <tr:inputText value="#{row.name}" shortDesc="#{row.name}"/>
+            </tr:column>
+            <tr:column headerText="Symbol">
+              <tr:inputText value="#{row.symbol}" shortDesc="#{row.symbol}"/>
+            </tr:column>
+          </tr:table>
+          <tr:commandButton text="Submit"/>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Empty table&lt;/b>"/>
+          <tr:table var="row" emptyText="No Records Found" rows="10" summary="Empty Table">
+            <tr:column headerText="int">
+              <tr:inputText value="#{row.int}" shortDesc="#{row.int}"/>
+            </tr:column>
+            <tr:column headerText="String">
+              <tr:inputText value="#{row.string}" shortDesc="#{row.string}"/>
+            </tr:column>
+          </tr:table>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

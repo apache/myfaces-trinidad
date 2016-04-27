@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="navigationPane Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:navigationPane hint="buttons">
+            <tr:commandNavigationItem immediate="true" text="Component Guide" action="guide"/>
+            <tr:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
+                                      action="guide.page"/>
+            <tr:commandNavigationItem immediate="true" text="BreadCrumbs Demo"
+                                      action="guide.breadCrumbs"/>
+            <tr:commandNavigationItem immediate="true" text="CommandNavigationItem Demo"
+                                      action="guide.commandNavigationItem"/>
+            <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
+                                      action="guide.panelPage"/>
+          </tr:navigationPane>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_navigationPane.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#navigationPane"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>navigationPane&lt;/b>"/>
+          <tr:navigationPane id="menuItemContainer" hint="tabs" binding="#{editor.component}"
+                             shortDesc="Select Page">
+            <tr:commandNavigationItem text="Page 1" id="item1" partialSubmit="true"
+                                      actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+            <tr:commandNavigationItem text="Page 2" id="item2" partialSubmit="true" selected="true"
+                                      actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+            <tr:commandNavigationItem text="Page 3" id="item3" partialSubmit="true"
+                                      actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+            <tr:commandNavigationItem text="Page 4" id="item4" partialSubmit="true"
+                                      actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+            <tr:commandNavigationItem text="Page 5" id="item5" partialSubmit="true"
+                                      actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+          </tr:navigationPane>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted value="&lt;b>navigationPane with 'bar' hint&lt;/b>"/>
+            <tr:navigationPane hint="bar" id="barExample">
+              <tr:commandNavigationItem text="Bar Item 1" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Bar Item 2" partialSubmit="true" selected="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Bar Item 3" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true" disabled="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Component Guide" immediate="true" action="guide"/>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted value="&lt;b>navigationPane with 'buttons' hint&lt;/b>"/>
+            <tr:panelGroupLayout styleClass="RichPanelPage"
+                                 inlineStyle="position: relative; height: auto;">
+              <tr:panelGroupLayout styleClass="RichPanelPageNavigationGlobal">
+                <tr:navigationPane hint="buttons" id="buttonsExample">
+                  <tr:commandNavigationItem text="Button 1" partialSubmit="true"
+                                            actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+                  <tr:commandNavigationItem text="Button 2" partialSubmit="true" selected="true"
+                                            actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+                  <tr:commandNavigationItem text="Button 3" partialSubmit="true"
+                                            actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+                  <tr:commandNavigationItem text="Disabled Item" partialSubmit="true"
+                                            disabled="true"
+                                            actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+                  <tr:commandNavigationItem text="Component Guide" immediate="true" action="guide"/>
+                </tr:navigationPane>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted value="&lt;b>navigationPane with 'choice' hint&lt;/b>"/>
+            <tr:navigationPane hint="choice" id="choiceExample">
+              <tr:commandNavigationItem text="Choice 1" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Choice 2" partialSubmit="true" selected="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Choice 3" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true" disabled="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Component Guide" immediate="true" action="guide"/>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted value="&lt;b>navigationPane with 'list' hint&lt;/b>"/>
+            <tr:navigationPane hint="list" id="listExample">
+              <tr:commandNavigationItem text="List Item 1" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="List Item 2" partialSubmit="true" selected="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="List Item 3" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true" disabled="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Component Guide" immediate="true" action="guide"/>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted value="&lt;b>navigationPane with 'tabs' hint&lt;/b>"/>
+            <tr:navigationPane hint="tabs" id="tabsExample">
+              <tr:commandNavigationItem text="Tab 1" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Tab 2" partialSubmit="true" selected="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Tab 3" partialSubmit="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true" disabled="true"
+                                        actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Component Guide" immediate="true" action="guide"/>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

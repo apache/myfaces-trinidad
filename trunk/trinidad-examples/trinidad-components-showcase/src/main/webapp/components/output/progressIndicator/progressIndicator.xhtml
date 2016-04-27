@@ -1,0 +1,64 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:panelFormLayout>
+            <tr:panelList rows="2">
+                <tr:outputFormatted styleUsage="instruction"
+                                    value="ProgressIndicator component is linked to a poll component."/>
+                <tr:outputFormatted styleUsage="instruction"
+                                    value="Click the Begin button in order to start the indicator."/>
+            </tr:panelList>
+
+            <tr:spacer height="5px"/>
+            <tr:poll id="pollid" interval="2000"/>
+
+            <tr:panelGroupLayout inlineStyle="float: left;">
+                <tr:progressIndicator id="progressid"
+                                      action="#{progressIndicatorBean.finishProcess}"
+                                      value="#{progressIndicatorBean.progressModel}"
+                                      partialTriggers="pollid">
+                    <tr:outputFormatted styleUsage="instruction"
+                                        value="Task status not known"
+                                        rendered="#{progressIndicatorBean.progressModel.value == -1 or progressIndicatorBean.progressModel.value == -1}"/>
+                    <tr:outputFormatted styleUsage="instruction"
+                                        value="#{progressIndicatorBean.progressModel.value} of #{progressIndicatorBean.progressModel.maximum} files copied"
+                                        rendered="#{progressIndicatorBean.progressModel.value > -1 and progressIndicatorBean.progressModel.value > -1 and progressIndicatorBean.finished == false}"/>
+                    <tr:outputFormatted styleUsage="instruction" value="Process finished!"
+                                        rendered="#{progressIndicatorBean.finished}"/>
+                </tr:progressIndicator>
+            </tr:panelGroupLayout>
+
+            <tr:panelHorizontalLayout>
+                <tr:commandButton text="Begin"
+                                  action="#{progressIndicatorBean.beginProcess}"/>
+                <tr:spacer width="5px"/>
+                <tr:commandButton text="Cancel"
+                                  action="#{progressIndicatorBean.endProcess}"/>
+            </tr:panelHorizontalLayout>
+        </tr:panelFormLayout>
+
+    </ui:define>
+</ui:composition>

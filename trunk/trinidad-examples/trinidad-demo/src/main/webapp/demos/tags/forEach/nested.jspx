@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <tr:panelHeader text="Nested for each loops" styleClass="nested-example">
+    <tr:outputText value="Nested for each loops are permissible. They should follow the same rules mentioned in the other demonstration pages with ID prefixing and providing component IDs if changes are expected." />
+    <tr:panelGroupLayout layout="vertical"
+                         inlineStyle="padding-left: 2em; padding-top: 1em">
+      <tr:panelHeader text="Family Felidae" inlineStyle="padding: 0;">
+        <tr:panelList id="forEachParent" listStyle="list-style-type: circle; margin-left: 30px;">
+          <tr:forEach var="sf" items="#{forEachBean.felineSubFamilies}" varStatus="sfvs">
+            <f:subview id="sv${sfvs.key}">
+              <tr:panelHeader id="sf" text="Sub-family #{sf.name}" inlineStyle="padding: 0;">
+                <tr:panelList id="sfpl" listStyle="list-style-type: circle; margin-left: 30px;">
+                  <tr:forEach var="g" items="#{sf.members}" varStatus="gvs">
+                    <f:subview id="sv${gvs.key}">
+                      <tr:panelHeader id="g" text="Genus #{g.name}" inlineStyle="padding: 0;">
+                        <tr:panelList id="spl"
+                                      listStyle="list-style-type: circle; margin-left: 30px;">
+                          <tr:forEach var="s" items="#{g.members}" varStatus="svs">
+                            <f:subview id="sv${svs.key}">
+                              <tr:panelGroupLayout id="spgl">
+                                <tr:outputText id="sn" value="#{s.name}"/>
+                                <tr:outputText id="ssn" value="(#{s.scientificName})"
+                                               inlineStyle="font-style: italic;"/>
+                              </tr:panelGroupLayout>
+                            </f:subview>
+                          </tr:forEach>
+                        </tr:panelList>
+                      </tr:panelHeader>
+                    </f:subview>
+                  </tr:forEach>
+                </tr:panelList>
+              </tr:panelHeader>
+            </f:subview>
+          </tr:forEach>
+        </tr:panelList>
+      </tr:panelHeader>
+    </tr:panelGroupLayout>
+  </tr:panelHeader>
+</jsp:root>

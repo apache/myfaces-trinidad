@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+   <html>
+    <head>
+     <title>Editable form JSF</title>
+     <style>
+.PlainText { font-family:Arial,Helvetica,Geneva,sans-serif;font-size:10pt;font-weight:normal;color:#000000}
+.LabelClass {width:37%; text-align:right; padding-right: 6px}
+.FieldClass {width:63%; text-align:left; padding-left: 6px}
+.Prompt { font-family:Arial,Helvetica,Geneva,sans-serif;font-size:10pt;font-weight:normal;text-align:right;color:#000000}
+     </style>
+    </head>
+    <body>
+      <h:form >
+        <h:messages/>
+        <h:panelGrid width="100%" columns="2"
+             border="0" cellpadding="0" cellspacing="0"
+             summary=""
+             columnClasses="LabelClass,FieldClass">
+
+          <h:outputLabel styleClass="Prompt" value="First:" for="inputField"/>
+          <h:panelGroup>
+            <h:inputText id="inputField" value="1"/>
+            <h:message for="inputField"/>
+          </h:panelGroup>
+
+          <h:outputLabel styleClass="Prompt" value="Second:" for="inputField2"/>
+          <h:panelGroup>
+            <h:inputText id="inputField2" value="2"/>
+            <h:message for="inputField2"/>
+          </h:panelGroup>
+
+          <h:outputLabel styleClass="Prompt" value="Third:" for="inputField3"/>
+          <h:panelGroup>
+            <h:inputText id="inputField3" value="3"/>
+            <h:message for="inputField3"/>
+          </h:panelGroup>
+
+          <h:outputLabel styleClass="Prompt" value="Fourth:" for="inputField4"/>
+          <h:panelGroup>
+            <h:inputText id="inputField4" value="4"/>
+            <h:message for="inputField4"/>
+          </h:panelGroup>
+
+          <h:outputLabel styleClass="Prompt" value="Fifth:" for="inputField5"/>
+          <h:panelGroup>
+            <h:inputText id="inputField5" value="5"/>
+            <h:message for="inputField5"/>
+          </h:panelGroup>
+
+          <!-- Use outputText, not label:  radios have an implicit label -->
+          <h:outputText styleClass="Prompt" value="Radio:"/>
+          <h:panelGroup>
+            <h:selectOneRadio id="radioButtons" styleClass="PlainText" value="3" layout="pageDirection">
+              <f:selectItem itemValue="1" itemLabel="1"/>
+              <f:selectItem itemValue="2" itemLabel="2"/>
+              <f:selectItem itemValue="3" itemLabel="3"/>
+            </h:selectOneRadio>
+            <h:message for="radioButtons"/>
+          </h:panelGroup>
+
+          <h:outputLabel styleClass="Prompt" value="List:" for="listbox"/>
+          <h:panelGroup>
+            <h:selectOneListbox value="2" id="listbox">
+              <f:selectItem itemValue="1" itemLabel="1"/>
+              <f:selectItem itemValue="2" itemLabel="2"/>
+              <f:selectItem itemValue="3" itemLabel="3"/>
+            </h:selectOneListbox>
+            <h:message for="listbox"/>
+          </h:panelGroup>
+
+          <h:outputLabel styleClass="Prompt" value="Textarea:" for="textarea"/>
+          <h:panelGroup>
+            <h:inputTextarea id="textarea" value="Long text" rows="5"/>
+            <h:message for="textarea"/>
+          </h:panelGroup>
+
+          <!-- Use outputText, not label:  the text after the check is -->
+          <!-- the label -->
+          <h:outputText styleClass="Prompt" value="Checked:"/>
+          <h:panelGroup>
+            <h:selectBooleanCheckbox value="true" id="checkbox"/>
+            <h:outputLabel styleClass="PlainText"
+                  for="checkbox" value="True or false"/>
+            <h:message for="checkbox"/>
+          </h:panelGroup>
+        </h:panelGrid>
+        <h:commandButton value="Submit"/>
+      </h:form>
+     </body>
+    </html>
+  </f:view>
+</jsp:root>

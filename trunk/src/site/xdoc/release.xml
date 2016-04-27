@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Overview</title>
+  </properties>
+
+  <body>
+    <section name="Overview">
+      <p>
+        <ul>
+          <li>
+            <a href="#Release Notes">Release Notes</a>
+          </li>
+          <li>
+            <a href="http://www.irian.at/trinidad-demo/faces/index.jspx">Live Demos</a>
+          </li>
+<!--
+          <li>
+            <a href="#Download">Download</a>
+          </li>
+-->
+          <li>
+            <a href="installation.html">Installation</a>
+          </li>
+          <li>
+            <a href="#Documentation">Documentation</a>
+          </li>
+          <li>
+            <a href="#Help">Help and FAQ</a>
+          </li>
+          <li>
+            <a href="#Filing Bugs">Filing Bugs</a>
+          </li>
+        </ul>
+      </p>
+      </section>
+
+      <section name="Release Notes">
+        <p>
+        Current <a href="release-notes.html">release notes</a>
+        </p>
+      </section>
+<!--
+      <section name="Download">
+      </section>
+-->
+
+      <section name="Documentation">
+        <p>
+          <subsection name="API documentation">
+          <ul>
+            <li><a href="trinidad-api/apidocs/index.html">API Javadoc</a></li>
+            <li><a href="trinidad-api/tagdoc.html">Apache Trinidad Tag documentation</a></li>
+          </ul>
+          </subsection>
+          <subsection name="User documentation">
+          All documentation assumes a familiarity with JavaServer Faces.
+          <ul>
+            <li><a href="devguide/index.html">Developer's Guide</a></li>
+            <li><a href="spec-diff.html">Converting from JavaServer Faces spec tags to Apache Trinidad Tags</a></li>
+            <li><a href="api-changes.html">Converting from ADF Faces tags to Apache Trinidad Tags</a></li>
+            <li><a href="skin-selectors.html">Skin selector keys for skinning Apache Trinidad components</a></li>
+          </ul>
+          </subsection>
+        </p>
+      </section>
+      <section name="Help">
+        <p>
+Please see the <a href="FAQ.html" >FAQ</a> for help.
+
+        </p>
+        <p>
+If the FAQ is insufficient, please send e-mail to the <a href="mail-lists.html">users</a> mailing list.
+</p>
+      </section>
+      <section name="Filing Bugs">
+        <p>
+Please file bugs in the <a href="http://issues.apache.org/jira/browse/TRINIDAD">JIRA issue tracker</a>.
+        </p>
+      </section>
+  </body>
+</document>

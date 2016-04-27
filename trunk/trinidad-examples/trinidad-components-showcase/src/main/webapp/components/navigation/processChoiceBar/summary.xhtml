@@ -1,0 +1,63 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    ProcessChoiceBar is a UIXProcess component that renders a previous button, a choice bar, and a next button.
+
+    <br/>
+
+    The processChoiceBar takes a model of type org.apache.myfaces.trinidad.model.MenuModel. The last node along the focusPath and its siblings are rendered.
+
+    <br/>
+
+    MenuModel extends TreeModel, but it also knows how to go from the current viewId to the
+    focus path. Notice that the menuModel has no special knowledge of page navigation and places no requirements on
+    the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet, which should
+    contain a commandNavigationItem component, which allows the default actionListener mechanism to be used for page
+    navigation.
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="There are two common scenarios for processes, &quot;Plus One&quot; and &quot;Max Visited&quot;
+        which are explained below."/>
+
+    <tr:panelList rows="4">
+        <tr:outputText value=" - &quot;Plus One&quot; - from the current step the user can navigate to any previous page
+            and th e next page. If the user is on the 5th step of a process and goes back to step 2, then the user can only
+            navigate from step 2 to step 1 and step 3."/>
+        <tr:outputText value=" - &quot;Max Visited&quot; - the user can navigate to the max visited page. If the user is
+            currently on the max visited page then the user can also navigate to the next page. If the user is on the 5th
+            step of a process and goes back to step 2, then the user can navigate from step 2 to steps 1, 2, 3, 4, and 5."/>
+    </tr:panelList>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The class org.apache.myfaces.trinidad.model.ProcessMenuModel and
+        org.apache.myfaces.trinidad.model.ProcessUtils were created to support the &quot;Plus One&quot; and
+        &quot;Max Visited&quot; scenarios. Please see the javadoc for these classes for more information."/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="On browsers that support disabled items in the drop down, the unreachable items will look
+        disabled, otherwise they will not be rendered. "/>
+    
+</ui:composition>

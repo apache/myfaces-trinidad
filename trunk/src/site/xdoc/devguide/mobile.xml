@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+"http://www.apache.org/dtds/xdoc_1_0.dtd">
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements. See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership. The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations
+  under the License.
+   
+-->
+<document>
+ <properties>
+  <title>Mobile Application Development</title>
+ </properties>
+ <body>
+  <section name="Mobile Application Development">
+   <p>
+    <ul>
+     <li>
+      <a href="#Introduction">Introduction</a>
+     </li>
+     <li>
+      <a href="#Mobile_Browsers">Mobile Browsers</a>
+     </li>
+     <li>
+      <a href="#Feature_Support">Feature Support</a>
+     </li>
+     <li>
+      <a href="#Component_Support">Component Support</a>
+     </li>
+     <li>
+      <a href="#Skinning">Skinning for Mobile Browsers</a>
+     </li>
+     <li>
+      <a href="#Utilizing_Mobile_Device_Features">Utilizing Mobile Device
+                                                  Features</a>
+     </li>
+     <li>
+      <a href="#Basic_XHTML_Browser_Support">Basic XHTML Browser Support</a>
+     </li>
+    </ul>
+   </p>
+  </section>
+  <a name="Introduction"></a>
+  <section name="Introduction">
+   <P>When developing a mobile application, you need not focus on the
+      limitations or capabilities of different browsers, as Trinidad enables you
+      to develop applications that function properly on different browser types.
+      The Trinidad renderer ensures that the target browser can consume contents
+      correctly.</P>
+   <P>It handles the variations in both browser implementations of HTML,
+      JavaScript, CSS, DOM, XMLHttpRequest and system performance. For example,
+      if a browser does not support XMLHttpRequest and is incapable of posting a
+      partial page request to a server, support for AJAX enables the application
+      to revert automatically to a full page submit so that the same page
+      functions whether the browser supports XMLHttpRequest or not. Furthermore,
+      if the target browser does no support JavaScript Trinidad will
+      automatically render contents that work on HTML by removing all
+      dependencies on JavaScript.</P>
+  </section>
+  <a name="Mobile_Browsers"></a>
+  <section name="Mobile Browsers">
+   <P>
+    Trinidad supports wide range of mobile browsers. Some mobile devices are 
+    explicitly tested and supported. Others are grouped as basic browsers and 
+    Trinidad renders pages so that the page works with or without browser 
+    features, such as supports for AJAX, DOM, JavasScript or even CSS. 
+    </P>
+    <P>
+    Trinidad explicitly supports the following devices: 
+    </P>
+    <ul>
+     <li>Apple iPhone</li>
+     <li>Microsoft Windows Mobile 5 and 6, Microsoft Pocket Internet Explorer</li>
+     <li>Nokia S60 devices</li>
+     <li>RIM BlackBerry Browser 4.6 and above</li>
+     <li>Android Based Phones</li>
+    </ul>
+   <P>
+    In addition, it supports mobile browsers that support Basic XHTML or 
+    XHTML Mobile Profile. WAP 2.0 phone browsers are included in this category. 
+    Because of the hardware performance limitation, Trinidad does not download 
+    or use JavaScript library on such devices.
+    </P>
+    <P>
+    The following list shows the examples of Basic XHTML mobile browsers.
+    </P>
+    <ul>
+     <li>KDDI Phones</li>
+     <li>Motorola Phone Browsers</li>
+     <li>Nokia S40 Phone Browser</li>
+     <li>Obigo Browser</li>
+     <li>OpenWave Mobile Browser</li>
+     <li>Opera Mini Browser</li>
+     <li>Netfront Browser</li>
+     <li>RIM BlackBerry Browser 4.2 ~ 4.5</li>
+     <li>SonyEricsson Phone Browser</li>
+     <li>Vodafone Phones</li>
+    </ul>
+   <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+    <strong>Note:</strong>
+    WAP1.0 (WML) browsers are not supported.
+   </div>
+  </section>
+  <a name="Feature_Support"></a>
+  <section name="Feature Support">
+   This section describes the Apache MyFaces Trinidad features that are
+   available for mobile application development. This section includes the
+   following topics:
+   <ul>
+    <li>
+     <a href="#Partial Page Rendering">Partial Page Rendering</a>
+    </li>
+    <li>
+     <a href="#Dialogs">Dialogs</a>
+    </li>
+    <li>
+     <a href="#BlackBerry_4.5_Lower">Rendering Specific to the BlackBerry
+                                     Browser 4.5 and Lower</a>
+    </li>
+    <li>
+     <a href="#Feature_Basic_HTML">Rendering Specific to the Browser Without
+                                   JavaScript Support</a>
+    </li>
+   </ul>
+   <a name="Partial_Page_Rendering"></a>
+   <subsection name="Partial Page Rendering">
+    <P>The high latency and low bandwidth of networks in mobile environments
+       decrease application responsiveness for mobile users. Screens refresh
+       slowly, diminishing the mobile user experience. Trinidad support of
+       Partial Page Rendering (PPR) compensates for the negative impact that
+       slow connections have on screen updates by minimizing the amount of data
+       requested from the server; using PPR, mobile device screen updates do not
+       require a full refresh. Browsers that do not support AJAX use full page
+       rendering instead of PPR. For example, a page submssion on basic HTML
+       browsers (which do not support JavaScript) results in a full page refresh.</P>
+   </subsection>
+   <a name="Dialogs"></a>
+   <subsection name="Dialogs">
+    <P>MyFaces Trinidad supports dialogs, pages used by applications to obtain
+       user input. Because mobile browsers cannot open a new window that
+       contains a dialog (a pop-up window), dialogs appear as new pages within
+       the main browser window after automatically preserving the state of the
+       current page.</P>
+   </subsection>
+   <a name="BlackBerry_4.5_Lower"></a>
+   <subsection name="Rendering Specific to the BlackBerry Browser 4.5 and Lower">
+    <P>Browsers On the Browsers for BlackBerry 4.x and lower versions, the
+       bullets in a list sublevel (such as those from a tr:panelList) appear
+       large and are not indented. The BlackBerry browser's table handling may
+       affect complex layouts; the BlackBerry Browser does not allow horizontal
+       scrolling. Instead, it wraps a table row onto multiple display lines,
+       which may disturb the layout.</P>
+   </subsection>
+   <a name="Feature_Basic_HTML"></a>
+   <subsection name="Rendering Specific to the Browser Without JavaScript Support">
+    <p>
+     Trinidad supports mobile browsers that do not provide support for
+     JavaScript. This lack of JavaScript support makes basic HTML mobile
+     browsers less robust than such AJAX-supported browsers as BlackBerry or
+     Apple iPhone. Aside from the browsers listed in Section 1.2, "Supported
+     Platforms," Trinidad considers most common browsers as basic HTML mobile
+     browsers. MyFaces Trinidad may not recognize certain mobile browsers,
+     however. See
+     <a href="#Basic_XHTML_Browser_Support">Basic XHTML Browser Support</a>
+     for details.
+    </p>
+   </subsection>
+  </section>
+  <a name="Component_Support"></a>
+  <section name="Component Support">
+   This section describes the Apache MyFaces Trinidad components that are
+   available for mobile application development. This section includes the
+   following topics:
+   <ul>
+    <li>
+     <a href="#Input_Components">Input Components</a>
+    </li>
+    <li>
+     <a href="#Input_Text_Fields">Input Text Fields</a>
+    </li>
+    <li>
+     <a href="#Creating_Lists">Creating Lists</a>
+    </li>
+    <li>
+     <a href="#Output_Components">Output Components</a>
+    </li>
+    <li>
+     <a href="#Displaying_Text">Displaying Text</a>
+    </li>
+    <li>
+     <a href="#Displaying_Images">Displaying Images</a>
+    </li>
+    <li>
+     <a href="#Layout_Components">Layout Components</a>
+    </li>
+    <li>
+     <a href="#Managing_the_Page">Managing the Page</a>
+    </li>
+    <li>
+     <a href="#Laying_Out_Sections_of_the_Page">Laying Out Sections of the Page</a>
+    </li>
+    <li>
+     <a href="#Inserting_Spaces">Inserting Spaces</a>
+    </li>
+    <li>
+     <a href="#Creating_Buttons">Creating Buttons</a>
+    </li>
+    <li>
+     <a href="#Creating_Links">Creating Links</a>
+    </li>
+    <li>
+     <a href="#Navigation_Components">Navigation Components</a>
+    </li>
+    <li>
+     <a href="#Tables_Trees">Tables and Trees</a>
+    </li>
+    <li>
+     <a href="#Unsupported">Unsupported Components and Attributes</a>
+    </li>
+   </ul>
+   <a name="Input_Components"></a>
+   <subsection name="Input Components">
+    <p>
+     This section describes the Trinidad core components that support user
+     input. This section includes the following topics:
+     <ul>
+      <li>Creating Input Text Fields</li>
+      <li>Creating Lists</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Input_Text_Fields"></a>
+   <subsection name="Input Text Fields">
+    <p>
+     You can create input fields using the following components:
+     <ul>
+      <li>tr:inputColor</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Mobile browsers do not support an inline chooseColor or a color dialog.
+      </div>
+      <li>tr:inputDate</li>
+      <li>tr:inputHidden</li>
+      <li>tr:inputText</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Basic HTML browsers do not support the autosubmit attribute of the
+       inputText component.
+      </div>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Creating_Lists"></a>
+   <subsection name="Creating Lists">
+    <p>
+     You can create lists using the following components:
+     <ul>
+      <li>tr:panelChoice</li>
+      <li>tr:panelList</li>
+      <li>tr:selectBooleanCheckBox</li>
+      <li>tr:selectBooleanRadio</li>
+      <li>tr:selectItem</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Mobile browsers do not support the disabled attribute.
+      </div>
+      <li>tr:selectManyCheckBox</li>
+      <li>tr:selectManyListBox</li>
+      <li>tr:selectOneChoice</li>
+      <li>tr:selectOneListBox</li>
+      <li>tr:selectOneRadio</li>
+      <li>tr:resetButton</li>
+      <li>tr:selectBooleanRadio</li>
+      <li>tr:selectItem</li>
+      <li>tr:selectManyCheckBox</li>
+      <li>tr:selectManyListBox</li>
+      <li>tr:selectOneChoice</li>
+      <li>tr:selectOneListBox</li>
+      <li>tr:selectOneRadio</li>
+      <li>tr:resetButton</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Basic HTML browsers do not support the autosubmit attribute.
+      </div>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Output_Components"></a>
+   <subsection name="Output Components">
+    <p>
+     This section describes the Apache MyFaces Trinidad core components that
+     support output on mobile device applications. This section includes the
+     following topics:
+     <ul>
+      <li>Displaying Text</li>
+      <li>Displaying Images</li>
+      <li>Showing (or Hiding) Components</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Displaying_Text"></a>
+   <subsection name="Displaying Text">
+    <p>
+     The following components enable you to display text:
+     <ul>
+      <li>tr:iterator</li>
+      <li>tr:message</li>
+      <li>tr:messages</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       When using the tr:message and tr:messages components, the
+       component-specific messages do not pop up as they do in a desktop
+       browser. Instead, they display in the region where the message component
+       is placed on the Web page.
+      </div>
+      <li>tr:outputDocument</li>
+      <li>tr:outputForwarded</li>
+      <li>tr:outputLabel</li>
+      <li>tr:outputText</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Displaying_Images"></a>
+   <subsection name="Displaying Images">
+    <p>
+     The following components enable you to display images:
+     <ul>
+      <li>tr:icon</li>
+      <li>tr:image</li>
+      <li>tr:panelTip</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Mobile_Browsers"></a>
+   <subsection name="Showing (or Hiding) Components">
+    <p>
+     The following components enable showing or hiding items:
+     <ul>
+      <li>tr:panelAccordion</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Mobile browsers only support a full-page update; they do not support the
+       partialTriggers attribute of the tr:panelAccordion.
+      </div>
+      <li>tr:panelTabbed</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       To save space on mobile devices, the renderer intentionally prevents the
+       display of tab bars on both the top and bottom. Valid values for the
+       attribute positions are top and bottom. If both is specified, then the
+       renderer displays the tabs on top.
+      </div>
+      <li>tr:showDetail</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       The disclosure arrow does not display; instead [+] and [-] display.
+      </div>
+      <li>tr:showDetailHeader</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       The disclosure arrow does not appear on mobile browsers.
+      </div>
+      <li>tr:showDetailItem</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       The disclosure arrow does not appear on mobile browsers and flex is not
+       supported.
+      </div>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Layout_Components"></a>
+   <subsection name="Layout Components">
+    <p>
+     The following section describes the layout components supported by Trinidad:
+     <ul>
+      <li>Managing the Page</li>
+      <li>Laying Out Sections of the Page</li>
+      <li>Inserting Spaces</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Managing_the_Page"></a>
+   <subsection name="Managing the Page">
+    <p>
+     The following components enable you to manage the page:
+     <ul>
+      <li>tr:document</li>
+      <li>tr:form</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Mobile browsers do not support the defaultCommand attribute of the form
+       component.
+      </div>
+      <li>tr:page</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Laying_Out_Sections_of_the_Page"></a>
+   <subsection name="Laying Out Sections of the Page">
+    <p>
+     The following Trinidad core tags support page layout for mobile device
+     applications:
+     <ul>
+      <li>tr:group</li>
+      <li>tr:panelBorderLayout</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Only the top and bottom facets are supported. Mobile browsers do not
+       support the following facets:
+       <ul>
+        <li>left</li>
+        <li>right</li>
+        <li>start</li>
+        <li>end</li>
+        <li>innerLeft</li>
+        <li>innerRight</li>
+        <li>innerStart</li>
+        <li>innerEnd</li>
+       </ul>
+       The panelBorderLayout component does not render if any of these
+       unsupported facets are used.
+      </div>
+      <li>tr:panelBox</li>
+      <li>tr:panelFormLayout</li>
+      <li>tr:panelGroupLayout</li>
+      <li>tr:panelHeader</li>
+      <li>tr:panelHorizontalLayout</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Mobile devices do not support the halign=end in the panelHorizontalLayout
+       component.
+      </div>
+      <li>tr:panelLabelAndMessage</li>
+      <li>tr:panelPage</li>
+      <li>tr:panelPageHeader</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Mobile devices only support the following facets of the panelPageHeader
+       component:
+       <ul>
+        <li>branding</li>
+        <li>brandingApp</li>
+        <li>navigation1</li>
+        <li>navigation2</li>
+       </ul>
+      </div>
+      <li>tr:panelRadio</li>
+      <li>tr:panelCaptionGroup</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Inserting_Spaces"></a>
+   <subsection name="Inserting Spaces">
+    <p>
+     The following components control the space allocation on pages:
+     <ul>
+      <li>tr:separator</li>
+      <li>tr:spacer</li>
+      <li>tr:subform</li>
+     </ul>
+     <subsection name="Navigation Components">
+      The following sections describe the components that enable users to
+      navigate to other pages of the application or to external locations.
+      <ul>
+       <li>Creating Buttons</li>
+       <li>Creating Links</li>
+       <li>Navigation Components</li>
+      </ul>
+     </subsection>
+    </p>
+   </subsection>
+   <a name="Creating_Buttons"></a>
+   <subsection name="Creating Buttons">
+    <p>
+     Trinidad supports the following button types:
+     <ul>
+      <li>tr:commandButton</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Because the text attribute cannot display if the icon attribute has been
+       set, buttons on mobile devices can have either text or an image, but not
+       both. If you set the disabled attribute to true, then the commandButton
+       component with an icon attribute renders as a static image with no links.
+      </div>
+      <li>tr:goButton</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Creating_Links"></a>
+   <subsection name="Creating Links">
+    <p>
+     Trinidad supports the following components for creating hyper-links:
+     <ul>
+      <li>tr:commandLink</li>
+      <li>tr:goLink</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Navigation_Components"></a>
+   <subsection name="Navigation Components">
+    <p>
+     Trinidad supports the following navigation components:
+     <ul>
+      <li>tr:breadcrumbs</li>
+      <li>tr:commandNavigationItem</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       tr:commandNavigationItem : The component does not render when you set the
+       disabled attribute to true for the following components:
+       <ul>
+        <li>tr:selectOneListBox</li>
+        <li>tr:selectOneChoice</li>
+        <li>tr:processChoiceBar</li>
+        <li>tr:navigationPane with hint, "choice"</li>
+        <li>tr:selectRangeChoiceBar</li>
+       </ul>
+      </div>
+      <li>tr:navigationPane</li>
+      <li>tr:train</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       Appears as x of y instead of listing each item. This is a display-only
+       component in Trinidad; users cannot navigate through the application by
+       clicking the x of y component. To enable navigation, you must add a
+       separate link or button.
+      </div>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Tables_Trees"></a>
+   <subsection name="Tables and Trees">
+    <p>
+     This section includes the following topics:
+     <ul>
+      <li>Creating Tables</li>
+      <li>Creating Trees</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Mobile_Browsers"></a>
+   <subsection name="Creating Tables">
+    <p>
+     Trinidad supports tables comprised of the following components:
+     <ul>
+      <li>tr:table</li>
+      <li>tr:column</li>
+      <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+       <strong>Note:</strong>
+       When you nest tr:column tags to create column groups, the header facets
+       do not render for the column groups.
+      </div>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Mobile_Browsers"></a>
+   <subsection name="Creating Trees">
+    <p>Trinidad supports the tr:tree component.</p>
+   </subsection>
+   <a name="Unsupported"></a>
+   <subsection name="Unsupported Components and Attributes">
+    <p>
+     This section lists the components and attributes that Trinidad does not
+     support and includes the following sections:
+     <ul>
+      <li>Unsupported Components</li>
+      <li>Unsupported Attributes</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Unsupported_Components"></a>
+   <subsection name="Unsupported Components">
+    <p>
+     Trinidad does not support the following:
+     <ul>
+      <li>tr:chart</li>
+      <li>tr:chooseColor</li>
+      <li>tr:chooseDate</li>
+      <li>tr:inputFile</li>
+      <li>tr:inputListOFVariables</li>
+      <li>tr:inputNumberSpinbox</li>
+      <li>tr:legend</li>
+      <li>tr:media</li>
+      <li>tr:navigationTree</li>
+      <li>tr:panelButtonBar</li>
+      <li>tr:panelPopup</li>
+      <li>tr:panelSideBar</li>
+      <li>tr:poll</li>
+      <li>tr:progressIndicator</li>
+      <li>tr:selectManyShuttle</li>
+      <li>tr:selectOrderShuttle</li>
+      <li>tr:singleStepButtonBar</li>
+      <li>tr:statusIndicator</li>
+      <li>tr:switcher</li>
+      <li>tr:treeTable</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="Unsupported_Attributes"></a>
+   <subsection name="Unsupported Attributes">
+    <p>
+     Trinidad does not support the following component attributes on any
+     component.
+     <ul>
+      <li>accessKey</li>
+      <li>shortDesc (tooltip)</li>
+     </ul>
+    </p>
+   </subsection>
+  </section>
+  <a name="Skinning"></a>
+  <section name="Skinning for Mobile Browsers">
+   <p>Skinning enables a page to display consistently on a variety of devices
+      through the automatic delivery of device-dependent style sheets. These
+      style sheets enable optimal display of pages that share the same page
+      definitions on various mobile browsers. Within these style sheets, which
+      enable you to set the look and feel of an application, you can not only
+      tailor a component to a specific browser by setting its size, location,
+      and appearance, but you can also specify the types of browsers on which
+      components can be displayed or hidden.</p>
+   <p>
+    For examples of how to use skinning in mobile applications, see
+    <a href="mobileSkinning.html">Examples of Programming the iPhone Native
+                                   Look and Feel</a>
+    which describes an example of an iPhone skin. You can apply a similar style
+    sheet to other mobile browsers, such as BlackBerry Bold, Windows Mobile,
+    Android Phones, and Nokia S60.
+   </p>
+   <p>Features supported on specific browsers, such as device
+      orientation-dependent page presentation, require means other than
+      customizing style sheets.</p>
+   <p>
+    To create a skin, refer to
+    <a href="skinning.html">Skinning</a>
+    section.
+   </p>
+  </section>
+  <a name="Utilizing_Mobile_Device_Features"></a>
+  <section name="Utilizing Mobile Device Features">
+   <p>
+    In addition to using style sheets described in "Skinning" section, you can
+    further tailor an Trinidad application to include support for e-mail,
+    telephony, and Google Maps. This section, though the following sections,
+    describes how to use the tr:goButton and tr:goLink components to integrate
+    links to phone numbers, e-mail addresses, and Google Maps into Trinidad
+    applications.
+    <ul>
+     <li>
+      <a href="#Integrating_an_EMail_Client">Integrating an E-Mail Client</a>
+     </li>
+     <li>
+      <a href="#Adding_Mail_Properties">Adding Mail Properties</a>
+     </li>
+     <li>
+      <a href="#Integrating_Telephony">Integrating Telephony</a>
+     </li>
+     <li>
+      <a href="#Integrating_Google_Maps">Integrating Google Maps</a>
+     </li>
+     <li>
+      <a href="#Programming_Driving_Directions">Programming Driving Directions</a>
+     </li>
+     <li>
+      <a href="#Supporting_Google_Maps_on_iPhone">Supporting Google Maps on
+                                                  iPhone</a>
+     </li>
+    </ul>
+   </p>
+   <a name="Integrating_an_EMail_Client"></a>
+   <subsection name="Integrating an E-Mail Client">
+    <p>
+     To invoke an e-mail application from a Web application:
+     <ul>
+      <li>1. Use either the tr:goButton or the tr:goLink components.</li>
+      <li>2. Prepend the mailto: protocol in an HTML link.</li>
+      <li>3. Set the destination property to the HTML link (represented as the
+          Expression Language statement #{sessionScope.empDetails.Email} in the
+          example below.</li>
+     </ul>
+     <source>&lt;goLink styleClass="messageText"
+             text="#{sessionScope.empDetails.Email}"
+             destination="mailto:#{sessionScope.empDetails.Email}"/&gt;</source>
+    </p>
+   </subsection>
+   <a name="Adding_Mail_Properties"></a>
+   <subsection name="Adding Mail Properties">
+    <p>
+     The mailto: protocol, enables you to add the mail properties that are
+     listed here:
+     <ul>
+      <li>
+       <strong>Multiple Recipients</strong>
+       A comma (,) separating each e-mail address.
+      </li>
+      <li>
+       <strong>Message Subject</strong>
+       subject =&lt;subject text&gt;
+      </li>
+      <li>
+       <strong>cc Recipients</strong>
+       cc=&lt;name@address.com&gt;
+      </li>
+      <li>
+       <strong>bcc Recipients</strong>
+       bcc=&lt;name@address.com&gt;
+      </li>
+      <li>
+       <strong>Message Text</strong>
+       body=&lt;Message Text&gt;
+      </li>
+     </ul>
+     To specify these properties, append the e-mail address with question mark
+     (?) as illustrated by #{sessionScope.empDetails.Email}? in the example
+     below.
+     <source>&lt;goLink styleClass="messageText"
+             text="#{sessionScope.empDetails.Email}"
+             destination="mailto:#{sessionScope.empDetails.Email}?
+             subject=howdy&amp;cc=myboss@oracle.com
+             &amp;bcc=me@oracle.com&amp;body=howdy partner!"/&gt;</source>
+    </p>
+   </subsection>
+   <a name="Integrating_Telephony"></a>
+   <subsection name="Integrating Telephony">
+    <p>To invoke a call dialog box for a phone number displayed in the
+       application, prepend the phone number with the tel: protocol in an HTML
+       link.</p>
+    <p>
+     In the example below, the EL expression,
+     #{sessionScope.empDetails.PhoneNumber} represents the phone number.
+     <source>&lt;goLink styleClass="messageText"
+             text="#{sessionScope.empDetails.PhoneNumber}"
+             destination="tel:#{sessionScope.empDetails.PhoneNumber}"/&gt;</source>
+    </p>
+    <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+     <strong>Note:</strong>
+     The phone number must support the portion of the RFC 2806 protocol
+     (http://www.ietf.org/rfc/rfc2806.txt) which enables you to add pauses or
+     dial extensions after a user dials the primary phone number. Because Apple
+     does not specify which portions of RFC 2086 that it supports, you must test
+     each portion.
+    </div>
+   </subsection>
+   <a name="Integrating_Google_Maps"></a>
+   <subsection name="Integrating Google Maps">
+    <p>
+     To create a link that displays a map that shows the data available in the
+     application, specifying the destination property of the tr:goLink component
+     as follows:
+     <ul>
+      <li>Define destination= as the URL of Google Maps.
+          (destination=http://maps.google.com/maps, as illustrated in example.)</li>
+      <li>To search for a location, append the Google Maps URL with ?q=.</li>
+      <li>Define q= using the address string of the target location. This value
+          can be a full street address, a city, landmark, or any item that
+          Google Maps can search and locate. If multiple items are found, Google
+          Maps drops multiple pins automatically.</li>
+     </ul>
+     The example below illustrates how to define the tr:goLink component to
+     invoke a Google Maps application and then drop a pin on 200 Oracle Parkway.
+     <source>&lt;goLink styleClass="messageAddrText" text="200 Oracle
+             Parkway,Redwood City, CA, USA"
+             destination="http://maps.google.com/maps?q=200+Oracle+Parkway,+Redwood+City,+CA,+USA"/&gt;</source>
+     The example below illustrates specifying a location using an address
+     represented by EL expressions.
+     <source>&lt;tr:goLink styleClass="messageAddrText" text="
+             #{sessionScope.empDetails.StreetAddress},
+             #{sessionScope.empDetails.City},
+             #{sessionScope.empDetails.StateProvince},
+             #{sessionScope.empDetails.CountryName}"
+             destination="http://maps.google.com/maps?q=#{sessionScope.empDetails.StreetAddress},
+             +#{sessionScope.empDetails.City},
+             +#{sessionScope.empDetails.StateProvince},
+             +#{sessionScope.empDetails.CountryName}"/&gt;</source>
+     The address string, such as the one in the example, must be have plus sign
+     (+) characters rather than spaces.
+    </p>
+   </subsection>
+   <a name="Programming_Driving_Directions"></a>
+   <subsection name="Programming Driving Directions">
+    <p>
+     Google Maps also supports driving directions. Modify the string following
+     the question mark (?) in the Google Maps URL with the starting and
+     destination addresses (saddr=&gt;starting
+     address=""&gt;&amp;daddr=&lt;destination address=""&gt;). Using this
+     format, the directions from Oracle headquarters at 200 Oracle Parkway in
+     Redwood City to Oracle's San Francisco office at 1 Front Street in San
+     Francisco are as follows:
+     <source>http://maps.google.com/maps?saddr=200+Oracle+Parkway,+Redwood+City,+CA,+USA&amp;
+             daddr=1+Front+Street,+San+Francisco,+CA,+USA</source>
+    </p>
+   </subsection>
+   <a name="Supporting_Google_Maps_on_iPhone"></a>
+   <subsection name="Supporting Google Maps on iPhone">
+    <p>iPhone Safari supports both Google Maps and YouTube applications in that
+       it automatically intercepts certain URL calls and invokes a native
+       application rather than opening the URL using the target Web site. For
+       example, when a user clicks an HTML link to Google Maps
+       (http://maps.google.com), Safari invokes a native Google Maps application
+       rather than navigating to the Google Maps Web site. Because the native
+       Google maps application accepts some of the URL parameters supported by
+       maps.google.com, users can specify a location and drop a pin. Note: Apple
+       and Google have not yet published other APIs.</p>
+   </subsection>
+  </section>
+  <a name="Basic_XHTML_Browser_Support"></a>
+  <section name="Basic XHTML Browser Support">
+   This section describes Trinidad's support for basic HTML mobile browsers.
+   This section includes the following sections: "Introduction to Basic HTML
+   Mobile Browser Support" "How to Develop Applications for Basic HTML Mobile
+   Browsers" "How to Style Basic HTML Mobile Browsers"
+   <subsection name="Introduction to Basic HTML Mobile Browser Support">
+    <p>Trinidad supports mobile browsers that do not provide support for
+       JavaScript. This lack of JavaScript support makes basic HTML mobile
+       browsers less robust than such AJAX-supported browsers as BlackBerry or
+       Apple iPhone. Aside from the browsers listed in Section 1.2, "Supported
+       Platforms," Trinidad considers most common browsers as basic HTML mobile
+       browsers. MyFaces Trinidad may not recognize certain mobile browsers,
+       however.</p>
+   </subsection>
+   <a name="Requirements_Basic_HTML"></a>
+   <subsection name="Requirements for Trinidad Support of Basic HTML Mobile Browsers">
+    <p>
+     The minimum requirement for Trinidad support is XHTML Basic or the XHTML
+     Mobile Profile that includes WAP2.x browsers.
+     <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+      <strong>Note:</strong>
+      MyFaces Trinidad does not support WAP1.x browsers that do not support
+      XHTML Basic or the XHTML Mobile Profile.
+     </div>
+    </p>
+   </subsection>
+   <a name="How_to_Basic_HTML"></a>
+   <subsection name="How to Develop Applications for Basic HTML Mobile Browsers">
+    <p>
+     Because the Trinidad framework serves pages to mobile browsers that are
+     appropriate to a browser's capabilities or limitations, you do not have to
+     create user interfaces that are specific to basic HTML mobile browsers.
+     However, the absence of JavaScript support by these browsers limits the
+     functionality of certain HTML elements.
+     <ul>
+      <li>The autosubmit attribute is not supported on basic HTML mobile
+          browsers. Add a submit button to the form only if the form submission
+          responds to a component's autosubmit feature. For composite components
+          with built-in autosubmit features, Trinidad adds a submit button to
+          enable users to submit the form.</li>
+      <li>Basic HTML mobile browsers do not support form-submitting links. All
+          submitting elements are rendered as buttons. For example,
+          tr:commandLink is rendered as a button. Note: Trinidad does not
+          support WAP1.x browsers that do not support XHTML Basic or the XHTML
+          Mobile Profile. How to Style Basic HTML Mobile Browsers</li>
+     </ul>
+    </p>
+   </subsection>
+   <a name="How_to_Style_Basic_HTML"></a>
+   <subsection name="How to Style Basic HTML Mobile Browsers">
+    <p>Trinidad provides basic CSS support for basic HTML mobile browsers. While
+       most of these browsers support CSS, Trinidad applications can still run
+       on those that do not. However, without design-time considerations, the
+       user interface may be difficult to use. Test the Trinidad application on
+       as many browsers as possible.</p>
+   </subsection>
+  </section>
+ </body>
+</document>
+

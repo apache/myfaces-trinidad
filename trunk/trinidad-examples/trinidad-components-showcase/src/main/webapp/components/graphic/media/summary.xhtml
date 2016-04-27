@@ -1,0 +1,45 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The media component displays media content, such as audio, video, or image in a player 
+    embedded in the user agent. The media control displays the media specified by the &quot;source&quot; attribute ]
+    in the appropriate media player. If a particular media player is desired, it can be specified using the
+    &quot;player&quot; attribute. The media control attempts to intelligently handle two tricky aspects of
+    cross-platform media display--determining the best player to display the media, and sizing the media player.
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The media component supports two approaches to sizing the media control setting the
+        &quot;width&quot; and &quot;height&quot; attributes, which specify the amount of space reserved on the user
+        agent for the media control, and setting the &quot;innerWidth&quot; and &quot;innerHeight&quot; attributes,
+        which specify the size of the media resource content. Since it is almost impossible to determine the correct
+        width and height to use across different players and different player control configurations, specifying the
+        &quot;innerWidth&quot; and &quot;innerHeight&quot; is the recommended strategy. "/>
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="If the size of the media control isn't specified by one of the above approaches, a default
+        inner size, determined by the content type of the media resource, will be used. This works well for audio
+        content, but can cause content to be clipped or occupy too much space for video content."/>
+
+</ui:composition>

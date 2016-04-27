@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
+  <component>
+    <description><![CDATA[UIXListView is a component that is similar to UIXIterator. In addition it adds support for selection and grouping. 
+    The grouping support add Tree Like functionaliy via the TreeModel class.]]></description>
+    <icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/iterator.png</small-icon -->
+    </icon>
+    <component-type>org.apache.myfaces.trinidad.ListView</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXListView</component-class>
+    
+    <property>
+      <description><![CDATA[the selection state for this component.]]></description>
+      <property-name>selectedRowKeys</property-name>
+      <property-class>org.apache.myfaces.trinidad.model.RowKeySet</property-class>
+      <property-extension>
+        <mfp:mutable>often</mfp:mutable>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
+
+    
+    <property>
+      <description><![CDATA[the set of disclosed groups for this component.
+Each entry in the set is a rowKey.]]>
+      </description>
+      <property-name>groupDisclosedRowKeys</property-name>
+      <property-class>org.apache.myfaces.trinidad.model.RowKeySet</property-class>
+      <property-extension>
+        <mfp:mutable>often</mfp:mutable>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
+
+    <property>
+      <description><![CDATA[a method reference to a selection listener]]></description>
+      <property-name>selectionListener</property-name>
+      <property-class>javax.el.MethodExpression</property-class>
+      <property-extension>
+        <mfp:method-binding-signature>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.SelectionEvent</mfp:parameter-type>
+          <mfp:return-type>void</mfp:return-type>
+        </mfp:method-binding-signature>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
+
+    <property>
+      <description><![CDATA[a method reference to a group disclosure listener]]></description>
+      <property-name>groupDisclosureListener</property-name>
+      <property-class>javax.el.MethodExpression</property-class>
+      <property-extension>
+        <mfp:method-binding-signature>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.RowDisclosureEvent</mfp:parameter-type>
+          <mfp:return-type>void</mfp:return-type>
+        </mfp:method-binding-signature>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
+      </property-extension>
+    </property>
+    
+    
+    <component-extension>
+      <mfp:component-family>org.apache.myfaces.trinidad.ListView</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Iterator</mfp:component-supertype>
+      <mfp:component-superclass>org.apache.myfaces.trinidad.component.UIXIterator</mfp:component-superclass>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXListViewTag</mfp:tag-class>      
+      <mfp:renderer-type>org.apache.myfaces.trinidad.ListView</mfp:renderer-type>
+      <mfp:naming-container>true</mfp:naming-container>
+      <mfp:long-description><![CDATA[<p>UIXListView is a component that is similar to UIXIterator. In addition it adds support for selection and grouping. 
+      The grouping support add Tree Like functionaliy via the TreeModel class.</p>
+      ]]>
+      </mfp:long-description>
+      
+      <mfp:event>
+        <mfp:description>Generated when the user selects an item in the listView .</mfp:description>
+        <mfp:event-type>org.apache.myfaces.trinidad.Selection</mfp:event-type>
+        <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
+        <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
+      </mfp:event>
+      
+      <mfp:event>
+        <mfp:description>Event delivered when user expands or collapses a group in the listView.</mfp:description>
+        <mfp:event-type>org.apache.myfaces.trinidad.RowDisclosure</mfp:event-type>
+        <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
+        <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
+      </mfp:event>
+    </component-extension>
+  </component>
+</faces-config>
+
+

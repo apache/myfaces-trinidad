@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:trd="http://myfaces.apache.org/trinidad/demo"
+                xmlns:trh="http://myfaces.apache.org/trinidad/html">
+  <tr:document title="Facelets Tags in Trinidad Page">
+    <tr:form id="f1">
+
+      <tr:panelHeader text="Tests for Facelets tags in Trinidad Demos">
+        <tr:outputFormatted styleUsage="instruction" id="of0"
+                            value="These demos test Trinidad components in conjunction with Facelets tags and JSF 2.0"/>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:spacer width="30" height="10"/>
+          </f:facet>    
+          
+          <tr:panelHeader text="ui:debug tag" id="phUIDbg">
+            <tr:outputFormatted styleUsage="instruction" id="of10"
+                                value="Tests the Facelets ui:debug"/>
+            <tr:spacer height="10" id="sp10"/>
+            <tr:inputText id="itStatus" label="View Status" value="#{partialDemoUtil.status.linkUpdate}"/>
+            <tr:commandButton text="PPR Status" id="clStatus" partialSubmit="true" actionListener="#{partialDemoUtil.action}">
+              <f:ajax event="action" render="phUIDbg"/>
+            </tr:commandButton>
+            <ui:debug hotkey="m"/>
+          </tr:panelHeader>
+          
+          
+        </tr:panelGroupLayout>
+      </tr:panelHeader>
+    </tr:form>
+  </tr:document>
+</ui:composition>

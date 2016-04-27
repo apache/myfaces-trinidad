@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Progress steps Demo">
+        <tr:form>
+          <tr:panelPage>
+          
+            <f:facet name="navigationGlobal">
+             <tr:navigationPane hint="buttons">
+              <tr:commandNavigationItem 
+                text="Return to Feature Demos page"
+                immediate="true"
+                action="demos"
+                actionListener="#{progressSteps.cancelProcess}"/>
+             </tr:navigationPane>
+            </f:facet>
+          <tr:panelHeader
+             text="Progress steps demo using tr:forEach and BoundedRangeModel">
+
+            <tr:poll 
+              binding="#{editor.component}" 
+              interval="2000" 
+              id="pollid" 
+              pollListener="#{progressSteps.onPoll}"/>
+            <tr:outputFormatted 
+              styleUsage="instruction" 
+              value="&lt;b>The steps completed in a background task could be 
+              shown as a check list or a growing list as shown below.&lt;br>
+              This could be achieved using suitable output components and the
+              'tr:forEach' tag in conjunction with bindings to a 
+              BoundedRangeModel&lt;/b>"/>
+
+            <!--Represents a check list-->
+            <tr:panelHeader text="Progress steps as a check list"/>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:spacer width="30"/>
+              <tr:panelGroupLayout layout="vertical" partialTriggers="pollid" id="pg1">
+                <tr:forEach 
+                  var="progressStep" 
+                  varStatus="vs" 
+                  begin="0" 
+                  end="#{progressSteps.progressModel.maximum - 1}" 
+                  items="#{progressSteps.progressSteps}">
+                  <tr:panelGroupLayout layout="horizontal">
+                    <tr:spacer 
+                      width="13"
+                      rendered="#{vs.index > progressSteps.progressModel.value}"/>
+                    <tr:image 
+                      source="/components/images/processCheck.gif" 
+                      rendered="#{progressSteps.progressModel.value >= vs.index}"/>
+                    <tr:spacer width="5"/>
+                    <tr:outputText 
+                      value="#{progressStep}" 
+                      styleClass="AFFieldText"/>
+                  </tr:panelGroupLayout>
+                </tr:forEach>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+
+            <!--Represents a growing list-->
+            <tr:panelHeader text="Progress steps as a growing list"/>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:spacer width="30"/>
+              <tr:panelGroupLayout layout="vertical" partialTriggers="pollid" id="pg2">
+                <tr:forEach 
+                  var="progressStep" 
+                  varStatus="vs" 
+                  begin="0" 
+                  end="#{progressSteps.progressModel.maximum - 1}" 
+                  items="#{progressSteps.progressSteps}">
+                  <tr:panelGroupLayout layout="horizontal">
+                    <tr:outputText 
+                      value="#{progressStep}" 
+                      styleClass="AFFieldText"
+                      rendered="#{progressSteps.progressModel.value >= vs.index}"/>
+                  </tr:panelGroupLayout>
+                </tr:forEach>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+
+            <tr:panelHeader/>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:spacer width="30"/>
+              <tr:panelGroupLayout layout="vertical">
+                <tr:inputText 
+                  readOnly="true" 
+                  label="Date/Time from last full page refresh" 
+                  value="#{date.currentDate}" 
+                  styleClass="AFFieldTextMarker">
+                  <tr:convertDateTime 
+                    pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                </tr:inputText>
+                <tr:spacer height="10"/>
+                <tr:commandButton 
+                  text="Cancel" 
+                  action="progressCancel" 
+                  actionListener="#{progressSteps.cancelProcess}"/>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+          </tr:panelHeader>
+
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

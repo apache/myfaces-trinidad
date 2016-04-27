@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="PanelBorderLayout Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelBorderLayout.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelBorderLayout&lt;/b>"/>
+          <tr:panelBorderLayout binding="#{editor.component}">
+            <f:facet name="top">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="30pt" align="center" style="background-color:yellow;">top</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:facet name="left">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="100pt" align="center" style="background-color:pink;">left</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:facet name="right">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="100pt" align="center" style="background-color:pink;">right</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:facet name="bottom">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="30pt" align="center" style="background-color:yellow;">bottom</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:verbatim>
+              <table width="100%">
+                <tr>
+                  <td height="30pt" align="center">contents</td>
+                </tr>
+              </table>
+            </f:verbatim>
+          </tr:panelBorderLayout>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:panelHeader text="Positioned layout with 90% width:">
+            <tr:panelBorderLayout
+              layout="positioned"
+              inlineStyle="height: 300px; width: 90%; position: relative; border: 2px solid black;">
+              <f:facet name="top">
+                <tr:outputText
+                  value="Top facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#F00;" />
+              </f:facet>
+              <f:facet name="innerTop">
+                <tr:outputText
+                  value="Inner top facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#800;color:white;" />
+              </f:facet>
+              <f:facet name="bottom">
+                <tr:outputText
+                  value="Bottom facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#0F0;" />
+              </f:facet>
+              <f:facet name="innerBottom">
+                <tr:outputText
+                  value="Inner bottom facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#080;color:white;" />
+              </f:facet>
+              <f:facet name="left">
+                <tr:outputText
+                  value="Left facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#00F;color:white;" />
+              </f:facet>
+              <f:facet name="innerLeft">
+                <tr:outputText
+                  value="Inner left facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#008;color:white;" />
+              </f:facet>
+              <f:facet name="right">
+                <tr:outputText
+                  value="Right facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#CCC;" />
+              </f:facet>
+              <f:facet name="innerRight">
+                <tr:outputText
+                  value="Inner right facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#555;color:white;" />
+              </f:facet>
+              <tr:outputText
+                value="Child"
+                inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:yellow;" />
+            </tr:panelBorderLayout>
+          </tr:panelHeader>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

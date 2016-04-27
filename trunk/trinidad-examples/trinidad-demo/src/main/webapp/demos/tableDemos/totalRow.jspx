@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" 
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:h="http://java.sun.com/jsf/html" 
+  xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+  xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Total Row Demo">
+      <tr:form >
+        <tr:panelPage>
+          <tr:commandLink text ="Return to Demo Start Page" 
+            action="demos.tableDemos"/>
+          <tr:table var="row" value="#{TotalBacker.list}" width="80%">
+            <tr:column width="20%">
+              <f:facet name="header">
+                <tr:outputText value="Element1" />
+              </f:facet>
+              <tr:outputText value="#{row.data1}"/>
+            </tr:column>
+            <tr:column width = "20%">
+              <f:facet name="header">
+                <tr:outputText value="Element2" />
+              </f:facet>
+              <tr:outputText value="#{row.data2}"/>
+              <f:facet name="footer">
+                <tr:commandButton text="Recalculate" 
+                  actionListener="#{TotalBacker.totalRow}"/>
+              </f:facet>
+            </tr:column>
+            <tr:column width = "20%">
+              <f:facet name="header">
+                <tr:outputText value="Totals" />
+              </f:facet>
+              <tr:outputText value="#{row.data2}"/>
+              <f:facet name="footer">
+                <tr:outputText value="#{TotalBacker.total}" />
+              </f:facet>
+            </tr:column>
+            <f:facet name="footer">
+              <tr:outputText value="Total"/>
+            </f:facet>
+          </tr:table>
+        </tr:panelPage>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

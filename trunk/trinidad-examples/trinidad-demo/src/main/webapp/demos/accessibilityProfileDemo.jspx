@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+ <jsp:directive.page contentType="text/html;charset=utf-8"/>
+ <f:view>
+  <tr:document title="Accessibility Profile Demo">
+    <tr:form>
+
+     <tr:panelPage>
+      <f:facet name="navigationGlobal">
+       <tr:navigationPane hint="buttons">
+        <tr:commandNavigationItem text="Return to Feature Demos page"
+                                immediate="true"
+                                action="demos"/>
+       </tr:navigationPane>
+      </f:facet>
+
+    <tr:panelHeader text="Accessibility Profile Demo">
+      <tr:outputFormatted styleUsage="instruction"
+        value="This page demonstrates the how the accessibility profile API can be
+          used to provide styles targeted at specific groups of end users.  Use the 
+          checkboxes to specify accessibility profile preferences, hit the Update 
+          button to chanage the preferences, and then review the content below to 
+          see how it changes based on the sepcified preferences." />
+
+      <tr:panelGroupLayout layout="vertical">
+
+       <tr:panelFormLayout>
+         <tr:selectBooleanCheckbox text="High Contrast" 
+                                   value="#{accProfileDemo.highContrast}"/>
+         <tr:selectBooleanCheckbox text="Large Fonts"
+                                   value="#{accProfileDemo.largeFonts}"/>
+         <tr:commandButton text="Update"
+                           actionListener="#{accProfileDemo.update}"/>
+       </tr:panelFormLayout>
+
+       <tr:panelHeader text="High Contrast">
+         <tr:panelGroupLayout layout="vertical">
+           <f:facet name="separator">
+             <tr:spacer height="10px"/>
+           </f:facet>
+       
+           <tr:outputFormatted styleUsage="instruction"
+             value="This section contains content which is styled differently
+                    when the high contrast setting is enabled."/>
+
+
+           <tr:panelBox background="dark" text="A Dark PanelBox">
+             <tr:outputText value="This is a dark panelBox.  With the default
+               accessibility profile settings, this should have a dark background.
+               However, the skin has been customized so that the background
+               is changed to yellow when high contrast is enabled."/>
+           </tr:panelBox>
+         </tr:panelGroupLayout>
+       </tr:panelHeader>
+
+       <tr:panelHeader text="Large Fonts">
+         <tr:panelGroupLayout layout="vertical">
+           <f:facet name="separator">
+             <tr:spacer height="10px"/>
+           </f:facet>
+
+           <tr:outputFormatted styleUsage="instruction"
+              value="This section contains content which is styled differently
+                     when the large fonts setting is enabled."/>
+
+           <tr:outputText styleClass="makeMeLarge"
+             value="This text is small under the default accessibility profile
+                    settings.  However, the skin has been customized so that the
+                    text size is increased when the large fonts setting is
+                    enabled."/>
+                    
+           <tr:panelGroupLayout>
+             <tr:outputText value="This is the info icon: "/>
+             <tr:icon name="info"/>
+             <tr:outputText value=" It has been customized so that the icon
+               should become larger when the large fonts setting is enabled."/>
+           </tr:panelGroupLayout>
+             
+
+         </tr:panelGroupLayout>
+       </tr:panelHeader>
+
+       <tr:panelHeader text="High Contrast or Large Fonts">
+         <tr:panelGroupLayout layout="vertical">
+           <f:facet name="separator">
+             <tr:spacer height="10px"/>
+           </f:facet>
+           
+           <tr:outputFormatted styleUsage="instruction"
+              value="This section contains content which is styled differently
+                     when either the high contrast or the large fonts setting is 
+                     enabled."/>
+
+           <tr:outputText styleClass="eitherOr"
+             value="This is small black text on white background under the 
+                    default accessibility profile settings.  However, the when
+                    either high contrast or large fonts are enabled, the text
+                    becomes larger, and the colors are inverted."/>
+         </tr:panelGroupLayout>
+       </tr:panelHeader>
+
+       <tr:panelHeader text="High Contrast and Large Fonts">
+         <tr:panelGroupLayout layout="vertical">
+           <f:facet name="separator">
+             <tr:spacer height="10px"/>
+           </f:facet>
+           <tr:outputFormatted styleUsage="instruction"
+              value="This section contains content which is styled differently
+                     when both the high contrast and the large fonts settings are 
+                     enabled at the same time."/>
+
+           <tr:outputText styleClass="both"
+             value="This is small black text on white background under the 
+                    default accessibility profile settings.  However, the when
+                    both high contrast and large fonts are enabled, the text
+                    becomes larger, and the colors are inverted."/>
+         </tr:panelGroupLayout>
+        </tr:panelHeader>
+      </tr:panelGroupLayout>
+     </tr:panelHeader>
+
+     </tr:panelPage>
+    </tr:form>
+  </tr:document>
+ </f:view>
+</jsp:root>

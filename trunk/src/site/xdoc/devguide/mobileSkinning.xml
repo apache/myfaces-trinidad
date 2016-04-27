@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN"
+"http://www.apache.org/dtds/xdoc_1_0.dtd">
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements. See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership. The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License");
+ you may not use this file except in compliance
+  with the License. You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations
+  under the License.
+   
+-->
+<document>
+ <properties>
+  <title>Examples of Programming the iPhone Native Look and Feel</title>
+ </properties>
+ <body>
+  <section name="Examples of Programming the iPhone Native Look and Feel">
+   <p>
+    This example describes the following components for iPhone:
+    <ul>
+     <li>
+      <a href="#Header">Header</a>
+     </li>
+     <li>
+      <a href="#Navigation_Panel">Navigation Panel</a>
+     </li>
+     <li>
+      <a href="#Field_Set">Field Set</a>
+     </li>
+    </ul>
+   </p>
+   <p>
+   Although you manually apply most of the CSS classes to specific components using
+   the styleClass attribute, some CSS features are applied by
+   default when you use the iPhone skin.
+   </p>
+  </section>
+  <a name="Header"></a>
+  <section name="Header">
+   <p>This section describes the style classes used for building a header
+      component.</p>
+
+   <p>
+   <img src="../images/mobileSkinningHeader.PNG"/>
+   </p>
+
+   <a name="Header_Style_Classes"></a>
+   <subsection name="Header Style Classes">
+    <p>
+     <source>
+      <strong>Toolbar</strong>
+      .toolbar { 
+        box-sizing: border-box !important; 
+        -webkit-box-sizing: border-box !important; 
+        -moz-box-sizing: border-box !important;
+        border-bottom: 1px solid #2d3642 !important;
+        border-top: 1px solid #000000 !important;
+        padding: 10px !important;
+        height: 45px !important;
+        background: url(/images/toolbar.png) #6d84a2 repeat-x !important;
+        display: block !important;
+       }
+
+      <strong>Toolbar Title</strong>
+      .toolbar &gt; h1 {
+        position: absolute !important;
+        overflow: hidden !important;
+        left: 50% !important;
+        margin: 1px 0 0 -75px !important;
+        height: 45px !important;
+        font-size: 20px !important;
+        width: 150px !important;
+        font-weight: bold !important;
+        text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0 !important;
+        text-align: center !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        color: #FFFFFF !important;
+        border-bottom: none !important;
+      }
+
+      <strong>button</strong>
+      .button {
+        position: absolute !important;
+        overflow: hidden !important;
+        top: 8px !important;
+        right: 6px !important;
+        margin: 0 !important;
+        border-width: 0 5px !important;
+        padding: 0 3px !important;
+        width: auto !important;
+        height: 30px !important;
+        line-height: 30px !important;
+        font-family: inherit !important;
+        font-size: 12px !important;
+        font-weight: bold !important;
+        color: #FFFFFF !important;
+        text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0 !important;
+        text-overflow: ellipsis !important;
+        text-decoration: none !important;
+        white-space: nowrap !important;
+        background: none !important;
+        -webkit-border-image: url(/images/toolButton.png) 0 5 0 5 !important;
+        Examples of Programming the iPhone Native Look and Feel
+        Beta Draft Skinning Support 4-7
+      }
+
+      <strong>backButton</strong>
+      .backButton {
+        position: absolute !important;
+        overflow: hidden !important;
+        top: 8px !important;
+        left: 6px !important;
+        margin: 0 !important;
+        height: 30px !important;
+        max-width: 45px !important;
+        line-height: 30px !important;
+        font-family: inherit !important;
+        font-size: 12px !important;
+        font-weight: bold !important;
+        color: #FFFFFF !important !important;
+        text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0 !important;
+        text-overflow: ellipsis !important;
+        text-decoration: none !important;
+        white-space: nowrap !important;
+        background: none !important;
+        -webkit-border-image: url(/images/toolButton.png) 0 5 0 5 !important;
+        padding: 0 !important;
+        border-width: 0 8px 0 14px !important;
+        -webkit-border-image: url(/images/backButton.png) 0 8 0 14 !important;
+      }
+     </source>
+    </p>
+   </subsection>
+   <a name="How_to_Create_Header_Components"></a>
+   <subsection name="How to Create Header Components">
+    <p>
+     Code below illustrates how to define the styleClass attribute to create the
+     header components.
+     <source>
+        &lt;tr:panelHeader id = "panelHeader" styleClass="toolbar" text="Title"&gt; 
+          &lt;tr:commandLink styleClass="button" text="Forward"/&gt; 
+          &lt;tr:commandLink styleClass="backButton" text="Back"/&gt;
+        &lt;/tr:panelHeader&gt;
+     </source>
+    </p>
+   </subsection>
+  </section>
+  <a name="Navigation_Panel"></a>
+  <section name="Navigation Panel">
+   <p>
+    There are two style classes that define the navigation panel:
+   </p>
+   <p>
+    <ul>
+     <li>Panel List (static lists)</li>
+     <li>Table List (dynamic lists)</li>
+    </ul>
+   </p>
+   <a name="Panel_List"></a>
+   <subsection name="Panel List">
+    <p>
+     Panel List This style class displays a simple (static) list of navigation
+     items. It sets the width, position, and height of this list. You define
+     this style class within a &lt;panelList&gt; component, using &lt;commandLink&gt;
+     tags for each navigation item as illustrated in the example below.
+    </p>
+    <p>
+     <source>
+        &lt; tr:panelList styleClass="panelList"&gt; 
+            &lt; tr:commandLink text="commandLink 1"/&gt; 
+            &lt; tr:commandLink text="commandLink 2"/&gt; 
+            &lt; tr:commandLink text="commandLink 3"/&gt; 
+        &lt; /tr:panelList&gt;
+     </source>
+    </p>
+
+    <p>
+    Many CSS features are applied by default on this component when using expressions
+    similar to the ones listed in the tTable below on an iPhone skin.
+    </p>
+
+    <p>
+    <img src="../images/mobileSkinningPaneList.PNG"/>
+    </p>
+
+    <p>
+    <source>    
+      <strong>panelList ul</strong>
+      .panelList ul {
+        position: absolute !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        top : 45px !important;
+        width: 100% !important;
+        min-height: 372px !important;
+      }
+
+      <strong>panelList ul &gt; li</strong>
+      .panelList ul &gt; li {
+        position:relative !important;
+        margin:0 !important;
+        border-bottom:1px solid #E0E0E0 !important;
+        padding:8px 0 8px 10px !important;
+        list-style:none !important
+      }
+
+      <strong>panelList ul &gt; li &gt; a</strong>
+      .panelList ul &gt; li &gt; a {
+        display:block !important;
+        margin:-8px 0 -8px -10px !important;
+        padding:8px 32px 8px 10px !important;
+        text-decoration:none !important;
+        color:inherit !important;
+        background:url(/images/listArrow.png) no-repeat right center !important;
+        min-height:34px !important;
+        font-size:20px;
+        font-weight:bold;
+      }
+    </source>    
+    </p>
+   </subsection>
+
+   <a name="Table_List"></a>
+   <subsection name="Table List">
+    <p>
+    Table List Use the table list component for displaying a dynamic list of
+    navigation items. This component provides built-in navigation since it is a table.
+    Unlike Panel List, the table list component include style classes for including images
+    and detailed descriptions below the navigation items.
+    </p>
+    
+    <p>
+    <source>    
+      &lt;tr:table value="#{bindings.EmployeesView15.collectionModel}"
+                  var="row"
+                  rows="7"
+                  width="100%"
+                  styleClass = "iphoneTable"
+                  emptyText="#{bindings.EmployeesView15.viewable ? 'No rows yet.' :
+                  id="mainTable" horizontalGridVisible="false" &gt;
+      
+        &lt;tr:column &gt;
+          &lt;tr:panelGroupLayout layout="vertical" styleClass="listing"&gt;
+
+            &lt;tr:outputText value="#{row.bindings.PhoneNumber.inputValue}"
+                                    styleClass="listingDetails"/&gt;
+
+            &lt;tr:commandLink text="#{row.bindings.LastName.inputValue} ,
+                                    #{row.bindings.FirstName.inputValue} ,
+                                    styleClass="listingLink"
+                                    partialSubmit="true"
+                                    actionListener = "#{agentUtil.gotoPage2}"
+                                    id="myLink1"
+                                    disabled="#{!bindings.Execute.enabled}"
+                                    onclick='iPhone.slideFragments("page2",
+                                    "page1")'&gt;
+            &lt;/tr:commandLink&gt;
+
+            &lt;tr:image styleClass="listingImage"
+                          source="/images/326425649.png"/&gt;
+          &lt;/tr:panelGroupLayout&gt;
+        &lt;/tr:column&gt;
+      &lt;/tr:table&gt;
+    </source>
+    </p>
+    <p>
+    To create a table list:
+    <ul>
+      <li>
+        Create a Trinidad read-only table using data control.
+      </li>
+      <li>
+        Set the styleClass attribute for the table as iphoneTable.
+        The expressions lsited in table below apply the needed iPhone-related CSS properties
+        when you set the styleClass as iPhoneTable.
+      </li>
+      <li>
+        Set the width of the table to 100.
+      </li>
+      <li>
+        Set the horizontalGridVisible attribute to false.
+      </li>
+    </ul>
+    </p>
+
+   <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+    <strong>Note:</strong>
+      There must be only one column within the &lt;tr:table&gt; tag.
+      Within this column, all tags must be wrapped by a
+      &lt;tr:panelGroupLayout&gt; tag with a styleClass set as listing.
+   </div>
+
+    <p>
+    <img src="../images/mobileSkinningTableList.PNG"/>
+    </p>
+
+    <source>
+      <strong>listing</strong>
+      .listing {
+        position: relative !important;
+        margin: 0 !important;
+        border-bottom: 1px solid #E0E0E0 !important;
+        padding: 8px 0 8px 10px !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+        list-style: none !important;
+      }
+
+      <strong>listingLink</strong>
+      .listingLink {
+        display: block !important;
+        margin: -8px 0 -8px -10px !important;
+        padding: 8px 32px 8px 10px !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        background: url(/images/listArrow.png) no-repeat right center !important ;
+        padding-left: 54px !important;
+        padding-right: 40px !important;
+        min-height: 34px !important;
+        font-size: 20px !important;
+        font-weight: bold !important;
+      }
+
+      <strong>listingDetails</strong>
+      .listingDetails {
+        display: block !important;
+        position: absolute !important;
+        margin: 0 !important;
+        left: 54px !important;
+        top: 27px !important;
+        text-align: left !important;
+        font-size: 12px !important;
+        font-weight: normal !important;
+        color: #666666 !important;
+        text-decoration: none !important;
+        height: 13px !important;
+        padding: 3px 0 0 0 !important;
+      }
+
+      <strong>listingImage</strong>
+      .listingImage {
+        display: block !important;
+        position: absolute !important;
+        margin: 0 !important;
+        left: 6px !important;
+        top: 7px !important;
+        width: 35px !important;
+        height: 27px !important;
+        padding: 7px 0 10px 0 !important;
+      }
+    </source>
+   </subsection>
+  </section>
+
+  <a name="Field_Set"></a>
+   <section name="Field Set">
+    <p>
+    On the destination page, this component displays the detail of an item selected in
+    panel navigation.
+    </p>
+
+    <p>
+    <img src="../images/mobileSkinningFieldSet.PNG"/>
+    </p>
+
+    <p>
+    The Destination Page - Field Set component contains one or more rows where each
+    row contains a label or a message (which can be simple text or another navigation
+    item). As illustrated in the example below, you use the &lt;div&gt; tags to create these rows. The
+    &lt;div&gt; tags are subelements of a &lt;tr:panelCaptionGroup&gt; tag.
+    </p>
+    <p>
+    Creating a Field Set
+    </p>
+    <source>
+      &lt;div class="panelBase"&gt;
+        &lt;tr:panelCaptionGroup&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="#{agentUtil.name}"
+              truncateAt="0"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+              value="#{sessionScope.FirstName}" /&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Last Name"/&gt;
+            &lt;tr:commandLink text="#{sessionScope.LastName}"
+                            styleClass="messageLink"
+                            partialSubmit="true"
+                            id="myLink2"
+                            actionListener="#{agentUtil.gotoPage3}"
+                            onclick='iPhone.slideFragments("page3",
+                            "page2");'
+            /&gt;
+          &lt;/div&gt;
+        &lt;/tr:panelCaptionGroup&gt;
+        &lt;tr:panelCaptionGroup&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Email"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+            value="#{bindings.LastName}@oracle.com"/&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Salary"/&gt;
+            &lt;tr:outputText styleClass="messageText" }"
+                  value="#{sessionScope.Salary}"/&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Phone"
+                  truncateAt="5"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+                  value="#{sessionScope.PhoneId}"/&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Hired"
+                  truncateAt="7"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+                  value="#{sessionScope.HireDate}"/&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Phone"
+                  truncateAt="5"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+                  value="#{sessionScope.PhoneId}"/&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Hired"
+                  truncateAt="7"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+                  value="#{sessionScope.HireDate}"/&gt;
+          &lt;/div&gt;
+          &lt;div class="row"&gt;
+            &lt;tr:outputText styleClass="labeltext" value="Hired"
+                  truncateAt="7"/&gt;
+            &lt;tr:outputText styleClass="messageText"
+                  value="#{sessionScope.HireDate}"/&gt;
+          &lt;/div&gt;
+        &lt;/tr:panelCaptionGroup&gt;
+      &lt;/div&gt;
+    </source>
+  <p>
+  How to Create Field Set Components To create this component:
+  <ul>
+   <li>
+    Insert as many &lt;div&gt; tags as needed within a &lt;tr:panelCaptionGroup&gt; tag.
+   </li>
+   <li>
+    To create rows, define each &lt;div&gt; tag with the row class attribute. For example:
+    <source>
+      &lt;div class="row"&gt;
+    </source>
+    The row attribute sets the position, height, and border for each row.
+   </li>
+   <li>
+    Within each &lt;div&gt; tag, create a label element as follows:
+    <ul>
+     <li>
+      Create a &lt;tr:outputText&gt; tag.
+     </li>
+     <li>
+      To set the position, width, font, and color or the label element, define the StyleClass as labeltext.
+     </li>
+    </ul>
+    For example:
+    <source>
+     &lt;tr:outputText styleClass="labeltext" value="Phone" truncateAt="5"/&gt;
+    </source>
+   </li>
+   <li>
+    Create a message element using one of the following:
+    <ul>
+     <li>
+      <p>
+        The &lt;tr:outputText&gt; tag with styleClass set as messageText. 
+        For example:
+        <source>
+         &lt;tr:outputText styleClass="messageText" value="#{sessionScope.PhoneId}"/&gt;
+        </source>
+        The messageText style class sets the position, width, font, and color for the label element.
+      </p>
+     </li>
+     <li>
+      <p>
+       The &lt;tr:commandLink&gt; tag with styleClass set as messageLink. For example:
+      <source>
+        &lt;tr:commandLink text="#{sessionScope.LastName}"
+                                styleClass="messageLink"
+                                partialSubmit="true"
+                                id="myLink2"
+                                actionListener="#{agentUtil.gotoPage3}"
+                                onclick='iPhone.slideFragments("page3", "page2");'
+                                /&gt;
+      </source>
+       The messageLink element sets the position, width, font, height, and color for
+       the message element.
+      </p>
+     </li>
+    </ul>
+   </li>
+   <li>
+    <p>
+    For a panel base background, wrap the &lt;div&gt; tags with the panelBase class
+    attribute.
+    </p>
+    <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid">
+      <strong>Note:</strong>
+      The panelBase fieldset sets rounded edges. The fieldset
+      element is added by the renderer for the &lt;tr:panelCaptionGroup&gt;
+      element.
+    </div>
+   </li>
+  </ul>
+ </p>
+    <p>
+     Field Set Style Classes This section lists the style classes for field set
+     components and their layout properties.
+    </p>
+    <p>
+      <source>
+      <strong>labeltext</strong>
+      .labeltext {
+        position: absolute !important;
+        margin: 0 0 0 14px !important;
+        line-height: 42px !important;
+        font-weight: bold !important;
+        color: #7388a5 !important;
+        text-align: right !important;
+        width: 90px !important;
+        white-space: nowrap !important;
+      }
+    
+      <strong>messageText</strong>
+      .messageText {
+        display: block !important;
+        margin: 0 !important;
+        border: none !important;
+        padding: 12px 10px 0 110px !important;
+        text-align: left !important;
+        font-weight: bold !important;
+        text-decoration: inherit !important;
+        height: 42px !important;
+        color: inherit !important;
+        box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
+      }
+    
+      <strong>messageLink</strong>
+      .messageLink {
+        display: block !important;
+        text-align: left !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        background: url(/images/listArrow.png) no-repeat right center !important ;
+        padding-top: 12px !important;
+        padding-left: 111px !important;
+        padding-right: 40px !important;
+        min-height: 34px !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+      }
+    
+      <strong>panelBase</strong>
+      .panelBase {
+        box-sizing: border-box !important;
+        -webkit-box-sizing: border-box !important;
+        padding: 10px !important;
+        background: #c8c8c8 url(/images/pinstripes.png) !important;
+      }
+    
+      <strong>panelBase fieldset</strong>
+      .panelBase fieldset {
+        position: relative;
+        margin: 0 0 20px 0;
+        padding: 0;
+        background: #FFFFFF;
+        -webkit-border-radius: 10px;
+        border: 1px solid #999999;
+        text-align: right;
+        font-size: 16px;
+      }
+    
+      <strong>row</strong>
+      .row {
+        position: relative !important;
+        min-height: 42px !important;
+        border-top: 1px solid #999999 !important;
+        -webkit-border-radius: 0 !important;
+        text-align: right !important;
+      }
+    
+      <strong>row:first-child</strong>
+      .row:first-child {
+        border-top: none !important;
+      }
+    </source>
+   </p>
+  </section>
+ </body>
+</document>
+

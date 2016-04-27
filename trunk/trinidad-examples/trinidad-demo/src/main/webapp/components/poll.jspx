@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Poll Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"
+                            actionListener="#{poll.resetPoll}"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_poll.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:commandButton text="Submit"/>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:poll binding="#{editor.component}" interval="2000" pollListener="#{poll.onPoll}"
+                     id="pollid"/>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>poll component with a poll listener that updates the poll count&lt;/b>"/>
+          </tr:panelGroupLayout>
+          <tr:inputText readOnly="true" label="Date/Time from last full page refresh"
+                        value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+            <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+          </tr:inputText>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>InputText linked to Poll component being updated in partial page mode&lt;/b>"/>
+            <tr:inputText readOnly="true" label="Poll Count: " value="#{poll.pollCount}"
+                          styleClass="AFFieldTextMarker" partialTriggers="pollid"/>
+          </tr:panelGroupLayout>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:panelHeader text="When modal dialogs are launched from the
+                following components, poll pauses until the dialog is dismissed"/>
+            <f:facet name="separator">
+              <tr:spacer height="5"/>
+            </f:facet>
+            <tr:inputColor id="sic3" label="The color picker dialog" value="#{color.colorValue3}"
+                           compact="true"/>
+            <tr:inputDate id="sid1" value="#{date.date1}" label="The date picker dialog"/>
+            <tr:commandButton text="Using dialog framework" action="dialog:simpleDialog"
+                              useWindow="true" windowWidth="150" windowHeight="150" immediate="true"
+                              partialSubmit="true"/>
+            <tr:goButton text="Using openWindow() API in Trinidad Javascript library"
+                         onclick="openWindow(window,'poll_window_page.jspx','',{width:200, height:100},true,'dialog','');"/>
+          </tr:panelGroupLayout>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,1960 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+     
+-->
+<document>
+  <properties>
+    <title>Apache Trinidad Skinning</title>
+  </properties>
+  <body>
+    <section name="Apache Trinidad Skinning">
+      <P>
+        <ul>
+          <li>
+            <a href="#AboutSkinning">About Skinning</a>
+          </li>
+          <li>
+            <a href="#Create_a_skin-an_overview">Create a skin - an overview</a>
+          </li>
+          <li>
+            <a href="#How_to_create_a_skin">How to create a skin</a>
+          </li>
+          <li>
+            <a href="#Skinning_a_component">Skinning a component - a
+                                                                     step-by-step example</a>
+          </li>
+          <li>
+            <a href="#SkinningKeys">Skinning Keys</a>
+                <ul>
+                  <li><a href="#Component-level_skinning_keys">Component-level skinning keys</a>
+                  </li>
+                  <li><a href="#Alias_skinning_keys">Alias skinning keys</a>
+                  </li>
+                  <li><a href="#State_skinning_keys">State skinning keys</a>
+                  </li>
+                  <li><a href="#Skinning_properties">Skinning properties</a>
+                  </li>  
+                  <li><a href="#Icon_skinning_keys">Icon skinning keys</a>
+                  </li>
+                  <li><a href="#urls">Specifying urls</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#Skinning_Text">Skinning Text</a>
+          </li>
+          <li>
+            <a href="#Skinning_CSS_features">Skinning CSS features</a>
+            <ul>
+              <li><a href="#tr-rules">Re-using selectors and properties via -tr-rules</a>
+              </li>
+              <li><a href="#server-side-at-rules">Server side at-rules</a>
+              </li>
+              <li><a href="#client-side-at-rules">Client side at-rules</a>
+              </li>
+              <li><a href="#server-side-pseudo-classes">Server side pseudo classes</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#Package_Skin_In_JAR">Package your Skin in a JAR file</a>
+          </li>        
+          <li>
+            <a href="#Tips_and_Tricks">Tips and Tricks</a>
+          </li>
+          <li>
+            <a href="#Custom_Component_Developers">Skinning for Custom Component Developers</a>
+          </li>          
+          <li>
+            <a href="#Pregen">Pre-generating Skin Style Sheets</a>
+            <ul>
+            <li><a href="#Style_Sheet_Names">Style Sheet File Names</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#Advanced_Skinning_Features">Advanced Skinning Features</a>
+            <ul>
+              <li><a href="#Skin_Provider">Skin Provider</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#Frequently_Asked_Questions">Frequently Asked Questions</a>
+          </li>
+        </ul>
+      </P>
+    </section>
+    <a name="AboutSkinning"></a>
+    <section name="About Skinning">
+      <P>
+      A skin in Trinidad is a global style sheet that affects the entire application. You can
+         create one skin for the entire application and as long as you have the &lt;tr:document&gt;
+         tag on your page it will get picked up. Every component will automatically use the styling
+         as described by the skin. Any changes to the skin will be picked up at runtime, no change
+         to code is needed. Skins are based on the Cascading Style Sheet (CSS) specification.
+      </P>
+      
+      <P>   
+      With a custom skin you can change a component's default css styles, like color, font,
+         background-images, you can change images that are rendered with &lt;img&gt; tags, you can
+         change text using a resource bundle, and if the component allows you can change component
+         properties, like showing the last breadcrumb or not for the entire application instead of
+         having to set an attribute on every instance of the component.
+         </P>
+         
+      <P>
+      Each component has skinning 'hooks'. The skinning hooks, aka keys or selectors, define what
+         pieces of a component you can skin. There are also selectors that affect all the
+         components, like a global background color or foreground color or a global font style.
+         </P>
+         
+      <P>
+        A Skin's stylesheet is more than just a stylesheet that contains CSS styles. It can also
+        contain images that get rendered as
+        &lt;img&gt;tags in your page. You can create skin information for a particular agent or reading
+             direction all in the stylesheet. All this gets automatically transformed into the
+             appropriate CSS-2 page and rendered component (the icons you define in the skin
+             stylesheet do not get output to the generated CSS-2 file, but instead get used by the
+             renderer).
+      </P>
+      
+      <P>You can also dynamically switch skins during runtime, so you can create a skin with big
+         fonts, a skin that is purple and pink, a skin that is blue and gold, and switch that
+         depending upon locale or user or whatever you want.</P>
+         
+      <P>
+      Put simply, with skinning you change the look of your application. Here is a visual example
+         of how you can change the look of the navigationPane hints='tabs' component. There are
+         three different looks for the tabs, and there are three different skins that provide these
+         looks; one is the out-of-the-box skin and the others are custom skins created for demo
+         purposes.
+         
+         <br></br><img src="skinningTabs.png" alt="skinned tabs" /><br></br>
+         </P>
+    </section>
+    <a name="Create_a_skin-an_overview"></a>
+    <section name="Create a skin - an overview">
+      <P>
+      Let's get started and create a very simple skin so that you can see what files you need and
+         where you need to put them. Later we'll go over more in depth features of skinning, like
+         @agent support and icons vs styles vs properties.
+         </P>
+      <P>
+        This is what most people do when they work with skinning. This includes some tips and tricks:
+        <ul>
+          <li>Create a skin</li>
+          <ul>
+            <li>Create a trinidad-skins.xml file and put it in your WEB-INF or META-INF of a jar
+                file.</li>
+            <li>Create a *.css stylesheet document that gets linked to your skin definition in
+                trinidad-skins.xml</li>
+            <li>Set trinidad-config.xml &lt;skin-family&gt; to be the skin-family of your skin.</li>
+            <li>Optionally, if the skin has a version, set trinidad-config.xml &lt;skin-version&gt; to be the skin-version of your skin,
+            or "default" if you want choose the skin marked to be the default for that skin family.</li>
+          </ul>
+            <li>Turn off styleclass name compression in web.xml (while creating the skin only then
+                turn it back on for performance sake)</li>
+            <li>Turn on check file modification in web.xml (while creating the skin only then
+                turn it back off for performance sake)</li>
+            <li>Install Firebug to help look at the DOM and the styleclasses</li>
+            <li>Run a component or application to see the default mode. Your skin will extend the
+                default skin, unless you specify otherwise (because you can extend any skin you
+                want).</li>
+            <li>Read the <a src="http://myfaces.apache.org/trinidad/skin-selectors.html">skin-selectors.html</a> documentation for that component and also the
+                :aliases (global selectors that affect more than one component, like text,
+                background-color). </li>
+            <li>Cross-reference the skin-selectors documentation with Firebug in case the renderer
+                and the documentation have gotten out of sync (this shouldn't happen, and if it
+                does, please log a JIRA-issue/bug)</li>
+            <li>Decide what changes you want to make and add the Skin selectors/properties to your
+                stylesheet.</li>
+            <li>By default you'll need to restart your server to see your skin changes. To see your changes
+            without restarting your server, set the web.xml parameter 
+            'org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION' to true. However, you always need to restart the
+            server to see skin property changes.</li>
+            <li>Run your component to see the changes. NOTE: A frequently asked question is why
+                don't I see my skin? The most frequently correct answer is that you forgot to add
+                &lt;tr:document&gt; to your page. This kicks off the skin framework to create the
+                skin's css file and link it to your page.</li>
+        </ul>
+      </P>
+      </section>
+      <a name="How_to_create_a_skin"></a>
+      <section name="How to create a skin">
+      <P>
+      To keep the first skin example simple, this section will explain what what files you need to create 
+      and change to create a bigfont skin. The bigfont skin does nothing more than change the default font 
+      for your application to be big, like 16px.
+      </P>
+        <subsection name="Create a trinidad-skins.xml file">
+          <P>
+          Create a file in your WEB-INF directory and name it trinidad-skins.xml. Alternatively, 
+          you can create this file in the META-INF directory of your jar file and it will be found 
+          if that jar is on your application's classpath.
+          </P>
+          <source>
+          <![CDATA[
+          <?xml version="1.0" encoding="ISO-8859-1"?>
+
+            <skins xmlns="http://myfaces.apache.org/trinidad/skin">
+                <skin>
+                    <id>
+                        bigfont.desktop
+                    </id>
+                    <family>
+                        bigfont
+                    </family>
+                    <!-- optional. If you want to version your skin, then you set the version.
+                    This is useful if you want to keep the skin-family the same name, but you
+                    have fixed bugs in the skin. The user can use the original version or the 
+                    new version by specifying skin-version in trinidad-config.xml.-->
+                    <version>
+                      <name>v1</name>
+                      <default>true</default>
+                    </version>
+                    <!-- if you want this skin to be for a pda, use org.apache.myfaces.trinidad.pda as the render-kit-id -->
+                    <render-kit-id>
+                        org.apache.myfaces.trinidad.desktop
+                    </render-kit-id>
+                    <style-sheet-name>
+                        skins/bigfont/bigfont.css
+                    </style-sheet-name>
+            <!-- we are extending the default, simple skin, so no need for this
+                    <extends>xyz</extends>
+            -->
+            <!-- no need for this in our bigfont skin
+                    <bundle-name>
+                        org.apache.myfaces.trinidaddemo.resource.SkinBundle
+                    </bundle-name>
+            -->
+                </skin>
+            ... more skins could go here ...
+            </skins>
+            ]]>
+</source>
+  <P>
+  The trinidad-skins.xml file is where you define your skins.
+  </P>
+  <P>
+
+    Here are the attributes of a skin that you can define and their meaning:
+      <ul>
+        <li>
+        <b>id</b> - Each skin must have an id. This is a unique identifier for a skin. The syntax we use is bigfont.desktop. 
+        We put the .desktop in there to specify that this is for the desktop renderkit. You can also create a skin for the pda renderkit if you would like.
+        </li>
+        <li><b>family</b> - Each skin must have a family. A skin belongs to a family and this is what you set in the 
+        trinidad-config.xml file under &lt;skin-family&gt;. Then the specific skin is chosen depending upon 
+        the renderkit that is being used on render. You can create a bigfont.pda skin that is also in the bigfont family. 
+        Then if a person is running your app with a pda, they would get the bigfont.pda skin. Otherwise, if you 
+        didn't have a bigfont.pda skin, they'd get the default skin which is simple.pda.
+        </li>
+        <li><b>version</b> - Version is optional. Setting a version on your skin is useful if you
+        tend to change your css to fix bugs. Instead of creating a new skin and updating the skin-family 
+        so the end user can choose the new skin (e.g., purple-release2), you can instead create a new skin
+        with the same skin-family, and a version like release2.       
+        This way the skin-family in trinidad-config.xml will not have to change. The user can
+        either change the skin-version or they can set it to "default"
+        You can set the <b>name</b> element of the version, and optionally you can set the <b>default</b> element to true/false. 
+        The default skin will get picked if the trinidad-config.xml only specifies the skin-family.
+        </li>
+        <li>
+        <b>render-kit-id</b> - The renderkit that this skin is designed for. The values can be org.apache.myfaces.trinidad.desktop or org.apache.myfaces.trinidad.pda.
+        </li>
+        <li>
+        <b>style-sheet-name</b> - This is your skin's stylesheet name url.
+        We try a few different means to get the style-sheet-name file as an URL object.
+        <p>
+        First, we try to get an URL for the non static urls, that is, urls that could change
+        after the server has started:
+        <ol>
+        <li>
+        If style-sheet-name starts with "http:", "https:", "file:", "ftp:", or "jar:",
+        then we create the URL by calling new java.net.URL(style-sheet-name).</li>
+        <li>
+        Else we create the URL by calling FacesContext's ExternalContext's getResource(style-sheet-name).
+        (we prepend '/' if it isn't already there). This is how we find the style-sheet-name 
+        of the form "skins/bigfont/bigfont.css" when the file is in the application's project.
+        </li>
+        </ol>
+        If we still don't have an URL, we try to create the style-sheet-name URL using the ClassLoader's getResource.
+        This is how we find a file in a jar when you have something like style-sheet-name=	"META-INF/purpleSkin/styles/myPurpleSkin.css".
+        
+        </p>
+        </li>
+
+        <li>
+        <b>extends</b> - This is how you can extend another skin rather than the default simple skin. Say you like 
+        the purple skin but only want to change the font size. You'd extend the purple.desktop skin and 
+        change one selector in the css file to override the font size.
+        </li>
+        <li>
+        <b>bundle-name</b> - This is the package where the skin's resource bundle lives. Skinning text is not 
+        recommended because you'll need to get the text translated for all the languages.
+        <source><![CDATA[
+        <bundle-name>org.apache.myfaces.trinidaddemo.resource.SkinBundle
+        </bundle-name>]]>
+        </source>
+        </li>
+        <li>
+        <b>translation-source</b> - This is an EL binding that can point to a Map or a ResourceBundle. You can use this instead
+        of the bundle-name if you would like to be more dynamic in your skin translations at runtime. bundle-name takes precedence.
+        <source><![CDATA[
+        <translation-source>#{skinTranslationMap.contents}</translation-source>
+        ]]>
+        </source>
+        </li>        
+      </ul>
+      </P>
+        </subsection>
+        <subsection name="Create your skin's stylesheet">       
+      <P>
+In the previous step you created a trinidad-skins.xml which will create your skin.
+You also set the style-sheet-name to skins/bigfont/bigfont.css
+In your project directory, create the bigfont.css file to match the directory structure you specified in trinidad-skins.xml:
+<source>
+?- skins
+?--- bigfont
+?--?--- bigfont.css
+</source>
+</P>
+<P>
+We want to change the font to be bigger. Look in the skin-selectors.html doc for an appropriate selector to do this. 
+Look for :alias selectors because aliases are 'global' and used in more than one component selectors. 
+Thus alias selectors are a quick and easy way to change a style for your application rather than by each component selector.
+</P>
+<P>
+
+Here are the font alias selectors.
+</P>
+<P>
+
+.AFDefaultFontFamily:alias ? Specifies the default font family list ("font-family" property) for the skin.
+.AFDefaultFont:alias ? Specifies the default font for the skin. This style defines both the default font family (as specified by the AFDefaultFontFamily named style), the default font size, and default font weight.
+</P>
+<P>
+In bigfont.css, to change the font for your application, do this:
+</P>
+<source>
+.AFDefaultFontFamily:alias {font-family: Tahoma}
+.AFDefaultFont:alias {font-size: 16px}
+</source>
+Components that use font and font-family have included these aliases in their skin definitions, so if you change the aliases, everything that includes these aliases will change.
+       </subsection>
+       <subsection name="In trinidad-config.xml set the skin-family and optionally the skin-version">
+Open the trinidad-config.xml file that is in your WEB-INF directory.
+Set &lt;skin-family&gt;bigfont&lt;/skin-family&gt;
+This will set your skin to bigfont when you run your application. 
+You can EL-bind the skin-family as well to dynamically change the skin at runtime.
+If the skin has a particular version you want, you can also set the skin-version element to the name
+of the skin's version.
+<P>
+Remember, your page must have the &lt;tr:document&gt; tag on the page to kick off the skin framework.
+</P>
+<P>
+Now you have created your bigfont skin. You can run your page and you will see that the font size and 
+font family are now different than they were with the default simple.desktop skin.
+</P>
+       </subsection>
+      </section>
+      <a name="Skinning_a_component"></a>
+      <section name="Skinning a component - a step-by-step example">
+        <P>
+        In the previous sections we discussed creating a skin that changes the font of your application.
+        In this section, you'll learn how to skin an individual component. You'll need to read the
+        skin-selectors documentation, and use tools like Firebug to figure out what to do when you have problems.
+        The component we'll skin for this example is the panelBox component.
+       </P>
+       <P>
+        First, familiarize yourself with the component. Run it with styleclass compression disabled, and view it 
+        with Firefox so you can get a feel for its dom structure. Look at the skin-selectors documentation for 
+        the available public skinning keys. We recommend against using html elements in your skin selectors 
+        because the rendering could change. Sticking with public skinning keys will lessen the chance that 
+        your skin will have to change if the renderer changes.
+       </P>
+       <P>
+        From reading the documentation and viewing the panelBox component demo, you'll see that the 
+        panelBox has an attribute "background" that can be transparent, light, medium, dark. 
+        The panelBox's skin selectors are af|panelBox::transparent, af|panelBox::light, af|panelBox::medium,
+        af|panelBox::dark when the background=transparent, light, medium, dark respectively. 
+        These selectors render on the root dom element as the documentation states.
+       </P>
+       <P>
+        You want to change the panelBox from the simple skin look to the purple look:     
+         <br></br><img src="panelBoxPurpleSkin.png" alt="panelBox purple skin" /><br></br>
+        </P>
+        
+        
+Since you only want to change the medium panelBox, you need to use descendent selectors and have the parent selector be af|panelBox::medium.
+You can see that the body is pink, so in your skin's css file you add this:
+<source>
+af|panelBox::medium af|panelBox::body {
+  background-color: pink;
+}
+</source>
+And you'll see that you still need some padding, so you'll add padding:
+<source>
+af|panelBox::medium af|panelBox::body {
+  padding: 6px;
+  background-color: pink;
+}
+</source>
+Then you can view the panelBox with these changes.
+
+It is obvious what you want to do to the header. You want the text bold for all headers. And for the medium header you want the background to be aqua.
+<source>
+af|panelBox::medium af|panelBox::header {
+  background-color: Aqua;
+}
+
+
+/* for all panelBox headers, make the font bold */
+af|panelBox::header {
+  font-weight: bold;
+  padding: 2px;
+}
+</source>
+You can run the panelBox demo with your skin-family set to see the change. 
+If you have 'org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION' set to true, there is no need to restart the server to see
+css property changes .You can just refresh your page and the skinning framework will detect the skin has changed 
+and will regenerate it. To see skin property changes, you always have to restart the server.
+
+
+Now you have this:
+<br></br><img src="panelBoxStepOne.png" alt="panelBox skin step one" /><br></br>
+
+
+You see that the content part of the panelBox needs a different color background and a dashed border and maybe some padding.
+You add this to your css file:
+<source>
+af|panelBox::medium af|panelBox::content {
+  background-color: #E7E4EA;
+  border-color: purple;
+  border-style: dashed;
+  border-width:1px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+</source>
+And this gives you:
+<br></br><img src="panelBoxStepTwo.png" alt="panelBox skin step two" /><br></br>
+
+Now you need the borders around the sides of the panelBox and the curved top-left and top-right.
+
+You add this:
+<source>
+/* rounded corners on the top-start and top-end */
+af|panelBox::medium af|panelBox::top-start,
+af|panelBox::medium af|panelBox::top-end:rtl {
+  background-image: url(/skins/purple/images/panelBoxStart.gif);
+  width:8px; 
+  height:8px
+}
+
+af|panelBox::medium af|panelBox::top-end,
+af|panelBox::medium af|panelBox::top-start:rtl {
+  background-image: url(/skins/purple/images/panelBoxEnd.gif);
+  height: 8px;
+  width:  8px;
+}
+
+af|panelBox::medium af|panelBox::top {
+  background-color: purple;
+}
+
+/* make the bottom have a background color and some padding, no rounded corners */
+af|panelBox::medium  af|panelBox::bottom-start, 
+af|panelBox::medium af|panelBox::bottom-end,
+af|panelBox::medium af|panelBox::bottom {
+  background-color: purple;
+  padding-top: 8px;
+}
+
+af|panelBox::medium af|panelBox::start,
+af|panelBox::medium af|panelBox::end {
+  background-color: pink;
+}
+</source>
+And this gives you your final panelBox that you wanted.<br></br>
+         <img src="panelBoxPurpleSkin.png" alt="panelBox purple skin" /><br></br>
+
+
+Let's say for all panelBoxes other than medium, you want a background-color of yellow for the body. You can either do this:
+<source>
+af|panelBox::transparent af|panelBox::body,
+af|panelBox::light af|panelBox::body,
+af|panelBox::dark af|panelBox::body {
+ background-color: yellow; 
+}
+</source>
+or use an alias that is included in all the definitions above:
+<source>
+/* for all body, if doesn't have medium set, use yellow for the background-color */
+/* The af|panelBox::medium af|panelBox::body {} definition above will take precedence over this alias 
+so the medium panelBox's body will be pink, not yellow */
+.AFPanelBoxBody:alias {
+ background-color: yellow; 
+}
+</source>
+      </section>
+      <a name="SkinningKeys"></a>
+      <section name="Skinning Keys">
+        <P>
+        This section is to help you understand the different kinds of skinning keys: component-level
+        skinning keys, alias skinning keys, state skinning keys, skinning properties, and icon skinning keys.
+        Other names for a skinning 'key' is skinning 'selector' or skinning 'hook'.
+        This section will go over the skinning key syntax and their use. It is highly recommended that
+        you familiarize yourself with the W3c's CSS specification regarding selectors,
+        pseudo-elements and pseudo-classes. With this knowledge, skinning will be much easier.
+        </P>
+        <a name="Component-level_skinning_keys"></a>
+        <subsection name="Component-level skinning keys">
+          This section will explain the syntax of a component-level skinning key and the pseudo-elements.
+          
+          In css, if you want to style a P element, you do the following:<br></br>
+          <strong>P {color: red }</strong><br></br>
+          Similarly, if you want to style the af:inputText component using a skin selector, you would do this:<br></br>
+          <strong>af|inputText {color:red }</strong><br></br>
+          The pseudo-element syntax is used to style pieces of a component.
+          From the css spec, here is an example of how to skin the first line of a 'p' element:<br></br>
+          <strong>p::first-line { text-transform: uppercase }</strong><br></br>
+    
+          The Trinidad components also have pieces to them, like label, content, start-top, etc,
+          and they are skinned using the appropriate pseudo-element defined in the skin-selectors document.
+          Here is an example of some of the pseudo-element skin selectors for inputText.
+          <ul>
+            <li><strong>af|inputText {...}</strong> - the entire component. renders on the root dom element
+            </li>
+            <li><strong>af|inputText::label {}</strong> - the label
+            </li>
+            <li><strong>af|inputText::content {}</strong> - the content (input element)
+            </li>
+          </ul>
+          Note: If you are creating your own selectors you need to know that selector names that end
+          in '-icon' or 'Icon:alias' become Icon Objects. Name selectors that are 'style' selectors
+          something that does not end in 'icon', like 'icon-style'.
+        </subsection>
+        <a name="Alias_skinning_keys"></a>
+        <subsection name="Alias skinning keys">
+        <P>
+        Why do we need alias keys? Let's say you have a css-2 stylesheet for your page. 
+        You might define a bunch of style classes, and you might have font-style: Tahoma as your 
+        font-style of choice for all the style classes that are used for setting font.
+        You might see a stylesheet like this:
+        </P>
+        <source>
+    .AFInstructionText {font-family:Tahoma, Verdana, Helvetica, sans-serif;font-weight:normal;font-size:11px;color:#000000}
+    .AFInstructionTextDisabled {font-family:Tahoma, Verdana, Helvetica, sans-serif;font-weight:normal;font-size:11px;color:#999999}
+    .AFDataText {font-family:Tahoma, Verdana, Helvetica, sans-serif;font-size:11px;font-weight:bold;color:#000000}
+    .AFDataTextDisabled {font-family:Tahoma, Verdana, Helvetica, sans-serif;font-size:11px;font-weight:bold;color:#999999}
+      </source>
+      <P>
+      If you want to change the font-family to Arial for everything, 
+      then you need to do a replace of every use of Tahoma to Arial. 
+      Well, in skinning you don't need to do this. You can use the :alias feature.
+      </P>
+      <P>
+      A skin selector that ends in :alias is one that never gets written out to the generated CSS-2
+      stylesheet. Instead it is included in other skin selectors and is useful in that you can change
+      css properties in one place, not in tens or maybe hundreds of places. The base skin that you will
+      extend has alias selectors that it includes in other skin selectors. One example is the .AFDarkBackgroundColor:alias.
+      It defines a 'dark' background color, like blue. Then all the component selectors that use
+      a blue background color include (with -tr-rule-ref: selector(".AFDarkBackgroundColor:alias");)
+      this alias instead of 'color: blue'. Then a person skinning 
+      their application can change '.AFDarkBackgroundColor:alias' to another color and everywhere it is
+      included  will get changed.
+      
+      The alias feature is only useful to skinners if the component developers use the aliases 
+      instead of hardcoding things like colors and fonts.
+      </P>
+      <P>
+      Looking at the example above, to change the font-family:Tahoma to Arial you would have to change
+      every style class that uses font-family. 
+      If, however, the base skin was defined to use the .AFDefaultFont:alias in these
+      styles, you would only have to skin the .AFDefaultFont:alias in your skin.
+      </P>
+      <P>
+        Here's another example. The form components style their label the same.
+        Let's say they all set the color to blue:
+        <source>
+        af|inputText::label,
+        af|inputChoice::label,
+        af|selectOneChoice::label, etc. {color:blue}
+        </source>
+    
+      An alias key has been created for .AFLabel:alias that is included in all the above keys. 
+        <source>
+        af|inputText::label,
+        af|inputChoice::label,
+        af|selectOneChoice::label, etc. {-tr-rule-ref: ".AFLabel:alias"}
+        .AFLabel:alias { color: blue }
+        </source>      
+      This way if you want all the labels the same, 
+      you can change the style properties for the .AFLabel:alias style only. 
+        <source>
+          In your CSS file you can change the color of all the labels like this:
+          
+          .AFLabel:alias {color: red}
+        </source>
+      </P>
+  </subsection>
+        <a name="State_skinning_keys"></a>
+        <subsection name="State skinning keys">
+        In CSS there are pseudo-classes, like :hover, :active, :focus. We consider these 'states' of the
+        component. We use this same concept in skinning components. Components can have state, like
+        read-only or disabled. We use the pseudo-class syntax to denote state in skinning selectors.
+
+        For example, you can style the label when the component is disabled by writing this selector:
+        <source>
+        af|inputText:disabled::label {color:gray}
+        
+        This generates:
+        .af_inputText.p_AFDisabled .af_inputText::label {color:gray}
+        
+        It works on this html:
+        <![CDATA[
+        <span class="af_inputText p_AFDisabled"><span class="af_inputText_label>Label</span></span>
+         ]]>
+        </source>
+        </subsection>
+        <a name="Skinning_properties"></a>
+        <subsection name="Skinning properties">
+          Skinning properties are skin css properties that are essentially a key that will be
+          stored in the Skin object with the value. The renderer uses the skin property when it is rendering.
+          The skin properties are documented in skin-selectors documentation. They are available
+          for the skin to use as a way to customize the rendering of a component application-wide,
+          not per-instance. per-instance customizations are component attributes.
+          
+          <P>
+          An example of a skin property is -tr-show-last-item for the navigationPath component. In
+          your skin's css file you can specify whether you want the last item to be shown or not.
+          <source>
+          /* For all instances of the navigationPath in the application, do not show the last item */
+          af|navigationPath {-tr-show-last-item: false}
+          </source>
+          </P>
+        </subsection>
+        <a name="Icon_skinning_keys"></a>
+        <subsection name="Icon skinning keys">
+            <P>
+              Some components render icons (&lt;img&gt; tags) within them. For instance the inputDate
+              has a launch icon. Chances are you will want to skin the icons. Even though these icons
+              are not rendered with CSS, like background-image, they are still skinnable in the Skin CSS file. 
+            </P>
+            <P>
+            All icon skin keys end with '-icon' or 'Icon:alias'. icons do not get generated to the CSS-2
+            stylesheet. Instead they get registered with the Skin object and the renderer uses the 
+            icon when it is rendering, e.g., Icon obj = skin.getIcon("af|foo::date-icon"); 
+            It will use your skinned icon if you have skinned it. Otherwise,
+            it will use the base skin's icon. Note that CSS-syntax like pseudo-classes (:hover, etc)
+            and descendent selectors and composite class selectors do not work with 
+            icon selectors. <b>Remember, if you create your own skin selectors, do not end with the name with
+            -icon or 'Icon:alias' if it is for a css style; it will get created as an Icon object.</b>
+            </P> 
+            <source>
+              af|inputDate::launch-icon {
+                content:url(/skins/purple/images/dateButtonPurple.gif);
+                width:19px;
+                height:24px
+              }
+              af|inputDate::launch-icon:rtl {
+                content:url(/skins/purple/images/dateButtonPurpleRTL.gif);
+                width:19px;
+                height:24px
+              }
+              /* You can use a 'text' icon instead of an image icon if bandwidth is a concern, for example */
+              af|foo::help-icon {
+                content: '?';
+              }            
+            </source>
+              <P>Until recently there were limitations with skinning icons that -tr-rule-ref and -tr-inhibit were not supported. 
+              Further, the skin properties were not inherited from base skin for icon selectors. 
+              We fixed these limitations to make the icon selector behavior consistent with general skinning style selectors. 
+              Now that we inherit the skin properties for icons, if there were 'content' and other properties like 'width' and 'height' set, 
+              and you override just the 'content' property in your custom skin, you would inherit the 'width' and 'height' 
+              from the base skin. While this is a change in behavior, it is a change in right direction. 
+              If this behavior is not desirable, skinners can use -tr-inhibit to inhibit some properties or 
+              'tr-inhibit: all' to inhibit all properties before overriding the 'content' property.
+              </P> 
+        </subsection>
+        <a name="urls"></a>
+        <subsection name="Specifying urls">
+            <P>
+              Trinidad's skinning engine supports five URL types: absolute, relative, context relative,
+              server relative and base64 encoded images.
+              <ul>
+                <li><b>Absolute URLs</b> specify the complete URL to the resource, including the protocol (e.g. http://).</li>
+                <li><b>Relative URLS</b> are used if the specified url does not start with a slash ("/") 
+                and if there's no protocol present. A relative URL is based on the skin's CSS file location. 
+                For instance, if the skin CSS file is located in MyWebApp/skins/mySkin/ and the specified url is 
+                skinImages/myImage.gif, then the final URL will be 
+                /MyWebApp/skins/mySkin/skinImages/myImage.gif.</li>
+                <li><b>Context relative URLS</b> are resolved relative to the context root of the 
+                web application. To use them, you simply have to make it start with a single slash ("/"). 
+                For instance, if the context root is /MyWebApp and the specified URL is 
+                /images/myImage.jpeg, the resulting URL will be /MyWebApp/images/myImage.jpeg.</li>
+                <li><b>Server relative URLS</b> are resolved relative to the web server as opposed 
+                to the context root. This allows you to easily refer to resources located on another 
+                application on the same server. To use this type of URL, the specified URL must 
+                start with two slashes ("//").</li>
+                <li><b>base64 encoded image URLS</b> are images embedded directly into the CSS file. This should follow
+                  the "data" URL scheme specified in rfc2397 i.e. data:image/[imagetype];base64,[data]</li>
+              </ul>
+            </P>
+            <P><b>Equivalence</b> Most of the times, you can write equivalent URLs in any of the 
+            four forms. For example, if your web application is located at http:www.mycompany.com/MyWebApp/ 
+            and your CSS is located in /skins/mySkin/ folder, the following 4 entries are equivalent:
+                <ul>
+                    <li><b>Absolute</b> url(http://www.mycompany.com/MyWebApp/skins/mySkin/skin_images/ObjectIconError.gif);</li>
+                    <li><b>Relative</b> url(skin_images/ObjectIconError.gif);</li>
+                    <li><b>Context relative</b> url(/skins/mySkin/skin_images/ObjectIconError.gif);</li>
+                    <li><b>Server relative</b> url(//MyWebApp/skins/mySkin/skin_images/ObjectIconError.gif);</li>
+                </ul>
+            </P>
+            <P>Why are there so many choices for the url? The four ways to specify an URL exist to 
+            offer maximum flexibility to our users.
+            </P>
+        </subsection>
+
+      </section>
+
+      <a name="Skinning_Text"></a>
+      <section name="Skinning Text">
+        <P>Text our components render is translatable. The text is abstracted out as resource bundle keys. With skinning
+        you can override resource bundle key values. These key values should be documented in skin-selectors.xml,
+        but if they are not (they are not currently for the Trinidad components), 
+        then you'll have to look at the CoreBundle.xrts/.java source file for the keys. The resource bundle key/values
+        are not skinned in the skin's css file. Instead they are skinned in a Map or ResourceBundle and you point
+        to that from your skin definition in trinidad-skins.xml.
+        </P>
+        <P>Let's go through an example. Let's say you want to skin the ShowDetail disclosed tip.
+        Let's say the 'key' is af_showDetail.DISCLOSED_TIP. You would:
+        <ul>
+        <li> Create a ResourceBundle file(s) that sets your new value for this key and any other
+        keys you want to change the value for, one file per language.</li>
+        <li> Set bundle-name in the trinidad-skins.xml file for your custom skin.</li>
+        <li> Package your skin and resource bundle classes together in the jar.</li>
+        </ul>
+        </P>
+
+    <source><![CDATA[    
+      public class SkinBundle extends ListResourceBundle
+      {
+        @Override
+        public Object[][] getContents()
+        {
+          return _CONTENTS;
+        }
+      
+        static private final Object[][] _CONTENTS =
+        {
+          {"af_tableSelectMany.SELECT_COLUMN_HEADER", "Select A Lot"},
+          {"af_tableSelectOne.SELECT_COLUMN_HEADER", "Select Just One"},
+          {"af_showDetail.DISCLOSED_TIP", "Click to Hide"}
+        };
+      }]]></source>
+        <source><![CDATA[
+     <skin>
+        <id>
+            purple.desktop
+        </id>
+        <family>
+            purple
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleSkin.css
+        </style-sheet-name>
+        <bundle-name>
+            org.apache.myfaces.trinidaddemo.resource.SkinBundle
+        </bundle-name>
+    </skin>]]></source>
+        <source><![CDATA[  
+        The directory structure of your skin jar would look like:
+        META-INF
+        META-INF/trinidad-skins.xml
+        META-INF/org/apache/myfaces/trinidaddemo/resource/SkinBundle.class & SkinBundle_fr.class
+        ]]></source>
+        <P>Then when the renderer renders the text, it will look in your resource bundle first for the key's value.   
+        It is highly recommended if you do skin text that you provide all the translated bundles
+        for the key you are skinning. Therefore you will have many other files, like SkinBundle_fr, etc.,
+        for each language.</P>
+        <P>Another option for skinning text is to use the translation-source parameter instead 
+        of bundle-name. translation-source is an EL binding that points to a Map or a ResourceBundle.
+        The benefit of this option is that you can automatically change the translation value based on
+        any logic that you want at runtime. bundle-name takes precedence if both are set.
+        <source><![CDATA[  
+public class SkinTranslationMapDemo
+{
+  /* Test a skin's translation-source EL pointing to a Map */
+  public Map<String, String> getContents()
+  {
+    return _CONTENTS;
+  }
+
+  static private final Map<String, String> _CONTENTS = new HashMap<String, String>();
+  static 
+  {
+    _CONTENTS.put("af_inputDate.LAUNCH_PICKER_TIP", "Launch PickerMap");
+    _CONTENTS.put("af_showDetail.DISCLOSED_TIP", "Hide Tip Map");
+    _CONTENTS.put("af_showDetail.DISCLOSED", "Hide Map");
+
+  }
+}]]></source>
+       <source><![CDATA[
+      <skin>
+        <id>
+            purple.desktop
+        </id>
+        <family>
+            purple
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleSkin.css
+        </style-sheet-name>
+        <translation-source>#{skinTranslationMap.resourceBundle}</translation-source>
+    </skin>]]></source>
+        </P>
+      </section>
+
+      <a name="Skinning_CSS_features"></a>
+      <section name="Skinning CSS features">
+        
+        <a name="tr-rules"></a>
+        <subsection name="Re-using selectors and properties via -tr-rules">
+          <P>
+          You can do things in a skin css file beyond what you can do in a regular css file.
+          At runtime the skin framework processes the skin's css file and the
+          skin framework pulls out skinning properties and icons and registers them with the Skin object.
+          The skinning framework merges styles together that use the -tr-rule-ref property.
+          The skinning framework picks the styles based on the HTTP request information, like agent
+          and platform and merges them with the non-specific styles.
+          This section will go into more detail on these features and how you can use them in your
+          skinning css file.
+          </P>
+          <P>
+          <ul>
+          <li>
+          Skin properties e.g., af|breadcrumbs{<strong>-tr-show-last-item:false</strong>}.
+          Skin properties for a component are documented in the skin-selectors documentation. Skin
+          properties are useful if you want to control the rendering of a component that css alone
+          cannot do, like displaying the last item or not (well, css might be able to do that).
+          The writer of the renderer may choose to expose skin properties to enable the application
+          developer to have more control over the way the component renders without having to
+          write their own renderer. Another example is af|train {-tr-visible-stop-count: 10}. This
+          allows you to change the number of visible train stops.
+          </li>
+          <li>
+          <strong>-tr-inhibit</strong> - > e.g., af|foo {-tr-inhibit: padding; color: red}
+          This css property is used to inhibit/reset css properties that you are inheriting from a base skin.
+          "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: <i>property-name</i>" will inhibit the
+          property name; "-tr-inhibit: padding", for example, will clear out any padding
+          that you have inherited. You need to make sure your <i>property-name</i> matches that in the base skin. If the
+          base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
+          to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
+          and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
+          to match exactly to what you are inhibiting. -tr-inhibit works for style selectors, icons
+          (selectors that end with -icon) and skinning properties.
+          <source>
+            <![CDATA[
+
+            Skin A:
+              af|breadCrumbs { -tr-show-last-item: false; }
+
+            Skin B extends Skin A:
+              af|breadCrumbs { -tr-inhibit: -tr-show-last-item;}
+
+            Skin A does not show the last breadcrumb. Skin B does show the last breadcrumb.
+
+            --
+            Skin A
+              .SomeStyleClass {
+                  color: red;
+                  font-size: 11px;
+              }
+            Skin B
+              .SomeStyleClass {
+                  -tr-inhibit: color;
+              }
+
+            Skin A has color: red, but Skin B has no color, since it has been inhibited.
+
+            --
+            Skin A
+            .SomeStyleClass {
+              color: red;
+              font-size: 11px;
+              -tr-inhibit: color;
+            }
+
+            This definition makes no sense. If your intent is to remove the color attribute,
+            then you should simple say:
+            .SomeStyleClass {font-size: 11px}
+            You shouldn't be setting a property, then inhibiting it in the same definition, or even the same skin.
+            Inhibits happen first in the same rule, then the specific styles, so if you inhibit a property, and also
+            define a property in the same rule, it won't be inhibited.
+            However, if you define .SomeStyleClass {-tr-inhibit: color;} later in Skin A, it will be inhibited.
+            Again, do not inhibit within the same skin. It takes more programming cycles to do the merge, and your css
+            isn't as clean.
+            ]]>
+          </source>
+          </li>
+          <li>
+          <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
+          section. Application developers probably won't use this. This is meant for component developers to use when
+          they are setting up the base skin for their components.
+          Here are some examples of how you can use -tr-rule-ref and what the generated css would be.
+          <source>
+            <![CDATA[
+            Example 1:
+
+            Skin A
+
+                .AFSomeAlias:alias {color: red}
+                .foo {-tr-rule-ref: selector(".AFSomeAlias:alias")}
+
+            Skin B extends Skin A
+
+                .AFSomeAlias:alias {color: blue}
+
+            Result
+
+            If you run Skin A, you will see in your CSS
+                .foo {color: red}
+
+            In you run Skin B, you will see in your CSS
+                .foo {color: blue}
+            because the alias that .foo includes (.AFSomeAlias:alias) in Skin A has
+            overwritten its color property in Skin B to blue.
+
+            ---
+            Example 2:
+
+            Skin A
+
+                .myClass {color: orange}
+
+            Skin B extends Skin A
+
+                .MyBlueColor:alias {color: blue}
+                .myClass {color: pink; -tr-rule-ref: selector(".MyBlueColor:alias")}
+
+            If you run Skin A, you will see in your CSS
+                .myClass {color: orange}
+
+            In you run Skin B, you will see in your CSS
+                .myClass {color: pink}
+
+            In Skin B's definition for .myClass, all 'includes' (like -tr-rule-ref) get merged in first,
+            then specific property definitions (like color in this case) get merged in last for the rule.
+            Therefore, color: pink overwrites -tr-rule-ref: selector(".MyBlueColor:alias");
+            However, if you define .myClass {-tr-rule-ref: selector(".MyBlueColor:alias")} later in Skin B, it will be blue.
+
+            If you are unsure of what includes or inhibits resolve to, you can run your own skinning test like
+            above, and look at the generated css file.
+            ]]>
+          </source>
+          </li>
+          <li>
+          <strong>-tr-property-ref</strong> - > This is used to include properties from one style into another.
+          The syntax of -tr-property-ref is: background-color: -tr-property-ref("af|foo","color"), where the first
+          parameter is the style from which the property is included and the second one is the name of the included property
+          in that style.
+          There can be more than one occurrence of -tr-property-ref in a property value, for example:
+          background: -webkit-linear-gradient(top, -tr-property-ref("af|foo","color") 0%, -tr-property-ref("af|bar","color") 100%);
+          When the property included has the same name as in the including selector, the following syntax
+          can also be used: background-color: -tr-property-ref("af|foo") instead of: background-color: -tr-property-ref("af|foo",
+          "background-color"). This is useful when only some properties from another style are needed to be included.
+          In this case, we won't need to include the entire style via a -tr-rule-ref rule, but only the needed property.
+          </li>
+          <li>
+          <strong>+/-</strong> - > This feature of the skinning framework allows you to set
+          a selector's color or font that is relative to another selector's color or font.
+          This is useful if you have color ramps. You can change the color in one place. An example
+          for the color is:
+          <source>
+          <![CDATA[
+          .BaseBG:alias { background-color: #0099ff; }
+          .fooColorTest {
+             -tr-rule-ref: selector(".BaseBG:alias");
+             background-color: +#333333;}
+          .fooColorTestMinus {
+            -tr-rule-ref: selector(".BaseBG:alias");
+            background-color: -#333333;
+          }
+
+    this resolves to
+
+          .fooColorTest {background-color:#33ccff}
+          .fooColorTestMinus {background-color:#0066cc}
+          ]]>
+          </source>
+          The same thing works for fonts.
+          <source>
+            <![CDATA[
+              .FontSizeTest:alias {font-size: 12pt;}
+
+              .fooFontTest {
+                -tr-rule-ref: selector(".FontSizeTest:alias");
+                font-size:+1pt;
+              }
+            ]]>
+          </source>
+          </li>
+          </ul>
+          </P>
+        </subsection>
+
+        <a name="server-side-at-rules"></a>
+        <subsection name="Server side at-rules">
+        <P>
+        You might not want your selector's css properties to be applied to all browsers, all platforms, 
+        all locales, and both reading-directions. For example, you
+        might have to tweak some padding in IE that you don't need on any other browser. 
+        You might want the font-style to be different on Windows than it is on other platforms.
+
+        To style a selector for a particular user environment, you put that skinning information 
+        inside a skinning framework @rule or ':rtl' pseudo-class.
+        The skinning framework picks the styles based on the HTTP request information, like agent
+        and platform and merges them with the styles without rules.       
+        These css properties that match the 'rules' get merged with those outside of any 'rules'; 
+        the most specific rules that match a user's environment take precedence.
+        These rules are resolved at server side and matching selectors are rendered for the
+        user agent.
+        (See an example in the css code below.)
+
+        The skinning framework currently supports these server side 'rules':
+        </P>
+        <ul>
+        <li>
+        <strong>@import</strong>
+        Use @import to import style rules from other skinning css files. The URL of the file you
+        are importing is relative to the skin file you are importing into. The following syntax
+        is supported:
+        @import "purpleBigFont.css";
+        @import url("purpleBigFont.css");
+        @import url(purpleBigFont.css);
+        </li>
+        <li>
+        <strong>@platform</strong> {/skin definitions go here/} - > 
+        Possible values are:
+          <ul>
+            <li>windows</li>
+            <li>macos</li>
+            <li>linux</li>
+            <li>solaris</li>
+            <li>ppc</li>
+            <li>iphone</li>
+            <li>blackberry</li>
+            <li>nokia_s60</li>
+            <li>genericpda</li>
+            <li>android</li>
+            <li>unix</li>
+          </ul>
+        This is to define styles only for a particular platform.
+        </li>
+        <li>
+        <strong>@agent</strong> {/skin definitions go here/} - > 
+        Possible values are:
+        <ul>
+          <li>netscape (for Netscape Navigator browser)</li>
+          <li>ie (for the Microsoft Internet Explorer browser)</li>
+          <li>gecko or mozilla (for browsers based on the Gecko Layout Engine, eg: Mozilla, Netscape 7.0+)</li>
+          <li>elaine (Palm Web clipping)</li>
+          <li>ice or icebrowser (for the ICE Browser)</li>
+          <li>pixo (for the Pixo Microbrowser)</li>
+          <li>wml (for the WML Microbrowser)</li>
+          <li>simple-result (for SimpleResult intermediate Form)</li>
+          <li>ptg (for iAS wireless (PTG) client)</li>
+          <li>netfront (for the NetFront browser)</li>
+          <li>webkit (for the Safari browser)</li>
+          <li>blackberry (for the BlackBerry browser)</li>
+          <li>nokia_s60 (for the Nokia S60 browser)</li>
+          <li>genericpda (for the basic HTMLbrowser)</li>
+          <li>konqueror (for Konqueror)</li>
+          <li>email (for email)</li>
+          <li>opera (for opera browser)</li>
+          <li>googlebot (for Google web crawler)</li>
+          <li>msnbot (for Bing web crawler)</li>
+          <li>oracle_ses (for Oracle SES)</li>
+          <li>genericDesktop (for generic desktop)</li>
+        </ul>
+        This is to define styles only for a particular agent.
+        <source>
+        @agent ie
+        </source>
+        Matches any version of Internet Explorer
+        <P>
+        Agent type may  be optionally followed by "and" separated version rules:
+        <source>
+        @agent ie and (version: 6)
+        </source>
+        Matches any 6.x version of Internet Explorer
+        </P>
+        <P>
+        Rules may be OR'ed together using comma-separated rules:
+        <source>
+        @agent ie and (version: 6), ie and (version: 7), gecko and (version: 1.9)
+        </source>        
+        Matches either Internet Explorer version 6.x or Internet Explorer version 7.x or Gecko
+        engine version 1.9 (in FireFox for example).
+        
+	These are the same:
+	<source>
+	@agent ie and (version: 6.*)
+	@agent ie and (version: 6)
+	</source>
+	So to match only 6.0.x use:
+	<source>
+	@agent ie and (version: 6.0)
+	</source>
+	Similarly, you can use max-version and min-version to specify ranges of versions.  The rule:
+        <source>
+        @agent ie and (version: 6), ie and (version: 7), gecko and (version: 1.9)
+        </source>        
+        can be written as:
+        <source>
+        @agent ie and (min-version: 6) and (max-version: 7), gecko and (version: 1.9)
+        </source>
+        You can use touchScreen to specify styles/selectors for touch screen devices. Agent captures a capability named "touchScreen" which is set to none, single or multiple.
+        <source>
+        @agent (touchScreen:none)
+        @agent (touchScreen:single)
+        @agent (touchScreen:multiple)
+        </source>
+        Matches the corresponding touchScreen agent capability.
+        A short cut provided to specify any touchScreen device is:
+        <source>
+        @agent (touchScreen)
+        </source>
+        Matches all agents with touchScreen capability set to single or multiple.
+        You may notice that we have not specified agent name for the touchScreen examples till now. Agent name is made optional for touchScreen rules.
+        <source>
+        @agent webkit and (touchScreen)
+        </source>
+        Matches webkit run on all touch devices (single or multiple touch).
+        touchScreen can be specified with multiple ANDs and ORs as well.
+        <source>
+        @agent webkit and (version: 9) and (touchScreen:single)
+        </source>
+        Matches single touch device running version 9 of webkit.
+        <source>
+        @agent ie and (version: 9), webkit and (touchScreen:multiple)
+        </source>
+        Matches either version 9 of Internet Explorer or agent with multiple touch capability.
+        </P>
+        </li>        
+        <li>
+        <strong>@accessibility-profile</strong> {/skin definitions go here/} - > 
+        Possible values are: high-contrast, large-fonts. 
+        This is to define styles only for a particular accessibility profile.  See the <a href="configuration.html#accessibility-profile">Configuring Apache Trinidad</a> chapter for information on setting the accessibility profile.
+        </li>
+        <li>
+        <strong>@locale</strong> {/skin definitions go here/} - >
+        A certain locale must be specified, either only the language or both the language and the country.
+        This is to define styles only for a particular language and country.
+        </li>
+        <li>
+        <strong>@mode</strong> {/skin definitions go here/} - >
+        Possible values are quirks or standards. This is to define styles particular only for browser quirks or standard mode.
+        </li>
+        </ul>
+          
+        <source>
+/** for ie and gecko on windows, linux and solaris, make the color pink **/
+@platform windows, linux, solaris
+{
+  @agent ie, gecko
+  {
+    af|inputText::content {background-color:pink}
+  }
+}
+
+af|someComponent {color: red; width: 10px; padding: 4px}
+
+/* for ie, we need to increase the width, so we override the width.
+We still want the color and padding; this gets merged in. We want to add height in IE.  */
+@agent ie
+{
+  af|someComponent {width: 25px; height: 10px}
+}
+
+/* for ie 5 and 6, we also need some margins.*/
+@agent ie and (version: 5), ie and (version: 6)
+{
+  af|someComponent {margin: 5px;}
+}
+
+/* for Firefox 3 (gecko 1.9) use a smaller margin.*/
+@agent gecko and (version: 1.9)
+{
+  af|someComponent {margin: 4px;}
+}
+
+@locale en, de {
+   af|commandButton {
+      color: red;
+   }
+ }
+ @locale ro-RO {
+   af|commandButton {
+     color: blue;
+   }
+ }
+
+/* The following selectors are for all platforms and all browsers */
+
+/* don't use the base skin's background-image */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
+  -tr-inhibit: background-image;
+}
+
+/* this should end up with  .portlet-form-input-field {padding: 8px} */
+.portlet-form-input-field {
+/* This should first inhibit all inherited styles. Then everything else
+   should be included.*/
+  -tr-inhibit: all;
+  padding: 8px;
+  /* This should inhibit the background-color that is inherited and/or included,
+  like in .AFLightAccentBackground:alias
+  The order of this does not matter. */
+  -tr-inhibit: background-color;
+  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
+}
+        
+        </source>
+       </subsection>
+
+        <a name="client-side-at-rules"></a>
+        <subsection name="Client side at-rules">
+          <P>
+          If you want to use rules that are supported out of the box by CSS like @document, @media etc, you can
+          specify those rules in the skin file and expect them to be rendered directly into the browser. These rules
+          will be evaluated by the browser and styles will get applied if the browser passes the conditions
+          mentioned in the rules.
+
+          The skinning framework currently supports these client side 'rules':
+          </P>
+
+          <ul>
+            <li>@document</li>
+            <li>@font-face</li>
+            <li>@keyframes</li>
+            <li>@media</li>
+            <li>@page</li>
+            <li>@supports</li>
+          </ul>
+
+          <P>
+          If you use any rule which is not listed in either server side at-rules or client side at-rules, it will be
+          rendered as client side rule similar to @media or @document.
+          </P>
+          <p>
+          <b>Notes:</b>
+            <ul>
+              <li>Styles inside client side at-rules cannot be used with tr-rules. This is
+                because, in server side, we do not know if the referred style will be rendered.
+                On the contrary, tr-rules can be used inside client side at-rules to refer styles
+                or properties define outside client rules.</li>
+              <li>Aliases cannot be specified inside client rules. Aliases are evaluated at the
+                server side, and thus we cannot pick aliases based on client rules.</li>
+            </ul>
+          Some example usages:
+          </p>
+          <source>
+
+af|document {
+  background-color: white;
+  background-image: url('/skins/custom-base/top-band.png'), url('/skins/custom-base/texture.png');
+  background-repeat: repeat-x, repeat;
+  background-position: top left, top left;
+  background-size: 10px 61px, 6px 6px;
+}
+
+/* specify different background-image for min-device-pixel-ratio = 2 */
+@media only screen and (min-device-pixel-ratio: 2) {
+  af|document {
+    background-image: url('/skins/custom-base/top-band@2x.png'), url('/skins/custom-base/texture@2x.png');
+  }
+}
+
+/* specify different background-image for min-resolution: 2dppx*/
+@media only screen and (min-resolution: 2dppx) {
+  af|document {
+    background-image: url('/skins/custom-base/top-band@2x.png'), url('/skins/custom-base/texture@2x.png');
+  }
+}
+
+.Some:alias {
+  color: red;
+  background-color: green;
+}
+
+@media only screen {
+  af|mystyle {
+    -tr-rule-ref: selector(".Some:alias");
+  }
+  af|mystyle2 {
+    background-color: -tr-property-ref(".Some:alias","color");
+  }
+}
+          </source>
+          <p>
+          Client side at-rules can be nested in server side at-rules and vice versa. One slight deviation is for @page
+          and @font-face rules. These can be wrapped in a server side at-rule, but cannot contain a inner server side
+          at-rule because these rules directly contain CSS properties unlike other client side at-rules which contains
+          complete styles.
+          </p>
+          <source>
+@agent gecko {
+  @page:first {
+    margin:2in;
+  }
+}
+
+@keyframes mymove {
+  @agent gecko {
+    0% { top: 0; left: 0; }
+    30% { top: 50px; }
+    68%, 72% { left: 50px; }
+    100% { top: 100px; left: 100%; }
+  }
+
+  @agent ie {
+    0% { top: 1; left: 1; }
+    30% { top: 100px; }
+    100% { top: 200px; left: 100%; }
+  }
+}
+          </source>
+        </subsection>
+        <a name="server-side-pseudo-classes"></a>
+        <subsection name="Server side pseudo classes">
+          <P>
+            Generally, pseudo classes are executed at the client side. CSS supports pseudo
+            classes such as ":hover", ":focus" etc and these pseudo classes are rendered as is
+            into the CSS generated by skinning framework and gets applied by the browser
+            automatically.
+          </P>
+          <P>
+            There are some special pseudo classes supported by skinning framework, which are
+            evaluated at the server side. These pseudo classes are not rendered into the
+            generated CSS, but the decision to render the selector is taken at the server side
+            base on the user agent or application configuration.
+          </P>
+          <ul>
+            <li>
+              <strong>:ltr</strong> - >  pseudo-class to create a style or icon definition when
+              the browser is in a left-to-right language.
+            </li>
+            <li>
+              <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when
+              the browser is in a right-to-left language. The best example is that of images that
+              are not symmetric. If you set a skin selector that uses a asymmetrical image, when
+              you set your browser to the right-to-left reading direction, then you want your
+              image to be flipped. To do this, you use the :rtl pseudo-class at the end of your
+              selector and point it to a flipped-looking image.
+              <source>
+/* rounded corners on the top-start and top-end */
+/* shows how to use :rtl mode pseudo-class. The start image in ltr mode is the same as the
+end image in the right-to-left mode */
+af|panelBox::medium af|panelBox::top-start,
+af|panelBox::medium af|panelBox::top-end:rtl {
+  background-image: url(/skins/purple/images/panelBoxStart.gif);
+  width:8px;
+  height:8px
+}
+
+af|panelBox::medium af|panelBox::top-end,
+af|panelBox::medium af|panelBox::top-start:rtl {
+  background-image: url(/skins/purple/images/panelBoxEnd.gif);
+  height: 8px;
+  width:  8px;
+}
+              </source>
+            </li>
+            <li>
+              :lang - >  Not yet implemented in Trinidad.
+            </li>
+          </ul>
+          <P>
+            <strong>Note about "rtl" and "lrt" pseudo classes</strong>: A selector which does not
+            use "lrt" or "rtl" pseudo class is applicable to <strong>both</strong>. A selector
+            with "lrt" or "rtl" pseudo class will override one without it. "lrt" or "rtl" pseudo
+            class selectors are used to define selectors specific to the direction.
+          </P>
+        </subsection>
+      </section>
+      <a name="Package_Skin_In_JAR"></a>
+      <section name="Package your Skin in a JAR file">
+      <P>
+      If you want another application to be able to use your skin, you can package it up into 
+      a JAR file, and include the JAR on the application's classpath. The Skinning Framework
+      finds all META-INF/trinidad-skins.xml files on the classpath.
+      </P><P>
+      To package up your skin into a JAR file, you need this directory structure:
+      <ul>
+      <li>META-INF/trinidad-skins.xml</li>
+      <li>META-INF/skins/yourSkin.css</li>
+      <li>META-INF/adf/yourImages</li>
+      </ul>
+      </P>
+      <P>
+      The trinidad-skins.xml file needs to be in META-INF for the Skinning Framework to find it.
+      The .css file needs to be somewhere within the META-INF directory; it doesn't have to be in a /skins directory.
+      The images need to be in a META-INF/adf directory in order to kick in the resource servlet that will in turn
+      serve up the images to the browser.
+      </P>
+      <P>
+      Here's an example:
+      <ul>
+      <li>META-INF/trinidad-skins.xml</li>
+      <li>META-INF/skins/purpleSkin.css</li>
+      <li>META-INF/adf/images/*.png</li>
+      </ul>
+      </P>
+      <P>
+      In trinidad-skins.xml, you reference the css file like this:
+      <source>
+      <![CDATA[
+      <style-sheet-name>
+        skins/purpleSkin.css
+      </style-sheet-name> 
+      ]]>
+      </source>
+      </P>
+      <P>
+      In purpleSkin.css, you reference your images relative to the skin css file like this:
+      <source>
+      background-image: url(../adf/images/progressbar_empty.png)
+      </source>
+      or you can make it relative to the servlet context like this:
+      <source>
+      background-image: url(/adf/images/progressbar_empty.png)
+      </source>
+      In the generated css file, you should see the /adf immediately after the context root for
+      the servlet resource to kick in.
+      <source>
+      background-image:url(/trinidad-demo-context-root/adf/images/progressbar_empty.png);
+      </source>
+      </P>
+      <P>
+        In Trinidad the web.xml file has a servlet mapping to the resources servlet to serve up the images from the css file to the browser. 
+        The url-pattern is /adf/*, which is why you need to have your images in a META-INF/adf directory. 
+        Alternatively, you can put your images in a directory that does not have 'adf', but you will
+	need to write your own ResourceServlet and add the mapping to web.xml.
+	<source>
+	<![CDATA[
+	<servlet-mapping>
+	<servlet-name>resources</servlet-name>
+	<url-pattern>/adf/*</url-pattern>
+	</servlet-mapping>
+	]]>
+	</source>
+
+      </P>
+      
+      </section>
+      <a name="Tips_and_Tricks"></a>
+      <section name="Tips and Tricks">
+        <P></P>
+        
+        <subsection name="View uncompressed styleclass names">
+
+      When you run a page and view the html source, you will see styleclasses like class="x10". 
+      To see instead something more meaningful like class="af_inputText_content" you need to 
+      disable the styleclass compression which is enabled by default for performance reasons. 
+      To disabled the compression, you need to add this to the web.xml file:
+        <source>
+                  <![CDATA[
+        <context-param>
+         <param-name>org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION</param-name>
+         <param-value>true</param-value>
+        </context-param>
+                    ]]>
+        </source>
+        Note: Trinidad releases prior to 1.0.3/1.2.4 used an 'internal' key, 
+        org.apache.myfaces.trinidadimpl.DISABLE_CONTENT_COMPRESSION
+        </subsection>
+        <subsection name="See your skin changes with refresh of browser">
+      When you change your skin css file, you will need to stop/restart the server to see your
+      changes unless you set the check file modification flag in your web.xml file. If that flag
+      is set, then you can refresh your browser to see your css changes, though currently
+      you will not see your server-side changes which are 'icon' and 'server-side skin properties'.
+      Remember to set this back to false when you are done for performance sake.
+        <source>
+                  <![CDATA[
+        <context-param>
+         <param-name>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION</param-name>
+         <param-value>true</param-value>
+        </context-param>
+                    ]]>
+        </source>
+        </subsection>
+        <subsection name="Firebug">
+        <P>
+          Install Firebug on Firefox. With this tool you'll be able to view the rendered components 
+          and the css properties of the various dom elements. This will help you figure out what 
+          skin selectors are causing the css styling. Alternately, you can view the rendered CSS file itself. 
+          </P>
+          <P>
+          To map a rendered styleclass to a skin selector you'll need to look at the skin-selectors.html document.
+          </P>
+          <source>
+          A skin selector like :
+          
+          "af|panelBox" gets generated as ".af_panelBox"
+          
+          "af|inputText:read-only::content" gets generated as ".af_inputText.p_AFReadOnly .af_inputText_content".
+          
+          Any non-css-2 pseudo-classes gets generated as .p_AF*, otherwise they pass through.
+          
+          "af|commandLink:hover" gets generated as ".af_commandLink:hover"
+          </source>
+          
+          </subsection>
+          <subsection name="Simple (default) skin">
+        <P>
+        To see what you get out of the box without any skinning on your part, you should run the simple skin, which is the default.
+        You can use Firebug, or view the generated css file. Or, if you look have the source code, 
+        you can look at <i>base-desktop.xss</i> or <i>simple-desktop.xss</i>. These files are not public and 
+        are in in an xml-based format, not CSS, 
+        so it might be harder to understand. If you get some property from the base skin that you don't want, 
+        you can use the -tr-inhibit property:
+        </P>
+        <P>
+        af|foo {-tr-inhibit: all} to inhibit all the base skins' properties and start fresh.<br></br> 
+        or<br></br>
+        af|foo {-tr-inhibit: padding} to inhibit the padding css property.<br></br>
+        The property name has to match the base skin's property exactly, so looking at the base-deskop.xss will help.    
+        </P>
+        </subsection>     
+        <subsection name="W3C's CSS specification">
+          <P>
+          You need to be very familiar with CSS to do complex skinning. 
+          Some useful concepts to know are the different types of selectors, like descendent selectors,
+          composite class selectors, and selector specificity. You can look at the w3c's css spec for detailed
+          information. Selector specificity is really important to understand, because you might get into
+          a situation where you are not sure why your style is not getting picked up. It could very well
+          be that the base skin has a selector that is more specific than your selector and thus the browser
+          gives it more weight regardless of the position in the generated css file.
+          </P>
+        </subsection> 
+        <subsection name="Using the styleClass attribute">
+          <P>
+          You can skin a particular instance of a component by combining the skin selectors and the 
+          component's styleClass attribute value. 
+          For example, you can put a styleclass on the commandLink component and then skin it
+          <source>
+          &lt;tr:commandLink styleClass="myCommandLink"&gt;
+          
+          /* style any commandLink components that have their styleClass attribute set to 'myCommandLink' */
+          af|commandLink.myCommandLink {color: red}
+          </source>
+          Note that this does not work in Internet Explorer browsers earlier than IE7. You'll have to do this
+          for older browsers: .myCommandLink {color: red}
+          
+          </P>
+        </subsection>  
+        <subsection name="Performance when many different skins in an application">
+        The skinning framework caches information for the generated css file for each skin that is requested. This
+        could be a source of a memory leak if your application is built to use many different skins, like each user has his own custom skin. Fortunately, this is not a common usecase.
+        In this case, you would want to limit the number of generated css files we cache in our LRUCache (least-recently used cache).
+        You can do this by specifying the maximum number of skins you want to cache with the web.xml context-param 
+        org.apache.myfaces.trinidad.skin.MAX_SKINS_CACHED
+         </subsection>
+      </section>
+      
+      <a name="Custom_Component_Developers"></a>
+      <section name="Skinning for Custom Component Developers">
+        <P>
+        This section is for a custom component developer.
+        This section is not for someone who is skinning their application.
+        </P>
+        <P>
+        If you created your own custom component, and you want this component 
+        to work well with other existing skins,
+        then you need to create a skin-addition. A skin-addition
+        gives you a way to 'push' your own stylesheet 
+        and resource bundle for your components into existing skins, 
+        most likely the simple skin. Then you can jar up your component
+        and skin information and your component can be used by others.
+        (Another way to do the same thing is to open up the simple-desktop.xss
+        file and other skin css files, and add your skin definitions there.
+        This is not practical if you don't own this source.)
+        </P> 
+        <P>
+        Skin objects contain zero or more SkinAdditions. 
+        The SkinAdditions' stylesheets are merged into the Skin's own stylesheet. 
+        The SkinAdditions' resource bundle is looked at along 
+        with the Skin's own resource bundle when Skin's getTranslatedValue is called
+        by your renderer.
+        </P>
+        <subsection name="Creating a skin addition declaratively">
+        <P>
+        Create a skin stylesheet  file (say, myComponents-simple-desktop.css) 
+        that defines your icons, styles, and properties so that your components 
+        will fit in with the simple.desktop skin (or whatever skin you want to 
+        fit in with). Use the Skin Selector Aliases as much as possible. 
+        This way if a person wants to change the default font for the entire 
+        application, he can create a skin that changes the 
+        .AFDefaultFont:alias and your component's font will change, too. 
+        If you didn't include the alias in your skin selector properties, 
+        then your font won't change. (See Skin-Selectors.html documentation)
+        </P>
+        <P>
+        Register this StyleSheet file with the simple.desktop skin.
+        Create a META-INF/trinidad-skins.xml file if you don't already have one.
+          <source>
+          <![CDATA[
+          <?xml version="1.0" encoding="ISO-8859-1"?>
+
+            <skins xmlns="http://myfaces.apache.org/trinidad/skin">
+                <skin-addition>
+                    <skin-id>
+                        simple.desktop
+                    </skin-id>
+                    <style-sheet-name>
+                        styles/myComponents-simple-desktop.css
+                    </style-sheet-name>
+                    <bundle-name>
+                        org.mycompany.view.resource.myComponentsResourceBundle.java
+                    </bundle-name>
+                </skin-addition>
+            ... more skins or skin-additions could go here ...
+            </skins>
+            ]]>
+         </source>
+         <ul>
+        <li>
+        <b>skin-id</b> - The id of the skin you are 'pushing' your styles into.
+        </li>
+        <li>
+        <b>style-sheet-name</b> - This is your skin's stylesheet name url.
+        This should be a uniquely name path, since we use ClassLoader getResource
+        to find this file, and if another jar has the same style-sheet-name, it might
+        find that file and not yours.
+        </li>
+        <li>
+        <b>bundle-name</b> - This is the package where the skin's resource bundle lives.
+        This is important for a custom component developer so that the component's
+        text supports different languages.
+        </li>
+        </ul>
+        </P>
+        <P>If you want your component to be skinnable, then you should document
+        the selectors similar to the skin-selectors.html document we have in Trinidad.
+        </P>
+        </subsection>
+        <subsection name="Serving up your stylesheet's image urls ">
+        <P>
+        Feel free to jar this file up with your other files, because we can find 
+        trinidad-skins.xml files in the META-INF directory. However, we can't 
+        automatically find any image urls; so if you have image urls, like 
+        background-image: url("../arrow.png"); in your myComponents-simple-desktop.css file, 
+        you'll have to either put the images relative to the servlet context 
+        (start with a /), or create a ResourceLoader and make the path relative 
+        to the css file, like "../../xyz/images/drill.gif".
+        </P>
+
+        <P>
+        These are the steps to create your own ResourceLoader:
+        <ul>
+        <li>
+        Add an extra servlet-mapping to web.xml for your resource path,  
+        like "/xyz/*" as opposed to "/adf/*".
+        </li>
+        <li>
+        Create a ResourceLoader file, like org.mycompany.resource.XYZResourceLoader
+        <source>
+        package oracle.adfinternal.view.faces.xyz.resource;
+
+import org.apache.myfaces.trinidad.resource.ClassLoaderResourceLoader;
+import org.apache.myfaces.trinidad.resource.RegexResourceLoader;
+import org.apache.myfaces.trinidad.resource.ResourceLoader;
+public class XYZResourceLoader extends RegexResourceLoader
+{
+ public XYZResourceLoader(ResourceLoader parent)
+ {
+     register("(/.*\\.(css\|jpg\|gif\|png\|jpeg\|js\|svg))",
+     new ClassLoaderResourceLoader("META-INF", parent));
+ }
+}
+        </source>
+        </li>
+        <li>
+        Create a .resources file and place it in META-INF/servlet/resources.  
+        In the file, place a single line that references the resource loader class.  
+        For example,  create an xyz.resources file with the following single line:
+        org.mycompany.resource.XYZResourceLoader
+        </li>
+        <li>
+        Place the .resources file in your JAR, 
+        so its path is META-INF/servlet/resources/xyz.resources.
+        </li>
+        <li>
+          Add resources in your jar at the following location: META-INF/xyz/*, 
+          which needs to match the servlet-mapping
+        </li>
+        <li>
+        Create a URL reference to the image with "xyz" in the path.
+        </li>
+        <li>
+        all files created above should be in the same JAR that contains your custom components/faces-config.xml/etc.
+        </li>
+        </ul>
+        </P>
+        
+        </subsection>
+      </section>
+
+      <a name="Pregen"></a>
+      <section name="Pre-generating Skin Style Sheets">
+<p>
+Trinidad skin definitions are dynamically converted into browser-consumable style sheets (.css files) at runtime.  While a runtime-based approach is suitable for most application deployments, in some cases it may be desirable to offload style sheet delivery to some other server, eg. to a server that is managed by a CDN provider, or even just to a static http server that can be shared across multiple applications.  Trinidad provides a skin pre-generation "service" to address such cases.
+</p>
+<p>
+The skin pre-generation service can be accessed from any Trinidad-based application.  To enable this service, simply specify the following system property when starting up the application server:
+</p>
+<source>
+-Dorg.apache.myfaces.trinidad.SKIN_PREGENERATION_SERVICE=on
+</source>
+<p>
+Enabling the skin pre-generation service causes a special "/-tr-pregenerate-skins" view id to be exposed.  Requests into this view trigger pre-generation, which produces a set of static style sheet files that can then be copied/uploaded to some other server.
+</p>
+<p>
+The /-tr-pregenerate-skins view id requires one mandatory request parameter: id.  The value of this parameter must be an id of one of the skins registered with Trinidad.
+</p>
+<p>
+For example, in an application that uses prefix mapping for the FacesServlet, enabling the skin pre-generation service exposes the following uri:
+</p>
+<source>
+/context root/faces/-tr-pregenerate-skins?id=minimal.desktop
+</source>
+<p>
+Hitting this uri triggers pre-generation of style sheets for the minimal.desktop skin.
+</p>
+<p>
+Skin pre-generation can be slow and can produce a significant amount of content, particularly for large skins with many variants.  To compensate for this, only style sheets for the most common variant values are generated by default. In particular, style sheets corresponding to the following variants are generated:
+</p>
+<p>
+<ul>
+<li>plaform: android | iphone | linux | macos | windows</li>
+<li>agent: ie | gecko | webkit</li>
+<li>locale: default (unmatched) locale</li>
+<li>reading direction: ltr</li>
+<li>accessibility: standard contrast, medium fonts</li>
+</ul>
+</p>
+<p>
+The "variants" request parameter can be used to force generation of all
+possible style sheets.  For example, specifying variants=all:
+</p>
+<source>
+/context root/faces/-tr-pregenerate-skins?id=minimal.desktop&amp;variants=all
+</source>
+<p>
+Will result in in pre-generation of every possible style sheet for the minimal.desktop skin.
+</p>
+<p>
+In addition to the "variants" request parameter, the following optional request parameters may be used to provide information about how pre-generation should be performed:
+</p>
+<p>
+<ul>
+<li>containerType: servlet | portlet. (Defaults to "servlet".)</li>
+<li>requestType: nonsecure | secure.  (Defaults to "nonsecure".)</li>
+<li>styleClassType: compressed | uncompressed.  (Defaults to "compressed".)</li></ul>
+</p>
+<p>
+All of the contextual request parameters support multiple values.  For example,
+the following request:
+</p>
+<source>
+/context-root/-tr-pregenerate-skins?id=minimal.desktop&amp;styleClassType=compressed&amp;styleClassType=uncompressed
+</source>
+<p> 
+Pre-generates style sheets for both compressed and uncompressed style class names for the common variants of the the minimal.desktop skin.
+</p>
+<p>
+By default, pre-generated style sheets are written into the web application's style sheet cache directory (typically, &lt;web app temp dir&gt;/adf/styles/cache).  However, an alternate target directory for the pre-generated output can be specified via the following system property:
+</p>
+<source>
+-Dorg.apache.myfaces.trinidad.SKIN_PREGENERATION_SERVICE_TARGET_DIRECTORY=directory path
+</source>
+<p>
+Requests that result in successful skin pre-generation produce status 200
+responses.  Failed requests (eg. for invalid skin ids) result in non-200
+status codes.
+</p>
+<p>
+For security purposes, pre-generation must never be enabled in end user facing, production deployments - ie. skin pregeneration is CPU and I/O intensive, and must not be exposed to arbitrary users.  To avoid the potential for abuse, enabling skin pregeneration has the side effect of disabling the rest of the application.  As such, application servers that are enabled for skin pregeneration can only be used for this single purpose.
+</p>
+      <a name="Style_Sheet_Names"></a>
+      <subsection name="Style Sheet File Names">
+<p>
+Some applications may need to write regular expressions that target specific style sheet file names, eg. for selective uri rewriting purposes.  For such cases, applications may depend on the file name structure described below.
+</p>
+<p>
+Generated style sheet file names are broken up into three major sections:
+</p>
+<p>
+<ol>
+<li>Skin identifier section</li>
+<li>Variant identifier section (eg. agent, locale, etc...)</li>
+<li>Contextual identifier section (eg. portlet vs. servlet, etc...)</li>
+</ol>
+</p>
+<p>
+These major sections are separated by double dashes ("--").
+</p>
+<p>
+Within each major section, minor subsections appear in a predictable order, separated by single dashs ("-").
+</p>
+<p>
+The skin identifier section (section #1) contains the following subsections:
+</p>
+<source>
+  &lt;id&gt;-&lt;version hash&gt;
+</source>
+<p>
+Where:
+</p>
+<p>
+<ul>
+<li>id: the skin id.  Note that the skin id itself may include dash characters
+    (eg. "simple-desktop").</li>
+<li>version hash: a hash of the skin contents, which typically varies from version to version.</li>
+</ul>
+</p>
+<p>
+The variant identifiers section (section #2) contains the following subsections:
+</p>
+<source>
+  &lt;platform&gt;-&lt;agent&gt;-&lt;version&gt;-&lt;locale&gt;-&lt;direction&gt;-&lt;accessibility&gt;
+</source>
+<p>
+Where:
+</p>
+<p>
+<ul>
+<li>platform: the platform name (eg. linux, windows, iphone)</li>
+<li>agent: the agent name (eg. ie, gecko, safari)</li>
+<li>version: the agent version (eg. 7, 1.9.2, 534)</li>
+<li>locale: the locale (eg. en, en_US, ja).</li>
+<li>direction: the reading direction (ltr|rtl)</li>
+<li>accessibility: accessibility profile preferences for high contrast and large fonts (hc|lf).</li>
+</ul>
+</p>    
+<p>
+In the event that no @-rule variant is expicitly matched, only default styles
+(ie. styles that apply to all requests) are included in the generated style sheet.  The token "d" is used to identify this case.  For example, if the skin does not define any @locale rules, the locale portion of the file name will be the token "d".
+</p>
+<p>
+In some cases it is not possible to determine a unique value
+for a particular variant, because only @-rules that specify multiple values
+are matched.  In this case, a combination of the matched values will be used
+for the segment.  For example, if the  skin defines a single @locale rule 
+matching the ja, zh, and ko locales, the locale portion of the file name for 
+generated style sheets corresponding to these
+locales will be "ja_ko_zh".
+</p>
+<p>
+The contextual identifiers section (section #3) contains the following subsections:
+</p>
+<p>
+<ul>
+<li>container type: identifies whether the application is hosted within a servlet or  portlet (s|p).</li>
+<li>request type: identifies whether the style sheet is used for a secure or non-secure request (s|n).</li>
+<li>style class type: identifies whether the style sheet is generated with compressed or uncompressed style classes (c|u).</li>
+</ul>
+</p>
+<p>
+The following sample style sheet name:
+</p>
+<source>
+sample-desktop-jh4phm--linux-gecko-1.9.0-ja_ko_zh-ltr-lf--s-n-c.css
+</source>
+<p>
+Is composed of these pieces:
+</p>
+<p>
+<ul>
+<li>Skin identifier section
+  <ul>
+  <li>id: sample-desktop</li>
+  <li>version hash: jh4phm</li>
+  </ul>
+</li>
+<li>Variant identifier section
+  <ul>
+  <li>platform: linux</li>
+  <li>agent: gecko</li>
+  <li>version: 1.9.0</li>
+  <li>locale: ja_ko_zh (style sheet is used for Japanese, Korean and Chinese languages)</li>
+  <li>direction: ltr (left-to-right)</li>
+  <li>accessibility: lf (large fonts)</li>
+  </ul>
+</li>
+<li>Contextual identifier section
+  <ul>
+  <li>container type: s (servlet)</li>
+  <li>request type: n (non-secure)</li>
+  <li>style class type: c (compressed style classes)</li>
+  </ul>
+</li>
+</ul>
+</p>
+<p>
+When writing regular expressions that target this structure, the following recommendations should be observed:
+</p>
+<p>
+<ul>
+<li>The identifier section contains a variable number of subsection separators: skin ids may contain dashes.  As such, when targeting regular expressions at items in the subsequent major sections, it is best to anchor these regular expressions to the major section separators (double-dash).</li>
+<li>In the future it is possible that new subsections may need to be added to the variant or contextual identifier sections.  If the need for additional information arises, new subsections will be added at the end of the appropriate  major section.  As such, regular expressions should be written in a way that they can tolerate new subsections later appearing at the end of each major section.</li>
+</ul>
+</p>
+      </subsection>
+      </section>
+
+      <a name="Advanced_Skinning_Features"></a>
+      <section name="Advanced Skinning Features">
+        <a name="Skin_Provider"></a>
+        <subsection name="Skin Provider">
+          <P>
+SkinProvider feature can be used to create external skin repositories. These repositories can create, manage and de-support Skins at runtime. This is achieved using "org.apache.myfaces.trinidad.skin.SkinProvider" SPI. Classes implementing this abstraction should be listed in the jar's /META-INF/services folder inside of a text file named "org.apache.myfaces.trinidad.skin.SkinProvider". These services will then be run by Trinidad skinning framework and be queried when a Skin is requested.
+The SkinProvider should publish a list of supported skins by means to the getSkinMetadata API and provide skin matching the requested metadata using the getSkin API. An instance of the SkinProvider can be obtained from the static factory method in SkinProvider and can be used to query skins. SkinProvider authors can make use of this to get hold of the base skins from which they want to extend their skins from. SkinProvider authors can also make use of SkinExtensionFactory as a easy way to to create SkinExtensions instead of implementing the abstract Skin APIs.
+It is the SkinProvider's responsibility to manage the skins. SkinProviders can decide to return a cached skin or a new skin object for subsequent request for the same Skin.
+There is no binding on the SkinProvider to support a skin during its lifetime. SkinProvider can decide to de-support a skin any time by not responding to a particular skin request which it served earlier and also de-listing the skin from the getSkinMetadata API.
+SkinProvider can also make use of Skin.setDirty() method to mark a skin as dirty if there is a modification in the contents of the skin and it needs the skin framework to regenerate the css for the skin. Skin framework will regenerate the css if the skin or any of its parent skins are dirty.
+SkinProvider tried to find the best match for the requested skin. If more than one provider supplies a matching skin, then the winner is decided based on the best version match, default skin or leaf skin in the family. If there is an un-resolvable conflict then skin provider will choose to return the first skin which it found.
+          </P>
+
+        </subsection>
+      </section>
+
+      <a name="Frequently_Asked_Questions"></a>
+      <section name="Frequently Asked Questions">
+        <P>There is a Trinidad Wiki where we post FAQs. http://wiki.apache.org/myfaces/Trinidad_Skinning_FAQ</P>
+      </section>
+  </body>
+</document>

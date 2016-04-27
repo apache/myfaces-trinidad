@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="panelChoice Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelChoice.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>panelChoice - takes default selection among showDetailItem children&lt;/b>"/>
+          <tr:panelChoice binding="#{editor.component}" alignment="center" position="start"
+                          id="someId" label="Sales Data" accessKey="S">
+            <tr:showDetailItem id="showDetailItem2" text="Monthly Sales Distribution">
+              <tr:panelHeader text="Monthly Sales Distribution">
+                <tr:image source="images/monthlySalesDistribution.gif"
+                          inlineStyle="height:200px; width:300px;" id="monthlySalesImage"
+                          shortDesc="Monthly sales distribution"/>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem id="showDetailItem3" text="Sales by Geography">
+              <tr:panelHeader text="Sales by Geography">
+                <tr:image source="images/salesByGeography.gif" shortDesc="Sales by Geography"
+                          inlineStyle="height:200px; width:300px;" id="salesByGeographyImage"/>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="This page data" disclosureListener="#{toggle.onDisclosure}">
+              <tr:panelHeader text="Page refresh status">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 1-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                  <tr:inputText readOnly="true" styleClass="AFFieldTextMarker"
+                                value="You have shown/ hidden this page data option a total of #{toggle.totalCount} times"/>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+          </tr:panelChoice>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A standard panelChoice component - Update its properties from the table below &lt;/b>"/>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>This block is to show the current date for reference - Note that this does not change until there is a full page refresh &lt;/b>"/>
+          <tr:panelFormLayout>
+            <tr:inputText readOnly="true" label="Date/Time from last full page refresh"
+                          value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+              <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+            </tr:inputText>
+          </tr:panelFormLayout>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="selectRangeChoiceBar Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_selectRangeChoiceBar.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#selectRangeChoiceBar"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>selectRangeChoiceBar&lt;/b>"/>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted styleUsage="instruction" value="selectRangeChoiceBar with no rangeLabel facet;
+                we get default labels."/>
+            <tr:selectRangeChoiceBar binding="#{editor.component}" id="selectRangeChoiceBarID2"
+                                     first="0" rows="5" value="#{table}"/>
+          </tr:panelGroupLayout>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputFormatted styleUsage="instruction" value="selectRangeChoiceBar with rangeLabel facet to customize range
+                labels and tied to a list of data"/>
+            <tr:selectRangeChoiceBar id="selectRangeCBId1" first="0" rows="5"
+                                     value="#{animals.names}" var="range"
+                                     rangeChangeListener="#{animals.rangeChange}">
+              <f:facet name="rangeLabel">
+                <f:selectItem itemValue="ignored" itemLabel="#{range.start} - #{range.end}"/>
+              </f:facet>
+            </tr:selectRangeChoiceBar>
+            <tr:panelGroupLayout partialTriggers="selectRangeCBId1">
+              <tr:forEach items="#{animals.namesInRange}" var="animalName">
+                <tr:outputText value="#{animalName}, "/>
+              </tr:forEach>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

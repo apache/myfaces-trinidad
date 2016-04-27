@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+     
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html" xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="2.0">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document id="doc">
+      <tr:form>
+        <tr:panelGroupLayout layout="scroll" id="pgl1">
+          <tr:spacer height="20" id="s2"/>
+          <tr:outputText value="During the lifecycle some application logic may have added a component"
+                         id="ot1"/>
+          <tr:spacer height="20"/>
+          <h:panelGrid columns="4" border="1" cellspacing="0" cellpadding="5" id="pg2">
+            <tr:outputFormatted value="&lt;b>Test Number&lt;/b>" id="of5"/>
+            <tr:outputFormatted value="&lt;b>Test Description&lt;/b>" id="of6"/>
+            <tr:outputFormatted value="&lt;b>Test Steps&lt;/b>" id="of2s"/>
+            <tr:outputFormatted value="&lt;b>Correct Behavior&lt;/b>" id="of3"/>
+            <tr:outputText value="1" id="ot9"/>
+            <tr:outputText value="Show that when a component is added to the tree programatically state saving works."
+                           id="ot10"/>
+            <tr:panelList id="pl3">
+              <tr:goLink destination="setupStateSaving.jspx" text="set up for state saving test"
+                         id="gl1"/>
+              <tr:outputText value="click the 'add a component' button, you should see a showDetail."
+                             id="ot3"/>
+              <tr:outputText value="open the showDetail that was just added." id="ot16"/>
+            </tr:panelList>
+            <tr:panelList id="pl2">
+              <tr:outputText value="the correct behavior is that The showDetail opens without errors."
+                             id="ot7"/>
+            </tr:panelList>
+          </h:panelGrid>
+          <tr:spacer height="10" id="s1"/>
+          <tr:panelGroupLayout id="groupLayout">
+            <tr:commandButton actionListener="#{stateSaving.addComponent}" id="cb2"
+                              text="add a component"/>
+          </tr:panelGroupLayout>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

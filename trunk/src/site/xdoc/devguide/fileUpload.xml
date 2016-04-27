@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Processing file uploads</title>
+  </properties>
+  <body>
+    <section name="Processing file uploads">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="#Setup">Setup</a>
+          </li>
+          <li>
+            <a href="#inputFile">inputFile</a>
+          </li>
+          <li>
+            <a href="#updateMode">Update Mode</a>
+          </li>
+          <li>
+            <a href="#Configuration">Configuration</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+    <section name="Overview">
+
+      <p>
+The JavaServer Faces (JSF) specification provides no direct support for
+file uploads.  (And, unfortunately, nothing else in the J2EE
+technology stack does either.)  MyFaces Trinidad provides integrated support
+for processing file uploads in a manner natural to JSF applications,
+by providing  a component that delivers standard
+<code>ValueChangeEvents</code> as files are uploaded, and managing
+processing of the uploaded content transparently.
+      </p>
+    </section>
+    <section name="Setup">
+      <p>
+File upload processing requires the installation of the MyFaces Trinidad Filter.
+This filter is required for all MyFaces Trinidad applications.  One of its features
+is handling file uploads.  To install the filter,
+first add the following entry to your <code>WEB-INF/web.xml</code> file:
+      </p>
+<source>
+  &lt;filter&gt;
+    &lt;filter-name&gt;trinidad&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.myfaces.trinidad.webapp.TrinidadFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+</source>
+      <p>
+Second, map that filter to process all <code>FacesServlet</code>
+requests.  For example, if you've named the <code>FacesServlet</code> "faces":
+      </p>
+<source>
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;faces&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;javax.faces.webapp.FacesServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+</source>
+      <p>...then use the following filter-mapping:</p>
+<source>
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;trinidad&lt;/filter-name&gt;
+    &lt;servlet-name&gt;faces&lt;/servlet-name&gt;
+  &lt;/filter-mapping&gt;
+</source>
+    </section>
+    <section name="inputFile">
+      <p>
+To support uploading a file on your page, use the <a
+href="../trinidad-api/tags/core/inputFile.html"><code>&lt;tr:inputFile&gt;
+component</code></a>.  Like all other input components, <code>&lt;tr:inputFile&gt;</code> sends
+<code>ValueChangeEvents</code>.  And like all MyFaces Trinidad input components,
+it has built-in support for accessibility, labels, and messages.
+<source>
+       &lt;tr:inputFile label="Upload:"
+                     valueChangeListener="#{backingBean.fileUploaded}"/&gt;
+                          
+</source>
+      </p>
+      <p>
+<code>&lt;tr:inputFile&gt;</code> can be placed in either an
+<code>&lt;h:form&gt;</code> tag or an <code>&lt;tr:form&gt;</code>
+tag, but in either case you have to set it to support file
+upload.  For the JSF Basic HTML form, that involves setting
+the "enctype" to the correct magic value;  for the MyFaces Trinidad
+form, just set "usesUpload" to true:
+
+<source>
+     &lt;tr:form usesUpload="true"&gt;
+       &lt;tr:inputFile label="Upload:"
+                     valueChangeListener="#{backingBean.fileUploaded}"/&gt;
+     &lt;/tr:form&gt;
+     &lt;!-- or --&gt;
+     &lt;h:form enctype="multipart/form-data"&gt;
+       &lt;tr:inputFile label="Upload:"
+                     valueChangeListener="#{backingBean.fileUploaded}"/&gt;
+     &lt;/h:form&gt;
+</source>
+      </p>
+      <p>
+
+The <code>"value"</code> of an inputFile component is an instance of
+the <a
+href="../trinidad-api/apidocs/org/apache/myfaces/trinidad/model/UploadedFile.html"><code>org.apache.myfaces.trinidad.model.UploadedFile</code></a>
+interface.  This API lets you get at the actual byte stream of the file, as
+well as the file's name, its MIME type, and its size.  The
+<code>UploadedFile</code> might be stored as a file in the filesystem,
+but might also be stored in memory;  this API hides that difference.
+The filter ensures that the <code>UploadedFile</code> content
+is cleaned up after the request is complete.  Because of this,
+you cannot usefully cache <code>UploadedFile</code> objects across requests.
+If you need to keep the file, you must copy it into persistent storage
+before the request finishes.
+      </p>
+      <subsection name="Example">
+        <p>
+For an example of processing a file upload, instead of actually storing
+it anywhere, we'll just add a message telling the user that the file
+was successfully uploaded.  The page content is simple:
+<source>
+     &lt;tr:form usesUpload="true"&gt;
+       &lt;tr:inputFile label="Upload:"
+                     valueChangeListener="#{backingBean.fileUploaded}"/&gt;
+       &lt;tr:commandButton text="Begin"/&gt;
+     &lt;/tr:form&gt;
+</source>
+        </p>
+        <p>
+Now, in our backing bean, we'll handle the <code>ValueChangeEvent</code>:
+<source>
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import org.apache.myfaces.trinidad.model.UploadedFile;
+
+public class ABackingBean
+{
+  ...
+  public void fileUploaded(ValueChangeEvent event)
+  {
+    UploadedFile file = (UploadedFile) event.getNewValue();
+    if (file != null)
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      FacesMessage message = new FacesMessage(
+         "Successfully uploaded file " + file.getFilename() +
+         " (" + file.getLength() + " bytes)");
+      context.addMessage(event.getComponent().getClientId(context), message);
+      // Here's where we could call file.getInputStream()
+    }
+  }
+}
+</source>
+        </p>
+        <p>
+Here, we've chosen to use <code>ValueChangeEvents</code>.  You
+could also bind the value of the inputFile directly to a managed
+bean:
+<source>
+     &lt;tr:form usesUpload="true"&gt;
+       &lt;tr:inputFile label="Upload:" value="#{managedBean.file}"/&gt;
+       &lt;tr:commandButton text="Begin" action="#{managedBean.doUpload}"/&gt;
+     &lt;/tr:form&gt;
+</source>
+<source>
+import org.apache.myfaces.trinidad.model.UploadedFile;
+
+public class AManagedBean
+{
+  public UploadedFile getFile()
+  {
+    return _file;
+  }
+
+  public void setFile(UploadedFile file)
+  {
+    _file = file;
+  }
+
+  public String doUpload()
+  {
+    UploadedFile file = getFile();
+    // ... and process it in some way
+  }
+
+
+  private UploadedFile _file;
+}
+</source>
+        </p>
+      </subsection>
+    </section>
+    <section name="Configuration">
+      <p>
+Because MyFaces Trinidad will temporarily store incoming files (either on
+disk or in memory), by default it limits the size of acceptable
+incoming requests to avoid denial-of-service attacks that might
+attempt to fill a hard drive or flood memory with uploaded files.  By
+default, only the first 100 kilobytes in any one request will be
+stored in memory.  Once that has been filled, disk space will be used.
+Again, by default, that is limited to 2,000 kilobytes of disk storage
+for any one request for all files combined.  Once these limits are
+exceeded, the filter will throw an <code>EOFException</code>.  In 
+addition, a per file maximum limit may be defined. By default this is -1 (unlimited).
+Files are, by default, stored in the temporary directory used by
+<code>java.io.File.createTempFile()</code>, which is usually defined by the
+system property <code>java.io.tmpdir</code>.  Obviously, this will be
+insufficient for some applications, so you can configure these values 
+using four servlet context initialization parameters:
+<source>
+  &lt;context-param&gt;
+    &lt;!-- Maximum memory per request (in bytes) --&gt;
+    &lt;param-name&gt;org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY&lt;/param-name&gt;
+    &lt;!-- Use 500K --&gt;
+    &lt;param-value&gt;512000&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;!-- Maximum disk space per request (in bytes) --&gt;
+    &lt;param-name&gt;org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE&lt;/param-name&gt;
+    &lt;!-- Use 5,000K --&gt;
+    &lt;param-value&gt;5120000&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;!-- directory to store temporary files --&gt;
+    &lt;param-name&gt;org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR&lt;/param-name&gt;
+    &lt;!-- Use a TrinidadUploads subdirectory of /tmp --&gt;
+    &lt;param-value&gt;/tmp/TrinidadUploads/&lt;/param-value&gt;
+  &lt;/context-param&gt;
+  &lt;context-param&gt;
+    &lt;!-- Maximum file size per request (in bytes) --&gt;
+    &lt;param-name&gt;org.apache.myfaces.trinidad.UPLOAD_MAX_FILE_SIZE&lt;/param-name&gt;
+    &lt;!-- Use 5,000K --&gt;
+    &lt;param-value&gt;5120000&lt;/param-value&gt;
+  &lt;/context-param&gt;
+
+  &lt;!-- This filter is always required;  one of its functions is 
+          file upload. --&gt;
+  &lt;filter&gt;
+    &lt;filter-name&gt;trinidad&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.myfaces.trinidad.webapp.TrinidadFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+</source>
+      </p>
+      <p>
+Developers can also customize file upload more comprehensively in <code>trinidad-config.xml</code>
+with the following elements:
+<source>&lt;uploaded-file-processor&gt;</source>
+The
+<code>org.apache.myfaces.trinidad.webapp.UploadedFileProcessor</code>
+can be replaced by specifying a new class with the <code>&lt;uploaded-file-processor&gt;</code> element.  
+<source>&lt;uploaded-file-max-memory&gt;</source>
+The servlet context param <code>org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY</code>
+can be overridden by <code>&lt;uploaded-file-max-memory&gt;</code> if this param
+needs to be bound to an EL expression.
+<source>&lt;uploaded-file-max-disk-space&gt;</source>
+The servlet context param <code>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE</code>
+can be overridden by <code>&lt;uploaded-file-max-disk-space&gt;</code> if this param
+needs to be bound to an EL expression.
+<source>&lt;uploaded-file-temp-dir&gt;</source>
+The servlet context param <code>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR</code>
+can be overridden by <code>&lt;uploaded-file-temp-dir&gt;</code> if this param
+needs to be bound to an EL expression.
+      </p>
+      <p>
+Please see the
+<a href="configuration.html">Configuration</a> chapter for
+more information on these <code>trinidad-config.xml</code> elements.  <b>NOTE:</b> Replacing the
+<code>UploadedFileProcessor</code> makes the init-params listed
+above irrelevant;  they are only processed by the default
+<code>UploadedFileProcessor</code>, <b>unless</b> they are specifically taken
+into consideration by the class that replaces the deault file processor class.
+      </p>
+    </section>
+  </body>
+</document>
+

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="iso-8859-1"  standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title=" Trinidad Converters and Validators message customization">
+        <tr:form>
+          <tr:panelPage>
+            <tr:messages/>
+            <f:facet name="navigationGlobal">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Converters and Validators"
+                                    action="convertValidateDemos"
+                                    immediate="true"/>
+              </tr:navigationPane>
+            </f:facet>
+          <tr:panelHeader text="Custom messages for conversion and validation failures">
+            <tr:panelHeader text="Message customization on input component for 'required' validation"/>
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf1"
+                                  value="#{messageCustomization.date1}"
+                                  label="Date of birth" required="true"
+                                  requiredMessageDetail="#{messageCustomization.messages.DOB_REQD_ID}"></tr:inputDate>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Message customization on reg exp validator"/>
+            <tr:panelFormLayout>
+              <tr:inputText value="#{messageCustomization.regExpValue}"
+                            label="Pin" >
+                <f:facet name="help">
+                  <tr:outputText value="Enter your three digit pin"/>
+                </f:facet>
+                <tr:validateRegExp pattern="[1-9][0-9][0-9]"
+                                   messageDetailNoMatch="#{messageCustomization.messages.PIN_NO_MATCH_ID}"/>
+              </tr:inputText>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Message customization on byte length validator"/>
+            <tr:panelFormLayout>
+              <tr:inputText value="#{messageCustomization.byteLengthValue}"
+                            label="Name">
+                <f:facet name="help">
+                  <tr:outputText value="Enter your name. It should not exceed 4 characters"/>
+                </f:facet>
+                <tr:validateByteLength encoding="ISO-8859-1" maximum="4"
+                                       messageDetailMaximum='The "{0}" "{1}" exceeds {2} characters'/>
+              </tr:inputText>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Message customization on date time range validator"/>
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf3"
+                                  value="#{messageCustomization.date1}"
+                                  label="Start date for submission">
+                <f:facet name="help">
+                  <tr:outputText value="min=#{messageCustomization.minDateTip}"/>
+                </f:facet>
+                <tr:validateDateTimeRange minimum="#{messageCustomization.minDate}"
+                                          messageDetailMaximum='Date "{1}" in "{0}" is farther than {2}'
+                                          messageDetailMinimum='Date "{1}" in "{0}" is before the accepted date - {2} for receving forms. '
+                                          messageDetailNotInRange='Date "{1}" in "{0}" not within minimum {2} and maximum range {3}'/>
+              </tr:inputDate>
+              <tr:inputDate id="mdf4"
+                                  value="#{messageCustomization.date1}"
+                                  label="Last date">
+                <f:facet name="help">
+                  <tr:outputText value="max=#{messageCustomization.maxDateTip}"/>
+                </f:facet>
+                <tr:validateDateTimeRange maximum="#{date.maxDate}"
+                                          messageDetailMaximum='The date "{1}" in "{0}" which you have chosen, falls after the final acceptable date - {2}.'
+                                          messageDetailMinimum='Date "{1}" in "{0}" is less than the minimum acceptable: {2}.'
+                                          messageDetailNotInRange='Date "{1}" in "{0}" not within minimum {2} and maximum range {3}.'/>
+              </tr:inputDate>
+              <tr:inputDate id="mdf5"
+                                  value="#{messageCustomization.date1}"
+                                  label="Submission period">
+                <f:facet name="help">
+                  <tr:outputText value="min=#{messageCustomization.minDateTip} max=#{messageCustomization.maxDateTip}"/>
+                </f:facet>
+                <tr:validateDateTimeRange minimum="#{messageCustomization.minDate}"
+                                          maximum="#{messageCustomization.maxDate}"
+                                          messageDetailNotInRange='Submission date "{1}" in "{0}" is not with in the specified period {2}-{3}.'/>
+              </tr:inputDate>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Message customization on color converter"/>
+            <tr:panelFormLayout>
+              <tr:inputColor id="sicConvx" label="Enter or choose color"
+                                   value="#{messageCustomization.color}">
+                <f:facet name="help">
+                  <tr:outputText value="HTML hex color pattern:#RRGGBB"/>
+                </f:facet>
+                <tr:convertColor patterns="#RRGGBB" transparentAllowed="true"
+                                 messageDetailConvert='The color "{1}" you have chosen in "{0}" is not a valid HTML hex pattern {2}.'/>
+              </tr:inputColor>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Message customization on date time converter"/>
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf6" value="2004/09/06"
+                                  label="Date of birth">
+                <f:facet name="help">
+                  <tr:outputText value="1/20/1972 or 1972/20/2"/>
+                </f:facet>
+                <!--All custom messages need not be set. It is just enough if we set 'convertDateMessageDetail' -->
+                <tr:convertDateTime secondaryPattern="d/M/yyyy"
+                                    pattern="yyyy/M/d"
+                                    messageDetailConvertDate='"{1}" in "{0}" is not a valid date. Example is {2}'
+                                    messageDetailConvertTime='"{1}" in "{0}", is not valid date. Example is {2}.'
+                                    messageDetailConvertBoth='"{1}" in "{0}", is not valid Date and time. The format is {2}.'/>
+              </tr:inputDate>
+              <tr:inputDate id="mdf7" value="11:36:15 AM"
+                                  label="Time of birth">
+                <f:facet name="help">
+                  <tr:outputText value="11:36:15 AM"/>
+                </f:facet>
+                <tr:convertDateTime type="time" timeStyle="medium"
+                                    messageDetailConvertTime='"{1}" in "{0}", is not a valid time. Example: {2}.'/>
+              </tr:inputDate>
+              <tr:inputDate id="mdf8" value="12/20/2004 8:11 AM"
+                                  label="Date and time of birth">
+                <f:facet name="help">
+                  <tr:outputText value="2/26/2005 8:11 AM"/>
+                </f:facet>
+                <tr:convertDateTime type="both"
+                                    messageDetailConvertBoth='"{1}" in "{0}", is not a valid Date and time. Example: {2}.'/>
+              </tr:inputDate>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Message customization on number converter"/>
+            <tr:panelFormLayout>
+              <tr:inputText value="555" label="Your lucky number">
+                <f:facet name="help">
+                  <tr:outputText value="type='number' locale='en_US' Valid input=44444456 Invalid value=555o"/>
+                </f:facet>
+                <tr:convertNumber type="number" locale="en_US"
+                                  messageDetailConvertCurrency='"{1}" in "{0}" is not a valid currency value.'
+                                  messageDetailConvertNumber='"{1}" in "{0}" is not valid. Please choose a number.'
+                                  messageDetailConvertPattern='"{1}" in "{0}" does not match the pattern {2}'
+                                  messageDetailConvertPercent='"{1}" in "{0}" is not a valid percentile.'/>
+              </tr:inputText>
+              <tr:inputText value="5%" label="Machine efficieny"
+                            readOnly="false">
+                <f:facet name="help">
+                  <tr:outputText value="type='percent' locale='en_US' Valid value=75% Invalid value=75"/>
+                </f:facet>
+                <tr:convertNumber type="percent" locale="en_US"
+                                  messageDetailConvertPercent='"{1}" in "{0}" is not a valid efficiency value.'/>
+              </tr:inputText>
+              <tr:inputText value="10.88" label="Pattern based number">
+                <f:facet name="help">
+                  <tr:outputText value="'pattern=##.000' locale='en_US' Invalid value=10e.88"/>
+                </f:facet>
+                <tr:convertNumber pattern="##.000" locale="en_US"
+                                  messageDetailConvertPattern='"{1}" in "{0}" does not match pattern {2}.'/>
+              </tr:inputText>
+            </tr:panelFormLayout>
+           </tr:panelHeader>
+           <tr:commandButton text="Submit"/>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,38 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+        
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad">
+
+    The selectManyShuttle component provides a mechanism for selecting multiple values from a
+    list of values by allowing the user to move items between two lists. The &quot;value&quot; attribute of the
+    selectManyShuttle, like any other selectMany component, must be a List or array of values that correspond to a
+    value of one of the contained SelectItems. If a value of one of the SelectItems is in the List or array, that
+    item will appear in the trailing list. Looked at another way, you can change a selectManyListbox directly into
+    a selectManyShuttle; instead of the &quot;value&quot; driving which items are selected in the listbox, it
+    affects which items appear in the trailing list of the shuttle. 
+
+    <tr:spacer height="12px"/>
+
+    <tr:outputText value="The selectManyShuttle does not allow for reordering; the selectOrderShuttle component
+        adds this functionality to selectManyShuttle. selectManyShuttle also does not include automatic messaging
+        support, unlike most other Trinidad messaging components.  "/>
+    
+</ui:composition>

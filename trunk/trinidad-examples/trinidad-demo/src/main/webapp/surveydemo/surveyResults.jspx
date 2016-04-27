@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" 
+          xmlns:survey="http://myfaces.apache.org/trinidad/demo" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+ <tr:document title="Survey">
+       <tr:form>
+       
+          <tr:panelPage>
+           <tr:panelHeader text="Please review your responses:">
+       
+            <tr:panelFormLayout>
+<!-- question 1 -->
+             <tr:selectOneRadio label="#{survey.q0.prompt}" 
+                                    required="true"
+                                    value="#{survey.a0}">            
+              <tr:forEach var="item" varStatus="iter"
+                          items="#{survey.q0.answerStrings}">
+                <!-- The strange EL syntax for "value" forces it to be a string -->
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
+              <survey:validate_answer questionIndex="0"/>
+             </tr:selectOneRadio >
+      
+       
+<!-- question 2 -->
+            <tr:inputText label="#{survey.q1.prompt}" 
+                                   required="true"
+                                   value="#{survey.a1}"
+                                   immediate="true">
+                                   
+              <survey:validate_answer questionIndex="1"/>  
+            </tr:inputText>
+            
+<!-- question 3 -->
+             <tr:selectOneRadio label="#{survey.q2.prompt}" 
+                                  required="true"
+                                  value="#{survey.a2}">            
+              <tr:forEach var="item" varStatus="iter"
+                          items="#{survey.q2.answerStrings}">
+                <!-- The strange EL syntax for "value" forces it to be a string -->
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
+              
+              <survey:validate_answer questionIndex="2"/>
+            </tr:selectOneRadio >
+                                   
+          
+<!-- question 4 -->
+          <tr:panelLabelAndMessage label="#{survey.q3.prompt}"
+            labelStyle="vertical-align: top;">
+            <tr:selectBooleanCheckbox text="#{survey.q3.text1}" value="#{survey.a30}" >
+              <survey:validate_answer questionIndex="3A"/>
+            </tr:selectBooleanCheckbox>
+            
+            <tr:selectBooleanCheckbox text="#{survey.q3.text2}" value="#{survey.a31}" >
+              <survey:validate_answer questionIndex="3B"/>
+            </tr:selectBooleanCheckbox>
+            
+            <tr:selectBooleanCheckbox text="#{survey.q3.text3}" value="#{survey.a32}" >
+              <survey:validate_answer questionIndex="3C"/> 
+            </tr:selectBooleanCheckbox>
+          
+            <tr:selectBooleanCheckbox text="#{survey.q3.text4}" value="#{survey.a33}" > 
+              <survey:validate_answer questionIndex="3D"/> 
+            </tr:selectBooleanCheckbox>
+            
+          </tr:panelLabelAndMessage>     
+     
+<!-- question 5 -->   
+            <tr:selectOneRadio label="#{survey.q4.prompt}" 
+                                  required="true"
+                                  value="#{survey.a4}">            
+              <tr:forEach var="item" varStatus="iter"
+                          items="#{survey.q4.answerStrings}">
+                <!-- The strange EL syntax for "value" forces it to be a string -->
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
+              
+              <survey:validate_answer questionIndex="4"/>
+            </tr:selectOneRadio >        
+        
+        </tr:panelFormLayout>
+       </tr:panelHeader>
+          <f:facet name="navigationGlobal">
+            <tr:navigationPane hint="buttons">
+              <tr:commandNavigationItem text="Return to Index"
+                  immediate="true"
+                  action="home"/>
+            </tr:navigationPane>
+          </f:facet>
+          <tr:panelButtonBar>  
+            <tr:commandButton action="#{survey.check}" text="check answers"
+              rendered="true"/>  
+          </tr:panelButtonBar>
+        </tr:panelPage>
+        <tr:commandButton action="#{survey.start}" text="start over"
+          rendered="true"/>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

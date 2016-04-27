@@ -1,0 +1,42 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tr="http://myfaces.apache.org/trinidad"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/pages/componentDemo.xhtml">
+
+    <ui:define name="demoContent">
+
+        <tr:outputDocument value="Welcome to MyWebApp. If you want to continue to browse and use
+                                  this web application you must agree to comply with and be bound
+                                  by the terms and conditions of use, which together with our privacy
+                                  policy govern MyWebApps’s relationship with you in relation to
+                                  this website.">
+            <f:facet name="title"> License Agreement
+                <tr:outputText value="Terms and conditions for MyWebApp usage"/>
+            </f:facet>
+        </tr:outputDocument>
+        <tr:spacer height="15px"/>
+        <tr:selectBooleanCheckbox simple="false" label="License Agreement:"
+                                  text="Accept terms in license agreement"/>
+
+    </ui:define>
+</ui:composition>

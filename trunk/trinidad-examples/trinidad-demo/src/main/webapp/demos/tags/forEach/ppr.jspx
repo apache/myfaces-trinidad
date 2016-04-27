@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <tr:panelHeader text="Partial page rendering examples">
+    <tr:outputText value="This page shows how to correctly setup a page to specify the component IDs in a for each loop to allow partial triggers to work. To test, change any of the input text values and the only text that should change is the text below the input text that was changed." />
+    <tr:panelHeader text="How to use partial triggers with the forEach loop">
+      <tr:outputText value="Using the c:forEach tag, component IDs are not generated in a way that can be used with Trinidad's partial triggers. By using tr:forEach and either a map or a collection model, the IDs are known and can be used with partial triggers." />
+      <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
+        <tr:forEach var="item" items="#{forEachBean.updatableItemMap}" varStatus="vs">
+          <tr:panelLabelAndMessage id="plam_${vs.key}" label="Enter value for item #{vs.key}:">
+            <tr:inputText id="inputValue_${vs.key}" value="#{item.value}" autoSubmit="true"
+                          partialTriggers="sv#{vs.key}:inputValue"/>
+          </tr:panelLabelAndMessage>
+          <tr:outputText id="outputText_${vs.key}" value="Value on server: #{item.value}"
+                         inlineStyle="padding-left: 12px; font-size: 0.8em;"
+                         partialTriggers="inputValue_#{vs.key} sv#{vs.key}:inputValue" />
+        </tr:forEach>
+      </tr:panelGroupLayout>
+    </tr:panelHeader>
+
+    <tr:panelHeader text="Partial triggers using a naming container">
+      <tr:outputText value="To avoid needing to suffix all the IDs, a top level naming container may be used to simplify the page" />
+      <tr:panelGroupLayout layout="vertical" inlineStyle="padding-left: 2em; padding-top: 1em">
+        <tr:forEach var="item" items="#{forEachBean.updatableItemMap}" varStatus="vs">
+          <f:subview id="sv${vs.key}">
+            <tr:panelLabelAndMessage label="Enter value for item #{vs.key}:">
+              <tr:inputText id="inputValue" value="#{item.value}" autoSubmit="true"
+                            partialTriggers="::inputValue_#{vs.key}"/>
+            </tr:panelLabelAndMessage>
+            <tr:outputText id="outputText" value="Value on server: #{item.value}"
+                           inlineStyle="padding-left: 12px; font-size: 0.8em;"
+                           partialTriggers="inputValue ::inputValue_#{vs.key}" />
+          </f:subview>
+        </tr:forEach>
+      </tr:panelGroupLayout>
+    </tr:panelHeader>
+  </tr:panelHeader>
+</jsp:root>

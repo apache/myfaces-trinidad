@@ -1,0 +1,2228 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>API Changes from Oracle's ADF Faces</title>
+  </properties>
+
+  <body>
+    <section name="API Changes from Oracle's ADF Faces">
+      <p>
+        <ul>
+          <li>
+            <a href="#Java">Java</a>
+          </li>
+          <li>
+            <a href="#styleClass/inlineStyle Attributes">styleClass/inlineStyle Attributes</a>
+          </li>           
+          <li>
+            <a href="#Components">Components</a>
+          </li>         
+        </ul>
+      </p>
+    </section>
+
+
+
+    <section name="Java">
+     <p>
+     
+<!-- ********** start example ********** -->
+<!--subsection name="example">
+ <p>
+    <b>Class Name:</b>
+    <ul>
+      <li><b>ADF:</b> example</li>
+      <li><b>Trinidad:</b> example</li>
+    </ul>
+  </p>       
+  
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>todo</li>
+    </ul>
+  </p>
+
+</subsection-->
+<!-- ********** end example ********** -->
+
+<subsection name="ProcessScope">
+<p>
+processScope has been renamed to pageFlowScope.
+For compatibility, however, there is still a deprecated
+getProcessScope() method and processScope EL variable.  Developers
+should switch to the new getPageFlowScope() method pageFlowScope EL
+variable.
+</p>
+</subsection>
+  
+
+     </p>
+    </section>
+    <section name="Components">
+      <p>
+
+
+<!-- ********** start column ********** -->
+<subsection name="column">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> column</li>
+      <li><b>Trinidad:</b> column</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>formatType</td>
+      <td>align</td>
+      <td>use "start", "center" and "end", respectively for "text", "icon" and "number".</td>
+    </tr>
+    <tr>
+      <td>headerNoWrap</td>
+      <td></td>
+      <td>removed</td>
+    </tr>
+    <tr>
+      <td>gridVisible</td>
+      <td></td>
+      <td>removed. you can control the gridding on the entire table using the "horizontalGridVisible" and "verticalGridVisible" properties on the table.</td>
+    </tr>
+    <tr>
+      <td>bandingShade</td>
+      <td></td>
+      <td>removed. you can control the banding on the entire table using the "columnBandingInterval" and "rowBandingInterval" properties on the table.</td>
+    </tr>
+    <tr>
+      <td>separateRows</td>
+      <td></td>
+      <td>removed</td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>todo</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end column ********** -->
+
+
+
+<!-- ********** start commandMenuItem ********** -->
+<subsection name="commandMenuItem">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> commandMenuItem</li>
+      <li><b>Trinidad:</b> commandNavigationItem</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>destination</td>
+      <td>The URI this component references when activated.  This is an alternative to using an action.</td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>targetFrame</td>
+      <td>The name of the target frame (when using destination).</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>(removed)</td>
+      <td>No longer applicable.  If you must filter based on type, use EL on the rendered attribute to determine whether or not a navigation item is visible.</td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li><b>There is still a commandMenuItem component, but it is different than the ADF commandMenuItem component!</b> In the current release commandMenuItem is for use with the new components panelMenu and panelMenuBar.</li>
+      <li>This component obsoletes goMenuItem.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end commandMenuItem ********** -->
+
+
+
+<!-- ********** start goButton ********** -->
+<subsection name="goButton">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> goButton</li>
+      <li><b>Trinidad:</b> goButton</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>longDesc</td>
+      <td>(n/a)</td>
+      <td>Removed;  this was simply ignored in ADF.</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end goButton ********** -->
+
+
+<!-- ********** start goLink ********** -->
+<subsection name="goLink">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> goLink</li>
+      <li><b>Trinidad:</b> goLink</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>longDesc</td>
+      <td>(n/a)</td>
+      <td>Removed;  this was only used when inside of a messages component, which is not a supported usage.</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end goLink ********** -->
+
+
+<!-- ********** start goMenuItem ********** -->
+<subsection name="goMenuItem">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> goMenuItem</li>
+      <li><b>Trinidad:</b> commandMenuItem</li>
+    </ul>
+  </p>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>The goMenuItem component is obsolete because it has been merged into commandMenuItem.
+Use commandMenuItem instead.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end goMenuItem ********** -->
+
+
+<!-- ********** start group ********** -->
+<subsection name="group">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> (n/a)</li>
+      <li><b>Trinidad:</b> group</li>
+    </ul>
+  </p>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>The group component is an invisible control that aggregates semantically-related children.
+The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the panelForm.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end group ********** -->
+
+
+<!-- ********** start inputFile ********** -->
+<subsection name="inputFile">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> inputFile</li>
+      <li><b>Trinidad:</b> inputFile</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the inputFile component.
+      For example, if you want the input field to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>     
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end inputFile ********** -->
+
+
+<!-- ********** start inputText ********** -->
+<subsection name="inputText">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> inputText</li>
+      <li><b>Trinidad:</b> inputText</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the inputText component.
+      For example, if you want the input field to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>      
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr>
+    <tr>
+      <td>styleClass</td>
+      <td>styleClass</td>
+      <td><p>If in ADF, styleClass and inlineStyle were rendered on the label
+      and the &lt;input&gt;. In Trinidad, these attributes are rendered on the 
+      root dom element.</p>
+      <p>
+      If you used one of the following public style classes as the styleClass attribute value: 
+      <ul>
+      <li>AFFieldText</li>
+      <li>AFFieldTextLTR</li>
+      <li>AFPhoneFieldText</li> 
+      <li>AFPostalCodeFieldText</li>
+      <li>AFAddressFieldText</li> 
+      <li>AFFieldNumber</li>
+      </ul>
+      then you will need to append <b>'Marker'</b> to the end of the name. 
+      </p>
+      <p>
+      For example styleClass="AFFieldNumber" is now styleClass="AFFieldNumberMarker". 
+      This will ensure that only the 'content' piece (and not the 'label' piece) 
+      of the inputText component will be styled as AFFieldNumber.
+      You can still modify the public style definitions and it will be picked up 
+      by using the "Marker" style class 
+      because in our base skin implementation we map to the public style by doing this:
+      af|inputText.AFFieldNumberMarker::content {-tr-rule-ref:selector(".AFFieldNumber")}.
+      We recommend that you do not
+      add style properties to the "Marker" style classes. They are used solely in the 
+      css descendant selector to point to the content pseudo-element.
+      </p>
+      </td> 
+    </tr>     
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr> 
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end inputText ********** -->
+
+
+<!-- ********** start message ********** -->
+<subsection name="message">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> message</li>
+      <li><b>Trinidad:</b> message</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end message ********** -->
+
+
+<!-- ********** start menuPath ********** -->
+<subsection name="menuPath">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> menuPath</li>
+      <li><b>Trinidad:</b> navigationPath</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end menuPath ********** -->
+
+
+<!-- ********** start menuTree ********** -->
+<subsection name="menuTree">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> menuTree</li>
+      <li><b>Trinidad:</b> navigationTree</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>startDepth</td>
+      <td>startLevel</td>
+      <td>The starting level, based on a 0 based index, in the navigationModel to render based on the focusPath of the navigationModel.</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end menuTree ********** -->
+
+
+<!-- ********** start navigationLevel ********** -->
+<subsection name="navigationLevel (formerly menuBar, menuButtons, menuChoice, menuList, and menuTabs)">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> menuBar, menuButtons, menuChoice, menuList, and menuTabs</li>
+      <li><b>Trinidad:</b> navigationLevel</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>disabled or (n/a)</td>
+      <td>disabled</td>
+      <td>Whether the component is disabled.</td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>hint</td>
+      <td>How the navigational items are displayed. Options are:
+         <ul>
+           <li>bar</li>
+           <li>buttons</li>
+           <li>choice</li>
+           <li>list</li>
+           <li>tabs</li>
+         </ul></td>
+    </tr>
+    <tr>
+      <td>listStyle or (n/a)</td>
+      <td>styleClass</td>
+      <td>The style of the list should be encompassed through skinning instead.</td>
+    </tr>
+    <tr>
+      <td>startDepth</td>
+      <td>level</td>
+      <td></td>
+    </tr> 
+    <tr>
+      <td>title or (n/a)</td>
+      <td>title</td>
+      <td>Text that describes the items.  (This attribute is only applicable if the rendering hint supports it, e.g. "choice".)</td>
+    </tr>
+
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>This component consolidates the old menuBar, menuButtons, menuChoice, menuList, and menuTabs components into a single component, navigationLevel.</li>
+      <li>Some container components will automatically apply a suggested rendering hint if a hard-coded value is not defined.</li>
+      <li>Valid children for this component are now only commandNavigationItem components--it encompasses functionality that used to be provided by goMenuItem and commandMenuItem.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end navigationLevel ********** -->
+
+
+<!-- ********** start objectImage ********** -->
+<subsection name="objectImage">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> objectImage</li>
+      <li><b>Trinidad:</b> objectImage</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>align</td>
+      <td>(removed)</td>
+      <td>Obsolete.  This item represents deprecated attributes on the image tag.  Use styleClass or inlineStyle attributes.</td>
+    </tr>
+    <tr>
+      <td>borderWidth</td>
+      <td>(removed)</td>
+      <td>Obsolete.  This item represents deprecated attributes on the image tag.  Use styleClass or inlineStyle attributes.</td>
+    </tr>
+    <tr>
+   <td>height</td>
+   <td>(removed)</td>
+   <td>Obsolete.  Use styleClass or inlineStyle attributes.</td>
+    </tr>
+    <tr>
+   <td>width</td>
+   <td>(removed)</td>
+   <td>Obsolete.  Use styleClass or inlineStyle attributes.</td>
+    </tr>
+  </table>
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>None</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end objectImage ********** -->
+
+<!-- ********** start objectSeparator ********** -->
+<subsection name="objectSeparator">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> objectSeparator</li>
+      <li><b>Trinidad:</b> objectSeparator</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(none)</td>
+      <td>inlineStyle</td>
+      <td>this attribute was added</td>
+    </tr>
+    <tr>
+      <td>(none)</td>
+      <td>styleClass</td>
+      <td>this attribute was added</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end objectSeparator ********** -->
+
+
+<!-- ********** start outputLabel  ********** -->
+<subsection name="outputLabel">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> outputLabel</li>
+      <li><b>Trinidad:</b> outputLabel</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>anchor</td>
+      <td>(removed)</td>
+      <td>Obsolete. This attribute was ignored in ADF; it gathered this information from the 'for' attribute.</td>
+    </tr>
+    <tr>
+      <td>messageType</td>
+      <td>(removed)</td>
+      <td>Obsolete, use FacesMessage instead.</td>
+    </tr>
+    <tr>
+      <td>messageDescUrl</td>
+      <td>(removed)</td>
+      <td>Obsolete.  No equivalent exists.</td>
+    </tr>
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>Obsolete.  No equivalent exists.</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end outputLabel ********** -->
+
+<!-- ********** start panelBox ********** -->
+<subsection name="panelBox">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> panelBox</li>
+      <li><b>Trinidad:</b> panelBox</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td>(removed)</td>
+      <td>Obsolete, width can be set using inlineStyle.</td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>this is the inline style for the content region only.</td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>The default width of the panelBox (which used to be 33%) has been removed.  PanelBox will now
+      grow with its content unless it is in a geometry managed component or the width in inlineStyle
+      is set.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end panelBox ********** -->
+
+<!-- ********** start panelForm ********** -->
+<subsection name="panelForm">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> panelForm</li>
+      <li><b>Trinidad:</b> panelForm</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td>inlineStyle or styleClass</td>
+      <td>Obsolete. This attribute is no longer needed because width can be defined explicitly through the inlineStyle attribute or implicitly through the styleClass attribute.</td>
+    </tr>
+  </table>
+  
+</subsection>
+<!-- ********** end panelForm ********** -->
+
+<!-- ********** start panelHeader ********** -->
+<subsection name="panelHeader">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> panelHeader</li>
+      <li><b>Trinidad:</b> panelHeader</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>shortText</td>
+      <td>(removed)</td>
+      <td>Obsolete, no replacement</td>
+    </tr>
+    <tr>
+   <td>size</td>
+   <td>size</td>
+   <td>Negative numbers imply automatic header level determination.  Default has changed to -1.</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end panelHeader ********** -->
+<!-- ********** start panelLabelAndMessage ********** -->
+<subsection name="panelLabelAndMessage">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> panelLabelAndMessage</li>
+      <li><b>Trinidad:</b> panelLabelAndMessage</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>anchor</td>
+      <td>(removed)</td>
+      <td>Obsolete. This attribute was ignored in ADF; it gathered this information from the 'for' attribute.</td>
+    </tr>
+    <tr>
+      <td>message</td>
+      <td>(removed)</td>
+      <td>Obsolete, use FacesMessage instead.</td>
+    </tr>
+    <tr>
+      <td>messageType</td>
+      <td>(removed)</td>
+      <td>Obsolete, use FacesMessage instead.</td>
+    </tr>
+    <tr>
+      <td>messageDescUrl</td>
+      <td>(removed)</td>
+      <td>Obsolete.  See messaging framework documentation.</td>
+    </tr>
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>Obsolete.  See messaging framework documentation.</td>
+    </tr>
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr> 
+    <tr>
+      <td>valign</td>
+      <td>labelStyle</td>
+      <td>The valign attribute was not flexible enough so labelStyle was introduced.  The labelStyle attribute specifies inline styles for the label portion of the component, e.g. "vertical-align: bottom;" to align the label to the bottom of the container.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end panelLabelAndMessage ********** -->
+
+<!-- ********** start panelList ********** -->
+<subsection name="panelList">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> panelList</li>
+      <li><b>Trinidad:</b> panelList</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>listStyle</td>
+      <td>The styleClass and inlineStyle attributes are now rendered on the root
+      dom element instead of the &lt;ul&gt; element as it was in ADF. In 
+      ADF you could change the list style by setting the inlineStyle attribute,
+      but now you need to set the listStyle attribute.
+      For example, you can style the list to be squares like this: 
+      listStyle='list-style-type:square'</td>
+    </tr>
+  </table>
+</subsection>
+<!-- ********** end panelList ********** -->
+
+<!-- ********** start panelPage ********** -->
+<subsection name="panelPage">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> panelPage</li>
+      <li><b>Trinidad:</b> panelPage</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>chromeType</td>
+      <td>(removed)</td>
+      <td>removed, consider using skin properties to tweak panelPage</td>
+    </tr>
+    <tr>
+      <td>messageType</td>
+      <td>(removed)</td>
+      <td>removed, use the panelHeader for your title and set its messageType instead</td>
+    </tr>
+    <tr>
+      <td>quickLinksShown</td>
+      <td>(removed)</td>
+      <td>removed</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>(removed)</td>
+      <td>removed, use a panelHeader that you place as an indexed child where the text attribute is the title instead</td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>auxiliaryGlobalSize</td>
+      <td>amount of pixels allocated to the splitter pane containing the global auxiliary region; value is an integer with default of 100</td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>auxiliary1Size</td>
+      <td>amount of pixels allocated to the splitter pane containing the primary auxiliary region; value is an integer with default of 100</td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>auxiliary2Size</td>
+      <td>amount of pixels allocated to the splitter pane containing the secondary auxiliary region; value is an integer with default of 100</td>
+    </tr>
+  </table>
+
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+
+    <tr>
+      <td>actions</td>
+      <td>(removed)</td>
+      <td>removed;  use the panelHeader that you used for your title instead</td>
+    </tr>
+
+    <tr>
+      <td>brandingApp</td>
+      <td>(removed)</td>
+      <td>removed because you should use the branding facet instead</td>
+    </tr>
+
+    <tr>
+      <td>brandingAppContextual</td>
+      <td>globalContext</td>
+      <td>removed because you should use the branding facet instead</td>
+    </tr>
+
+    <tr>
+      <td>contextSwitcher</td>
+      <td>(removed)</td>
+      <td>removed, this belongs to the panelHeader that you used for your title instead</td>
+    </tr>
+
+    <tr>
+      <td>infoSupplemental</td>
+      <td>(removed)</td>
+      <td>removed, use auxiliary or contextual regions instead</td>
+    </tr>
+
+    <tr>
+      <td>menuSwitch</td>
+      <td>(removed)</td>
+      <td>removed because you should use the branding facet instead</td>
+    </tr>
+
+    <tr>
+      <td>menuGlobal</td>
+      <td>navigationGlobal</td>
+      <td>renamed because of too much confusion; this is for navigation components, not menu components</td>
+    </tr>
+
+    <tr>
+      <td>menu1</td>
+      <td>navigation1</td>
+      <td>renamed because of too much confusion; this is for navigation components, not menu components</td>
+    </tr>
+
+    <tr>
+      <td>menu2</td>
+      <td>navigation2</td>
+      <td>renamed because of too much confusion; this is for navigation components, not menu components</td>
+    </tr>
+
+    <tr>
+      <td>menu3</td>
+      <td>navigation3</td>
+      <td>renamed because of too much confusion; this is for navigation components, not menu components</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>auxiliaryGlobal</td>
+      <td>location for global auxiliary items</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>auxiliary1</td>
+      <td>location for primary auxiliary items</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>auxiliary2</td>
+      <td>location for secondary auxiliary items</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>contextGlobal</td>
+      <td>location for global context items</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>contextLocal</td>
+      <td>location for local context items in a horizontal orientation relative to the main content</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>toolbarGlobal</td>
+      <td>location for a toolbar in the global layer</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>toolbar1</td>
+      <td>location for a toolbar in the primary layer</td>
+    </tr>
+
+    <tr>
+      <td>(n/a)</td>
+      <td>toolbar2</td>
+      <td>location for a toolbar in the secondary layer</td>
+    </tr>
+
+  </table>
+</subsection>
+<!-- ********** end panelPage ********** -->
+
+
+<!-- ********** start region ********** -->
+<subsection name="region">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> region </li>
+      <li><b>Trinidad:</b> (removed)</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b> (n/a)</p>
+  <p><b>Changed Facets:</b> (n/a)</p>
+
+</subsection>
+<!-- ********** end region ********** -->
+
+
+<!-- ********** start regionDef ********** -->
+<subsection name="regionDef">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> regionDef</li>
+      <li><b>Trinidad:</b> (removed)</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b> (n/a)</p>
+  <p><b>Changed Facets:</b> (n/a)</p>
+
+</subsection>
+<!-- ********** end regionDef ********** -->
+
+
+<!-- ********** start selectBooleanCheckbox ********** -->
+<subsection name="selectBooleanCheckbox">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectBooleanCheckbox</li>
+      <li><b>Trinidad:</b> selectBooleanCheckbox</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>     
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectBooleanCheckbox ********** -->
+
+
+<!-- ********** start selectBooleanRadio ********** -->
+<subsection name="selectBooleanRadio">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectBooleanRadio</li>
+      <li><b>Trinidad:</b> selectBooleanRadio</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>     
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectBooleanRadio ********** -->
+
+
+<!-- ********** start selectInputColor ********** -->
+<subsection name="selectInputColor">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectInputColor</li>
+      <li><b>Trinidad:</b> selectInputColor</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      For example, if you want the input field to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>     
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectInputColor ********** -->
+
+
+<!-- ********** start selectInputDate ********** -->
+<subsection name="selectInputDate">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectInputDate</li>
+      <li><b>Trinidad:</b> selectInputDate</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      For example, if you want the input field to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>    
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr> 
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectInputDate ********** -->
+
+
+<!-- ********** start selectInputText ********** -->
+<subsection name="selectInputText">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectInputText</li>
+      <li><b>Trinidad:</b> selectInputText</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      For example, if you want the input field to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>      
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectInputText ********** -->
+
+
+<!-- ********** start selectManyCheckbox ********** -->
+<subsection name="selectManyCheckbox">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectManyCheckbox</li>
+      <li><b>Trinidad:</b> selectManyCheckbox</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>      
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectManyCheckbox ********** -->
+
+
+<!-- ********** start selectManyListbox ********** -->
+<subsection name="selectManyListbox">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectManyListbox</li>
+      <li><b>Trinidad:</b> selectManyListbox</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      For example, if you want the input to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>       
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr> 
+    <tr>
+      <td>(n/a)</td>
+      <td>selectAllVisible</td>
+      <td>Whether or not to show an option to select all the items. Defaults to true.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectManyListbox ********** -->
+
+
+<!-- ********** start selectOneChoice ********** -->
+<subsection name="selectOneChoice">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectOneChoice</li>
+      <li><b>Trinidad:</b> selectOneChoice</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      For example, if you want the input to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>    
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectOneChoice ********** -->
+
+
+<!-- ********** start selectOneListbox ********** -->
+<subsection name="selectOneListbox">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectOneListbox</li>
+      <li><b>Trinidad:</b> selectOneListbox</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      For example, if you want the input to be 300 pixels wide, you can do this:
+      contentStyle="width:300px". In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>    
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr>  
+    <tr>
+      <td>(n/a)</td>
+      <td>unselectedLabel</td>
+      <td>This attribute has been added to match the unselectedLabel attribute that exists on selectOneRadio and selectOneChoice. </td>
+    </tr>
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectOneListbox ********** -->
+
+
+<!-- ********** start selectOneRadio ********** -->
+<subsection name="selectOneRadio">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> selectOneRadio</li>
+      <li><b>Trinidad:</b> selectOneRadio</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>contentStyle</td>
+      <td>use contentStyle to set the style for the content part of the component.
+      In ADF, inlineStyle was the closest equivalent, but
+      inlineStyle was rendered on both the label and the content. In Trinidad, inlineStyle
+      and styleClass are rendered on the root dom element.</td>
+    </tr>    
+    <tr>
+      <td>messageDescUrl </td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>messageTargetFrame</td>
+      <td>(removed)</td>
+      <td>see messaging framework documentation</td>
+    </tr> 
+    <tr>
+      <td>tip</td>
+      <td>(removed)</td>
+      <td>use the new help facet - see below. To upgrade put an outputText in the new help facet and set the  outputText's 'value' attribute to the old tip text.</td>
+    </tr>
+    <tr>
+      <td>valign</td>
+      <td>(removed)</td>
+      <td>we default this to look correct, so this attribute is not needed. You can use styleClass and skinning together to override the default vertical alignment of the label and contents.</td>
+    </tr>     
+  </table>
+  
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>(n/a)</td>
+      <td>help</td>
+      <td>information to help the user fill in a field</td>
+    </tr>
+  </table>
+
+</subsection>
+<!-- ********** end selectOneRadio ********** -->
+
+<!-- ********** start showDetail ********** -->
+<subsection name="showDetail">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> showDetail</li>
+      <li><b>Trinidad:</b> showDetail</li>
+    </ul>
+  </p>
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>Although the APIs for this component have not changed, the behavior has.  In ADF, if either the disclosedText 
+      OR the undisclosedText attribute was not specified, and the prompt facet was not specified, then the default "hide" or
+      "show" text would be rendered in place of the missing attribute.  In the current release, the default values are only
+      displayed if NEITHER the disclosedText nor the undisclosedText is specified.  If one of those attributes is specified
+      the component will use the same label for both the disclosed state AND the undisclosed state.  If both are specified,
+      it will switch between them as normal.  This was done to prevent the application developer from having to specify BOTH
+      a disclosedText and an undisclosedText attribute in order to create a showDetail without a changing label.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end example ********** -->
+
+<!-- ********** start showDetailHeader ********** -->
+<subsection name="showDetailHeader">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> showDetailHeader</li>
+      <li><b>Trinidad:</b> showDetailHeader</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>shortText</td>
+      <td>(removed)</td>
+      <td>Obsolete, no replacement</td>
+    </tr>
+    <tr>
+   <td>size</td>
+   <td>size</td>
+   <td>Negative numbers imply automatic header level determination.  Default has changed to -1.</td>
+    </tr>
+    <tr>
+  <td>(none)</td>
+  <td>messageType</td>
+  <td>Added messageType to showDetailHeader in order to maintain consistancy with panelHeader.</td>
+    </tr>
+  </table>
+</subsection>
+<!-- ********** end showDetailHeader ********** -->
+
+<!-- ********** start showDetailItem ********** -->
+<subsection name="showDetailItem">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> showDetailItem</li>
+      <li><b>Trinidad:</b> showDetailItem</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+  </table>
+
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>The functionality added here is not rendered as part of this component.  Rather, these items
+      are to be consumed by a showOne or showMany component.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end showDetailItem ********** -->
+
+
+<!-- ********** start showOneAccordion ********** -->
+<subsection name="showOneAccordion">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> showOnePanel</li>
+      <li><b>Trinidad:</b> showOneAccordion</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end showOneAccordion ********** -->
+
+
+<!-- ********** begin table ***************** -->
+<subsection name="table">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> table</li>
+      <li><b>Trinidad:</b> table</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>rowSelection</td>
+      <td>new attribute to control selection. use "single" for single selection. use "multiple" for multiple selection.</td>
+    </tr>
+    <tr>
+      <td>selectionState</td>
+      <td>selectedRowKeys</td>
+      <td>renamed.
+      </td>
+    </tr>
+    <tr>
+      <td>banding</td>
+      <td>rowBandingInterval or columnBandingInterval</td>
+      <td>for row banding use nonzero value for rowBandingInterval. For column banding use nonzero value for columnBandingInterval. Use zero for both
+to turn off banding.
+      </td>
+    </tr>
+    <tr>
+      <td>bandingInterval</td>
+      <td>rowBandingInterval or columnBandingInterval</td>
+      <td>renamed.
+      </td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td>inlineStyle</td>
+      <td>removed. use inlineStyle attribute to set the width using css.
+      </td>
+    </tr>
+  </table>
+
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>selection</td>
+      <td> </td>
+      <td>This facet was removed. Selection is now controlled by the new "rowSelection" attribute. See the tableSelectOne and tableSelectMany components for more details.</td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>todo</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end table ********** -->
+
+
+<!-- ********** begin tableSelectMany ***************** -->
+<subsection name="tableSelectMany">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> tableSelectMany</li>
+      <li><b>Trinidad:</b> component removed</li>
+    </ul>
+  </p>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>selection on the table is controlled by the "rowSelection" attribute on the table/treeTable component</li>
+      <li>move the children of this component into the "toolbar" facet of the
+      surrounding "decorateCollection" component.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end tableSelectMany ********** -->
+
+
+<!-- ********** begin tableSelectOne ***************** -->
+<subsection name="tableSelectOne">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> tableSelectOne</li>
+      <li><b>Trinidad:</b> component removed</li>
+    </ul>
+  </p>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>selection on the table is controlled by the "rowSelection" attribute on the table/treeTable component</li>
+      <li>move the children of this component into the "toolbar" facet of the
+      surrounding "decorateCollection" component.</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end tableSelectOne ********** -->
+
+
+<!-- ********** begin tree ***************** -->
+<subsection name="tree">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> tree</li>
+      <li><b>Trinidad:</b> tree</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>rowSelection</td>
+      <td>new attribute to control selection. use "single" for single selection. use "multiple" for multiple selection.</td>
+    </tr>
+    <tr>
+      <td>selectionState</td>
+      <td>selectedRowKeys</td>
+      <td>renamed.
+      </td>
+    </tr>
+    <tr>
+      <td>treeState</td>
+      <td>disclosedRowKeys</td>
+      <td>renamed.
+      </td>
+    </tr>
+  </table>
+
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>todo</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end tree ********** -->
+
+
+<!-- ********** begin treeTable ***************** -->
+<subsection name="treeTable">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> treeTable</li>
+      <li><b>Trinidad:</b> treeTable</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>rowSelection</td>
+      <td>new attribute to control selection. use "single" for single selection. use "multiple" for multiple selection.</td>
+    </tr>
+    <tr>
+      <td>selectionState</td>
+      <td>selectedRowKeys</td>
+      <td>renamed.
+      </td>
+    </tr>
+    <tr>
+      <td>banding</td>
+      <td>rowBandingInterval or columnBandingInterval</td>
+      <td>for row banding use nonzero value for rowBandingInterval. For column banding use nonzero value for columnBandingInterval. Use zero for both
+to turn off banding.
+      </td>
+    </tr>
+    <tr>
+      <td>bandingInterval</td>
+      <td>rowBandingInterval or columnBandingInterval</td>
+      <td>renamed.
+      </td>
+    </tr>
+    <tr>
+      <td>width</td>
+      <td>inlineStyle</td>
+      <td>removed. use inlineStyle attribute to set the width using css.
+      </td>
+    </tr>
+    <tr>
+      <td>treeState</td>
+      <td>disclosedRowKeys</td>
+      <td>renamed.
+      </td>
+    </tr>
+  </table>
+
+  <p><b>Changed Facets:</b></p>
+
+  <table border="1" width="90%">
+    <tr>
+      <td><b>ADF</b></td>
+      <td><b>Trinidad</b></td>
+      <td><b>Notes</b></td>
+    </tr>
+    <tr>
+      <td>selection</td>
+      <td> </td>
+      <td>This facet was removed. Selection is now controlled by the new "rowSelection" attribute. See the tableSelectOne and tableSelectMany components for more details.</td>
+    </tr>
+  </table>
+
+  <p>
+    <b>Additional Notes:</b>
+    <ul>
+      <li>todo</li>
+    </ul>
+  </p>
+
+</subsection>
+<!-- ********** end treeTable ********** -->
+
+
+
+      </p>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Reordering Test">
+      <tr:form>
+        <tr:panelGroupLayout binding="#{reorder.panel}" layout="vertical">
+          <tr:outputText value="Item 1"/>
+          <tr:outputText value="Item 2"/>
+          <tr:outputText value="Item 3"/>
+          <f:facet name="separator">
+            <tr:outputText value="----------"/>
+          </f:facet>
+        </tr:panelGroupLayout>
+        <f:verbatim><br /></f:verbatim>
+        <tr:commandButton text="Add" actionListener="#{reorder.add}"/>
+        <tr:commandButton text="Remove last" actionListener="#{reorder.remove}"/>
+        <tr:commandButton text="Remove first" actionListener="#{reorder.removeFirst}"/>
+        <tr:commandButton text="Remove Last" actionListener="#{reorder.remove}"/>
+        <tr:commandButton text="Rotate" actionListener="#{reorder.rotate}"/>
+        <tr:commandButton text="Remove Separator" actionListener="#{reorder.removeSeparator}"/>
+        <tr:commandButton text="Set Separator" actionListener="#{reorder.setSeparator}"/>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

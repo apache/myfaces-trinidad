@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <tr:spacer height="5px"/>    
+  <tr:outputFormatted styleUsage="instruction"
+                      value="In both cases most of the content of the page is in a jsp include, so as you navigate around the content of the pages does not change. This is just for demo purposes, in a real application each page would be defined separately but bind to the same model."/>
+  <tr:panelHeader text="Model Attached to Tree Component">
+    <tr:outputFormatted styleUsage="instruction"
+                        value="The tree below is bound to the same model as the page."/>
+    <tr:tree var="foo" value="#{menuModel.model}"
+             focusRowKey="#{menuModel.model.focusRowKey}">
+      <f:facet name="nodeStamp">
+        <tr:commandLink text="#{foo.label}" action="#{foo.getOutcome}"/>
+      </f:facet>
+    </tr:tree>
+  </tr:panelHeader>
+  <tr:panelHeader text="Add a New Page">
+    <tr:outputFormatted styleUsage="instruction"
+                        value="You can easily add a new page to this demo by following what's in the .jspx files and faces-config.xml. The steps are:"/>
+    <tr:panelList>
+      <tr:outputFormatted styleUsage="instruction"
+                          value="stop the servlet engine"/>
+      <tr:outputFormatted styleUsage="instruction"
+                          value="create a new .jspx page"/>
+      <tr:panelGroupLayout>
+        <tr:outputFormatted styleUsage="instruction"
+                            value="In faces-config.xml"/>
+        <tr:panelList>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="add a navigation case for the new page"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="using the managed bean facility create a node to add to the menuModel"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="either attach the node created above to a parent node or add it as a root node"/>
+        </tr:panelList>
+      </tr:panelGroupLayout>
+    </tr:panelList>
+  </tr:panelHeader>
+</jsp:root>

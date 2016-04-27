@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache MyFaces Trinidad Demo</name>
+  <description>Apache MyFaces Trinidad Demo</description>
+
+  <parent>
+    <groupId>org.apache.myfaces.trinidad</groupId>
+    <artifactId>trinidad-example</artifactId>
+    <version>2.1.1</version>
+  </parent>
+
+  <artifactId>trinidad-demo</artifactId>
+  <packaging>war</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>4.0.0.GA</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.4.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.1</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+    </dependency>
+    
+    <!-- For SourceCodeServlet -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+
+<!--
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+-->
+  </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
+        <artifactId>maven-jdev-plugin</artifactId>
+        <configuration>
+          <libraries>
+            <library>JSP Runtime</library>
+          </libraries>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+        <excludes>
+          <exclude>**/Nasdaq*.txt</exclude>
+          <exclude>**/*.jspf</exclude>
+        </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <!-- To Debug using a remote debugger, issue
+	    "export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"
+	    and then issue
+	    "mvn clean -PjettyConfig jetty:run"
+	    Then connect the remote debugger to localhost:8000 -->
+    <profile>
+      <id>jettyConfig</id>
+      <dependencyManagement>
+        <dependencies>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>maven-jetty-plugin</artifactId>
+            
+            <configuration>
+              <scanIntervalSeconds>10</scanIntervalSeconds>
+            </configuration>
+          </plugin>
+       </plugins>
+     </build>
+   </profile>
+    
+   <!-- sets up the webapp for deployment to pluto  "mvn clean install -Ppluto" -->    
+   <profile>
+     <id>pluto</id>
+     <dependencies>
+        <dependency>
+	       <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-api</artifactId>
+		  </dependency>
+		  
+		  <dependency>
+		    <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-impl</artifactId>
+		  </dependency>		  
+
+        <dependency>
+          <groupId>${pluto.package}</groupId>
+          <artifactId>pluto-util</artifactId>
+        </dependency>
+		</dependencies>
+      
+      <build>
+        <plugins>
+          <!-- configure maven-war-plugin to use updated web.xml -->
+          <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>${pluto.package}</groupId>
+            <artifactId>maven-pluto-plugin</artifactId>
+          </plugin>  
+        </plugins>
+      </build>
+    </profile>
+    
+    <!-- To run jetty, issue "mvn clean -PjettyConfig jetty:run" -->
+    <profile>
+      <id>pluto-embedded</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <scope>runtime</scope>
+            <version>${jsf-myfaces.version}</version>
+          </dependency>
+
+          <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>${portlet.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+        </dependencies>
+      </dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>com.bekk.boss</groupId>
+          <artifactId>maven-jetty-pluto-embedded</artifactId>
+        </dependency>
+        <dependency>
+	       <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-api</artifactId>
+		    <scope>compile</scope>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-impl</artifactId>
+		    <scope>runtime</scope>
+		  </dependency>
+      </dependencies>
+		
+		<build>      
+        <plugins>
+          <plugin>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <configuration>
+              <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
+              <webDefaultXml>src/main/webapp/WEB-INF/jetty-pluto-web-default.xml</webDefaultXml>
+              <systemProperties>
+                <systemProperty>
+                  <name>org.apache.pluto.embedded.portletIds</name>
+                  <value>trinidad_demo</value>
+                </systemProperty>
+              </systemProperties>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>${pluto.package}</groupId>
+            <artifactId>maven-pluto-plugin</artifactId>
+          </plugin>  
+        </plugins>
+      </build>  
+    </profile>
+    
+    <!-- Runs the portal testcases in Pluto 2.0 -->
+    <profile>
+      <id>portlet20</id>
+      <activation>
+        <property>
+          <name>portlet</name>
+          <value>2.0</value>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>BOSS inhouse private</id>
+          <url>http://boss.bekk.no/proximity/repository/private</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+        </repository>
+      </repositories>
+      <properties>
+        <portlet-bridge.version>2.0.0-SNAPSHOT</portlet-bridge.version>
+        <pluto-embedded.version>2.0-SNAPSHOT</pluto-embedded.version>
+        <portlet.version>2.0</portlet.version>
+        <pluto.version>2.0.0-SNAPSHOT</pluto.version>
+        <pluto.package>org.apache.portals.pluto</pluto.package>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>glassfish</id>
+      <!--
+      NOTE: Execute this profile like
+            mvn package embedded-glassfish:run -Pglassfish
+       -->
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>provided</scope>
+          </dependency>
+
+          <!--dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency-->
+        </dependencies>
+      </dependencyManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.glassfish</groupId>
+            <artifactId>maven-embedded-glassfish-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+              <port>9090</port>
+              <contextRoot>/</contextRoot>
+             <autoDelete>true</autoDelete>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <pluginRepositories>
+      <!-- Repository for Embedded Glassfish plugin -->
+      <pluginRepository>
+        <id>glassfish-repository</id>
+        <url>http://download.java.net/maven/glassfish/</url>
+      </pluginRepository>
+    </pluginRepositories>
+      <repositories>
+      <!-- Repository for Embedded Glassfish plugin -->
+      <repository>
+        <id>glassfish-repository</id>
+        <url>http://download.java.net/maven/glassfish/</url>
+      </repository>
+    </repositories>
+  </profile>
+  </profiles>
+</project>

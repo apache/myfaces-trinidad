@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>The Apache Trinidad Dialog Framework</title>
+  </properties>
+  <body>
+    <section name="The Apache Trinidad Dialog Framework">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="#Launching Dialogs">Launching Dialogs</a>
+          </li>
+          <li>
+            <a href="#Passing Information In And Out">Passing Information In and Out</a>
+          </li>
+          <li>
+            <a href="#inputListOfValues">inputListOfValues</a>
+          </li>
+          <li>
+            <a href="#Manually Launching A Dialog">Manually Launching A Dialog</a>
+          </li>
+          <li>
+            <a href="#Supporting Dialogs in Custom Components">Supporting Dialogs in Custom Components</a>
+          </li>
+          <li>
+            <a href="#Supporting Dialogs in Custom Renderers">Supporting Dialogs in Custom Renderers</a>
+          </li>
+          <li>
+            <a href="#Supporting Dialogs in a Custom RenderKit">Supporting Dialogs in a Custom RenderKit</a>
+          </li>
+          <li>
+            <a href="#Low-level APIs: pushView() and popView()">Low-level APIs: pushView() and popView()</a>
+          </li>
+          <li>
+            <a href="#Dialog Caveats">Dialog Caveats</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="Overview">
+      <p>
+Many web applications have a need to jump to a page,
+or a series of pages, to get information from the user
+and then return to the original page to use that information.
+Apache Trinidad calls these "dialogs".  Apache Trinidad can show
+a dialog just by navigating to a new page within your
+main browser window, or by showing a popup window. 
+Apache Trinidad saves you from the effort of managing
+the Javascript needed to launch these windows, and encapsulates
+the differences between popup windows and ordinary navigation;
+for example, it can switch to using the same window if a client
+doesn't support opening new windows (a PDA, for example).
+
+     </p>
+     <p>This dialog framework can be launched manually
+with Java APIs, or more easily with ordinary JSF navigation
+rules.  You can support it from your own custom UIComponents and
+Renderers, or even from a custom RenderKit.  It is in part built on
+lower-level APIs that support "pushing" and "popping" pages that
+you can reuse on their own to show login pages or save state for
+multi-page wizards.
+      </p>
+    </section>
+    <section name="Launching Dialogs">
+<p>
+The simplest way to interact with the dialog framework is with the
+functionality built-in to the
+<code>org.apache.myfaces.trinidad.component.UIXCommand</code> component
+class.  This class supports all the standard "action" and "actionListener"
+attributes of the JSF <code>UICommand</code> component, and that's
+how you'll use it most of the time.  But <code>UIXCommand</code> - combined
+with some <code>&lt;navigation-rule&gt;</code> magic - also supports
+launching dialogs, and lets you know when that dialog finishes
+with a <code>ReturnEvent</code>.
+</p>
+<p>
+To specify a rule that launches a dialog, simply use an
+outcome that begins with "dialog:":
+<source>
+  &lt;tr:commandButton text="Show More Information"
+                       action="dialog:showDetail"/&gt;
+
+  ...
+
+  &lt;navigation-rule&gt;
+    &lt;from-view-id&gt;/*&lt;/from-view-id&gt;
+
+    &lt;navigation-case&gt;
+      &lt;from-outcome&gt;dialog:showDetail&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/showDetail.jspx&lt;/to-view-id&gt;
+    &lt;/navigation-case&gt;
+  &lt;/navigation-rule&gt;
+</source>
+</p>
+<p>
+This will show the "/showDetail.jspx" page in the same window.
+If you wanted to show it in a popup window, just add useWindow="true"
+to the command:
+<source>
+  &lt;tr:commandButton text="Show More Information"
+                       partialSubmit="true"
+                       useWindow="true"
+                       action="dialog:showDetail"/&gt;
+</source>
+</p>
+<div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+<strong>Note:</strong> You cannot use &lt;redirect&gt; in rules that
+may launch dialogs into their own popup windows.  It's fine for rules
+that do not popup a new window, but instead stay within the same window.
+</div>
+<p>
+Note that we've also set "partialSubmit" on  the commandButton to "true";
+we highly recommend using this option on buttons that launch dialogs,
+as it avoids an otherwise unnecessary flash of the main page as
+the dialog is launched.
+</p>
+<p>
+You can use a hardcoded outcome from an Apache Trinidad command component, but,
+just as with any "action", you can also programatically decide whether
+or not you want to show a dialog (or what dialog to show) from an
+ordinary "action" method.  For example, an action might check if a
+user's been logged out, and if so, show a warning dialog instead of
+navigating ordinarily.
+<source>
+  &lt;tr:commandButton text="Show More Information"
+                       useWindow="true"
+                       action="#{backingBean.goSomewhere}"/&gt;
+  ...
+
+  public String goSomewhere()
+  {
+    if (isUserLoggedOut())
+    {
+      return "dialog:loggedOutWarning"; 
+    }
+    else
+    {
+      // Note that "useWindow" is only relevant if
+      // the outcome begins with "dialog:";  this
+      // will not show a dialog!
+      return "somewhere";
+    }
+  }
+</source>
+</p>
+<p>
+All of these techniques do require that you've defined a navigation
+rule with a "dialog:" outcome.  Later, we'll see how to
+launch a dialog programatically.</p>
+
+<p>In all of these cases, when you're using a web browser
+that supports all the features we need for launching dialogs,
+a new window will appear containing the dialog.  But if you're
+using some other web browser or a device like a PDA that doesn't
+satisfy our requirements, your dialog code will still work!
+Instead of launching a new window, Apache Trinidad simply show you
+the dialog page in the current window after
+automatically preserving all the state of your current page.</p>
+
+<p>When the dialog finishes (more on what that means in a bit), your
+command component gets a <code>ReturnEvent</code> delivered to a
+<code>ReturnListener</code>, if you've registered one (either with
+<code>addReturnListener</code> or using the "returnListener"
+property).  The dialog can give you a return value, and if it does,
+that will automatically be handed to you as a property of the
+<code>ReturnEvent</code>:
+<source>
+     &lt;tr:commandButton text="Get Value" action="dialog:getValue"
+           returnListener="#{backing.handleReturn}"/>
+
+   ...
+
+  public void handleReturn(ReturnEvent event)
+  {
+    Object returnedValue = event.getReturnValue();
+    // ... handle that return value as desired ...
+  }
+</source>
+</p>
+
+<p>The dialog itself can be written like any other JSF page.  The
+only way in which it differs is that you need to call a special method
+to tell Apache Trinidad that the dialog is complete -
+<code>RequestContext.returnFromDialog()</code>.  You can call this
+method whether the dialog was shown in a popup window or not; if it was a
+popup window, the dialog window will close automatically.  You also don't
+need to call it in the first page you show - you can navigate from the
+first page in the dialog to as many other pages as you want, and just
+need to call <code>returnFromDialog()</code> eventually.  This method
+is also what lets you send the "return value" back from your dialog:
+
+<source>
+   &lt;!-- In your dialog page -->
+   &lt;tr:commandButton text="Done" actionListener="#{dialogBacking.done}"/&gt;
+
+  ...
+
+  public void done(ActionEvent e)
+  {
+    // Get the return value
+    Object returnValue = ...; 
+    // And return it
+    RequestContext.getCurrentInstance().returnFromDialog(returnValue, null);
+  }
+</source>
+</p>
+<subsection name="Example">
+<p>
+Let's work through a full (if simple) example to put the pieces together.
+We'll write a dialog that lets a user add two numbers, and we'll
+use that dialog to fill in a field on the original page.
+</p>
+<p>First, let's write the dialog:
+<source>
+&lt;?xml version='1.0' encoding='utf-8'?>
+&lt;jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
+  &lt;jsp:directive.page contentType="text/html;charset=utf-8"/>
+  &lt;f:view>
+    &lt;tr:document title="Add dialog">
+      &lt;tr:form>
+         &lt;!-- Two input fields --&gt;
+         &lt;tr:panelForm>
+           &lt;tr:inputText label="Number 1:" value="#{chooseInteger.value1}"
+                         required="true" />
+           &lt;tr:inputText label="Number 2:" value="#{chooseInteger.value2}"
+                         required="true" />
+         &lt;/tr:panelForm>
+         
+         &lt;!-- Two buttons -&gt;
+          &lt;tr:panelGroup layout="horizontal">
+           &lt;tr:commandButton text="Submit" action="#{chooseInteger.select}"/>
+           &lt;tr:commandButton text="Cancel" immediate="true"
+                             action="#{chooseInteger.cancel}"/>
+          &lt;/tr:panelGroup>
+      &lt;/tr:form>
+    &lt;/tr:document>
+  &lt;/f:view>
+&lt;/jsp:root>
+</source>
+</p>
+<p>
+This is a pretty simple page, with a couple of required input fields
+and a couple of command buttons.  We've put them in a bunch of
+containers to make the page a bit prettier, but that's all fairly
+simple.  Now, we need to build the "chooseInteger" backing bean.
+First, we'll add a managed-bean to our faces-config.xml, and also a
+"dialog:" navigation rule so other pages can get to this dialog:
+
+<source>
+  &lt;managed-bean>
+    &lt;managed-bean-name>chooseInteger&lt;/managed-bean-name>
+    &lt;managed-bean-class>
+       org.apache.myfaces.trinidaddemo.ChooseIntegerBean
+    &lt;/managed-bean-class>
+    &lt;managed-bean-scope>
+       request
+    &lt;/managed-bean-scope>
+  &lt;/managed-bean>
+
+  &lt;navigation-rule>
+    &lt;from-view-id>/*&lt;/from-view-id>
+    &lt;navigation-case>
+      &lt;from-outcome>dialog:chooseInteger&lt;/from-outcome>
+      &lt;to-view-id>/demos/chooseInteger.jspx&lt;/to-view-id>
+    &lt;/navigation-case>
+  &lt;/navigation-rule>
+</source>
+</p>
+<p>And now, the code for <code>ChooseIntegerBean</code>:
+<source>
+package org.apache.myfaces.trinidaddemo;
+
+import org.apache.myfaces.trinidad.context.RequestContext;
+
+public class ChooseIntegerBean
+{
+  public Integer getValue1()
+  {
+    return _value1;
+  }
+
+  public void setValue1(Integer value1)
+  {
+    _value1 = value1;
+  }
+
+  public Integer getValue2()
+  {
+    return _value2;
+  }
+
+  public void setValue2(Integer value2)
+  {
+    _value2 = value2;
+  }
+
+
+  public String cancel()
+  {
+    RequestContext.getCurrentInstance().returnFromDialog(null, null);
+    return null;
+  }
+
+  public String select()
+  {
+    Integer value = new Integer(getValue1().intValue() +
+                                getValue2().intValue());
+    RequestContext.getCurrentInstance().returnFromDialog(value, null);
+    return null;
+  }
+
+  private Integer _value1;
+  private Integer _value2;
+}
+</source>
+</p>
+
+<p>This code shows an example of how to call
+<code>returnFromDialog()</code>.  In the cancel() case, we just return
+null; for select(), we add the two numbers and return that Integer.
+(We marked both fields as required, which is why I can be lazy and
+fail to check that getValue1() and getValue2() aren't null.)  But note
+that in neither action do we have any notion of where we're returning
+this value to - we just rely on the Apache Trinidad framework to figure
+that out.
+</p>
+<p>
+Now, let's write a page that uses that dialog:
+<source>
+&lt;?xml version='1.0' encoding='utf-8'?>
+&lt;jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
+  &lt;jsp:directive.page contentType="text/html;charset=utf-8"/>
+  &lt;f:view>
+    &lt;tr:document title="Dialog Demo">
+      &lt;tr:form>
+         &lt;!-- The field for the value;  we point partialTriggers
+              at the button to ensure it gets redrawn when we return --&gt;
+         &lt;tr:inputText label="Pick a number:" value="(Empty)"
+                       partialTriggers="buttonId"
+                       binding="#{launchDialog.input}"/>
+         &lt;!-- The button for launching the dialog:  we've also
+              configured the width and height of that window --&gt;
+         &lt;tr:commandButton text="Add" action="dialog:chooseInteger"
+                          id="buttonId"
+                          windowWidth="300" windowHeight="200"
+                          partialSubmit="true" useWindow="true"
+                          returnListener="#{launchDialog.returned}"/>
+       &lt;/tr:form>
+    &lt;/tr:document>
+  &lt;/f:view>
+&lt;/jsp:root>
+</source>
+</p>
+
+<p>We've kept it pretty simple: a single input field, stored with a
+"binding", and a button that shows the "chooseInteger" dialog with a
+hardcoded "dialog:" outcome.  About the only un-typical thing in this
+page is that "returnListener".  Here's the managed-bean entry:
+
+<source>
+  &lt;managed-bean>
+    &lt;managed-bean-name>launchDialog&lt;/managed-bean-name>
+    &lt;managed-bean-class>
+       org.apache.myfaces.trindaddemo.dialog.LaunchDialogBean
+    &lt;/managed-bean-class>
+    &lt;managed-bean-scope>
+       request
+    &lt;/managed-bean-scope>
+  &lt;/managed-bean>
+</source>
+</p>
+<p>And, here's the <code>LaunchDialogBean</code> code:
+<source>
+package org.apache.myfaces.trindaddemo.dialog;
+
+ import org.apache.myfaces.trinidad.component.UIXInput;
+ import org.apache.myfaces.trinidad.event.ReturnEvent;
+
+ public class LaunchDialogBean
+ {
+   public UIXInput getInput()
+   {
+     return _input;
+   }
+
+   public void setInput(UIXInput input)
+   {
+     _input = input;
+   }
+
+   public void returned(ReturnEvent event)
+   {
+     if (event.getReturnValue() != null)
+     {
+       getInput().setSubmittedValue(null);
+       getInput().setValue(event.getReturnValue());
+     }
+   }
+
+   private UIXInput _input;
+ }
+ </source>
+ </p>
+
+ <p>We include the methods used by "binding" to have access to the
+input field, and a single <code>returned()</code> method which will be
+called when the dialog finishes.  If the return value is null, then
+the user cancelled the dialog, and we don't need to do anything.
+Otherwise, we need to set the value on the input component.  It's not
+quite enough to just call <code>setValue()</code> on the input
+component.  You also have to call <code>setSubmittedValue()</code>
+with null to clear out any originally submitted value.</p>
+</subsection>
+
+</section>
+
+    <section name="Passing Information In and Out">
+      <p>
+You've already seen how to return a value from a dialog by
+passing that value to <code>RequestContext</code>'s
+<code>returnFromDialog()</code> method.  But how to pass
+a value in?  Apache Trinidad lets you supply your dialogs
+with a Map of "dialog parameters".  (If you haven't
+read the <a href="communicatingBetweenPages.html">
+Communicating Between Pages: pageFlowScope</a> chapter, now
+might be a good time.)
+      </p>
+      <p>
+When Apache Trinidad knows that its about to launch a 
+dialog because of the outcome of an action method, it queues
+a <code>LaunchEvent</code>.  One of the methods one this event
+is <code>getDialogParameters()</code>, which will give you a
+Map that you can add parameters to:
+<source>
+     &lt;tr:commandButton text="Get Value" action="dialog:getValue"
+           returnListener="#{backing.handleReturn}"
+           launchListener="#{backing.addParameter}"/&gt;
+
+   ...
+
+
+  public void addParameter(LaunchEvent event)
+  {
+    // Pass the current value of the field into the dialog.
+    Object value = getInput().getValue();
+    event.getDialogParameters().put("inputValue", value);
+  }
+</source>
+      </p>
+      <p>
+When you add parameters in this way, they show up in the dialog
+on the Apache Trinidad "pageFlowScope", and pages in the dialog can
+get the value out of the pageFlowScope:
+<source>
+   &lt;tr:outputText value="Input value: #{pageFlowScope.inputValue}"/&gt;
+</source>
+      </p>
+      <p>
+The Apache Trinidad pageFlowScope has a very specific interaction with
+dialogs.  The dialog always gets a copy of all
+values that were in the pageFlowScope of the launching page, plus
+all the "dialog parameters" in the LaunchEvent.  But anything
+you do to the pageFlowScope inside the dialog ends there - when
+you return from the dialog, the pageFlowScope will be back
+the way it was before the dialog started.  If you need to
+pass values out of the dialog, you have to use
+<code>RequestContext.returnFromDialog()</code>, session scope,
+or application scope.  This approach means that dialogs
+are isolated from the calling code, and gives dialogs
+a place to store values without worrying about overwriting
+something that the parent window needed.
+      </p>
+    </section>
+
+    <section name="inputListOfValues">
+      <p>
+One pattern is so common that we've given it its own component:
+&lt;tr:inputListOfValues&gt;.  This is an input component that can
+launch a dialog and automatically accept its return value, so
+instead of the prior example combining an &lt;tr:inputText&gt;
+and &lt;tr:commandButton&gt;, you simply need:
+<source>
+         &lt;tr:inputListOfValues label="Pick a number:" value="(Empty)"
+                                action="dialog:chooseInteger"
+                                windowWidth="300" windowHeight="200"/>
+</source>
+      </p>
+      <p>
+This component will automatically handle launching the dialog,
+receiving the <code>ReturnEvent</code>, and updating the value
+of the field, all without any code on your part.  (We don't
+need "partialSubmit" or "useWindow";  those are automatically
+set by &lt;tr:inputListOfValues&gt;.)
+      </p>
+    </section>
+    <section name="Manually Launching A Dialog">
+      <p>
+
+You can also programatically launch a dialog without any
+navigation rule using the <code>RequestContext.launchDialog()</code>
+method:
+
+<source>
+  /**
+   * Launch a dialog, optionally raising it in a new window.
+   * 
+   * The dialog will receive a new pageFlowScope map,
+   * which includes all the values of the currently available pageFlowScope
+   * as well as a set of properties passed to this function in
+   * the dialogParameters map.  Changes to this newly
+   * created scope will not be visible once the dialog returns.
+   * 
+   * @param dialogRoot the UIViewRoot for the page being launched
+   * @param source the UIComponent that launched the dialog and
+   *   should receive the ReturnEvent when the dialog is complete.
+   * @param dialogParameters a set of parameters to populate the
+   *   newly created pageFlowScope
+   * @param useWindow if true, use a popup window for the dialog
+   *    if available on the current user agent device
+   * @param windowProperties the set of UI parameters used to
+   *   modify a popup window.  The set of properties that are 
+   *   supported will depend on the RenderKit, but
+   *   common examples include "width" and "height".
+   */
+  public abstract void launchDialog(
+    UIViewRoot  dialogRoot,
+    UIComponent source,
+    Map         dialogParameters,
+    boolean     useWindow,
+    Map         windowProperties);
+</source>
+
+ You can call this method from an action listener, or from a
+value change listener, or anything else.  For example, you might use
+an Apache Trinidad <code>&lt;tr:poll&gt;</code> component set to poll every
+10 minutes to show a dialog warning the user that the session is about
+to expire:
+ <source>
+   &lt;!-- Send a PollEvent after 10 minutes --&gt;
+  &lt;tr:poll pollListener="#{backing.sessionAboutToExpire}"
+              interval="600000"/&gt;
+ 
+  ...
+
+  public void sessionAboutToExpire(PollEvent event)
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    // Create the dialog UIViewRoot
+    ViewHandler viewHandler = context.getApplication().getViewHandler();
+    UIViewRoot dialog = viewHandler.createView(context, "/sessionExpiring.jspx");
+    
+    Map properties = new HashMap();
+    properties.put("width", new Integer(250));
+    properties.put("height", new Integer(150));
+
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    requestContext.launchDialog(dialog,
+                            null, // not launched from any component
+                            null, // no particular parameters
+                            true, // show it in a dialog
+                            properties);
+    }
+  }
+</source>
+      </p>
+    </section>
+
+    <section name="Supporting Dialogs in Custom Components">
+      <p>
+The Apache Trinidad dialog framework can be used inside your own
+components and renderers.  You can use it in one of two ways.
+First, in a component that already supports ActionEvents, you
+can add direct support for LaunchEvents and ReturnEvents at
+the component level.  Less obviously, you can take advantage
+of the dialog framework to let a Renderer launch a dialog
+and handle return values without ever interfering with
+the component.  This latter technique is especially handy
+if you want to bundle some dialogs with your renderer,
+like a calendar dialog with a date-editing component.
+       </p>
+       <p>
+First, let's look at the case where you already support ActionEvents
+and are adding ReturnEvents and LaunchEvents to your component.
+First, add code for ReturnListeners and LaunchListeners, which
+looks like the code for all other Faces listeners:
+<source>
+public YourComponent implements ActionSource
+{
+  ...
+  public void addReturnListener(ReturnListener listener)
+  {
+    addFacesListener(listener);
+  }
+  public void removeReturnListener(ReturnListener listener)
+  {
+    removeFacesListener(listener);
+  }
+  public ReturnListener[] getReturnListeners()
+  {
+    return (ReturnListener[]) getFacesListeners(ReturnListener.class);
+  }
+  public MethodBinding getReturnListener()
+  { 
+    return _returnListener;
+  }
+  public void setReturnListener(MethodBinding returnListener)
+  { 
+    _returnListener = returnListener;
+  }
+
+  // and exactly the same thing for LaunchListeners...
+  public void addReturnListener(LaunchListener listener)
+  {
+    addFacesListener(listener);
+  }
+  // etc...
+}
+</source>
+      </p>
+      <p>
+Next, we need to detect <code>ReturnEvents</code>.  Here, we'll
+use a method on an <code>DialogService</code>, which
+you get from an <code>RequestContext</code>:
+<code>getReturnEvent(UIComponent source)</code>:
+<source>
+  public void decode(FacesContext context)
+  {
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    ReturnEvent event =
+      requestContext.getDialogService().getReturnEvent(this);
+    if (event != null)
+      event.queue();
+    else
+      super.decode(context);
+  }
+</source>
+</p>
+      <p>
+The <code>getReturnEvent()</code> method sees if there is a pending
+<code>ReturnEvent</code> for your component.  If there is, you can
+queue it and forget about any further decoding.
+      </p>
+       <p>
+All the rest of the interesting code lives in broadcast().  It's
+a lot of code, so we'll walk through it.
+<source>
+  public void broadcast(FacesEvent event) throws AbortProcessingException
+  {
+    // Perform special processing for ActionEvents:  tell
+    // the RequestContext to remember this component instance
+    // so that the NavigationHandler can locate us to queue
+    // a LaunchEvent.
+    if (event instanceof ActionEvent)
+    {
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+      requestContext.getDialogService().setCurrentLaunchSource(this);
+
+      try
+      {
+        // Perform standard superclass processing
+        super.broadcast(event);
+
+        // Notify the specified action listener method (if any),
+        // and the default action listener
+        _invokeListener(event, getActionListener());
+
+        FacesContext context = getFacesContext();
+        ActionListener defaultActionListener =
+          context.getApplication().getActionListener();
+        if (defaultActionListener != null)
+        {
+          defaultActionListener.processAction((ActionEvent) event);
+        }
+      }
+      finally
+      {
+        requestContext.getDialogService().setCurrentLaunchSource(null);
+      }
+    }
+    else
+    {
+      // Perform standard superclass processing
+      super.broadcast(event);
+
+      if (event instanceof LaunchEvent)
+      {
+        _invokeListener(event, getLaunchListener());
+        
+        LaunchEvent launchEvent = (LaunchEvent) event;
+        
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        boolean useWindow = 
+          Boolean.TRUE.equals(getAttributes().get("useWindow"));
+	launchEvent.launchDialog(useWindow);
+      }
+      else if (event instanceof ReturnEvent)
+      {
+        _invokeListener(event, getReturnListener());
+        getFacesContext().renderResponse();
+      }
+    }
+  }
+
+  //
+  // Helper function for invoking a MethodBinding for a listener
+  //
+  private final void _invokeListener(
+    FacesEvent event,
+    MethodBinding method) throws AbortProcessingException
+  {
+    if (method != null)
+    {
+      try
+      {
+        FacesContext context = getFacesContext();
+        method.invoke(context, new Object[] { event });
+      }
+      catch (EvaluationException ee)
+      {
+        Throwable t = ee.getCause();
+        // Unwrap AbortProcessingExceptions
+        if (t instanceof AbortProcessingException)
+          throw ((AbortProcessingException) t);
+        throw ee;
+      }
+    }
+  }
+</source>
+       </p>
+      <p>broadcast() basically handles each type of event one-by-one: first
+<code>ActionEvents</code>, then <code>LaunchEvents</code>, and finally <code>ReturnEvents</code>.  In all three cases, we call <code>super.broadcast()</code>,
+which will call any listeners registered with an <code>addXyzListener()</code>
+method, and then call <code>_invokeListener()</code> to handle
+the associated <code>MethodBinding</code>.
+      </p>  
+      <p>
+The rest of the <code>ActionEvent</code> handling is mostly code required by
+JSF: in particular, we call through to the "default ActionListener".  This
+is the code that invokes the Action and calls the
+<code>NavigationHandler</code>.  But, in addition, we use
+<code>RequestContext.getDialogService().setCurrentLaunchSource()</code>.  This call
+is needed so that code from a <code>NavigationHandler</code>
+can correctly queue a <code>LaunchEvent</code>;   to do that, it
+needs the source UIComponent, and it does not typically
+have access to the source component.  This method gives it
+that access.  (If you do not call this method, you don't get
+a <code>LaunchEvent</code> back, and the NavigationHandler will
+simply launch a non-popup-window dialog directly.)
+      </p>
+      <p>
+The <code>LaunchEvent</code> handling code - after letting listeners
+get a crack to add parameters, etc. - uses a utility method
+on the <code>LaunchEvent</code> to launch the dialog.
+In this example, we're checking the "useWindow" attribute to see if
+we want to use a window for the dialog.  This isn't required at all - you
+could use a different attribute, or always pass <code>true</code>, etc.;  you
+can pick any strategy you want for your component.
+      </p>
+
+      <p>
+Finally, in ReturnEvent, we don't do much beyond letting
+listeners detect the return, but we do call
+<code>FacesContext.renderResponse()</code>, because you 
+don't generally want to update the model immediately upon
+returning from a dialog, but you're free to design your component
+otherwise.
+      </p>
+    </section>
+
+    <section name="Supporting Dialogs in Custom Renderers">
+      <p>
+In a custom Renderer, there may be no <code>LaunchEvent</code> or
+<code>ActionEvent</code>, and there's not really a <code>ReturnEvent</code>
+either, since the UIComponent has to contain code for listeners
+and to handle <code>broadcast()</code>.  Even so, we can still
+use the dialog framework to show a dialog from our renderer
+and handle returning from the dialog, all without any code
+from the page author using the renderer.   We'll need only
+two functions on <code>RequestContext</code>,
+both of which we've already seen:  <code>launchDialog</code>
+and <code>getReturnEvent</code>.  For an example, let's imagine we've
+already get a Renderer for an input field, and we want to add add a
+button that launches a dialog, and uses the value to fill in that
+dialog.  
+<source>
+   &lt;!-- An input field that uses /myDialog.jsp to get the value --&gt;
+   &lt;my:inputFromDialog viewId="/myDialog.jsp"/&gt;
+</source>
+</p>
+
+<p>First, we'll add some <code>encodeEnd()</code> output to
+put in a button:
+<source>
+public class InputFromDialogRenderer
+{
+  public void encodeEnd(FacesContext context, UIComponent component)
+    throws IOException
+  {
+    // ... any pre-existing encodeEnd() code
+
+    // Write out &lt;input type="submit" name="[clientId]:button" value="dialog"&gt;
+    ResponseWriter out = context.getResponseWriter();
+    out.startElement("input", component);
+    out.writeAttribute("type", "submit", null);
+    String clientId = component.getClientId(context);
+    out.writeAttribute("name", clientId + ":button", null);
+    out.writeAttribute("value", "dialog", null);
+    out.endElement("input");
+  }
+</source>
+      </p>
+      <p>
+The rest of the code goes in decode().  It'll need to detect
+both when we want to launch a dialog, and when we're returning
+from a dialog:
+<source>
+   public void decode(FacesContext context, UIComponent component)
+   {
+      // Get the EditableValueHolder interface, and get the
+      // RequestContext
+      EditableValueHolder evh = (EditableValueHolder) component;
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+
+      // If there's a ReturnEvent waiting for us, just use its value
+      // and finish
+      ReturnEvent event =
+        requestContext.getDialogService().getReturnEvent(component);
+      if (event != null)
+      {
+        evh.setSubmittedValue(event.getReturnValue());
+	// Don't try writing to the model - just redisplay the
+        // page with this value
+	context.renderResponse();
+        return;
+      }
+ 
+      Map parameters = context.getExternalContext().getRequestParameterMap();
+      String id = component.getClientId(context) + ":button";
+      // See if the user pressed a button
+      if ("dialog".equals(parameters.get(id)))
+      {
+        // Get the right viewId
+        String viewId = (String) component.getAttributes().get("viewId");
+        UIViewRoot viewRoot =
+          context.getApplication().getViewHandler().createView(context,
+                                                               viewId);
+        // Pass the current value to the dialog
+        Map dialogParameters = new HashMap(); 
+        dialogParameters.put("inputValue", evh.getValue());
+
+        // And give it a width and height (hardcoded in this example)
+        Map windowProperties = new HashMap();
+        windowProperties.put("width", new Integer(300));
+        windowProperties.put("height", new Integer(200));
+
+        requestContext.launchDialog(viewRoot,
+                                this,
+                                dialogParameters,
+                                true,
+                                windowProperties);
+      }
+      else
+      {
+        // Old code for decode() goes here..
+        ...
+      }
+   }
+</source>
+      </p>
+      <p>
+First, we check for a <code>ReturnEvent</code>.  Our component
+here doesn't support <code>ReturnEvents</code>, so we're
+not going to queue this event.  Instead, we'll just grab the
+dialog's return value and call <code>setSubmittedValue()</code>
+to save it off.  Otherwise, we see if the button was clicked,
+and, if so, create a <code>UIViewRoot</code> and ask the
+<code>RequestContext</code> to show it in a dialog.  We're
+also passing the current value of our input field off to
+the dialog as a dialog parameter.  And that's it: lots of Apache
+Trinidad code will work behind the scenes to pop up your dialog,
+but the Renderer code is simple, and the page author doesn't
+need to do a thing - the input component will just deliver
+an ordinary <code>ValueChangeEvent</code> the next time
+the page is submitted.
+      </p>
+    </section>
+
+    <section name="Supporting Dialogs in a Custom RenderKit">
+      <p>
+(Not documented yet:  see <code>DialogRenderKitService</code>
+and <code>ExtendedRenderKitService</code> interfaces.)
+      </p>
+    </section>
+
+    <section name="Low-level APIs: pushView() and popView()">
+<p>
+In part, the dialog code relies on a couple of methods on the
+<code>DialogService</code> API:
+<source>
+  /**
+   * Push a UIViewRoot onto a stack in preparation
+   * for navigating to a dialog.
+   */
+  public abstract void pushView(UIViewRoot viewRoot);
+
+  /**
+   * Pop a UIViewRoot from a stack.  If <code>navigateToPopped</code> is true,
+   * this method may result in calls to
+   * <code>FacesContext.renderResponse()</code> or even
+   * <code>FacesContext.responseComplete()</code>.
+   *
+   * @param navigateToPopped If true, navigate to the view popped
+   * of the stack with <code>FacesContext.setViewRoot()</code>.
+   * If false, simply drop the view.
+   */
+  public abstract void popView(boolean navigateToPopped);
+</source>
+</p>
+<p>
+When you use these, you can't get a <code>ReturnEvent</code>, and
+you don't get any special support for <code>pageFlowScope</code>
+isolation, but if you don't need either of these, it can provide a
+very handy way to, for example, jump to a login page:
+<source>
+  public String doSomethingNeedingLogin()
+  {
+    if (!isUserLoggedIn())
+    {
+      // Push the current view root
+      FacesContext context = FacesContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().getDialogService().
+         pushView(context.getViewRoot());
+      // And log in
+      return "login";
+    }
+    else
+    {
+      ...
+    }
+  }
+</source>
+</p>
+<p>
+Now, in our login page, we just need to return to where we came from:
+<source>
+  public String logIn()
+  {
+    if (loginWasSuccessful())
+    {
+      // Pop back
+      RequestContext.getCurrentInstance().getDialogService().
+        popView(true);
+      // And return null, because popView() already did the navigation
+      return null;
+    }
+    else
+    {
+      ...
+    }
+  }
+</source>
+</p>
+
+</section>
+<section name="Dialog Caveats">
+ <p>
+Users of the Apache Trinidad dialog framework should be aware of a few
+current limitations.
+</p>
+<p>
+First, while we can detect that a particular user agent - like a PDA -
+cannot launch windows, and fall back to single-window behaviors - we
+cannot currently detect popup blockers (like the current
+Mozilla/FireFox popup blocker) that may or may not be enabled on a
+particular user.  Supporting this would be rather tricky, because
+popup blockers don't give the server any sort of advanced knowledge
+that would let us know to switch our server-side behavior.  The
+current solution is, unfortunately, asking users to disable popup
+blocking for your site.  Long term, we might try detecting support for
+popups up front, or some other hackery, and in the longer term, we may
+move to using inline DIVs and IFRAMEs to show dialogs; one nice thing
+about the dialog framework is that it would hide any such changes from
+programmers.
+</p>
+<p>
+Second, we do not currently support the use of &lt;redirect/&gt; in
+association with navigation rules used to show a popup window.  (The behavior
+you'll see is that you navigate directly to the page instead of
+showing a popup window.)
+</p>
+</section>
+  </body>
+</document>

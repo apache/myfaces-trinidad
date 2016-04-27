@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+     
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html" xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="2.0">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document id="doc">
+      <tr:form>
+        <tr:panelGroupLayout layout="scroll" id="pgl1">
+          <tr:spacer height="20" id="s2"/>
+          <h:panelGrid columns="4" border="1" cellspacing="0" cellpadding="5" id="pg2">
+            <tr:outputFormatted value="&lt;b>Test Number&lt;/b>" id="of5"/>
+            <tr:outputFormatted value="&lt;b>Test Description&lt;/b>" id="of6"/>
+            <tr:outputFormatted value="&lt;b>Test Steps&lt;/b>" id="of2s"/>
+            <tr:outputFormatted value="&lt;b>Correct Behavior&lt;/b>" id="of3"/>
+            <tr:outputText value="1" id="ot9"/>
+            <tr:outputText value="show that there isn't a problem with mutable attributes using partial state saving. In the restore view phase a mutable attribute should evaluate to the same value as it did the last time it was rendered."
+                           id="ot10"/>
+            <tr:panelList id="pl3">
+              <tr:goLink destination="setupStateSaving.jspx" text="set up for state saving test"
+                         id="gl1"/>
+              <tr:outputText value="on this page click the 'increment mutable' button."/>
+              <tr:outputText value="You should see that the calendar has been updated to show the new max date."
+                             id="ot12"/>
+              <tr:outputText value="press the submit button." id="ot1"/>
+            </tr:panelList>
+            <tr:panelList id="pl2">
+              <tr:outputText value="the correct behavior is that the calendar still shows 'Jun 7, 2009' after you press the sumbit button."
+                             id="ot7"/>
+            </tr:panelList>
+          </h:panelGrid>
+          <tr:spacer height="10" id="s1"/>
+          <tr:chooseDate id="cdSet" maxValue="2009-06-06" />
+          <tr:commandButton text="Increment set" id="cb3" actionListener="#{stateSaving.incrementWithSet}"/>
+          <tr:commandButton text="Submit" id="cb24"/>
+          
+          <tr:separator id="sep"/>
+          <tr:chooseDate id="cdMutable" maxValue="2009-06-06" />
+          <tr:commandButton text="Increment mutable" id="cb1" actionListener="#{stateSaving.incrementMutable}"/>
+          
+          <tr:commandButton text="Submit" id="cb2"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

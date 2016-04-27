@@ -1,0 +1,52 @@
+        <tr:table var="row" rows="100" value="#{editor.attributes}" 
+                  summary="Attributes">
+          <tr:column>
+            <f:facet name="header">
+              <tr:outputText value="Name"/>
+            </f:facet>
+            <tr:outputText value="#{row.name}"/>
+          </tr:column>
+          <tr:column>
+            <f:facet name="header">
+              <tr:outputText value="Value"/>
+            </f:facet>
+            <tr:inputText immediate="true"
+                           readOnly="#{row.name == 'value' ||
+                                       row.name == 'var' ||
+                                       row.name == 'currencyKey' ||
+                                       row.name == 'currencyString' ||
+                                       row.name == 'rowKey' ||
+                                       row.name == 'id' ||
+                                       row.name == 'rendererType' ||
+                                       row.name == 'submittedValue'}"
+                           rendered="#{row.type == 'string'}"
+                           value="#{row.value}"
+                           shortDesc="Type to change '#{row.name}'"/>
+            <tr:inputText immediate="true"
+                           readOnly="#{row.name == 'rowIndex'}"
+                           rendered="#{row.type == 'integer'}"
+                           value="#{row.value}"
+                           shortDesc="Type to change '#{row.name}'">
+              <f:converter converterId="javax.faces.Integer"/>
+            </tr:inputText>
+            <tr:inputText immediate="true"
+                          rendered="#{row.type == 'date'}"
+                          value="#{row.value}"
+                          shortDesc="Type to change '#{row.name}'">
+              <f:facet name="help">
+                <tr:outputText value="Sample format: 2004-07-15"/>
+              </f:facet>
+              <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </tr:inputText>
+            <tr:selectBooleanCheckbox rendered="#{row.type == 'boolean'}"
+                                       readOnly="#{row.name == 'localValueSet' ||
+                                                   row.name == 'valid' ||
+                                                   row.name == 'transient'}"
+                                       immediate="true" value="#{row.value}"
+                                       shortDesc="Click to change '#{row.name}'"/>
+          </tr:column>
+          <f:facet name="footer">
+            <tr:commandButton  text="Update"
+                              action="#{editor.update}" partialSubmit="true"/>
+          </f:facet>
+        </tr:table>

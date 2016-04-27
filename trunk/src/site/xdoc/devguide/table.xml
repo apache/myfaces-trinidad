@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Using the Apache Trinidad Component</title>
+  </properties>
+
+  <body>
+    <section name="Using the Apache Trinidad Component">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#The Table Model">The Table Model</a></li>
+          <li><a href="#Columns">Columns</a>
+            <ul>
+              <li><a href="#Headers">Headers</a></li>
+              <li><a href="#Data">Data</a></li>
+              <li><a href="#Formatting">Formatting</a></li>
+            </ul>
+          </li>
+          <li><a href="#Selection">Selection</a></li>
+          <li><a href="#Sorting">Sorting</a>
+            <ul>
+              <li><a href="#SortEvent">SortEvent</a></li>
+            </ul>
+          </li>
+          <li><a href="#Grid Lines and Banding">Grid Lines and Banding</a></li>
+        </ul>
+      </p>
+    </section>
+
+
+    <section name="Introduction">
+      <P>
+        The Apache Trinidad component is used to display a list of structured data.
+        For example, if we have a data structure called Person that has two
+        properties - firstname and lastname, we could use a Table with two
+        columns - one for firstname, and the other for lastname - to display
+        a list of Person objects.
+      </P>
+      <P>
+        The Table component is similar to the standard <code>UIData</code>
+        component in JSF, but includes a number of extra features,  including
+        support for identifying rows by key (instead of by index),
+        built-in support for paging through large models,
+        sorting the model, and selecting single or multiple items in
+        the model.
+      </P>
+    </section>
+
+    <section name="The Table Model">
+      <P>
+        The Apache Trinidad component uses a model to access the data in the underlying list.
+        The specific model class is
+        <code>org.apache.myfaces.trinidad.model.CollectionModel</code>. You may
+        also use other model instances, e.g., <code>java.util.List</code>,
+        array, and <code>javax.faces.model.DataModel</code>. The Table will
+        automatically convert the instance into a CollectionModel.
+      </P>
+      <P>
+        To access a particular row in the list, first make that row current,
+        and then call the <code>getRowData()</code> method on the Table. To
+        make a row current, call the <code>setRowIndex(...)</code> method (on
+        the Table) with the appropriate index into the list. Alternatively,
+        call the <code>setRowKey(...)</code> method with the appropriate rowKey.      </P>
+      <P>
+        To obtain the total number of rows in the list, call the
+        <code>getRowCount()</code> method on the Table. In the case where the
+        model does not yet know the total number of rows that are
+        available, <code>getRowCount()</code> will return -1.
+      </P>
+      <P>
+        The Table has an <code>isRowAvailable()</code> method that returns
+        <code>true</code> if the current row ( see <code>setRowIndex(...)</code> )
+        is available. This method is especially useful when the total number
+        of rows is unknown.
+      </P>
+    </section>
+
+    <section name="Columns">
+      <P>
+        The immediate children of a Table component must all be
+        <code>&lt;tr:column&gt;</code> components. Each visible ADF Column
+        component creates a separate column in the Table.
+      </P>
+      <subsection name="Headers">
+        <P>
+          Use the "header" facet on a Column to create the column header. You
+          can also use the "headerText" attribute to set the column header.
+          The following example creates a two-column table with the column
+          headers - "Firstname" and "Lastname":
+        </P>
+        <source><![CDATA[
+<tr:table>
+  <tr:column>
+    <f:facet name="header">
+      <tr:outputText value="Firstname"/>
+    </f:facet>
+    ...
+  </tr:column>
+  <tr:column headerText="Lastname">
+    ...
+  </tr:column>
+</tr:table>]]>
+        </source>
+        <p>
+Note that both ADF Faces and JSF HTML tags can be used inside of
+the ADF table.
+        </p>
+      </subsection>
+      <subsection name="Data">
+        <P>
+          The child components of each Column display the data for each row in
+          that column. The Column does not create child components per row;
+          instead, each child is repeatedly rendered (stamped) once per
+          row. Because of this stamping behavior, some components many
+          not work inside the table.  Anything that is just pure output,
+	  with no behavior, will work without problems, as will components that
+          don't "mutate" even as they deliver events (for example,
+          command components are fine).  Components that mutate
+          their state are affected, but any that implement 
+          EditableValueHolder are supported (this includes all
+          form input controls from the JSF specification as well
+          as ADF Faces input controls), as are UIXShowDetail components.
+        </P>
+        <P>
+          As each row is stamped, the data for the current row ( see
+          <code>getRowData()</code> ) is copied into an EL reachable property.
+          The name of this property is defined by the <code>var</code>
+          property on the Table. Once the Table has completed rendering, this
+          property is removed (or reverted back to its previous value). In
+          the following example, the data for each row is placed under the EL
+          property "row". Each Column displays the data for each row by getting
+          further properties from the "row" property:
+        </P>
+        <source><![CDATA[
+<tr:table var="row" value="#{myBean.allEmployees}">
+  <tr:column>
+    <tr:outputText value="#{row.firstname}"/>
+  </tr:column>
+  <tr:column>
+    tr:outputText value="#{row.lastname}"/>
+  </tr:column>
+</tr:table>]]>
+        </source>
+      </subsection>
+      <subsection name="Formatting">
+        <p>
+          The Column component supports the following attributes related to
+          formatting:
+          <dl>
+            <dt>align</dt>
+
+            <dd>The type of alignment to use for this column. The legal
+              values are "left", "right", "start", "end" and "center".
+              Use "left" for left-justified, "right" for
+              right-justified, and "center" for center-justified columns.
+              For BiDi columns use "start" and "end".
+              Use "start" (instead of "left") to left-align columns in a
+              left-to-right locale, and right-align columns in a right-to-left
+              locale.
+              Similarly, use "end" (instead of "right") to
+              right-align columns in a
+              left-to-right locale, and left-align columns in a right-to-left
+              locale.
+            </dd>
+
+            <dt>width</dt>
+            <dd>The width of this column, e.g. "100px".
+            </dd>
+
+            <dt>noWrap</dt>
+            <dd>Controls whether long lines of text in the column data should
+            be wrapped.</dd>
+          </dl>
+        </p>
+      </subsection>
+      <subsection name="Column Groups">
+            <P>
+              <code>&lt;tr:column&gt; </code> tags can be nested to produce
+              groups of columns. The header of a column group spans across
+              all the columns it contains. The following example creates
+              a column group that has the header "Name" and contains
+              two sub columns with headers "First" and "Last":
+            </P>
+          <source><![CDATA[
+  <tr:table var="row" value="#{myBean.employees}">
+    <tr:column headerText="Name">
+      <tr:column headerText="First">
+        <tr:outputText value="#{row.firstname}"/>
+      </tr:column>
+      <tr:column headerText="Last">
+        tr:outputText value="#{row.lastname}"/>
+      </tr:column>
+    </tr:column>
+  </tr:table>]]>
+          </source>
+      </subsection>
+      <subsection name="Row Headers">
+        <P>
+          Columns can be rendered as row headers by setting the
+          "rowHeader" attribute on &lt;column&gt; to be true.
+          Row header columns must be the first columns in a table.
+        </P>
+      </subsection>
+    </section>
+
+    <section name="Range Navigation">
+      <P>
+        When the list being displayed by a Table is huge, you can enable the Table 
+        to break up the list into ranges and display a single range at a time. 
+        Range controls are provided on the Table to let the user scroll to the next range, 
+        or to go back to the previous range. If the total size of the list is known, a 
+        control to let the user jump directly to a particular part of the list is also 
+        provided on the Table. Use the Table attributes "rows" and "first" to control the 
+  range navigation feature.
+      </P>
+      <P>
+        The maximum number of rows to display in a single range is controlled
+        by the "rows" attribute, which defaults to a reasonable size (e.g.,
+        25). To disable range navigation (and display all the rows on one
+        page) set this attribute to 0. In the following example, the maximum
+        number of rows to display per range is set to 10: 
+        <source>&lt;tr:table rows="10" ...&gt;</source>
+      </P>
+      <P>
+        The current range to display is controlled by the "first"
+        attribute. This attribute is an index (based at zero) of a row in the
+        list. Each range starts with the row identified by "first", and only
+        contains as many rows as indicated by the "rows" attribute. Initially,
+        the "first" attribute defaults to zero, which displays the range 
+        with the first row at the top.
+      </P>
+      <subsection name="RangeChangeEvent">
+        <P>
+          When the user changes the range (being displayed in the Table), the
+          Table generates a <code>RangeChangeEvent</code>. This event includes the
+          index (based at zero) of the row that should now be at the top of the
+          range. The Table responds to this event by automatically changing the
+          value of the "first" attribute to this index.
+        </P>
+        <P>
+          In some cases it is necessary to know when the user changes the range
+          on the Table (e.g., when the user navigates forward it might be necessary
+          to release any cached data created for a previous range). To receive
+          notifications of when the user changes the range, a
+          <code>RangeChangeListener</code> instance should be registered with the
+          Table. This is done by calling the <code>addRangeChangeListener</code>
+          method, or by using the <code>rangeChangeListener</code> MethodBinding on the Table.
+          These listeners are called after the Table has changed the
+          "first" attribute in response to the event.
+        </P>
+      </subsection>
+    </section>
+
+    <section name="Displaying Details">
+      <P>
+        You can configure the Table to display or hide additional details of a
+        particular row in response to a user gesture. When the details feature
+        is enabled, a new column containing a toggle (per row) will render in
+        the Table. When a toggle is activated, the details for that row are
+        displayed. When a toggle is deactivated, the details for the row are
+        hidden. The user can also display or hide the details for all rows at
+        the same time (the controls for this feature are enabled by setting
+        the "allDetailsEnabled" property to true.)
+      </P>
+      <P>
+        To enable the details feature set the "detailStamp" facet on the
+        Table. Place the components that are used to show the details (of a
+        row), inside this facet. In the following example, the Person's age is
+        displayed in the details section:
+
+        <source><![CDATA[
+<tr:table var="row" value="#{myBean.allEmployees}">
+  <f:facet name="detailStamp">
+    <tr:outputText value="#{row.age}"/>
+  </f:facet>
+</tr:table>]]>
+        </source>
+      </P>
+      <P>
+        Usually, the default behavior of the Table (with respect to displaying
+        and hiding details) is sufficient. In some cases, however, it might be
+        desirable to programmatically display or hide the details for a
+        particular row. This can be done via the <code>RowKeySet</code> object
+        obtained from the Table by calling the
+        <code>getDisclosureState()</code> method. First, make the relevant row
+        current by calling <code>setRowIndex(...)</code> or
+        <code>setRowKey(...)</code> on the Table, and then call
+        <code>add()</code> or <code>remove()</code> on the
+        <code>RowKeySet</code> object. Adding the row to the set displays
+        the details of the row. Removing the row hides them.
+      </P>
+      <subsection name="RowDisclosureEvent">
+        <P>
+          When the user hides or shows the details of a row, the Table
+          generates a <code>RowDisclosureEvent</code>. This event has
+          properties that return which rows were disclosed and which were
+          undisclosed. The Table responds to this by expanding or collapsing
+          the details of those rows.
+        </P>
+        <p>
+          You can register custom <code>RowDisclosureListener</code> instances
+          (that can do post processing) on the Table component.
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Selection">
+      <p>
+        The selection feature of a Table lets the user select one or more rows
+        in the list. The user can then perform some operation on the selected
+        rows by activating an appropriate ActionSource component (e.g., by
+        clicking on an ADF CommandButton). Use the "rowSelection" attribute on
+        the Table to enable the selection feature (see the examples below).
+      </p>
+      <p>
+        There are two types of selection - single and multiple. The type of
+        selection is determined by the value of the "selection" attribute.
+        Use the value "single" to enable single selection, and "multiple" to
+        enable multiple selection.
+      </p>
+      <P>
+        The current selection of rows on the Table can be programmatically
+        inspected and modified via the <code>RowKeySet</code> object obtained
+        by calling <code>getSelectedRowKeys()</code> on the Table. To
+        programmatically change a selection, add or remove rowKeys from this
+        Set. Alternatively, the appropriate row can be made current by calling
+        <code>setRowIndex(...)</code> or <code>setRowKey(...)</code> on the
+        Table, and then the selection of that row may be changed by calling
+        <code>add()</code> or <code>remove()</code> on the
+        <code>RowKeySet</code>.
+      </P>
+      <subsection name="Selection Example">
+        <P>
+          In the following example, the <code>performDelete</code> method is
+          called when the "Delete" button is clicked.
+        </P>
+        <source><![CDATA[
+<tr:table binding="#{mybean.table}" rowSelection="multiple" ...>
+  <f:facet name="footer">
+      <tr:commandButton text="Delete" actionListener="#{mybean.performDelete}"/>
+  </f:facet>
+  ...
+</tr:table>]]>
+        </source>
+        <P>
+          The <code>performDelete</code> method iterates through all the
+          selected rows and calls the <code>markForDeletion()</code> method on
+          each one:
+        </P>
+        <source>
+public void performDelete(ActionEvent action)
+{
+  UIXTable table = getTable();
+  Iterator selection = table.getSelectedRowKeys().iterator();
+  Object oldKey = table.getRowKey();
+  while(selection.hasNext())
+  {
+    Object rowKey = selection.next();
+    table.setRowKey(rowKey);
+    MyRowImpl row = (MyRowImpl) table.getRowData();
+    row.markForDeletion();
+  }
+  // restore the old key:
+  table.setRowKey(oldKey);
+}
+
+// Binding methods for access to the table.
+public void setTable(UIXTable table) { _table = table; }
+public UIXTable getTable() { return _table; }
+private UIXTable _table;
+        </source>
+      </subsection>
+      <subsection name="SelectionEvent">
+        <P>
+          The &lt;tr:table&gt; component triggers SelectionEvents when
+          the selection state is changed. The SelectionEvent
+          reports which rows were just deselected and which rows were just
+          selected. Listeners for this event may be registered on the table
+          using the "selectionListener" attribute or by adding the listener to
+          the table using the "addSelectionListener" method.
+        </P>
+      </subsection>
+    </section>
+
+    <section name="Sorting">
+      <p>
+        The Table component supports sorting columns in ascending or
+        descending order. A special UI indicator on a column header lets the
+        user know that the column is sortable. When the user clicks on a
+        column header to sort a previously unsorted column, the Table sorts
+        the column data in ascending order. Subsequent clicks on the same
+        header sort the data in the reverse order.
+      </p>
+      <p>
+        There are three requirements to enable sorting: the underlying table
+        model must support sorting, the "sortProperty" and "sortable"
+        attributes must be set on the column to enable the sort capability for
+        that column.
+      </p>
+      <P>
+        To support sorting, the <code>CollectionModel</code> instance must implement the following methods:</P>
+        <source>
+public boolean isSortable(String propertyName)
+public List getSortCriteria()
+public void setSortCriteria(List criteria)
+        </source>
+      <P>
+        If the underlying model is not a <code>CollectionModel</code>, the
+        Table automatically examines the actual data to determine which
+        properties are sortable. Any column that has data that implements
+        <code>java.lang.Comparable</code> are sortable.  This automatic
+        support cannot be nearly as efficient as coding sorting directly into
+        a <code>CollectionModel</code> (for instance, by translating the sort
+        into an "ORDER BY" SQL clause), but is sufficient for small data sets.
+      </P>
+      <P>
+        To associate a column with a particular property-name to be used for
+        sorting purposes, use the "sortProperty" attribute on the column.
+        To enable the UI for sorting a particular column, set the
+        "sortable" property to <code>true</code>.
+      </P>
+      <P>
+        In the following example,
+        both columns are sortable. Sorting the first column sorts by the
+        "firstname" property; sorting the second column sorts by the "lastname"
+        property.
+      </P>
+      <source><![CDATA[
+<tr:table ...>
+  <tr:column sortProperty="firstname" sortable="true">
+    <f:facet name="header">
+      <tr:outputText value="Firstname" />
+    </f:facet>
+    ...
+  </tr:column>
+  <tr:column>
+    <f:facet name="header" sortProperty="lastname" sortable="true">
+      <tr:outputText value="Lastname" />
+    </f:facet>
+    ...
+  </tr:column>
+</tr:table>]]>
+      </source>
+
+      <subsection name="SortEvent">
+        <p>
+          When the user clicks a sortable column header, the
+          <code>&lt;tr:table&gt;</code> component generates a
+          <code>SortEvent</code>. This event has a
+          <code>getSortCriteria()</code> property that returns the criteria
+          that the table must be sorted by.
+        </p>
+        <p>
+          The Table responds to this event by calling the
+          <code>setSortCriteria</code> method on the underlying
+          <code>CollectionModel</code>. Any registered
+          <code>SortListener</code> instances will also be called.
+        </p>
+      </subsection>
+
+    </section>
+
+    <section name="Grid Lines and Banding">
+      <P>
+        By default, the table draws both horizontal and vertical grid lines.
+        These may be independently turned off by setting the
+        "horizontalGridVisible" and/or "verticalGridVisible" attributes to
+        "false".
+      </P>
+      <P>
+        Banding is a technique where groups of rows (or columns)
+        are displayed with alternating background colors. This helps to
+        differentiate between adjacent groups of rows (or columns).
+      </P>
+      <P>
+        The "rowBandingInterval" attribute on the Table controls how many
+        consecutive rows form a row group (for the purposes of banding). If
+        this is "0" all rows will have the same background color. If this is a
+        positive number then adjacent row groups will have different
+        background colors.
+      </P>
+      <P>
+        The "columnBandingInterval" attribute on the Table controls how many
+        columns form a column group (for the purposes of banding). If this is
+        "0" all columns will have the same background color. If this is a
+        positive number then adjacent column groups will have different
+        background colors.
+      </P>
+      <P>
+        In the following example, the row banding pattern is to have two rows
+        with a light background, followed by two rows with a dark
+        background. The pattern is repeated across all rows. Similarly the
+        column banding pattern is to have alternating light/dark columns.
+      </P>
+      <source><![CDATA[
+<tr:table rowBandingInterval="2" columnBandingInterval="1" ...>
+  ...
+</tr:table>]]>
+      </source>
+    </section>
+
+  </body>
+</document>
