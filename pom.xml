@@ -26,10 +26,10 @@ Build:
   mvn3 clean install
  
 Prepare Release
-  mvn3 release:prepare
+  mvn3 release:prepare -DprepareRelease=true
   
 Perform Release
-  mvn3 release:perform
+  mvn3 release:perform -DperformRelease=true
 
 Change Version Number (http://maven.apache.org/plugins/maven-release-plugin/examples/update-versions.html)
   mvn3 release:update-versions
@@ -353,6 +353,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <module>trinidad-build</module>
     <module>trinidad-api</module>
     <module>trinidad-impl</module>
+    <module>trinidad-examples</module>
   </modules>
 
   <build>
@@ -742,6 +743,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       by making sure that there is no -DperformRelease property on the maven command.  If
       there is, it may manually be invoked by adding a -PbuildExamples.
     -->
+    <!--
     <profile>
       <id>buildExamples</id>
       <activation>
@@ -754,6 +756,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         <module>trinidad-examples</module>
       </modules>
     </profile>
+    -->
 
    <!--
      To create a new branch, use the following command:
