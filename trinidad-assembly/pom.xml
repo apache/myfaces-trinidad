@@ -94,7 +94,6 @@
 
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2</version>
         <executions>
           <execution>
             <id>make_assembly_trinidad</id>
@@ -102,13 +101,45 @@
               <descriptors>
                 <descriptor>src/main/assembly/dep.xml</descriptor>
               </descriptors>
-              <appendAssemblyId>true</appendAssemblyId>  <!-- adds "-bin" and "-src" -->
+              <finalName>trinidad-assembly-${project.version}-dist</finalName>
+              <appendAssemblyId>false</appendAssemblyId>  <!-- adds "-bin" and "-src" -->
               <tarLongFileMode>gnu</tarLongFileMode>
+              <outputDirectory>target/assembly/out</outputDirectory>
+              <workDirectory>target/assembly/work</workDirectory>              
             </configuration>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/assembly/out/trinidad-assembly-${project.version}-dist.zip</file>
+                  <type>zip</type>
+                  <classifier>dist</classifier>
+                </artifact>
+                <artifact>
+                  <file>target/assembly/out/trinidad-assembly-${project.version}-dist.tar.gz</file>
+                  <type>tar.gz</type>
+                  <classifier>dist</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
           </execution>
         </executions>
       </plugin>

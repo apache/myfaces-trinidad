@@ -111,6 +111,35 @@
           </execution>
         </executions>
       </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>target/trinidad-example-assembly-${project.version}-example.zip</file>
+                  <type>zip</type>
+                  <classifier>example</classifier>
+                </artifact>
+                <artifact>
+                  <file>target/trinidad-example-assembly-${project.version}-example.tar.gz</file>
+                  <type>tar.gz</type>
+                  <classifier>example</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
 
   </build>
