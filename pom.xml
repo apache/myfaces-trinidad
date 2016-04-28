@@ -770,6 +770,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       NOTE that for the maven lifecycle invoked by the release plugin, -Papache-release will
       be added automatically because of the config in apache-parent-7.
     -->
+    <!--
     <profile>
       <id>apache-release</id>
 
@@ -793,6 +794,51 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         </plugins>
       </build> 
     </profile>
+    -->
+    
+        <profile>
+            <id>prepare-release</id>
+            <activation>
+                <property>
+                    <name>prepareRelease</name>
+                </property>
+            </activation>
+            <modules>
+                <module>trinidad-assembly</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <arguments>-DprepareRelease</arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>perform-release</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>trinidad-assembly</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <arguments>-Papache-release -DperformRelease</arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
     <profile>
       <id>enableRat</id>
