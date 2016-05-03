@@ -33,6 +33,25 @@ Download Apache MyFaces Trinidad
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
+    << Apache MyFaces Trinidad 2.1.1 Distribution for JSF 2.1 >>
+
+    Release notes can be found
+  {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&version=12325601}here}}.
+  
+*-------------------------+---------+----------+-----------+
+|                         | Mirrors | Checksum | Signature |
+*-------------------------+---------+----------+-----------+
+| Apache MyFaces Trinidad 2.1.1 (tar.gz) | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-assembly-2.1.1-dist.tar.gz} trinidad-assembly-2.1.1-dist.tar.gz}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-assembly-2.1.1-dist.tar.gz.md5} trinidad--assembly-2.1.1-dist.tar.gz.md5}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-assembly-2.1.1-dist.tar.gz.asc} trinidad--assembly-2.1.1-dist.tar.gz.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache MyFaces Trinidad 2.1.1 (zip)    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-assembly-2.1.1-dist.zip} trinidad-assembly-2.1.1-dist.zip}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-assembly-2.1.1-dist.zip.md5} trinidad-assembly-2.1.1-dist.zip.md5}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-assembly-2.1.1-dist.zip.asc} trinidad-assembly-2.1.1-dist.zip.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache MyFaces Trinidad 2.1.1 Example (tar.gz)    | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-example-assembly-2.1.1-example.tar.gz} trinidad-example-assembly-2.1.1-example.tar.gz}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-example-assembly-2.1.1-example.tar.gz.md5} trinidad-example-assembly-2.1.1-example.tar.gz.md5}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-example-assembly-2.1.1-example.tar.gz.asc} trinidad-example-assembly-2.1.1-example.tar.gz.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache MyFaces Trinidad 2.1.1  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-example-assembly-2.1.1-example.zip} trinidad-example-assembly-2.1.1-example.zip}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-example-assembly-2.1.1-example.zip.md5} trinidad-example-assembly-2.1.1-example.zip.md5}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-example-assembly-2.1.1-example.zip.asc} trinidad-example-assembly-2.1.1-example.zip.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache MyFaces Trinidad 2.1.1  Source (zip)       | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-2.1.1-source-release.zip} trinidad-2.1.1-source-release.zip}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-2.1.1-source-release.zip.md5} trinidad-2.1.1-source-release.zip.md5}} | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-2.1.1-source-release.zip.asc} trinidad-2.1.1-source-release.zip.asc}} |
+*-------------------------+---------+----------+-----------+
+
     << Apache MyFaces Trinidad 2.0.1 Distribution for JSF 2.0 >>
 
     Release notes can be found
