@@ -168,6 +168,46 @@
                 </goals>
               </execution>
               -->
+              <!--
+                <execution>
+                  <id>make_trinidad_tr</id>
+                  <configuration>
+                      <xmlFile>META-INF/tr.taglib.xml</xmlFile>
+                      <xmlBaseFile>src/main/conf/META-INF/facelets-taglib-base.xml</xmlBaseFile>
+                      <templateFile>facelets-taglib20.vm</templateFile>
+                      <params>
+                         <shortname>tr</shortname>
+                         <uri>http://myfaces.apache.org/trinidad</uri>
+                      </params>
+                      <modelIds>
+                          <modelId>trinidad-api</modelId>
+                          <modelId>trinidad-impl</modelId>
+                      </modelIds>
+                  </configuration>
+                  <goals>
+                      <goal>make-config</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>make_trinidad_trh</id>
+                  <configuration>
+                      <xmlFile>META-INF/trh.taglib.xml</xmlFile>
+                      <xmlBaseFile>src/main/conf/META-INF/facelets-taglib-base.xml</xmlBaseFile>
+                      <templateFile>facelets-taglib20.vm</templateFile>
+                      <params>
+                         <shortname>trh</shortname>
+                         <uri>http://myfaces.apache.org/trinidad/html</uri>
+                      </params>
+                      <modelIds>
+                          <modelId>trinidad-api</modelId>
+                          <modelId>trinidad-impl</modelId>
+                      </modelIds>
+                  </configuration>
+                  <goals>
+                      <goal>make-config</goal>
+                  </goals>
+                </execution>
+                -->
           </executions>
       </plugin>
           
@@ -327,12 +367,26 @@
         </configuration>
         <executions>
           <execution>
+            <id>generate-config</id>
             <goals>
               <goal>generate-faces-config</goal>
               <goal>generate-jsp-taglibs</goal>
               <goal>generate-facelets-taglibs</goal>
+            </goals>
+            <configuration>
+              <generatedSourceDirectory>${project.build.directory}/generated-sources/maven-faces-plugin</generatedSourceDirectory>
+              <generatedResourcesDirectory>${project.build.directory}/generated-resources/maven-faces-plugin</generatedResourcesDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-renderer-map</id>
+            <goals>
               <goal>generate-renderer-map</goal>
             </goals>
+            <configuration>
+              <generatedSourceDirectory>${project.build.directory}/generated-resources/maven-faces-plugin</generatedSourceDirectory>
+              <generatedResourcesDirectory>${project.build.directory}/generated-resources/maven-faces-plugin</generatedResourcesDirectory>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -346,10 +400,22 @@
         </configuration>
         <executions>
           <execution>
+            <id>generate-locale</id>
             <goals>
               <goal>generate-locale-elements</goal>
+            </goals>
+            <configuration>
+                <targetDirectory>${project.build.directory}/generated-sources/maven-i18n-plugin</targetDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-javascript-locales</id>
+            <goals>
               <goal>generate-javascript-locales</goal>
             </goals>
+            <configuration>
+                <targetDirectory>${project.build.directory}/generated-resources/maven-i18n-plugin</targetDirectory>
+            </configuration>
           </execution>
         </executions>
       </plugin>

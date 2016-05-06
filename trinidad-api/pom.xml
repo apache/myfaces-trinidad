@@ -265,6 +265,7 @@
           <jsfVersion>#{jsf-spec.version}</jsfVersion>
           <!--suppressListenerMethods>true</suppressListenerMethods-->
           <force>true</force>
+          <generatedSourceDirectory>${project.build.directory}/generated-sources/maven-faces-plugin</generatedSourceDirectory>
         </configuration>
         <executions>
           <execution>

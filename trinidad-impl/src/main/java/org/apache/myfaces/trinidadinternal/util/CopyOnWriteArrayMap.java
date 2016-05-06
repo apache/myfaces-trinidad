@@ -101,7 +101,7 @@ public final class CopyOnWriteArrayMap<K,V> implements ConcurrentMap<K,V>, Clone
   private CopyOnWriteArrayMap(
       EntryFactory<?,K,V> entryFactory, ReentrantLock writeLock, ConcurrentEntry<K,V>[] entries)
   {
-    _entryFactory = entryFactory;
+    _entryFactory = (EntryFactory<ConcurrentEntry<K,V>,K,V>)entryFactory;
     _writeLock = writeLock;
     _entries   = entries;
   }
@@ -524,7 +524,8 @@ public final class CopyOnWriteArrayMap<K,V> implements ConcurrentMap<K,V>, Clone
   }
 
   private static <K,V> ConcurrentEntry<K,V>[] _insertEntryAt(
-      ConcurrentEntry<K,V>[] entries, K key, V value, int insertIndex, EntryFactory<?,K,V> entryFactory)
+      ConcurrentEntry<K,V>[] entries, K key, V value, int insertIndex, 
+          EntryFactory<ConcurrentEntry<K,V>,K,V> entryFactory)
   {
     ConcurrentEntry<K,V> entry = entryFactory.newEntry(key, value);
 
@@ -1571,7 +1572,7 @@ public final class CopyOnWriteArrayMap<K,V> implements ConcurrentMap<K,V>, Clone
   @SuppressWarnings("compatibility:4274080938865508278")
   private static final long serialVersionUID = 1;
 
-  private transient final EntryFactory<?,K,V> _entryFactory;
+  private transient final EntryFactory<ConcurrentEntry<K,V>,K,V> _entryFactory;
 
   // lock protecting mutators
   private transient final ReentrantLock _writeLock;
