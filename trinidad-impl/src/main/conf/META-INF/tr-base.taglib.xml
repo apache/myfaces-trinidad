@@ -47,10 +47,10 @@
   </tag>
   
   <tag>
-    <tag-name>resetActionListener</tag-name>
     <description>
       The resetActionListener tag provides a declarative syntax for resetting values before an action fires
     </description>
+    <tag-name>resetActionListener</tag-name>
     <handler-class>org.apache.myfaces.trinidadinternal.facelets.ResetActionListenerTag</handler-class>
   </tag>
   
