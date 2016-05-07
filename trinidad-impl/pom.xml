@@ -371,6 +371,7 @@
             <goals>
               <goal>generate-faces-config</goal>
               <goal>generate-jsp-taglibs</goal>
+              <goal>generate-facelets-taglibs</goal>
             </goals>
             <configuration>
               <generatedSourceDirectory>${project.build.directory}/generated-sources/maven-faces-plugin</generatedSourceDirectory>
