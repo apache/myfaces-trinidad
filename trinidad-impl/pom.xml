@@ -491,6 +491,8 @@
             <exclude>/src/webapp/</exclude>
             <exclude>src/main/resources/META-INF/trinidad-version.txt</exclude>
             <exclude>src/main/resources/META-INF/servlets/resources/adf.resources</exclude>
+            <exclude>src/main/resources/META-INF/tr.taglib.xml</exclude>
+            <exclude>src/main/resources/META-INF/trh.taglib.xml</exclude>
           </excludes>
         </configuration>
       </plugin>
