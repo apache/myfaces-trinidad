@@ -51,7 +51,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>10</version>
+    <version>16</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -101,6 +101,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <siteDeploy.url>file://${user.home}/myfaces-site/site/${siteModule.path}</siteDeploy.url>
     <siteScmPublish.url>scm:svn:https://svn.apache.org/repos/asf/myfaces/site/publish/</siteScmPublish.url>
     
+	<checkstyle.skip>true</checkstyle.skip>
+	
   </properties>
 
   <issueManagement>
