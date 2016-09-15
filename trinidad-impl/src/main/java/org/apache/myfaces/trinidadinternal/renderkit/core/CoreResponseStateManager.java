@@ -18,20 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
-import java.io.OptionalDataException;
-import java.io.StringReader;
-import java.io.StringWriter;
 
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 import javax.faces.FacesException;
 import javax.faces.application.StateManager;
@@ -41,11 +30,8 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.ResponseStateManager;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.Base64InputStream;
-import org.apache.myfaces.trinidad.util.Base64OutputStream;
-import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
+import org.apache.myfaces.trinidadinternal.util.StateUtils;
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -94,7 +80,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     // out twice
     //    rw.writeAttribute("id", VIEW_STATE_PARAM, null);
 
-    String s = encodeSerializedViewAsString(serializedView);
+    String s = encodeSerializedViewAsString(context, serializedView);
     rw.writeAttribute("value", s, null);
 
     rw.endElement("input");
@@ -111,13 +97,16 @@ public class CoreResponseStateManager extends ResponseStateManager
   }
 
 
-  protected String encodeSerializedViewAsString(
+  protected String encodeSerializedViewAsString(FacesContext context,
     StateManager.SerializedView serializedView) throws IOException
   {
     if ((serializedView.getState() == null) &&
         (serializedView.getStructure() instanceof String))
-      return _TOKEN_PREFIX + serializedView.getStructure();
+      return _TOKEN_PREFIX + StateUtils.construct(serializedView.getStructure(), context.getExternalContext());
 
+    return StateUtils.construct(
+            new Object[]{serializedView.getStructure(),serializedView.getState()}, context.getExternalContext());    
+    /*
     StringWriter sw = new StringWriter();
     BufferedWriter bw = new BufferedWriter(sw);
     Base64OutputStream b64_out = new Base64OutputStream(bw);
@@ -136,7 +125,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     String retVal = sw.toString();
 
     assert(!retVal.startsWith(_TOKEN_PREFIX));
-    return retVal;
+    return retVal;*/
   }
 
   @Override
@@ -166,7 +155,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     StateManager.SerializedView serializedView = _getSerializedView(context, state);
     try
     {
-      return encodeSerializedViewAsString(serializedView);
+      return encodeSerializedViewAsString(context, serializedView);
     }
     catch (IOException e)
     {
@@ -271,13 +260,15 @@ public class CoreResponseStateManager extends ResponseStateManager
  
       if (tokenString != null)
       {
-        view = new Object[]{tokenString, null};
+        view = new Object[]{StateUtils.reconstruct(tokenString, context.getExternalContext()), null};
       }
       // Nope, let's look for a regular state field
       else
       {
         if (stateString != null)
         {
+          view = (Object[]) StateUtils.reconstruct(stateString, context.getExternalContext());
+          /*
           StringReader sr = new StringReader(stateString);
           BufferedReader br = new BufferedReader(sr);
           Base64InputStream b64_in = new Base64InputStream(br);
@@ -305,6 +296,7 @@ public class CoreResponseStateManager extends ResponseStateManager
           {
             _LOG.severe(ioe);
           }
+          */
         }
       }
 
