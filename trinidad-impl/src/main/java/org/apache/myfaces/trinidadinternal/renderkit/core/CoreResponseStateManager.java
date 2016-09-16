@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import javax.faces.application.StateManager;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.ResponseStateManager;
@@ -47,6 +48,7 @@ import org.apache.myfaces.trinidad.util.Base64InputStream;
 import org.apache.myfaces.trinidad.util.Base64OutputStream;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
+import org.apache.myfaces.trinidadinternal.util.StateUtils;
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -78,7 +80,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     // out twice
     //    rw.writeAttribute("id", VIEW_STATE_PARAM, null);
 
-    String s = encodeSerializedViewAsString(serializedView);
+    String s = encodeSerializedViewAsString(context, serializedView);
     rw.writeAttribute("value", s, null);
 
     rw.endElement("input");
@@ -95,13 +97,16 @@ public class CoreResponseStateManager extends ResponseStateManager
   }
 
 
-  protected String encodeSerializedViewAsString(
+  protected String encodeSerializedViewAsString(FacesContext context,
     StateManager.SerializedView serializedView) throws IOException
   {
     if ((serializedView.getState() == null) &&
         (serializedView.getStructure() instanceof String))
-      return _TOKEN_PREFIX + serializedView.getStructure();
+      return _TOKEN_PREFIX + StateUtils.construct(serializedView.getStructure(), context.getExternalContext());
 
+    return StateUtils.construct(
+            new Object[]{serializedView.getStructure(),serializedView.getState()}, context.getExternalContext());    
+    /*
     StringWriter sw = new StringWriter();
     BufferedWriter bw = new BufferedWriter(sw);
     Base64OutputStream b64_out = new Base64OutputStream(bw);
@@ -120,7 +125,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     String retVal = sw.toString();
 
     assert(!retVal.startsWith(_TOKEN_PREFIX));
-    return retVal;
+    return retVal;*/
   }
 
   @Override
@@ -154,9 +159,10 @@ public class CoreResponseStateManager extends ResponseStateManager
   private Object[] _restoreSerializedView(
      FacesContext context)
   {
-    Map<String, Object> requestMap = 
-      context.getExternalContext().getRequestMap();
+    ExternalContext external = context.getExternalContext();
     
+    Map<String, Object> requestMap = external.getRequestMap();
+
     Object[] view = (Object[]) requestMap.get(_CACHED_SERIALIZED_VIEW);
     if (view == null)
     {
@@ -172,37 +178,43 @@ public class CoreResponseStateManager extends ResponseStateManager
       if (stateString.startsWith(_TOKEN_PREFIX))
       {
         String tokenString = stateString.substring(_TOKEN_PREFIX.length());
-        view = new Object[]{tokenString, null};
+        view = new Object[]{StateUtils.reconstruct(tokenString, context.getExternalContext()), null};
       }
       // Nope, let's look for a regular state field
       else
       {
-        StringReader sr = new StringReader(stateString);
-        BufferedReader br = new BufferedReader(sr);
-        Base64InputStream b64_in = new Base64InputStream(br);
+        if (stateString != null)
+        {
+          view = (Object[]) StateUtils.reconstruct(stateString, context.getExternalContext());
+          /*
+          StringReader sr = new StringReader(stateString);
+          BufferedReader br = new BufferedReader(sr);
+          Base64InputStream b64_in = new Base64InputStream(br);
 
 
-        try
-        {
-          ObjectInputStream ois;
-          ois = new ObjectInputStreamResolveClass( new GZIPInputStream( b64_in, _BUFFER_SIZE ));
+          try
+          {
+            ObjectInputStream ois;
+            ois = new ObjectInputStreamResolveClass( new GZIPInputStream( b64_in, _BUFFER_SIZE ));
 
-          Object structure = ois.readObject();
-          Object state = ois.readObject();
-          ois.close();
-          view = new Object[]{structure, state};
-        }
-        catch (OptionalDataException ode)
-        {
-          _LOG.severe(ode);
-        }
-        catch (ClassNotFoundException cnfe)
-        {
-          _LOG.severe(cnfe);
-        }
-        catch (IOException ioe)
-        {
-          _LOG.severe(ioe);
+            Object structure = ois.readObject();
+            Object state = ois.readObject();
+            ois.close();
+            view = new Object[]{structure, state};
+          }
+          catch (OptionalDataException ode)
+          {
+            _LOG.severe(ode);
+          }
+          catch (ClassNotFoundException cnfe)
+          {
+            _LOG.severe(cnfe);
+          }
+          catch (IOException ioe)
+          {
+            _LOG.severe(ioe);
+          }
+          */
         }
       }
 

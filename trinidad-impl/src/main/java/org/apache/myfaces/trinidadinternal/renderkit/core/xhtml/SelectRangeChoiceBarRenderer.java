@@ -375,6 +375,11 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         // make sure the next range exists in the data model.
         hasNextRecords = isRowAvailable(component, (int)nextValue-1);
       }
+      
+      if (!hasNextRecords)
+      {
+        nextRecords = 0;
+      }
 
       boolean showBackButton = hasBackRecords || showDisabledNavigation;
       boolean showNextButton = hasNextRecords || showDisabledNavigation;

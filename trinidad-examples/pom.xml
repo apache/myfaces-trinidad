@@ -89,14 +89,67 @@
       
        mvn release:prepare -Papache-releae
      -->
+     <!--
     <profile>
      <id>apache-release</id>
-
      <modules>
        <module>trinidad-example-assembly</module>
      </modules>      
     </profile>
+    -->
+        <profile>
+            <id>prepare-release</id>
+            <activation>
+                <property>
+                    <name>prepareRelease</name>
+                </property>
+            </activation>
+            <modules>
+                <module>trinidad-example-assembly</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <arguments>-DprepareRelease</arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>perform-release</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>trinidad-example-assembly</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <arguments>-Papache-release -DperformRelease</arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     
+    <!--
+      This profile activates MyFaces as the release to use for these demos.  By default
+      MyFaces is used when these examples are run in Jetty and/or used with the -PincludeJSF
+      flag.  To invoke this profile, simply do not include a -Djsf= property on your maven
+      command line.  Execute this profile like this:
+      
+      mvn -PjettyConfig jetty:run
+    -->    
     <profile>
       <id>jettyConfig</id>
       <dependencyManagement>

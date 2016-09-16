@@ -317,6 +317,49 @@ public final class ExternalContextUtils
   }
 
   /**
+   * Returns the scheme of the current request, or "unknown" if
+   * the request scheme cannot be determined.
+   *
+   * @param ec the current external context
+   * @return A string containing the current request scheme, or "unknown".
+   */
+  public static String getRequestScheme(ExternalContext ec)
+  { 
+    if (isPortlet(ec))
+    {
+      return _getPortletRequestScheme(ec);
+    }
+
+    return _getServletRequestScheme(ec);
+  }
+
+  private static String _getPortletRequestScheme(ExternalContext ec)
+  {
+    try
+    {
+      return (String) _runMethod(ec.getContext(), "getScheme");
+    }
+    catch (Exception e)
+    {
+      _LOG.severe(e);
+    }
+
+    return _SCHEME_UNKNOWN;
+  }
+
+  private static String _getServletRequestScheme(ExternalContext ec)
+  {
+    Object request = ec.getRequest();
+
+    if (request instanceof ServletRequest)
+    {
+      return ((ServletRequest)request).getScheme();
+    }
+            
+    return _SCHEME_UNKNOWN;
+  }
+
+  /**
    * Returns the character encoding or <code>null</code> if there isn't any
    *
    * @param ec the current external context
@@ -585,6 +628,10 @@ public final class ExternalContextUtils
 
   private static final TrinidadLogger _LOG = TrinidadLogger
                                                .createTrinidadLogger(ExternalContextUtils.class);
+
+  // getRequestScheme() return value in the event that we cannot
+  // determine the request scheme.
+  private static final String _SCHEME_UNKNOWN = "unknown";
 
   // =-= Scott O'Bryan =-=
   // Performance enhancement. These will be needed anyway, let's not get them every time.
