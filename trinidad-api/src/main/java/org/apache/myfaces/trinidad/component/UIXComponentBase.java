@@ -46,6 +46,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.Behavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
@@ -54,6 +55,7 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.BehaviorEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
@@ -1112,6 +1114,15 @@ abstract public class UIXComponentBase extends UIXComponent
 
     Iterator<FacesListener> iter =
       (Iterator<FacesListener>)getFacesBean().entries(_LISTENERS_KEY);
+
+
+    if (event instanceof BehaviorEvent)
+    {
+      BehaviorEvent behaviorEvent = (BehaviorEvent) event;
+      Behavior behavior = behaviorEvent.getBehavior();
+      behavior.broadcast(behaviorEvent);
+    }
+
 
     while (iter.hasNext())
     {
