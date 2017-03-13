@@ -31,6 +31,7 @@ import javax.faces.render.ResponseStateManager;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
+import org.apache.myfaces.trinidadinternal.util.JsfUtils;
 import org.apache.myfaces.trinidadinternal.util.StateUtils;
 
 /**
@@ -76,9 +77,10 @@ public class CoreResponseStateManager extends ResponseStateManager
     rw.startElement("input", null);
     rw.writeAttribute("type", "hidden", null);
     rw.writeAttribute("name", VIEW_STATE_PARAM, null);
-    // Don't write out the ID, as it can be written
-    // out twice
-    //    rw.writeAttribute("id", VIEW_STATE_PARAM, null);
+    if (JsfUtils.IS_JSF_2_2)
+    {
+      rw.writeAttribute("id", StateUtils.getViewStateId(context), null);
+    }
 
     String s = encodeSerializedViewAsString(context, serializedView);
     rw.writeAttribute("value", s, null);

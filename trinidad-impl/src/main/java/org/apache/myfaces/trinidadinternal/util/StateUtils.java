@@ -42,7 +42,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.FacesException;
 import javax.faces.application.ViewExpiredException;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.codec.binary.Base64;
@@ -183,11 +186,34 @@ public final class StateUtils
      */
     @JSFWebConfigParam(name="org.apache.myfaces.MAC_SECRET.CACHE",group="state")
     public static final String INIT_MAC_SECRET_KEY_CACHE = "org.apache.myfaces.MAC_SECRET.CACHE";
-    
+
+    private static final String VIEW_STATE_COUNTER = "org.apache.myfaces.trinidad.partial.VIEW_STATE_COUNTER";
+
     /** Utility class, do not instatiate */
     private StateUtils()
     {
         //nope
+    }
+
+    public static String getViewStateId(FacesContext facesContext)
+    {
+      if (JsfUtils.IS_JSF_2_2) {
+
+        Integer count = (Integer) facesContext.getAttributes().get(VIEW_STATE_COUNTER);
+        if (count == null)
+        {
+          count = 0;
+        }
+        count += 1;
+        String id = facesContext.getViewRoot().getContainerClientId(facesContext)
+            + UINamingContainer.SEPARATOR_CHAR + ResponseStateManager.VIEW_STATE_PARAM + UINamingContainer.SEPARATOR_CHAR + count;
+        facesContext.getAttributes().put(VIEW_STATE_COUNTER, count);
+        return id;
+      }
+      else
+      {
+        return ResponseStateManager.VIEW_STATE_PARAM;
+      }
     }
 
     private static void testConfiguration(ExternalContext ctx)

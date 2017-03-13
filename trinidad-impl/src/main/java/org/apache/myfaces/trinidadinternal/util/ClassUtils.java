@@ -658,4 +658,13 @@ public final class ClassUtils
 
         return current;
     }
+
+     public static boolean isPresent(String className) {
+        try {
+            classForName(className);
+            return true;
+        } catch (Throwable ex) {
+            return false;
+        }
+    }
 }

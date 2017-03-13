@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.util.StateUtils;
 
 
 public class PartialViewContextImpl
@@ -368,7 +369,7 @@ public class PartialViewContextImpl
       rw.endUpdate();
 
       //write out JSF state
-      rw.startUpdate(PartialResponseWriter.VIEW_STATE_MARKER);
+      rw.startUpdate(StateUtils.getViewStateId(FacesContext.getCurrentInstance()));
       String state = context.getApplication().getStateManager().getViewState(context);
       rw.write(state);
       rw.endUpdate();

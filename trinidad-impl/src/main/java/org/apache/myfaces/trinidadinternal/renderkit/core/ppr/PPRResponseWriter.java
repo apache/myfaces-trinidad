@@ -41,6 +41,7 @@ import org.apache.myfaces.trinidad.util.Service;
 
 import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
+import org.apache.myfaces.trinidadinternal.util.StateUtils;
 
 /**
  * Write out a PPR response in the following form:
@@ -305,7 +306,8 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   {
     _startChanges();
     _xml.startElement(_ELEMENT_CHANGES_UPDATE, null);
-    _xml.writeAttribute(_ATTRIBUTE_ID, PartialResponseWriter.VIEW_STATE_MARKER, null);
+    //_xml.writeAttribute(_ATTRIBUTE_ID, PartialResponseWriter.VIEW_STATE_MARKER, null);
+    _xml.writeAttribute(_ATTRIBUTE_ID, StateUtils.getViewStateId(FacesContext.getCurrentInstance()), null);
     _xml.startCDATA();
     _xml.write(state);
     _xml.endCDATA();

@@ -53,6 +53,8 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+import org.apache.myfaces.trinidadinternal.util.JsfUtils;
+import org.apache.myfaces.trinidadinternal.util.StateUtils;
 
 
 // TODO: Remove this class
@@ -430,6 +432,10 @@ public class FormRenderer extends XhtmlRenderer
       rw.writeAttribute("type", "hidden", null);
       rw.writeAttribute("name", 
           PartialResponseWriter.VIEW_STATE_MARKER , null);
+      if (JsfUtils.IS_JSF_2_2)
+      {
+        rw.writeAttribute("id", StateUtils.getViewStateId(context), null);
+      }
       rw.writeAttribute("value", state, null);
       rw.endElement("input");
     }
