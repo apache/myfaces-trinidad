@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import java.util.List;
 
+import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
@@ -32,7 +33,6 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -1007,7 +1007,7 @@ public class XhtmlRenderer
       FacesContext.getCurrentInstance(),
       component,
       "click",
-      component instanceof UIXCommand ? "action" : null,
+      component instanceof ActionSource ? "action" : null,
       toString(bean.getProperty(_onclickKey)),
       null);
   }
