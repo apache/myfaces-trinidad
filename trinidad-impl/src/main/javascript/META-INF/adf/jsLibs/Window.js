@@ -281,11 +281,11 @@ function openWindow(
           dimmerStyle.position = "absolute";
           dimmerStyle.zIndex = "32000";
           dimmerStyle.backgroundColor = "#FFFFFF";
-		  // IE 9 and greater won't support alpha(opacity)
-		  if (_agent.isIE && _agent.version < 9) {
-			dimmerStyle.filter = "alpha(opacity=50)";
-		  } else if (_agent.isIE && _agent.version >= 9 || _agent.isSafari) {
-			  dimmerStyle.opacity = "0.5";
+		  // prefer opacity usage
+          if (dimmerStyle.opacity != 'undefined') {
+              dimmerStyle.opacity = "0.5";
+		  } else if (dimmerStyle.filter != 'undefined') {
+              dimmerStyle.filter = "alpha(opacity=50)";
 		  }
           // Position the dimmer element, account for scrolling:
           var docElement = parentDoc.documentElement;
