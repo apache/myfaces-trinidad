@@ -102,8 +102,8 @@ public abstract class AbstractComponentVariantDemo implements IComponentVariantD
     return null;
   }
 
-  public boolean isStatic() {
-    return getBackingBeanResourcePath() == null;
+  public boolean isDynamic() {
+    return getBackingBeanResourcePath() != null;
   }
 
     private String getDefault() {

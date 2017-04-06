@@ -106,5 +106,5 @@ public interface IComponentVariantDemo extends Serializable {
    * 
    * @return true if this component demo is static, otherwise returns false.
    */
-  boolean isStatic();
+  boolean isDynamic();
 }

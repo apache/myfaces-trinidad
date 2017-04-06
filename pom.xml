@@ -67,8 +67,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>2.1</jsf-spec.version>
-    <jsf-ri.version>2.1.7</jsf-ri.version>
-    <jsf-myfaces.version>2.1.6</jsf-myfaces.version>
+    <jsf-ri.version>2.1.29-08</jsf-ri.version>
+    <jsf-myfaces.version>2.1.18</jsf-myfaces.version>
     <portlet-bridge.version>2.0.0</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-io.version>2.0</commons-io.version>
@@ -84,7 +84,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <!-- Plugins -->
     <trinidad-plugins.version>2.0.8</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
-    <jetty-plugin.version>6.1.21</jetty-plugin.version>
+    <jetty.groupId>org.mortbay.jetty</jetty.groupId>
+    <jetty-plugin.version>7.6.9.v20130131</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
     <myfaces-builder-plugin.version>1.0.9</myfaces-builder-plugin.version>
@@ -579,8 +580,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         </plugin>
 
         <plugin>
-          <groupId>org.mortbay.jetty</groupId>
-          <artifactId>maven-jetty-plugin</artifactId>
+          <groupId>${jetty.groupId}</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
           <version>${jetty-plugin.version}</version>
         </plugin>
 
@@ -1033,6 +1034,22 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
           </dependency>
         </dependencies>
       </dependencyManagement>      
+    </profile>
+
+    <profile>
+      <id>jsfversion</id>
+      <activation>
+        <property>
+          <name>jsfversion</name>
+          <value>2.2</value>
+        </property>
+      </activation>
+      <properties>
+        <jsf-ri.version>2.2.14</jsf-ri.version>
+        <jsf-myfaces.version>2.2.12</jsf-myfaces.version>
+        <jetty.groupId>org.eclipse.jetty</jetty.groupId>
+        <jetty-plugin.version>9.2.13.v20150730</jetty-plugin.version>
+      </properties>
     </profile>
 
   </profiles>

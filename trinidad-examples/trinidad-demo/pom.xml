@@ -170,9 +170,8 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
-            
+            <groupId>${jetty.groupId}</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <scanIntervalSeconds>10</scanIntervalSeconds>
             </configuration>
@@ -280,7 +279,7 @@
 		<build>      
         <plugins>
           <plugin>
-            <groupId>org.mortbay.jetty</groupId>
+            <groupId>${jetty.groupId}</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
             <configuration>
               <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>

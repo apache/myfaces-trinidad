@@ -22,6 +22,8 @@ public class JsfUtils {
 
     public static final boolean IS_JSF_2_2 = ClassUtils.isPresent("javax.faces.flow.Flow");
 
+    public static final boolean IS_MYFACES = ClassUtils.isPresent("org.apache.myfaces.application.ApplicationImpl");
+
     private JsfUtils() {
     }
 

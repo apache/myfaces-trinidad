@@ -439,15 +439,7 @@ public class FormRenderer extends XhtmlRenderer
       rw.writeAttribute("value", state, null);
       rw.endElement("input");
     }
-    else
-    {
-      // Include JSF state.
-      // Note that MultiViewHandler in JSF RI will not write the state
-      // for any AJAX requests. PartialViewContextImpl will write out the state
-      // for these requets
-      context.getApplication().getViewHandler().writeState(context);
-    }
-    
+
     // Include the Window state, if any
     RequestContext.getCurrentInstance().getWindowManager().writeState(context);
 
@@ -471,6 +463,17 @@ public class FormRenderer extends XhtmlRenderer
     // Close up our postscript span if we have one
     if (postscriptId != null)
       rw.endElement("span");
+
+    if (!(isPDA(rc) &&
+            RequestContext.getCurrentInstance().isPartialRequest(context)))
+    {
+      // Include JSF state.
+      // Note that MultiViewHandler in JSF RI will not write the state
+      // for any AJAX requests. PartialViewContextImpl will write out the state
+      // for these requets
+      context.getApplication().getViewHandler().writeState(context);
+    }
+
   }
 
   @Override

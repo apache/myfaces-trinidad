@@ -108,7 +108,7 @@
                             </tr:showDetailItem>
                         </c:forEach>
 
-                        <tr:showDetailItem text="Backing Beans" rendered="#{!navigationHandler.currentComponentVariantDemo.static}">
+                        <tr:showDetailItem text="Backing Beans" rendered="#{navigationHandler.currentComponentVariantDemo.dynamic}">
                             <trd:outputSource value="#{navigationHandler.currentComponentVariantDemo.backingBeanResourcePath}"
                                               pathPrefix="/WEB-INF/src" styleClass="sourceCode" styleUsage="java"/>
                         </tr:showDetailItem>

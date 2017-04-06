@@ -67,6 +67,7 @@ import org.apache.myfaces.trinidad.util.ref.SoftPseudoReferenceFactory;
 import org.apache.myfaces.trinidad.util.ref.StrongPseudoReferenceFactory;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
+import org.apache.myfaces.trinidadinternal.util.JsfUtils;
 import org.apache.myfaces.trinidadinternal.util.ObjectInputStreamResolveClass;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
@@ -191,9 +192,7 @@ public class StateManagerImpl extends StateManagerWrapper
     
     try
     {
-      // TODO Once we're dependent on JSF 2.1 we should be using StateManager.IS_SAVING_STATE as the key, but 
-      // for now we can use the String value of StateManager.IS_SAVING_STATE
-      contextAttributes.put("javax.faces.IS_SAVING_STATE", Boolean.TRUE);
+      contextAttributes.put(StateManager.IS_SAVING_STATE, Boolean.TRUE);
       
       if (sms != null)
       {
@@ -220,9 +219,7 @@ public class StateManagerImpl extends StateManagerWrapper
     }
     finally 
     {
-      // TODO Once we're dependent on JSF 2.1 we should be using StateManager.IS_SAVING_STATE as the key, but 
-      // for now we can use the String value of StateManager.IS_SAVING_STATE
-      contextAttributes.remove("javax.faces.IS_SAVING_STATE");
+      contextAttributes.remove(StateManager.IS_SAVING_STATE);
     }
 
     if (_saveAsToken(context, false))
@@ -1237,10 +1234,21 @@ public class StateManagerImpl extends StateManagerWrapper
       String caseInsensitiveViewRootCaching;
       
       if ((viewRootCaching != null) && (viewRootCaching.length() > 0))
+      {
         caseInsensitiveViewRootCaching = viewRootCaching.toLowerCase();
+      }
       else
-        caseInsensitiveViewRootCaching = "true"; // the default
-      
+      {
+        // ViewRootCaching conflicts with myfaces >= 2,2
+        if (JsfUtils.IS_JSF_2_2 && JsfUtils.IS_MYFACES)
+        {
+          caseInsensitiveViewRootCaching = "false";
+        }
+        else
+        {
+          caseInsensitiveViewRootCaching = "true"; // the default
+        }
+      }
       PseudoReferenceFactory<ViewRootState> factory;
   
       if ("false".equals(caseInsensitiveViewRootCaching))

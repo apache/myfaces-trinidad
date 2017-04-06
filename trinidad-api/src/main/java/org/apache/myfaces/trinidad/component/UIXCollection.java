@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.FacesException;
+import javax.faces.application.StateManager;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -692,7 +693,7 @@ public abstract class UIXCollection extends UIXComponentBase
     super.setupVisitingContext(context);
     _setupContextChange();
 
-    if (Boolean.TRUE.equals(context.getAttributes().get("javax.faces.IS_SAVING_STATE")))
+    if (Boolean.TRUE.equals(context.getAttributes().get(StateManager.IS_SAVING_STATE)))
     {
       _stateSavingCurrencyKey = _resetCurrencyKeyForStateSaving(context);
     }
@@ -701,7 +702,7 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   protected void tearDownVisitingContext(FacesContext context)
   {
-    if (Boolean.TRUE.equals(context.getAttributes().get("javax.faces.IS_SAVING_STATE")))
+    if (Boolean.TRUE.equals(context.getAttributes().get(StateManager.IS_SAVING_STATE)))
     {
       _restoreCurrencyKeyForStateSaving(_stateSavingCurrencyKey);
       _resetInternalState();
