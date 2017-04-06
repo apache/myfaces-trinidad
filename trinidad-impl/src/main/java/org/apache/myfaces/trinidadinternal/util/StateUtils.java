@@ -866,8 +866,17 @@ public final class StateUtils
             }
             else
             {
-                throw new NullPointerException("Could not find SecretKey in application scope using key '" 
-                        + INIT_SECRET_KEY_CACHE + "'");
+                if (ctx.getContext() instanceof ServletContext)
+                {
+                    // no init in case of oracle ri try to fix it
+                    initSecret((ServletContext) ctx.getContext());
+                    secretKey = ctx.getApplicationMap().get(INIT_SECRET_KEY_CACHE);
+                }
+                if (secretKey == null)
+                {
+                    throw new NullPointerException("Could not find SecretKey in application scope using key '"
+                            + INIT_SECRET_KEY_CACHE + "'");
+                }
             }
         }
         
