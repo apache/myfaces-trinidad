@@ -52,6 +52,11 @@ function TrPopupDialog()
   iframe.name = "_blank";
   iframe.frameBorder = "0";
   iframe.className = page.getStyleClass("af|dialog::content");
+  // avoid SSL warnings in IE
+  if (_agent.isIE)
+  {
+    iframe.src = "javascript:false";
+  }
   div.appendChild(iframe);
   
   // Hold the iframe so we can set the 'src' as needed, and also the height
