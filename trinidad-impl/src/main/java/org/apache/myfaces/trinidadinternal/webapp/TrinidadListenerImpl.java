@@ -39,6 +39,7 @@ public class TrinidadListenerImpl implements ServletContextListener
   {
     RequestContext.releaseApplicationState();
     GlobalConfiguratorImpl.getInstance().destroy();
+	GlobalConfiguratorImpl.getInstance().releaseInstance();
   }
 
   /* (non-Javadoc)
