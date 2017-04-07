@@ -622,7 +622,17 @@ abstract public class UIXEditableValueTemplate
       // application map from the ExternalContext.
       if (param == null)
       {
-        param = (String) ec.getApplicationMap().get(UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME);
+        Object value = ec.getApplicationMap().get(UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME);
+        // an other thread could have changed the value
+        if (value instanceof Boolean)
+        {
+          shouldValidateEmptyFields = value;
+          return shouldValidateEmptyFields;
+        }
+        else
+        {
+          param = (String) value;
+        }
       }
 
       // null means the same as auto (see SPEC on page 11-5)
