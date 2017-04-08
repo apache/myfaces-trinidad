@@ -380,7 +380,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <module>trinidad-build</module>
     <module>trinidad-api</module>
     <module>trinidad-impl</module>
-    <module>trinidad-examples</module>
+    <module>trinidad-example</module>
   </modules>
 
   <build>

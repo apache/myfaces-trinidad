@@ -108,7 +108,7 @@ for srcindx in numSrc:
 
   buildAssembly(srcDir+'/trinidad-assembly', stagingDir)
   runCommand('mvn -e clean source:jar install', srcDir + '/trinidad-examples',2)
-  buildAssembly(srcDir+'/trinidad-examples/trinidad-example-assembly', stagingDir)
+  buildAssembly(srcDir+'/trinidad-example/trinidad-example-assembly', stagingDir)
 
   #do some cleanup
   #runCommand('rm -Rf trinidad-blank trinidad-demo trinidad-example', stagingDir+"/org/apache/myfaces/trinidad")
