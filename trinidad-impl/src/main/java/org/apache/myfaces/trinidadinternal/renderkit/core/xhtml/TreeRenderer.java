@@ -881,20 +881,37 @@ public class TreeRenderer extends XhtmlRenderer
     String nodeType = null;
     Object rowData = tree.getRowData();
     Class rowClass = rowData.getClass();
-    Method method = null;
+    Method method;
 
     try
     {
-      method = rowClass.getMethod("getNodeType");
+      method = retrieveGetNodeTypeMethod(rowClass);
       if (method != null && method.getReturnType().equals(String.class))
       {
         nodeType = (String) method.invoke(rowData);
       }
     }
     catch (IllegalAccessException e) { ; }
-    catch (NoSuchMethodException e) { ; }
     catch (InvocationTargetException e) { ; }
     return nodeType;
+  }
+
+  private Method retrieveGetNodeTypeMethod(Class rowClass)
+  {
+    try {
+      synchronized (NODE_TYPE_METHOD_CACHE) {
+        if (NODE_TYPE_METHOD_CACHE.containsKey(rowClass))
+        {
+          return NODE_TYPE_METHOD_CACHE.get(rowClass);
+        }
+
+        Method getNodeTypeMethod = rowClass.getMethod("getNodeType");
+        NODE_TYPE_METHOD_CACHE.put(rowClass, getNodeTypeMethod);
+        return getNodeTypeMethod;
+      }
+    } catch (Exception e)
+    { return null; }
+
   }
 
   protected String getNodeIconSelector(
@@ -1202,6 +1219,7 @@ public class TreeRenderer extends XhtmlRenderer
   // Key used by StyledTextBean to query style class
   static final String _STYLE_CLASS_KEY = "_styleClass";
 
+  private final Map<Class<?>, Method> NODE_TYPE_METHOD_CACHE = new HashMap<Class<?>, Method>();
   private PropertyKey _immediateKey;
 
   // translation keys
