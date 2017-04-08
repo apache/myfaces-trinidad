@@ -88,15 +88,16 @@ public final class GlobalConfiguratorImpl
    * @return a GlobalConfigurator or <code>null</code> is one was unable to be obtained.
    */
    
-  static public final  void releaseInstance(){
-  final ClassLoader loader = Thread.currentThread().getContextClassLoader();
+  static public final  void releaseInstance()
+  {
+    final ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
     if (loader == null)
     {
       _LOG.severe("CANNOT_FIND_CONTEXT_CLASS_LOADER");
-	  return;
-	}
-	synchronized (_CONFIGURATORS)
+      return;
+    }
+    synchronized (_CONFIGURATORS)
       {
         GlobalConfiguratorImpl config = _CONFIGURATORS.remove(loader);
         _LOG.fine("GlobalConfigurator has been removed.");
