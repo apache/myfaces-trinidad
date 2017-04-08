@@ -626,7 +626,7 @@ abstract public class UIXEditableValueTemplate
         // an other thread could have changed the value
         if (value instanceof Boolean)
         {
-          shouldValidateEmptyFields = value;
+          shouldValidateEmptyFields = (Boolean) value;
           return shouldValidateEmptyFields;
         }
         else
