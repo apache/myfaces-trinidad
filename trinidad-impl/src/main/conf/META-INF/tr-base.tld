@@ -129,12 +129,12 @@ for "items" other than arrays and lists.)
    </tag>
 
    <tag>
+      <description>
+         The fileDownloadActionListener tag provides a declarative syntax for downloading files to a user from a command component.
+      </description>
       <name>fileDownloadActionListener</name>
       <tag-class>org.apache.myfaces.trinidadinternal.taglib.listener.FileDownloadActionListenerTag</tag-class>
       <body-content>empty</body-content>
-      <description>
-        The fileDownloadActionListener tag provides a declarative syntax for downloading files to a user from a command component.
-      </description>
 
       <attribute>
         <description>
