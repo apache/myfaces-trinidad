@@ -1048,7 +1048,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         <jsf-ri.version>2.2.14</jsf-ri.version>
         <jsf-myfaces.version>2.2.12</jsf-myfaces.version>
         <jetty.groupId>org.eclipse.jetty</jetty.groupId>
-        <jetty-plugin.version>9.2.13.v20150730</jetty-plugin.version>
+        <jetty-plugin.version>9.2.21.v20170120</jetty-plugin.version>
       </properties>
     </profile>
 

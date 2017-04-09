@@ -21,16 +21,18 @@ package org.apache.myfaces.trinidadinternal.webapp;
 import java.io.IOException;
 import java.io.Serializable;
 
+import java.io.UnsupportedEncodingException;
+
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.faces.FactoryFinder;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.ExternalContextWrapper;
 import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -60,6 +62,8 @@ import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
+import org.apache.myfaces.trinidadinternal.util.QueryParams;
 import org.apache.myfaces.trinidadinternal.webapp.wrappers.BasicHTMLBrowserRequestWrapper;
 
 /**
@@ -161,27 +165,21 @@ public class TrinidadFilterImpl implements Filter
     }
     
     // potentially wrap the ServletContext in order to check managed bean HA
-    ExternalContext externalContext = new ServletExternalContext(
-                                        _getPotentiallyWrappedServletContext(request),
-                                        request,
-                                        response);
+    ExternalContext externalContext = _createExternalContext(request, response);
 
     // provide a (Pseudo-)FacesContext for configuration tasks
     PseudoFacesContext facesContext = new PseudoFacesContext(externalContext);
     facesContext.setAsCurrentInstance();
 
-    // for error handling
-    boolean isPartialRequest=false;
-
     GlobalConfiguratorImpl config;
     try
     {
-      isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
       config = GlobalConfiguratorImpl.getInstance();
       config.beginRequest(externalContext);
     }
     catch(Throwable t)
     {
+      boolean isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
       facesContext.release();
       _handleException(externalContext, isPartialRequest, t);
       return;
@@ -196,6 +194,15 @@ public class TrinidadFilterImpl implements Filter
         request = (ServletRequest)externalContext.getRequest();
         response = (ServletResponse)externalContext.getResponse();
 
+        //To maintain backward compatibilty, wrap the request at the filter level
+        Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
+
+        if(addedParams != null)
+        {
+          FileUploadConfiguratorImpl.apply(externalContext);
+          request = new UploadRequestWrapper(externalContext, addedParams);
+        }
+
         String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
 
         // Wrap the request only for Non-javaScript browsers
@@ -203,16 +210,6 @@ public class TrinidadFilterImpl implements Filter
                   XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
         {
           request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
-        }
-
-        //To maintain backward compatibilty, wrap the request at the filter level
-         Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
-
-        if(addedParams != null)
-        {
-          FileUploadConfiguratorImpl.apply(externalContext);
-          request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
-          isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
         }
 
         responseComplete = facesContext.getResponseComplete();
@@ -231,6 +228,7 @@ public class TrinidadFilterImpl implements Filter
     }
     catch (Throwable t)
     {
+      boolean isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
       _handleException(externalContext, isPartialRequest, t);
     }
     finally
@@ -241,9 +239,34 @@ public class TrinidadFilterImpl implements Filter
       }
       catch(Throwable t)
       {
+        boolean isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
         _handleException(externalContext, isPartialRequest, t);
       }
     }
+  }
+
+  private ExternalContext _createExternalContext(ServletRequest request, ServletResponse response)
+  {
+    // potentially wrap the ServletContext in order to check managed bean HA
+    ExternalContext externalContext = new ServletExternalContext(
+                                        _getPotentiallyWrappedServletContext(request),
+                                        request,
+                                        response);
+
+    if (_isMultipartHttpServletRequest(externalContext))
+    {
+      // We need to wrap the ExternalContext for multipart form posts in order to avoid
+      // premature reads on the request input stream. See MultipartExternalContextWrapper
+      // class doc for details.
+      //
+      // Note: we only appply this fix for HttpServlet use cases, as the fix requires access
+      // to the query string, and I don't see how to get at the query string for portlet
+      // requests.  It is possible that this means that trinidad file uploads may still be broken
+      // for portlets when running against JSF 2.2.
+      externalContext = new MultipartExternalContextWrapper(externalContext);
+    }
+    
+    return externalContext;
   }
 
   /**
@@ -521,9 +544,143 @@ public class TrinidadFilterImpl implements Filter
     return _servletContext;
   }
 
+  private static boolean _isMultipartHttpServletRequest(ExternalContext externalContext)
+  {
+    return (MultipartFormHandler.isMultipartRequest(externalContext) &&
+             (externalContext.getRequest() instanceof HttpServletRequest));
+  }
+
+  /**
+   * With the addition of a standard multipart form processing solution in Java EE, we now
+   * have contention between Trinidad and Java EE for who will a) read the input stream for
+   * multiparm form posts and b) manage uploaded files.  This contention was exacerbated by
+   * the addition of the @MultipartConfig annotation to the FacesServlet in JSF 2.2.  As a
+   * result of this addition, any attempt to get a request parameter (either a query or post
+   * parameter) will cause the servlet engine to read the input stream.  If this happens before
+   * Trinidad's FileUploadConfiguratorImpl is invoked, FileUploadConfiguratorImpl won't be
+   * able to read the request input stream and as a result Trinidad file upload processing
+   * is broken.
+   * 
+   * As a temporary workaround until we can devise a better integration strategy with Java EE's
+   * multipart support, we want to avoid request parameter lookups before FileUploadConfiguratorImpl
+   * gets a crack at the input stream.  This ExternalContextWrapper helps with this, by suppressing
+   * access to the underlying request parameter maps while Configurators are invoked.  We do, however,
+   * need to provide access to query parameters, so these (and not post parameters) are exposed via the
+   * getRequestParameter* methods.
+   * 
+   * This simulates the behavior prior to JSF 2.2 (ie. prior to the additional @MultipartConfig):
+   * query parameter lookups are successful, but post parameter lookups return null until after the
+   * request input stream is processed.
+   */
+  private static class MultipartExternalContextWrapper extends ExternalContextWrapper
+  {
+    private MultipartExternalContextWrapper(ExternalContext wrapped)
+    {
+      assert(wrapped.getRequest() instanceof HttpServletRequest);
+
+      _wrapped = wrapped;
+      _queryParams = _parseQueryParameters(wrapped);
+    }
+
+    @Override
+    public Map<String, String> getRequestParameterMap()
+    {
+      return _queryParams.getParameterMap();
+    }
+
+    @Override
+    public Iterator<String> getRequestParameterNames()
+    {
+      return _queryParams.getParameterMap().keySet().iterator();
+    }
+
+    @Override
+    public Map<String, String[]> getRequestParameterValuesMap()
+    {
+      return _queryParams.getParameterValuesMap();
+    }
+
+    @Override
+    public ExternalContext getWrapped()
+    {
+      return _wrapped;
+    }
+    
+    private static QueryParams _parseQueryParameters(ExternalContext externalContext)
+    {
+      String queryString = _getQueryString(externalContext);
+      String encoding = _getQueryStringEncoding(externalContext);
+      
+      try
+      {
+        return QueryParams.parseQueryString(queryString, encoding);
+      }
+      catch (UnsupportedEncodingException e)
+      {
+        _LOG.warning(e);
+      }
+
+      // Retry, forcing encoding to UTF-8
+      try
+      {
+        return QueryParams.parseQueryString(queryString, _UTF8);
+      }
+      catch (UnsupportedEncodingException e)
+      {
+        _LOG.severe(e);
+        throw new IllegalStateException(e);
+      }
+    }
+    
+    private static String _getQueryString(ExternalContext externalContext)
+    {
+      return ((HttpServletRequest)externalContext.getRequest()).getQueryString();
+    }
+
+    private static String _getQueryStringEncoding(ExternalContext externalContext)
+    {
+      String encoding = externalContext.getRequestCharacterEncoding();
+      
+      // The request character encoding should already have been initialized
+      // by ServletExternalContext._initHttpServletRequest().  If the request
+      // character encoding is null, we could:
+      //
+      // 1.  Try to derive the document's character encoding.
+      // 2.  Default to UTF-8.
+      // 3.  Fail.
+      //
+      // I don't know that #1 is possible at this point in the request lifecycle.  A null
+      // encoding here means that the encoding is not specified via the request's content
+      // type, and is not available via the ViewHandler.CHARACTER_ENCODING_KEY session
+      // attribute.  Not sure where else to look.
+      //
+      // I prefer #2 over #3, especially as the javadoc for java.net.URLDecoder states the following:
+      //
+      //   Note: The World Wide Web Consortium Recommendation states that UTF-8 should be used.
+      //   Not doing so may introduce incompatibilites.
+      //
+      // Also note that the encoding that we use to decode the query string does not impct subsequent
+      // request parameter/payload decoding.  This encoding will only be applied to query parameters
+      // that are retrieved by Configurators during multipart pst processing, which is a very small subset
+      // of the request paramters.
+      if (encoding == null)
+      {
+        _LOG.info("No request character encoding found.  Parsing query string with encoding " +
+                  _UTF8);
+        encoding = _UTF8;
+      }
+
+      return encoding;
+    }
+    
+    private final ExternalContext _wrapped;
+    private final QueryParams _queryParams;
+  }
+
   private ServletContext _servletContext;
   private List<Filter> _filters = null;
 
+  private static final String _UTF8 = "UTF-8";
   private static final String _LAUNCH_KEY = "_dlgDta";
   private static final String _IS_RETURNING_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.IS_RETURNING";

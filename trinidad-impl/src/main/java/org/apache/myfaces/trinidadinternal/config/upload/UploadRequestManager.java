@@ -40,12 +40,6 @@ public class UploadRequestManager
     setRequest(ec);
   }
 
-  public UploadRequestManager(HttpServletRequest req, Map<String, String[]> params)
-  {
-    _params = params;
-    setRequest(req);
-  }
-
   /**
    * Hide the content type so that no one tries to re-download the
    * uploaded files.

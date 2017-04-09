@@ -46,15 +46,9 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
 {
   public UploadRequestWrapper(ExternalContext ec, Map<String, String[]> params)
   {
-    this((HttpServletRequest) ec.getRequest(), params);
-    
-  }
-  
-  public UploadRequestWrapper(HttpServletRequest req, Map<String, String[]> params)
-  {
-    super(req);
-    _manager = new UploadRequestManager(req, params);
-    
+    super((HttpServletRequest) ec.getRequest());
+    _manager = new UploadRequestManager(ec, params);
+
   }
 
   /**
