@@ -1239,8 +1239,8 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       else
       {
-        // ViewRootCaching conflicts with myfaces >= 2,2
-        if (JsfUtils.IS_JSF_2_2 && JsfUtils.IS_MYFACES)
+        // ViewRootCaching conflicts with jsf >= 2,2
+        if (JsfUtils.IS_JSF_2_2)
         {
           caseInsensitiveViewRootCaching = "false";
         }
