@@ -179,9 +179,9 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/trinidad/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-2.1.x</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-2.1.x</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/trinidad-2.1.x</url>
   </scm>
   
   <!--
