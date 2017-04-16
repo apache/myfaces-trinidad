@@ -43,8 +43,8 @@ import javax.faces.render.RenderKit;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadbuild.test.MockFacesContext12;
-import org.apache.shale.test.mock.MockExternalContext;
-import org.apache.shale.test.mock.MockServletContext;
+import org.apache.myfaces.test.mock.MockExternalContext;
+import org.apache.myfaces.test.mock.MockServletContext;
 
 /**
  * Mock faces context for use with unit tests

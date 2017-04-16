@@ -38,7 +38,7 @@ import junit.framework.TestSuite;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.ModelUtils;
 import org.apache.myfaces.trinidad.model.RowKeySetImpl;
-import org.apache.shale.test.base.AbstractJsfTestCase;
+import org.apache.myfaces.test.base.AbstractJsfTestCase;
 
 /**
  * Test for the RowKeySetImpl class.

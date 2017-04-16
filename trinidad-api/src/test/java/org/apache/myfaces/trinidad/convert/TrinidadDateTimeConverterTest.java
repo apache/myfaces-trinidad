@@ -34,7 +34,7 @@ import junit.framework.TestSuite;
 import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidad.convert.DateTimeConverter;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
-import org.apache.shale.test.mock.MockFacesContext;
+import org.apache.myfaces.test.mock.MockFacesContext;
 import org.jmock.Mock;
 
 public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase

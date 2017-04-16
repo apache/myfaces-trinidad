@@ -36,8 +36,8 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.SystemEvent;
 import javax.faces.lifecycle.Lifecycle;
 
-import org.apache.shale.test.mock.MockFacesContext;
-import org.apache.shale.test.mock.MockApplication12;
+import org.apache.myfaces.test.mock.MockFacesContext;
+import org.apache.myfaces.test.mock.MockApplication12;
 
 
 public class MockFacesContext12 extends MockFacesContext

@@ -32,7 +32,7 @@ import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
-import org.apache.shale.test.mock.MockApplication;
+import org.apache.myfaces.test.mock.MockApplication;
 import org.jmock.Mock;
 
 /**

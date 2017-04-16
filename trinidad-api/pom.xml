@@ -46,13 +46,18 @@
     </dependency>
     
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-servlet_3.0_spec</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-jsp_2.1_spec</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-el_2.2_spec</artifactId>
     </dependency>
 
     <dependency>
@@ -64,7 +69,6 @@
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
     </dependency>
-
 
     <dependency>
       <groupId>org.apache.myfaces.portlet-bridge</groupId>
@@ -90,8 +94,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.shale</groupId>
-      <artifactId>shale-test</artifactId>
+      <groupId>org.apache.myfaces.test</groupId>
+      <artifactId>myfaces-test22</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
     </dependency>
 
     <dependency>
@@ -103,7 +112,7 @@
       <groupId>jmock</groupId>
       <artifactId>jmock-cglib</artifactId>
     </dependency>
-     <dependency> 	 
+     <dependency>
        <groupId>commons-lang</groupId> 	 
        <artifactId>commons-lang</artifactId> 	 
        <scope>test</scope> 	 
@@ -262,7 +271,7 @@
         <configuration>
           <typePrefix>org.apache</typePrefix>
           <packageContains>org.apache</packageContains>
-          <jsfVersion>#{jsf-spec.version}</jsfVersion>
+          <jsfVersion>${jsf-spec.version}</jsfVersion>
           <!--suppressListenerMethods>true</suppressListenerMethods-->
           <force>true</force>
           <generatedSourceDirectory>${project.build.directory}/generated-sources/maven-faces-plugin</generatedSourceDirectory>

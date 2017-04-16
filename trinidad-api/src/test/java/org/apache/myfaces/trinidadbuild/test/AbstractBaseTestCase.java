@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.shale.test.jmock.AbstractJmockJsfTestCase;
+import org.apache.myfaces.test.jmock.AbstractJmockJsfTestCase;
 import org.jmock.Mock;
 
 public abstract class AbstractBaseTestCase extends AbstractJmockJsfTestCase

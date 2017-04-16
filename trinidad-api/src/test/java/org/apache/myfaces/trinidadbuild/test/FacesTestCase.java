@@ -29,9 +29,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 
-import org.apache.shale.test.jmock.AbstractJmockJsfTestCase;
-import org.apache.shale.test.mock.MockFacesContext;
-import org.apache.shale.test.mock.MockRenderKitFactory;
+import org.apache.myfaces.test.jmock.AbstractJmockJsfTestCase;
+import org.apache.myfaces.test.mock.MockFacesContext;
+import org.apache.myfaces.test.mock.MockRenderKitFactory;
 import org.jmock.Mock;
 
 /**

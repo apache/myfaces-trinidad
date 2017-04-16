@@ -25,7 +25,7 @@ import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidadbuild.test.AbstractBaseTestCase;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
-import org.apache.shale.test.mock.MockFacesContext;
+import org.apache.myfaces.test.mock.MockFacesContext;
 import org.jmock.Mock;
 
 /**

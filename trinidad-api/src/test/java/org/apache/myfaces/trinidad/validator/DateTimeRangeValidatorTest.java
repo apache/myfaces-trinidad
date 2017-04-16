@@ -28,7 +28,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
-import org.apache.shale.test.mock.MockApplication;
+import org.apache.myfaces.test.mock.MockApplication;
 import org.jmock.Mock;
 
 /**

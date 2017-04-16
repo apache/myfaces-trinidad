@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.TreeModel;
-import org.apache.shale.test.base.AbstractJsfTestCase;
+import org.apache.myfaces.test.base.AbstractJsfTestCase;
 
 public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
 {

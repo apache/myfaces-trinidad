@@ -60,15 +60,16 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
 
   <properties>
     <!-- Standards -->
-    <jdk.version>1.6</jdk.version>    
-    <servlet.version>2.5</servlet.version>
+    <jdk.version>1.7</jdk.version>
+    <servlet.version>3.0</servlet.version>
     <portlet.version>2.0</portlet.version>
     <validation.version>1.0.0.GA</validation.version>
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
+    <!-- TODO jsf spec 2.2 -->
     <jsf-spec.version>2.1</jsf-spec.version>
-    <jsf-ri.version>2.1.29-08</jsf-ri.version>
-    <jsf-myfaces.version>2.1.18</jsf-myfaces.version>
+    <jsf-ri.version>2.2.14</jsf-ri.version>
+    <jsf-myfaces.version>2.2.12</jsf-myfaces.version>
     <portlet-bridge.version>2.0.0</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-io.version>2.0</commons-io.version>
@@ -77,19 +78,19 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
-    <shale.version>1.0.5</shale.version>
+    <myfaces-test.version>1.0.5</myfaces-test.version>
     <jmock.version>1.2.0</jmock.version>
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.8</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.9-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
-    <jetty.groupId>org.mortbay.jetty</jetty.groupId>
-    <jetty-plugin.version>7.6.9.v20130131</jetty-plugin.version>
+    <jetty.groupId>org.eclipse.jetty</jetty.groupId>
+    <jetty-plugin.version>9.2.21.v20170120</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
     <pluto.package>org.apache.pluto</pluto.package>
     <myfaces-builder-plugin.version>1.0.9</myfaces-builder-plugin.version>
-
+    <slf4j.version>1.5.10</slf4j.version>
     <!-- Enforcer -->
     <maven.min-version>3.0</maven.min-version>
     <jdk.min-version>1.6.0</jdk.min-version>
@@ -204,23 +205,50 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>${servlet.version}</version>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-servlet_3.0_spec</artifactId>
+        <version>1.0</version>
         <scope>provided</scope>
       </dependency>
-
+      <!--  JSP 2.1  -->
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jsp_2.1_spec</artifactId>
+        <version>1.0.1</version>
+        <scope>provided</scope>
+        <exclusions>
+          <!--  we want to use el 2.2  -->
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-el_1.0_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!--  JSTL 1.2  -->
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>jstl</artifactId>
-        <version>${jstl.version}</version>
+        <version>1.2</version>
+        <scope>provided</scope>
+        <exclusions>
+          <!--  we already have a jsp-api  -->
+          <exclusion>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!--  el 2.2 (javax.el.*)  -->
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-el_2.2_spec</artifactId>
+        <version>1.0.1</version>
         <scope>provided</scope>
       </dependency>
-
+      <!--  bean-validation 1.0 (javax.validation.*)  -->
       <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>${jsp.version}</version>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-validation_1.0_spec</artifactId>
         <scope>provided</scope>
       </dependency>
 
@@ -335,9 +363,16 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       </dependency>
 
       <dependency>
-        <groupId>org.apache.shale</groupId>
-        <artifactId>shale-test</artifactId>
-        <version>${shale.version}</version>
+        <groupId>org.apache.myfaces.test</groupId>
+        <artifactId>myfaces-test22</artifactId>
+        <version>1.0.7</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1.1</version>
         <scope>test</scope>
       </dependency>
 
@@ -1035,23 +1070,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         </dependencies>
       </dependencyManagement>      
     </profile>
-
-    <profile>
-      <id>jsfversion</id>
-      <activation>
-        <property>
-          <name>jsfversion</name>
-          <value>2.2</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf-ri.version>2.2.14</jsf-ri.version>
-        <jsf-myfaces.version>2.2.12</jsf-myfaces.version>
-        <jetty.groupId>org.eclipse.jetty</jetty.groupId>
-        <jetty-plugin.version>9.2.21.v20170120</jetty-plugin.version>
-      </properties>
-    </profile>
-
+    
   </profiles>
 
 </project>
