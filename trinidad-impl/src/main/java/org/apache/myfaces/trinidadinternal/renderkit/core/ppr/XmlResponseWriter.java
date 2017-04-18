@@ -21,9 +21,14 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.ppr;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Map;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidadinternal.io.XMLEscapes;
 
@@ -91,11 +96,77 @@ public class XmlResponseWriter extends ResponseWriter
     UIComponent component) throws IOException
   {
     closeStartIfNecessary();
-
+    Map<String, Object> passThroughAttributes =
+            (component != null) ? component.getPassThroughAttributes(false) : null;
+    name = _processPassThroughAttributes(name, passThroughAttributes);
+    _pushElement(name);
     Writer out = _out;
     out.write('<');
     out.write(name);
     _closeStart = true;
+    _writePassThroughAttributes(passThroughAttributes);
+  }
+
+  private String _processPassThroughAttributes(String name, Map<String, Object> passThroughAttributes)
+  {
+    if (passThroughAttributes != null)
+    {
+      Object value = passThroughAttributes.get(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY);
+      if (value instanceof ValueExpression)
+      {
+        value = ((ValueExpression)value).getValue(FacesContext.getCurrentInstance().getELContext());
+      }
+      if (value != null)
+      {
+        String elementName = value.toString();
+        if (!name.equals(elementName)) {
+          name = elementName;
+        }
+      }
+    }
+    return name;
+  }
+
+  private void _writePassThroughAttributes(Map<String, Object> passThroughAttributes) throws IOException {
+    if (passThroughAttributes != null)
+    {
+      for (Map.Entry<String, Object> entry : passThroughAttributes.entrySet())
+      {
+        String key = entry.getKey();
+        Object value = entry.getValue();
+        if (Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY.equals(key))
+        {
+          // Special attribute stored in passthrough attribute map,
+          // skip rendering
+          continue;
+        }
+        if (value instanceof ValueExpression)
+        {
+          value = ((ValueExpression)value).getValue(FacesContext.getCurrentInstance().getELContext());
+        }
+        // encodeAndWriteURIAttribute(key, value, key);
+        // JSF 2.2 In the renderkit javadoc of jsf 2.2 spec says this
+        // (Rendering Pass Through Attributes):
+        // "... The ResponseWriter must ensure that any pass through attributes are
+        // rendered on the outer-most markup element for the component. If there is
+        // a pass through attribute with the same name as a renderer specific
+        // attribute, the pass through attribute takes precedence. Pass through
+        // attributes are rendered as if they were passed to
+        // ResponseWriter.writeURIAttribute(). ..."
+        // Note here it says "as if they were passed", instead say "... attributes are
+        // encoded and rendered as if ...". Black box testing against RI shows that there
+        // is no URI encoding at all in this part, so in this case the best is do the
+        // same here. After all, it is resposibility of the one who set the passthrough
+        // attribute to do the proper encoding in cases when a URI is provided. However,
+        // that does not means the attribute should not be encoded as other attributes.
+        // According to tests done, if passthrough attribute is null, the attribute must not
+        // be rendered.
+        if (value != null)
+        {
+          writeAttribute(key, value, null);
+        }
+      }
+    }
   }
 
   public void writeAttribute(
@@ -164,6 +235,7 @@ public class XmlResponseWriter extends ResponseWriter
   public void endElement(
     String name) throws IOException
   {
+    name = _popElement();
     Writer out = _out;
     if (_closeStart)
     {
@@ -241,9 +313,33 @@ public class XmlResponseWriter extends ResponseWriter
       _closeStart = false;
     }
   }
+
+  /**
+   * Retrieves the name of the last output element.  If it is null,
+   * something is wrong
+   */
+  private String _popElement()
+  {
+    int size = _elements.size();
+    if (size == 0)
+      return null;
+
+    return _elements.remove(size - 1);
+  }
+
+  /**
+   * Marks that we have outputted a real element so that the ordering of
+   * the outputted and skipped elements can be maintained.
+   */
+  private void _pushElement(String name)
+  {
+    _elements.add(name);
+  }
   
   private final Writer      _out;
   private final String      _encoding;
   private       boolean     _closeStart;
   private       int         _cdataCount;
+  private final ArrayList<String> _elements = new ArrayList<String>(20);
+
 }

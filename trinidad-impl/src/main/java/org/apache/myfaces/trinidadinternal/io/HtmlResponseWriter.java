@@ -22,9 +22,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Map;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
@@ -125,6 +129,9 @@ public class HtmlResponseWriter extends ResponseWriter
   public void startElement(String name,
                            UIComponent component) throws IOException
   {
+
+    name = _processPassThroughAttributes(name, component);
+
     // =-=AEW Should we force all lowercase?
     if (name.charAt(0) == 's')
     {
@@ -152,6 +159,29 @@ public class HtmlResponseWriter extends ResponseWriter
     _startElementImpl(name);
   }
 
+  private String _processPassThroughAttributes(String name, UIComponent component) {
+    if (component == null) {
+      return name;
+    }
+    _passThroughAttributes = component.getPassThroughAttributes(false);
+    if (_passThroughAttributes != null)
+    {
+      Object value = _passThroughAttributes.get(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY);
+      if (value instanceof ValueExpression)
+      {
+        value = ((ValueExpression)value).getValue(FacesContext.getCurrentInstance().getELContext());
+      }
+      if (value != null)
+      {
+        String elementName = value.toString();
+        if (!name.equals(elementName)) {
+          name = elementName;
+        }
+      }
+    }
+    return name;
+  }
+
 
   @Override
   public void endElement(String name) throws IOException
@@ -173,10 +203,11 @@ public class HtmlResponseWriter extends ResponseWriter
     // end tag should be output as well
     if (element != null)
     {
-      if (!element.equals(name))
+      // TODO remove this because passThroughAttributes could change the element
+      /*if (!element.equals(name))
       {
         _LOG.severe("ELEMENT_END_NAME_NOT_MATCH_START_NAME", new Object[]{name, element});
-      }
+      }*/
 
       Writer out = _out;
 
@@ -203,7 +234,7 @@ public class HtmlResponseWriter extends ResponseWriter
       }
 
       out.write("</");
-      out.write(name);
+      out.write(element);
       out.write('>');
     }
   }
@@ -423,6 +454,51 @@ public class HtmlResponseWriter extends ResponseWriter
     out.write('<');
     out.write(name);
     _closeStart = true;
+    _writePassThroughAttributes();
+
+  }
+
+  private void _writePassThroughAttributes() throws IOException {
+    if (_passThroughAttributes != null)
+    {
+      for (Map.Entry<String, Object> entry : _passThroughAttributes.entrySet())
+      {
+        String key = entry.getKey();
+        Object value = entry.getValue();
+        if (Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY.equals(key))
+        {
+          // Special attribute stored in passthrough attribute map,
+          // skip rendering
+          continue;
+        }
+        if (value instanceof ValueExpression)
+        {
+          value = ((ValueExpression)value).getValue(FacesContext.getCurrentInstance().getELContext());
+        }
+        // encodeAndWriteURIAttribute(key, value, key);
+        // JSF 2.2 In the renderkit javadoc of jsf 2.2 spec says this
+        // (Rendering Pass Through Attributes):
+        // "... The ResponseWriter must ensure that any pass through attributes are
+        // rendered on the outer-most markup element for the component. If there is
+        // a pass through attribute with the same name as a renderer specific
+        // attribute, the pass through attribute takes precedence. Pass through
+        // attributes are rendered as if they were passed to
+        // ResponseWriter.writeURIAttribute(). ..."
+        // Note here it says "as if they were passed", instead say "... attributes are
+        // encoded and rendered as if ...". Black box testing against RI shows that there
+        // is no URI encoding at all in this part, so in this case the best is do the
+        // same here. After all, it is resposibility of the one who set the passthrough
+        // attribute to do the proper encoding in cases when a URI is provided. However,
+        // that does not means the attribute should not be encoded as other attributes.
+        // According to tests done, if passthrough attribute is null, the attribute must not
+        // be rendered.
+        if (value != null)
+        {
+          writeAttribute(key, value, null);
+        }
+      }
+      _passThroughAttributes = null;
+    }
 
   }
 
@@ -666,6 +742,8 @@ public class HtmlResponseWriter extends ResponseWriter
   
   // number of CDATA sections started
   private int         _cdataCount;
+
+  private Map<String, Object> _passThroughAttributes;
 
   // stack of skipped and unskipped elements used to determine when
   // to suppress the end tag of a skipped element
