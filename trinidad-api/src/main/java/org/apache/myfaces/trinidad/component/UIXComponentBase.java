@@ -154,6 +154,9 @@ abstract public class UIXComponentBase extends UIXComponent
                      PropertyKey.CAP_NOT_BOUND|PropertyKey.CAP_PARTIAL_STATE_HOLDER|PropertyKey.CAP_STATE_HOLDER);
   static private final PropertyKey _COMPONENT_CHANGE_FILTERS_KEY =
     TYPE.registerKey("componentChangeFilters", ComponentChangeFilter[].class, PropertyKey.CAP_LIST);
+  static final PropertyKey _PASS_THROUGH_ATTRIBUTES_KEY =
+          TYPE.registerKey("passThroughAttributes", AttachedObjects.class);
+
   // =-=AEW "parent", "rendersChildren", "childCount", "children",
   // "facets", "facetsAndChildren", "family" all are technically
   // bean properties, but they aren't exposed here...
@@ -2292,6 +2295,17 @@ abstract public class UIXComponentBase extends UIXComponent
     return eventStorage.getAttachedObjectList(eventClass);
   }
 
+  public Map<String, Object> getPassThroughAttributes(boolean create)
+  {
+    // Take into account the param "create" in MyFaces case does not have
+    // sense at all
+    if (_passthroughAttributesMap == null && create)
+    {//_LOG.severe("create new passTA", new Exception());
+      _passthroughAttributesMap = new PassThroughAttributesMap(getFacesBean());
+    }
+    return _passthroughAttributesMap;
+  }
+
   // ------------------------- Client behavior holder methods -------------------------
 
   /**
@@ -2564,6 +2578,7 @@ abstract public class UIXComponentBase extends UIXComponent
   private String                   _id;
   private String                   _clientId;
   private boolean                  _usesFacesBeanImpl;
+  private Map<String, Object>      _passthroughAttributesMap;
 
   // Cached instance of the Renderer for this component.
   // The instance will be re-retrieved in encodeBegin()
