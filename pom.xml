@@ -83,7 +83,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>2.0.9-SNAPSHOT</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.8</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty.groupId>org.eclipse.jetty</jetty.groupId>
     <jetty-plugin.version>9.2.21.v20170120</jetty-plugin.version>
