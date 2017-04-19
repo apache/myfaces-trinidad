@@ -2297,10 +2297,8 @@ abstract public class UIXComponentBase extends UIXComponent
 
   public Map<String, Object> getPassThroughAttributes(boolean create)
   {
-    // Take into account the param "create" in MyFaces case does not have
-    // sense at all
     if (_passthroughAttributesMap == null && create)
-    {//_LOG.severe("create new passTA", new Exception());
+    {
       _passthroughAttributesMap = new PassThroughAttributesMap(getFacesBean());
     }
     return _passthroughAttributesMap;
