@@ -216,7 +216,7 @@ public class HtmlResponseWriter extends ResponseWriter
 
       if (_closeStart)
       {
-        boolean isEmptyElement = _isEmptyElement(name);
+        boolean isEmptyElement = _isEmptyElement(element);
 
         if (_currAttr != null)
         {
