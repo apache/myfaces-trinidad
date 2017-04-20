@@ -117,8 +117,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   </issueManagement>
 
   <ciManagement>
-    <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8080/continuum</url>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/view/M-R/view/MyFaces/</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -650,7 +650,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>1.0.1</version>
+        <version>1.4.1</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -758,7 +758,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-publish-plugin</artifactId>
-        <version>1.0-beta-2</version>
+        <version>1.1</version>
         <configuration>
         <pubScmUrl>${siteScmPublish.url}</pubScmUrl>
         <tryUpdate>true</tryUpdate>
