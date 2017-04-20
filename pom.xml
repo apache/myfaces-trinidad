@@ -73,7 +73,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
     <portlet-bridge.version>2.0.0</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-io.version>2.0</commons-io.version>
-	<commons-codec.version>1.3</commons-codec.version>
+    <commons-codec.version>1.3</commons-codec.version>
 
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
@@ -321,12 +321,12 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         <artifactId>commons-io</artifactId>
         <version>${commons-io.version}</version>
       </dependency>
-	  
+
       <dependency>
-		<groupId>commons-codec</groupId>
-		<artifactId>commons-codec</artifactId>
-		<version>${commons-codec.version}</version>
-	  </dependency>	  
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.buildtools</groupId>
@@ -621,24 +621,24 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
           <version>2.8</version>
         </plugin>
 
-		<!-- Begin dependency fix for .md5 and .sha1 -->
-		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-release-plugin</artifactId>
-		  <version>2.5.3</version>
-		</plugin>
-		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-gpg-plugin</artifactId>
-		  <version>1.6</version>
-		</plugin>
-		<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-deploy-plugin</artifactId>
-		  <version>2.8.2</version>
-		</plugin>
-		<!-- End -->		
-		
+        <!-- Begin dependency fix for .md5 and .sha1 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- End -->
+
       </plugins>
     </pluginManagement>
     
