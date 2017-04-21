@@ -300,7 +300,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         OutputUtils.renderLayoutTableAttributes(context, rc, "0", null);
       }
 
-      rw.startElement("tr", component);
+      rw.startElement("tr", null);
 
       if (!needsTableTag)
       {

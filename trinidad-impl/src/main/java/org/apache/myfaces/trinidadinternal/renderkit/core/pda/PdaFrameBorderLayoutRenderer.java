@@ -136,7 +136,7 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
     if (component != null)
     {
       encodeChild(context, component);
-      context.getResponseWriter().startElement("br", component);
+      context.getResponseWriter().startElement("br", null);
       context.getResponseWriter().endElement("br");
     }
   }

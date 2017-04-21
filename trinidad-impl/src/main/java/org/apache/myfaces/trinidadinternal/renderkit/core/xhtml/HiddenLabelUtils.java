@@ -147,7 +147,7 @@ public class HiddenLabelUtils
     if (text != null)
     {
       ResponseWriter writer = context.getResponseWriter();
-      writer.startElement("label", component);
+      writer.startElement("label", null);
       writer.writeAttribute("for", id, null);
       XhtmlRenderer.renderStyleClass(context, arc,
                                      SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);

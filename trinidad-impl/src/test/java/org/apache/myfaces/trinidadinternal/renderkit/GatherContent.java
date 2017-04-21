@@ -26,6 +26,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputLabel;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 import junit.framework.AssertionFailedError;
@@ -143,7 +144,8 @@ public class GatherContent extends UIComponentBase
       int depth = _depth++;
       if (depth == 0)
       {
-        if (!"script".equals(name) && (!"link".equals(name)))
+        if (!("script".equals(name) || "link".equals(name)
+                || ("label".equals(name) && !(_child instanceof CoreOutputLabel))))
         {
           if (component == null)
           {

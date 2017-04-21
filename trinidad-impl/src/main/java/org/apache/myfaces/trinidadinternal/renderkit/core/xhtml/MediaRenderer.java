@@ -495,7 +495,7 @@ public class MediaRenderer extends XhtmlRenderer
     {
       if (id != null)
       {
-        writer.startElement("span", component);
+        writer.startElement("span", null);
         writer.writeAttribute("id", id, null);
         renderAllAttributes(context, rc, component, bean);
         writer.endElement("span");
@@ -525,7 +525,7 @@ public class MediaRenderer extends XhtmlRenderer
       {
         // =-=AEW Just noticed: this code fails to render "alt"; before
         // using, check accessibility!!!
-        writer.startElement("img", component);
+        writer.startElement("img", null);
         renderEncodedResourceURI(context, "src", iconUrl);
         writer.endElement("img");
       }
