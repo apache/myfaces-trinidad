@@ -48,7 +48,7 @@ import javax.faces.context.ResponseWriter;
 
 import javax.faces.event.PhaseId;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;

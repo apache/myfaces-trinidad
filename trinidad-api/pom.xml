@@ -103,9 +103,9 @@
       <groupId>jmock</groupId>
       <artifactId>jmock-cglib</artifactId>
     </dependency>
-     <dependency> 	 
-       <groupId>commons-lang</groupId> 	 
-       <artifactId>commons-lang</artifactId> 	 
+     <dependency>
+       <groupId>org.apache.commons</groupId>
+       <artifactId>commons-lang3</artifactId>
        <scope>test</scope> 	 
      </dependency> 	 
 
