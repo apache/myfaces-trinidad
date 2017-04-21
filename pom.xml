@@ -666,8 +666,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
                   <version>[${maven.min-version},)</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
-                  <message>Apache MyFaces Trinidad 2 needs to be compiled with at least JDK ${jdk.min-version}</message>                
-                  <version>[${jdk.min-version},)</version>
+                  <message>Apache MyFaces Trinidad 2 needs to be compiled with at least JDK ${jdk.min-version} and max JDK 1.7</message>
+                  <version>[${jdk.min-version},1.8)</version>
                 </requireJavaVersion>
               </rules>    
             </configuration>
