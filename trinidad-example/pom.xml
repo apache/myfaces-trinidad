@@ -121,15 +121,13 @@
        NOTE: the apache-release profile is invoked on any execution of the maven-release-plugin
        as per the apache-10 common ancestor file.
      -->
-     <!--
-    <profile>
-     <id>apache-release</id>
-     <modules>
-       <module>trinidad-example-assembly</module>
-     </modules>      
-    </profile>
-    -->
-        <profile>
+      <profile>
+          <id>apache-release</id>
+          <modules>
+              <module>trinidad-example-assembly</module>
+          </modules>
+      </profile>
+      <profile>
             <id>prepare-release</id>
             <activation>
                 <property>
