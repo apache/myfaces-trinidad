@@ -83,7 +83,7 @@ upload() {
   PATTERN="$1"
   FOLDER="$2"
 
-  for file in $(find . -type file -name "${PATTERN}" -exec basename \{\} \; ) ; do
+  for file in $(find . -type f -name "${PATTERN}" -exec basename \{\} \; ) ; do
     # echo $file;
     svn import -m "Uploading Trinidad release artifact ${VERSION} to dist server" $file ${DIST_REPOSITORY}/${FOLDER}/$file;
   done
