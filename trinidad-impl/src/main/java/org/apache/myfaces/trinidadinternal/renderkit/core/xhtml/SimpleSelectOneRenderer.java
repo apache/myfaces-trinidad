@@ -32,6 +32,7 @@ import javax.faces.model.SelectItemGroup;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.component.UIXSelectOne;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -212,7 +213,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
     List<SelectItem> selectItems = getSelectItems(component, converter, true);
 
-    int index = __getIndex(submittedValue, selectItems);
+    int index = __getIndex(context, submittedValue, selectItems);
     if (index < 0)
       return null;
 
@@ -409,11 +410,12 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   /**
    * Convert a stringified index into an index, with range-checking.
    */
-  static int __getIndex(
+  static int __getIndex(FacesContext     context,
     Object submittedValue,
     List<SelectItem> selectItems)
   {
-    if ("".equals(submittedValue))
+    if ((submittedValue == null && UIXEditableValue.shouldInterpretEmptyStringSubmittedValuesAsNull(context))
+          || "".equals(submittedValue))
       return -1;
 
     try
@@ -556,7 +558,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     // have to turn it into an int and range-check it
     if ((submittedValue != null) && !valuePassThru)
     {
-      return __getIndex(submittedValue, selectItems);
+      return __getIndex(context, submittedValue, selectItems);
     }
     // Figure out the current value, whether it's submitted or not
     else
