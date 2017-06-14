@@ -523,7 +523,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       int[] indices = new int[values.length];
       for (int i = 0; i < values.length; i++)
       {
-        indices[i] = SimpleSelectOneRenderer.__getIndex(values[i], selectItemList);
+        indices[i] = SimpleSelectOneRenderer.__getIndex(context, values[i], selectItemList);
       }
 
       // And sort it, but only if it's not reorderable
