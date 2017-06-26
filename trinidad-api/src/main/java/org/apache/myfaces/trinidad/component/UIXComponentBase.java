@@ -1269,15 +1269,15 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
-    if (!isRendered())
-      return;
-
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
     {
+      if (!isRendered())
+        return;
+
       // Process all facets and children of this component
       decodeChildren(context);
 
@@ -1300,15 +1300,16 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
-    if (!isRendered())
-      return;
-
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
     {
+
+      if (!isRendered())
+        return;
+
       // Process all facets and children of this component
       validateChildren(context);
     }
@@ -1325,15 +1326,15 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
-    if (!isRendered())
-      return;
-
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
 
     try
     {
+      if (!isRendered())
+        return;
+
       // Process all facets and children of this component
       updateChildren(context);
     }
