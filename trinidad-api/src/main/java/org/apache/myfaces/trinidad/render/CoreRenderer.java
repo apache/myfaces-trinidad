@@ -656,7 +656,6 @@ public class CoreRenderer extends Renderer
     UIComponent  child
     ) throws IOException
   {
-    assert(child.isRendered());
     child.encodeAll(context);
   }
 
@@ -672,10 +671,7 @@ public class CoreRenderer extends Renderer
 
     for (UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      if (child.isRendered())
-      {
-        encodeChild(context, child);
-      }
+      encodeChild(context, child);
     }
   }
 
