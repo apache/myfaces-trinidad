@@ -220,6 +220,13 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   }
 
   @Override
+  public void writeDoctype(String doctype) throws IOException {
+    if (_isInsideTarget()) {
+      super.writeDoctype(doctype);
+    }
+  }
+
+  @Override
   public void writeText(Object      text,
                         UIComponent component,
                         String      propertyName) throws IOException
