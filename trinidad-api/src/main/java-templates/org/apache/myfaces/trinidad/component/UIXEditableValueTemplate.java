@@ -244,15 +244,15 @@ abstract public class UIXEditableValueTemplate
     }
     setValid(true);
 
-    // Skip processing if our rendered flag is false
-    if (!isRendered())
-      return;
-
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
     try
     {
+      // Skip processing if our rendered flag is false
+      if (!isRendered())
+        return;
+
       super.processDecodes(context);
 
       if (isImmediate())
@@ -268,15 +268,15 @@ abstract public class UIXEditableValueTemplate
   @Override
   public void processUpdates(FacesContext context)
   {
-    // Skip processing if our rendered flag is false
-    if (!isRendered())
-      return;
-
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
     try
     {
+      // Skip processing if our rendered flag is false
+      if (!isRendered())
+        return;
+
       super.processUpdates(context);
 
       // Process this component itself
@@ -297,15 +297,16 @@ abstract public class UIXEditableValueTemplate
   @Override
   public void processValidators(FacesContext context)
   {
-    // Skip processing if our rendered flag is false
-    if (!isRendered())
-      return;
 
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(context, this);
     pushComponentToEL(context, this);
     try
     {
+      // Skip processing if our rendered flag is false
+      if (!isRendered())
+        return;
+
       super.processValidators(context);
 
       if (!isImmediate())
