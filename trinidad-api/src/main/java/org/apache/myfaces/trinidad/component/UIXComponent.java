@@ -551,7 +551,14 @@ abstract public class UIXComponent extends UIComponent
     // push component on to the stack at the beginning of visiting tree.
     RequestContext requestContext = RequestContext.getCurrentInstance();
     requestContext.pushCurrentComponent(visitContext.getFacesContext(), component);
-
+    FacesContext context = visitContext.getFacesContext();
+    // set up the EL Context with the component.  Note that since we do this before call
+    // isVisitable, any attributes retrieved (like rendered) that are bound with EL referring
+    // to the current component will be evaluated correctly,
+    // TODO check the however case however, in the specific case
+    // of rendered, rendered already has this problem in normal JSF traversal since it
+    // is evaluated by the parent component
+    component.pushComponentToEL(context, null);
     try
     {
       if (!(component instanceof UIXComponent))
@@ -563,18 +570,11 @@ abstract public class UIXComponent extends UIComponent
       {
         UIXComponent uixComponent = (UIXComponent)component;
 
-        FacesContext context = visitContext.getFacesContext();
 
         // delegate to the UIXComponent
         if (!uixComponent.isVisitable(visitContext))
           return false;
 
-        // set up the EL Context with the component.  Note that since we do this after call
-        // isVisitable, any attributes retrieved (liek rendered) that are bound with EL referring
-        // to the current component will be evaluated correctly, however, in the specific case
-        // of rendered, rendered already has this problem in normal JSF traversal since it
-        // is evaluated by the parent component
-        component.pushComponentToEL(context, null);
 
         boolean doneVisiting = false;
         RuntimeException re = null;
@@ -675,7 +675,6 @@ abstract public class UIXComponent extends UIComponent
         }
         finally
         {
-          component.popComponentFromEL(context);
 
           if (re != null)
           {
@@ -690,7 +689,8 @@ abstract public class UIXComponent extends UIComponent
     finally
     {
       // pop component out after visiting tree.
-      requestContext.popCurrentComponent(visitContext.getFacesContext(), component);    
+      requestContext.popCurrentComponent(visitContext.getFacesContext(), component);
+      component.popComponentFromEL(context);
     }
   }
 
