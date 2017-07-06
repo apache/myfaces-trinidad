@@ -217,38 +217,38 @@ public class SelectItemSupport
     List<SelectItem> items,
     Converter        converter)
   {
-    if (!uiItem.isRendered())
-    {
-      items.add(null);
-      return;
-    }
-
-    Object value = uiItem.getValue();
-    SelectItem item;
-
-    if (value instanceof SelectItem)
-    {
-      item = (SelectItem) value;
-    }
-    else
-    {
-      Object itemValue = uiItem.getItemValue();
-      if ((converter != null) &&  (itemValue instanceof String))
-      {
-
-        // convert to model class if it isn't a String, too.
-        itemValue = converter.getAsObject(context, 
-                                          component, 
-                                          (String)itemValue);
+    uiItem.pushComponentToEL(context, null);
+    try {
+      if (!uiItem.isRendered()) {
+        items.add(null);
+        return;
       }
-      String itemLabel = uiItem.getItemLabel();
-      item = new SelectItem(itemValue == null ? "" : itemValue,
-                            itemLabel == null ? "" : itemLabel,
-                            uiItem.getItemDescription(),
-                            uiItem.isItemDisabled());
-    }
 
-    items.add(item);
+      Object value = uiItem.getValue();
+      SelectItem item;
+
+      if (value instanceof SelectItem) {
+        item = (SelectItem) value;
+      } else {
+        Object itemValue = uiItem.getItemValue();
+        if ((converter != null) && (itemValue instanceof String)) {
+
+          // convert to model class if it isn't a String, too.
+          itemValue = converter.getAsObject(context,
+                  component,
+                  (String) itemValue);
+        }
+        String itemLabel = uiItem.getItemLabel();
+        item = new SelectItem(itemValue == null ? "" : itemValue,
+                itemLabel == null ? "" : itemLabel,
+                uiItem.getItemDescription(),
+                uiItem.isItemDisabled());
+      }
+
+      items.add(item);
+    } finally {
+      uiItem.popComponentFromEL(context);
+    }
   }
 
   /**
@@ -292,69 +292,54 @@ public class SelectItemSupport
     List<SelectItem> items,
     boolean filteredItems)
   {
-    if (!uiItems.isRendered())
-    {
-      items.add(null);
-      return;
-    }
+    uiItems.pushComponentToEL(FacesContext.getCurrentInstance(), null);
+    try {
+      if (!uiItems.isRendered()) {
+        items.add(null);
+        return;
+      }
 
-    Object value = uiItems.getValue();
-    if (value instanceof SelectItem)
-    {
-      items.add((SelectItem) value);
-    }
-    else if (value instanceof Object[])
-    {
-      Object[] array = (Object[]) value;
-      for (int i = 0; i < array.length; i++)
-      {
-         //TODO test - this section is untested
-         if(array[i] instanceof SelectItemGroup && filteredItems)
-         {
+      Object value = uiItems.getValue();
+      if (value instanceof SelectItem) {
+        items.add((SelectItem) value);
+      } else if (value instanceof Object[]) {
+        Object[] array = (Object[]) value;
+        for (int i = 0; i < array.length; i++) {
+          //TODO test - this section is untested
+          if (array[i] instanceof SelectItemGroup && filteredItems) {
             resolveAndAddItems((SelectItemGroup) array[i], items);
-         }
-         else
-         {
+          } else {
             items.add((SelectItem) array[i]);
-         }
-      }
-    }
-    else if (value instanceof Collection)
-    {
-      Iterator<SelectItem> iter = ((Collection<SelectItem>) value).iterator();
-      SelectItem item;
-      while (iter.hasNext())
-      {
-         item = iter.next();
-         if(item instanceof SelectItemGroup && filteredItems)
-         {
+          }
+        }
+      } else if (value instanceof Collection) {
+        Iterator<SelectItem> iter = ((Collection<SelectItem>) value).iterator();
+        SelectItem item;
+        while (iter.hasNext()) {
+          item = iter.next();
+          if (item instanceof SelectItemGroup && filteredItems) {
             resolveAndAddItems((SelectItemGroup) item, items);
-         }
-         else
-         {
+          } else {
             items.add(item);
-         }
-      }
-    }
-    else if (value instanceof Map)
-    {
-      for(Map.Entry<Object, Object> entry : ((Map<Object, Object>) value).entrySet())
-      {
-        Object label = entry.getKey();
-        SelectItem item =
-          new SelectItem(entry.getValue(),
-                         label == null ? (String) null : label.toString());
+          }
+        }
+      } else if (value instanceof Map) {
+        for (Map.Entry<Object, Object> entry : ((Map<Object, Object>) value).entrySet()) {
+          Object label = entry.getKey();
+          SelectItem item =
+                  new SelectItem(entry.getValue(),
+                          label == null ? (String) null : label.toString());
 
-        //TODO test - this section is untested
-        if(item instanceof SelectItemGroup && filteredItems)
-        {
-           resolveAndAddItems((SelectItemGroup) item, items);
-        }
-        else
-        {
-           items.add(item);
+          //TODO test - this section is untested
+          if (item instanceof SelectItemGroup && filteredItems) {
+            resolveAndAddItems((SelectItemGroup) item, items);
+          } else {
+            items.add(item);
+          }
         }
       }
+    } finally {
+      uiItems.popComponentFromEL(FacesContext.getCurrentInstance());
     }
   }
  
@@ -394,42 +379,42 @@ public class SelectItemSupport
     UIXSelectItem    uixSelectItem,
     List<SelectItem> items,
     Converter        converter)
-  {  
-    // check if rendered="false". If so, add null to the list.
-    if (!uixSelectItem.isRendered())
-    {
-      items.add(null);
-      return;
-    }
-    
-    Object label = uixSelectItem.getAttributes().get("label");
-    Object value = uixSelectItem.getValue();    
-    boolean disabled = 
-      (Boolean.TRUE.equals(uixSelectItem.getAttributes().get("disabled")));  
-        
-    Object description = uixSelectItem.getAttributes().get("shortDesc");
-    SelectItem selectItem = null;
-    if (value instanceof SelectItem)
-    {
-      selectItem = (SelectItem)value;
-    }
-    else
-    {
-      if ((converter != null) &&  (value instanceof String))
-      {
+  {
+    uixSelectItem.pushComponentToEL(context, null);
+    try {
+      // check if rendered="false". If so, add null to the list.
+      if (!uixSelectItem.isRendered()) {
+        items.add(null);
+        return;
+      }
 
-        // convert to model class if it isn't a String, too.
-        value = converter.getAsObject(context, 
-                                      component, 
-                                      (String)value);
-      }    
-      selectItem = 
-        new SelectItem(value == null ? "" : value, 
-                       label == null ? "" : label.toString(),
-                       description == null ? "" : (String)description,
-                       disabled);
+      Object label = uixSelectItem.getAttributes().get("label");
+      Object value = uixSelectItem.getValue();
+      boolean disabled =
+              (Boolean.TRUE.equals(uixSelectItem.getAttributes().get("disabled")));
+
+      Object description = uixSelectItem.getAttributes().get("shortDesc");
+      SelectItem selectItem = null;
+      if (value instanceof SelectItem) {
+        selectItem = (SelectItem) value;
+      } else {
+        if ((converter != null) && (value instanceof String)) {
+
+          // convert to model class if it isn't a String, too.
+          value = converter.getAsObject(context,
+                  component,
+                  (String) value);
+        }
+        selectItem =
+                new SelectItem(value == null ? "" : value,
+                        label == null ? "" : label.toString(),
+                        description == null ? "" : (String) description,
+                        disabled);
+      }
+      items.add(selectItem);
+    } finally {
+      uixSelectItem.popComponentFromEL(context);
     }
-    items.add(selectItem);
 
   }
   
