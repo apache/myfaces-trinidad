@@ -837,8 +837,13 @@ public class StateManagerImpl extends StateManagerWrapper
         ((Structure) structure).createComponent();
 
         if (state != null)
+        {
+          if (context.getViewRoot() == null)
+          {
+            context.setViewRoot(root);
+          }
           root.processRestoreState(context, state);
-
+        }
         _LOG.finer("Restored state for view \"{0}\"", viewId);
         return root;
       }
