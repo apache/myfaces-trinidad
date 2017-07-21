@@ -101,8 +101,7 @@
               <descriptors>
                 <descriptor>src/main/assembly/dep.xml</descriptor>
               </descriptors>
-              <finalName>trinidad-assembly-${project.version}-dist</finalName>
-              <appendAssemblyId>false</appendAssemblyId>  <!-- adds "-bin" and "-src" -->
+              <appendAssemblyId>true</appendAssemblyId>  
               <tarLongFileMode>gnu</tarLongFileMode>
               <outputDirectory>target/assembly/out</outputDirectory>
               <workDirectory>target/assembly/work</workDirectory>              
