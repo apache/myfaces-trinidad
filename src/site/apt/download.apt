@@ -150,7 +150,7 @@ Verifying signatures
 
 	  The PGP signatures can be verified using {{{http://www.pgpi.org/}PGP}} or
 	  {{{http://www.gnupg.org/}GPG}}.  First download the Apache MyFaces Trinidad
-	  {{http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/KEYS/}KEYS}}	as well as the <<<asc>>> signature file
+	  {{{https://github.com/apache/myfaces-trinidad/blob/master/KEYS}KEYS}}	as well as the <<<asc>>> signature file
 	  for the particular distribution. It is important that you get these files from the ultimate
 	  trusted source - the main ASF distribution site, rather than from a mirror.
 	  Then verify the signatures using ...

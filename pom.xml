@@ -60,7 +60,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
 
   <properties>
     <!-- Standards -->
-    <jdk.version>1.6</jdk.version>    
+    <jdk.version>1.6</jdk.version>
     <servlet.version>2.5</servlet.version>
     <portlet.version>2.0</portlet.version>
     <validation.version>1.0.0.GA</validation.version>
@@ -179,9 +179,9 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-2.1.x</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/trinidad-2.1.x</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/trinidad/branches/trinidad-2.1.x</url>
+    <connection>scm:git:https://github.com/apache/myfaces-trinidad</connection>
+    <developerConnection>scm:git:https://github.com/apache/myfaces-trinidad</developerConnection>
+    <url>https://github.com/apache/myfaces-trinidad</url>
   </scm>
   
   <!--
@@ -652,7 +652,6 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
-          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
