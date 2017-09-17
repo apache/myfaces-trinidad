@@ -182,7 +182,8 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   <scm>
     <connection>scm:git:https://github.com/apache/myfaces-trinidad</connection>
     <developerConnection>scm:git:git@github.com:apache/myfaces-trinidad.git</developerConnection>
-    <url>https://github.com/apache/myfaces-trinidad</url>
+    <url>https://github.com/apache/myfaces-trinidad/tree/${project.scm.tag}</url>
+    <tag>master</tag>
   </scm>
   
   <!--
