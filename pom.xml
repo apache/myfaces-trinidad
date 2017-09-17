@@ -180,9 +180,9 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/trinidad/trunk</url>
+    <connection>scm:git:https://github.com/apache/myfaces-trinidad</connection>
+    <developerConnection>scm:git:https://github.com/apache/myfaces-trinidad</developerConnection>
+    <url>https://github.com/apache/myfaces-trinidad</url>
   </scm>
   
   <!--
@@ -688,7 +688,6 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <preparationGoals>clean verify install</preparationGoals>
-          <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
