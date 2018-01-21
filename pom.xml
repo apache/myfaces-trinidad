@@ -50,7 +50,7 @@ Create A Branch (http://maven.apache.org/plugins/maven-release-plugin/examples/b
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>16</version>
+    <version>17</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
