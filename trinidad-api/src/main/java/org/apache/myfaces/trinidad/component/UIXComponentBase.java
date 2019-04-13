@@ -401,6 +401,8 @@ abstract public class UIXComponentBase extends UIXComponent
 
     // Search for an ancestor that is a naming container
     UIComponent containerComponent = getParent();
+    String origId = (null != containerComponent) ? containerComponent.getId() : null;
+    
     while (null != containerComponent)
     {
       if (containerComponent instanceof NamingContainer)
@@ -420,6 +422,8 @@ abstract public class UIXComponentBase extends UIXComponent
       }
 
       containerComponent = containerComponent.getParent();
+      if (origId != null && origId.equals(containerComponent != null ? containerComponent.getId():null)) 
+        throw new IllegalStateException();
     }
 
     Renderer renderer = getRenderer(context);
