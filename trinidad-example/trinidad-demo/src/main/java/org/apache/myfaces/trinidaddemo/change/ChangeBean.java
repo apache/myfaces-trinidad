@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -235,12 +236,12 @@ public class ChangeBean
     if (numChildren == 0)
       return;
     String eventSourceId = eventSource.getId();    
-    if (eventSourceId.equals("cb2"))
+    if (Objects.equals(eventSourceId,"cb2"))
     {
       _removeChild(uic, "sic1");
       _removeChild(uic, "cc1");
     }
-    else if (eventSourceId.equals("cb3"))
+    else if (Objects.equals(eventSourceId,"cb3"))
     {
       _removeChild(uic, "cd1");
       _removeChild(uic, "sid1");
