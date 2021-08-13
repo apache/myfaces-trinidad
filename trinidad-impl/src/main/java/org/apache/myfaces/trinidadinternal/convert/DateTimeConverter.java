@@ -132,6 +132,16 @@ public class DateTimeConverter extends
       if(expectedType == null || expectedType == Object.class)
       {
         expectedType = expression.getType(context.getELContext());
+        
+        // Some ELResolvers like MapELResolver returns Object always for getType. Check the getValue for this case.
+        if (expectedType == Object.class)
+        {
+            Object val = expression.getValue(context.getELContext());
+            if (val != null)
+            {
+                expectedType = val.getClass();
+            }
+        }
       }
 
       // Sometimes the type might be null, if it cannot be determined:
